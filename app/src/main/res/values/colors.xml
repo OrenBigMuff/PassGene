@@ -3,4 +3,13 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!-- バックグラウンド -->
+    <color name="passGeneBackgroundBlue">#97aaef</color>            パスじぇねバックグラウンドブルー
+
+
+    <!-- テキストカラー -->
+    <color name="passGeneTextBlue">#718be9</color>            パスじぇねテキストブルー
+
+
 </resources>
