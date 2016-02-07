@@ -6,10 +6,11 @@
 
     <!-- バックグラウンド -->
     <color name="passGeneBackgroundBlue">#97aaef</color>            パスじぇねバックグラウンドブルー
-
-
+    <color name="passGeneCardBackgroundGray">#f2f2f2</color>        パスじぇねカードバックグラウンドグレイ
+    <color name="passGeneFloatingButtonRed">#f44336</color>         パスじぇねカードバックグラウンドグレイ
+    <color name="passGeneDeleteRed">#f74347</color>                 パスじぇねカードバックグラウンドグレイ
     <!-- テキストカラー -->
-    <color name="passGeneTextBlue">#718be9</color>            パスじぇねテキストブルー
+    <color name="passGeneTextBlue">#718be9</color>                  パスじぇねテキストブルー
 
 
 </resources>
