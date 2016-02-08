@@ -20,6 +20,11 @@
             android:label="@string/title_activity_initial_set1"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".InitialSet2"
+            android:label="@string/title_activity_initial_set2"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
