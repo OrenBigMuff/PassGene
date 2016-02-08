@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PassGene</string>
+    <string name="openDrawer">オープン</string>     //オープンドロワー
+    <string name="closeDrawer">クローズ</string>    //クローズドロワー
 </resources>

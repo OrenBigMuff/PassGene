@@ -42,7 +42,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <!--この中にスクローリングの中のレイアウトを入れる-->
-        <!--<include layout="@layout/main_activity_content_scrolling"/>-->
+        <include layout="@layout/activity_main_content_scrolling"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/MainActivity_fab"
