@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">PassGene</string>
     <string name="title_activity_initial_set1">ユーザー情報</string>
+    <string name="guide_text_inputname">あなたのお名前（姓名）を\n入力して下さい。</string>
+    <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\nアルファベットで入力して下さい。</string>
+    <string name="hint_lastname">姓をアルファベットで入力して下さい。（例）satoh</string>
+    <string name="hint_firstname">名をアルファベットで入力して下さい。(例)gajiro</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
