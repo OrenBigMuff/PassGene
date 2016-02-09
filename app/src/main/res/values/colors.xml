@@ -9,6 +9,7 @@
     <color name="passGeneCardBackgroundGray">#f2f2f2</color>        パスじぇねカードバックグラウンドグレイ
     <color name="passGeneFloatingButtonRed">#f44336</color>         パスじぇねカードバックグラウンドグレイ
     <color name="passGeneDeleteRed">#f74347</color>                 パスじぇねカードバックグラウンドグレイ
+    <color name="passGeneAllBack">#ffffff</color>                 　パスじぇね地のバックグラウンドホワイト
     <!-- テキストカラー -->
     <color name="passGeneTextBlue">#718be9</color>                  パスじぇねテキストブルー
 
