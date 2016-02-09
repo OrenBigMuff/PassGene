@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class PassList extends AppCompatActivity {
 
     String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
 //    int nvICONS = {};                                             //NV内のメニューアイコン
@@ -18,26 +18,26 @@ public class MainActivity extends AppCompatActivity {
 
 //    int HEADERVIEW = ;                                             //ヘッダーのビュー
 
-    private Toolbar maToolbar;       //toolbar
-    RecyclerView maRecycleView;      //リサイクルビュー
-    RecyclerView.Adapter maAdapter;   //リサイクルビューアダプター
-    RecyclerView.LayoutManager maLayoutManager;      //リサイクルビューレイアウトマネージャー
-    DrawerLayout maDrawer;           //ドロワー
+    private Toolbar plToolbar;       //toolbar
+    RecyclerView plRecycleView;      //リサイクルビュー
+    RecyclerView.Adapter plAdapter;   //リサイクルビューアダプター
+    RecyclerView.LayoutManager plLayoutManager;      //リサイクルビューレイアウトマネージャー
+    DrawerLayout plDrawer;           //ドロワー
 
-    ActionBarDrawerToggle maDrawerToggle;            //NVを開くためのトグル
+    ActionBarDrawerToggle plDrawerToggle;            //NVを開くためのトグル
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pass_list);
 
         //アクションバーの代わりにツールバーを設定
-        maToolbar = (Toolbar) findViewById(R.id.MainActivity_toolbar);
-        setSupportActionBar(maToolbar);
+        plToolbar = (Toolbar) findViewById(R.id.PassList_toolbar);
+        setSupportActionBar(plToolbar);
 
         //ツールバーにNVトグルを追加
-        maDrawer = (DrawerLayout) findViewById(R.id.MainActivity_DrawerLayout);
-        maDrawerToggle = new ActionBarDrawerToggle(this,maDrawer,maToolbar,R.string.openDrawer,R.string.closeDrawer){
+        plDrawer = (DrawerLayout) findViewById(R.id.MainActivity_DrawerLayout);
+        plDrawerToggle = new ActionBarDrawerToggle(this,plDrawer,plToolbar,R.string.openDrawer,R.string.closeDrawer){
 
             @Override
         public void onDrawerOpened(View drawerView){
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 super.onDrawerClosed(drawerView);
             }
         };
-        maDrawer.setDrawerListener(maDrawerToggle);
-        maDrawerToggle.syncState();
+        plDrawer.setDrawerListener(plDrawerToggle);
+        plDrawerToggle.syncState();
         //ここまでNVトグル設定
 
 
