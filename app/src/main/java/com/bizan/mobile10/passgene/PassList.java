@@ -14,7 +14,7 @@ public class PassList extends AppCompatActivity {
 //    int nvICONS = {};                                             //NV内のメニューアイコン
 
     String nvSETTING = "設定画面";                                    //ヘッダービュー内の”設定”の文字
-    String useNAME = "";                                             //ユーザーネーム
+    String useNAME = "ユーザーネーム";                                             //ユーザーネーム
 
 //    int HEADERVIEW = ;                                             //ヘッダーのビュー
 
