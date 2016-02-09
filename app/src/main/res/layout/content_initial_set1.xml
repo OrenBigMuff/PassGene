@@ -16,70 +16,92 @@
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:orientation="vertical"
-                      android:layout_marginTop="25dp"
+                      android:layout_marginBottom="25dp"
                       android:layout_marginLeft="20dp"
                       android:layout_marginRight="20dp"
-                      android:layout_marginBottom="25dp"
-                      android:padding="10dp"
-                      android:background="@drawable/flame_style_pg">
+                      android:layout_marginTop="25dp"
+                      android:background="@drawable/flame_style_pg"
+                      android:orientation="vertical"
+                      android:padding="10dp">
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:textSize="20dp"
                       android:text="@string/guide_text_inputname"
-                      android:textColor="@color/passGeneTextBlue"/>
+                      android:textColor="@color/passGeneTextBlue"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="20dp"/>
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:textSize="15dp"
                       android:text="@string/guide_text_alphabet_only"
-                      android:textColor="@color/passGeneTextBlue"/>
+                      android:textColor="@color/passGeneTextBlue"
+                      android:textSize="15dp"/>
         </LinearLayout>
 
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputUserLastname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/inputLastName"
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputUserLastname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content">
 
-                android:hint="@string/hint_lastname"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:theme="@style/MaterialEditTextTheme"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/passGeneTextBlue"
-                android:inputType="text"
-                android:maxLines="1"/>
+                <EditText
+                    android:id="@+id/inputLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        </android.support.design.widget.TextInputLayout>
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/inputUserFirstname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/passGeneTextBlue"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:hint="@string/hint_lastname"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:theme="@style/MaterialEditTextTheme"/>
 
-            <EditText
-                android:id="@+id/inputFirstname"
+            </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/inputUserFirstname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content">
 
-                android:hint="@string/hint_firstname"
-                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                android:theme="@style/MaterialEditTextTheme"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:backgroundTint="@color/passGeneTextBlue"
-                android:inputType="text"
-                android:maxLines="1"/>
+                <EditText
+                    android:id="@+id/inputFirstname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        </android.support.design.widget.TextInputLayout>
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="15dp"
+                    android:backgroundTint="@color/passGeneTextBlue"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    android:hint="@string/hint_firstname"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:theme="@style/MaterialEditTextTheme"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:gravity="center"
+                      android:layout_marginTop="15dp">
+
+            <Button android:id="@+id/btnInitialSet1"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/primary_round"
+                    android:padding="2dp"
+                    android:text="登録"
+                    android:textColor="#ffffff"
+                    android:textSize="26sp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>
