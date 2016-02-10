@@ -4,9 +4,14 @@
     <string name="title_activity_regist_info">ユーザー情報登録</string>
     <string name="title_activity_user_info_index">ユーザー情報確認</string>
     <string name="title_activity_user_info_list">ユーザー情報一覧</string>
-    <string name="title_activity_initial_set2">InitialSet2</string>
-    <string name="title_activity_initial_set3">InitialSet3</string>
     <string name="action_settings">Settings</string>
+
+    <!-- ボタン -->
+    <string name="button1">登録</string>
+    <string name="button2">削除</string>
+    <string name="button3">戻る</string>
+    <string name="button4">編集</string>
+    <string name="button5">確認</string>
 
     <!-- ユーザー情報確認画面 -->
     <string name="user_info_index_explanation1">ユーザー情報確認</string>
@@ -15,7 +20,7 @@
 
     <!-- ユーザー情報登録画面 -->
     <string name="regist_info_explanation1">ユーザー情報登録</string>
-    <string name="regist_info_explanation2">PW生成の基になるUser情報のタイトル、カテゴリーを入力・選択して下さい。</string>
+    <string name="regist_info_explanation2">PW生成の基になるUser情報の\nタイトル、カテゴリーを\n入力・選択して下さい。</string>
     <string name="regist_info_hint1">英字(アルファベット)で入力してください</string>
     <string name="regist_info_hint2">数字で入力してください</string>
     <string name="regist_info_hint3">英数字で入力してください</string>
@@ -37,5 +42,7 @@
     <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\nアルファベットで入力して下さい。</string>
     <string name="hint_lastname">姓をアルファベットで入力して下さい。（例）satoh</string>
     <string name="hint_firstname">名をアルファベットで入力して下さい。(例)gajiro</string>
+    <string name="title_activity_initial_set2">InitialSet2</string>
+    <string name="title_activity_initial_set3">InitialSet3</string>
 
 </resources>

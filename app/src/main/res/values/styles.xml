@@ -40,18 +40,30 @@
     </style>
 
     <!-- 丸角背景のスタイル -->
-    <style name="flame_style">         丸角背景白地青縁
+    <style name="flame_style">          丸角背景白地青縁
         <item name="android:background">@drawable/flame_style_pg</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="pass_blue_heading">    丸角背景青見出し
+        <item name="android:background">@drawable/pass_blue_heading</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/passGeneAllBack</item>
+        <item name="android:padding">4dp</item>
     </style>
 
     <style name="pass_blue_button">     丸角背景青ボタン
         <item name="android:background">@drawable/pass_blue_button</item>
         <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/passGeneAllBack</item>
+        <item name="android:padding">4dp</item>
     </style>
 
     <style name="pass_red_button">      丸角背景赤ボタン
         <item name="android:background">@drawable/pass_red_button</item>
         <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/passGeneAllBack</item>
+        <item name="android:padding">4dp</item>
     </style>
 
 </resources>
