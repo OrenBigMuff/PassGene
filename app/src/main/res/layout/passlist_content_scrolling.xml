@@ -10,13 +10,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:text="ああああああああああああああああああああああああああああああああああああああああああ
-        ああああああああああああああああああああああああああああああああああああああああああああああああああ"
-        android:textSize="30sp"
-        />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/cardLinear">
+    </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

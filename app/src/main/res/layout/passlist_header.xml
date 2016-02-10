@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="178dp"
-    android:weightSum="1">
+    android:layout_height="300dp"
+    android:weightSum="1"
+    android:background="@drawable/freeheaderview">
 
     <LinearLayout
         android:layout_width="match_parent"
