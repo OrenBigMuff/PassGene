@@ -33,4 +33,9 @@
     <item name="android:textSize">15sp</item>
     </style>
 
+    <!-- 丸角背景のスタイル -->
+    <style name="flame_style">         丸角背景白地青縁
+        <item name="android:background">@drawable/flame_style_pg</item>
+    </style>
+
 </resources>

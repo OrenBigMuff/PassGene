@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">PassGene</string>
-    <string name="title_activity_regist_info">RegistInfo</string>
-    <string name="title_activity_user_info_index">UserInfoIndex</string>
-    <string name="title_activity_user_info_list">UserInfoList</string>
+    <string name="title_activity_regist_info">ユーザー情報登録</string>
+    <string name="title_activity_user_info_index">ユーザー情報確認</string>
+    <string name="title_activity_user_info_list">ユーザー情報一覧</string>
     <string name="action_settings">Settings</string>
+    <string name="user_info_index_explanation1">ユーザー情報確認</string>
+    <string name="user_info_index_explanation2">さんの</string>
+    <string name="user_info_index_explanation3">です｡</string>
 </resources>

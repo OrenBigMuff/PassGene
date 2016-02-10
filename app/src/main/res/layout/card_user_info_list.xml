@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
             android:padding="5dp"
-            android:background="@drawable/flame_style_pg">
+            style="@style/flame_style">
 
             <CheckBox
                 android:layout_width="wrap_content"
