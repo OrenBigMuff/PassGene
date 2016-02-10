@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:padding="25dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,7 +19,6 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             style="@style/flame_style"
-            android:padding="10dp"
             android:id="@+id/indext1">
 
             <TextView
@@ -29,7 +28,8 @@
                 android:id="@+id/textView1"
                 style="@style/fontSize_Normal"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_below="@+id/textView1"
                 android:layout_alignLeft="@+id/textView1"
                 android:id="@+id/index1-1"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp">
 
                 <TextView
@@ -62,8 +62,9 @@
                 android:layout_alignLeft="@+id/textView1"
                 android:id="@+id/index1-2"
                 android:layout_below="@+id/index1-1"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="10dp">
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
