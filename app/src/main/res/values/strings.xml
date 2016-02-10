@@ -4,6 +4,8 @@
     <string name="title_activity_regist_info">ユーザー情報登録</string>
     <string name="title_activity_user_info_index">ユーザー情報確認</string>
     <string name="title_activity_user_info_list">ユーザー情報一覧</string>
+    <string name="title_activity_initial_set2">InitialSet2</string>
+    <string name="title_activity_initial_set3">InitialSet3</string>
     <string name="action_settings">Settings</string>
 
     <!-- ユーザー情報確認画面 -->
@@ -29,5 +31,11 @@
     <string name="regist_info_Date1">年</string>
     <string name="regist_info_Date2">月</string>
     <string name="regist_info_Date3">日</string>
+
+    <string name="title_activity_initial_set1">ユーザー情報</string>
+    <string name="guide_text_inputname">あなたのお名前（姓名）を\n入力して下さい。</string>
+    <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\nアルファベットで入力して下さい。</string>
+    <string name="hint_lastname">姓をアルファベットで入力して下さい。（例）satoh</string>
+    <string name="hint_firstname">名をアルファベットで入力して下さい。(例)gajiro</string>
 
 </resources>
