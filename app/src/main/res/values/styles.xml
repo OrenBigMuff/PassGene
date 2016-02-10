@@ -38,4 +38,14 @@
         <item name="android:background">@drawable/flame_style_pg</item>
     </style>
 
+    <style name="pass_blue_button">     丸角背景青ボタン
+        <item name="android:background">@drawable/pass_blue_button</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="pass_red_button">      丸角背景赤ボタン
+        <item name="android:background">@drawable/pass_red_button</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
 </resources>
