@@ -14,6 +14,7 @@
         android:layout_width="250dp"
         android:layout_height="100dp"
         android:text="Go \nInitial \nScreen"
+        android:background="@drawable/pass_blue_button"
         android:id="@+id/btn_test" android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" android:layout_marginBottom="211dp"/>
 </RelativeLayout>

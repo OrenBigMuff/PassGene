@@ -12,7 +12,7 @@
         <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
     </style>
     <style name="ButtonAppTheme" parent="android:Widget.Material.Button">
-        <item name="android:background">@drawable/primary_round</item>
+        <item name="android:background">@drawable/pass_blue_button</item>
     </style>
 
 

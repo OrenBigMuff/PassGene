@@ -4,15 +4,68 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/scrollview"
     android:layout_height="match_parent"
+    android:background="@color/passGeneAllBack"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.bizan.mobile10.passgene.InitialSet3"
-    tools:showIn="@layout/activity_initial_set3">
+    tools:context="com.bizan.mobile10.passgene.InitialSet1"
+    tools:showIn="@layout/activity_initial_set1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:text="@string/large_text"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="25dp"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
+                      android:layout_marginTop="25dp"
+                      android:background="@drawable/flame_style_pg"
+                      android:orientation="vertical"
+                      android:padding="10dp">
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="10dp"
+                      android:text="@string/now_input_userinfo"
+                      android:textColor="@color/passGeneTextBlue"
+                      android:textSize="20dp"/>
+            <TextView android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:text="@string/do_input_userinfo"
+                      android:textColor="@color/passGeneTextBlue"
+                      android:textSize="15dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="15dp"
+                      android:orientation="horizontal"
+                      android:gravity="center">
+
+            <Button android:id="@+id/btnInitialSet3Posi"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/pass_blue_button"
+                    android:padding="2dp"
+                    android:text="登録する"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp"/>
+
+            <Button android:id="@+id/btnInitialSet3Nega"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/pass_blue_button"
+                    android:padding="2dp"
+                    android:text="今は\nしない"
+                    android:textColor="#ffffff"
+                    android:textSize="25sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

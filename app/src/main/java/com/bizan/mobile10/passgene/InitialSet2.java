@@ -1,10 +1,11 @@
 package com.bizan.mobile10.passgene;
 
-import android.support.v4.app.DialogFragment;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,13 +16,14 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 public class InitialSet2 extends AppCompatActivity
-        implements View.OnClickListener {
+        implements PassGeneDialog.DialogListener, View.OnClickListener {
 
     NumberPicker npk1;
     NumberPicker npk2;
     NumberPicker npk3;
     NumberPicker npk4;
     Button btn;
+    String fixMaster;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +59,59 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
 
     @Override
     public void onClick(View v) {
-
+        //Num Pickerから数字を取得
         String tmp1 = String.valueOf(npk1.getValue());
         String tmp2 = String.valueOf(npk2.getValue());
         String tmp3 = String.valueOf(npk3.getValue());
         String tmp4 = String.valueOf(npk4.getValue());
+        fixMaster = tmp1 + tmp2 + tmp3 + tmp4;
 
-        final String fixMaster = tmp1 + tmp2 + tmp3 + tmp4;
-
-        Log.v("fixNum", String.valueOf(fixMaster));
-
-        DialogFragment dialog = new PassGeneDialog();
-        dialog.show(getSupportFragmentManager(), "tag");
+        //Dialogを表示させる
+        openPG_Dialog();
 
     }
 
 
+    /**
+     * DialogFragmentにゴニョゴニョするメソッド
+     */
+    private void openPG_Dialog() {
+//        Bundle args = new Bundle();
 
+//        DialogFragmentに渡すモノを決めてね
+        String title = "マスターパスhogehoge";
+        String message = "あなたのマスパスは" + fixMaster + "どえす！";
+        String posi = "登録";
+        String nega = "戻る";
+        //ダイアログのレイアウトResId
+        int resId_dialog = R.layout.fragment_pass_gene_dialog;
+        //ポジティブボタン、ネガティブボタンのレイアウト
+        int resId_Posi = R.drawable.bt_dialog_positive;
+        int resId_Nega = R.drawable.bt_dialog_negative;
+
+        //以下は触らない方がいいかも
+        PassGeneDialog dialog = new PassGeneDialog().newInstance();
+        //Titleをセット
+        dialog.setTitle(title);
+        //メッセージをセット
+        dialog.setMessage(message);
+        // 自分で定義したレイアウト
+        dialog.setContentViewId(resId_dialog);
+        //ポジティブボタンテキストをセット
+        dialog.setPositiveButtonText(posi);
+        //ネガティブボタンテキストをセット
+        dialog.setNegativeButtonText(nega);
+
+//        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "TAG_PG");
+    }
+
+
+    /**
+     * あったら便利！トーストメソッドだよ
+     *
+     * @param text
+     */
     private void toast(String text) {
         if (text == null) {
             text = "";
@@ -81,6 +119,24 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+
+
+    @Override
+    public void onPositiveButtonClick(String tag) {
+        if("TAG_PG".equals(tag)) {
+            // ok ボタンがおされた
+            toast("うぬのマスパスは" + "DBに登録したぞよい！");
+            Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    public void onNegativeButtonClick(String tag) {
+        if("TAG_PG".equals(tag)){
+            return;
+        }
+    }
 
 
 /*    // TODO Auto-generated method stub
@@ -111,7 +167,6 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
     })
             .create()
     .show();*/
-
 
 
 }
