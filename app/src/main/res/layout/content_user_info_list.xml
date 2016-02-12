@@ -8,12 +8,19 @@
     tools:context="com.bizan.mobile10.passgene.UserInfoList"
     tools:showIn="@layout/activity_user_info_list">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lilUserInfoList">
+        android:padding="10dp">
 
-    </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lilUserInfoList">
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

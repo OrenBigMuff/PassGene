@@ -31,56 +31,18 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/txvIndexServiceName"
+                style="@style/fontSize_Small"
                 android:layout_below="@+id/textView1"
                 android:layout_alignLeft="@+id/textView1"
-                android:id="@+id/index1-1"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/txvIndexUserName"
-                    style="@style/fontSize_Small" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_info_index_explanation2"
-                    android:id="@+id/textView3"
-                    android:layout_toRightOf="@+id/txvIndexUserName"
-                    style="@style/fontSize_Small" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignLeft="@+id/textView1"
-                android:id="@+id/index1-2"
-                android:layout_below="@+id/index1-1"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Text"
-                    style="@style/fontSize_Small"
-                    android:id="@+id/txvInfoUserInfoName" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_info_index_explanation3"
-                    android:id="@+id/textView5"
-                    android:layout_toRightOf="@+id/txvInfoUserInfoName"
-                    style="@style/fontSize_Small" />
-            </RelativeLayout>
         </RelativeLayout>
 
         <TextView
@@ -103,18 +65,9 @@
             android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/btnInfoEditing" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Button"
+                android:text="@string/button2"
                 android:id="@+id/btnInfoElimination"
-                android:layout_toRightOf="@+id/btnInfoEditing"
-                android:layout_marginLeft="20dp" />
+                style="@style/pass_gray_button" />
         </RelativeLayout>
     </RelativeLayout>
 

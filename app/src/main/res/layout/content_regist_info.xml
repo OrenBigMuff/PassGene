@@ -164,21 +164,29 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoName"
-            android:layout_alignLeft="@+id/regist1"
             android:layout_below="@+id/rtlRegistInfoBirthday"
+            android:layout_alignLeft="@+id/regist1"
+            android:id="@+id/rtlRegistInfoSurname"
             android:layout_marginTop="15dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoSurname" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/rtlRegistInfoName"
+            android:layout_alignLeft="@+id/regist1"
+            android:layout_below="@+id/rtlRegistInfoSurname"
+            android:layout_marginTop="15dp">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoName"
-                android:layout_below="@+id/edtRegistInfoSurname"
                 android:layout_marginTop="4dp" />
         </RelativeLayout>
 
@@ -225,9 +233,7 @@
         </RelativeLayout>
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
+            android:text="@string/button1"
             android:id="@+id/button"
             android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
