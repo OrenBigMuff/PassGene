@@ -9,8 +9,8 @@
     <string name="caution_text_masterpass">ユーザー確認に使用します。\n忘れないように保管下さい。</string>
     <string name="hint_lastname">姓を英字で入力して下さい。（例）satoh</string>
     <string name="hint_firstname">名を英字で入力して下さい。(例)gajiro</string>
-    <string name="do_input_userinfo">〇〇さん、このアプリはあなたの入力情報から\nパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。</string>
-    <string name="now_input_userinfo">今、追加のユーザー情報を\n登録しませんか？</string>
+    <string name="do_input_userinfo">〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。</string>
+    <string name="now_input_userinfo">今、あなたのユーザー情報を\n追加で登録しませんか？</string>
     <string name="err_msg_lastname">姓(Last name)の入力は必須です。</string>
     <string name="err_msg_firstname">名(First name)の入力は必須です。</string>
 
