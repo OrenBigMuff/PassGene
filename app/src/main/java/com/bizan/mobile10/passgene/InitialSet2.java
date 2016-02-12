@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -74,8 +75,8 @@ public class InitialSet2 extends AppCompatActivity
     private void openPG_Dialog() {
 
         //DialogFragmentに渡すモノを決めてね
-        String title = "マスターパスhogehoge";
-        String message = "あなたのマスパスは" + fixMaster + "どえす！";
+        String title = "マスターワード確認";
+        String message = "あなたのマスターパスワードは、\n" + fixMaster + " でよろしいですか？";
         String posi = "登録";
         String nega = "戻る";
         //ダイアログのレイアウトResId
@@ -87,6 +88,8 @@ public class InitialSet2 extends AppCompatActivity
         dialog.setTitle(title);
         //メッセージをセット
         dialog.setMessage(message);
+        //マスターパスワードをセット(このケースのみ使用)
+        dialog.setMaster(fixMaster);
         // 自分で定義したレイアウト
         dialog.setContentViewId(resId_dialog);
         //ポジティブボタンテキストをセット
@@ -110,6 +113,8 @@ public class InitialSet2 extends AppCompatActivity
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
+
+
 
 
 /*

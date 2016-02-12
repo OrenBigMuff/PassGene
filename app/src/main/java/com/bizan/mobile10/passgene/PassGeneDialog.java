@@ -36,6 +36,7 @@ public class PassGeneDialog extends DialogFragment{
     public static final String KEY_DIALOG_ICON = "icon";
     public static final String KEY_DIALOG_TITLE = "title";
     public static final String KEY_DIALOG_MESSAGE = "message";
+    public static final String KEY_DIALOG_MASTER = "master_password";       //このケースのみ使用
     public static final String KEY_DIALOG_LABEL_POSITIVE = "label_positive";
     public static final String KEY_DIALOG_LABEL_NEGATIVE = "label_negative";
     public static final String KEY_DIALOG_LAYOUT_POSITIVE = "layout_positive";
@@ -133,6 +134,7 @@ public class PassGeneDialog extends DialogFragment{
         int layoutId = getContentViewId();
         String posi = getPositiveButtonText();
         String nega = getNegativeButtonText();
+        final String masterPass = getMaster();            //このケースのみ使用
         int posiId = getPositiveButtonLayout();
         int negaId = getNegativeButtonLayout();
 
@@ -164,7 +166,7 @@ public class PassGeneDialog extends DialogFragment{
             @Override
             public void onClick(View v) {
                 // ok ボタンがおされた
-                toast("うぬのマスパスは" + "DBに登録したぞよい！");
+                toast(InitialSet1.name + " さんのマスターパスワードは" + masterPass + " で登録しました。");
                 Intent intent = new Intent(getActivity(), InitialSet3.class);
                 startActivity(intent);
 
@@ -205,6 +207,14 @@ public class PassGeneDialog extends DialogFragment{
 
     public void setMessage(String text) {
         getArguments().putString(KEY_DIALOG_MESSAGE, text);
+    }
+
+    private String getMaster() {
+        return getArguments().getString(KEY_DIALOG_MASTER);
+    }
+
+    public void setMaster(String text) {
+        getArguments().putString(KEY_DIALOG_MASTER, text);
     }
 
     private int getContentViewId() {
