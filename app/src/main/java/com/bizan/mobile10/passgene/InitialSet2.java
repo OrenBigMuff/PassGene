@@ -75,8 +75,8 @@ public class InitialSet2 extends AppCompatActivity
     private void openPG_Dialog() {
 
         //DialogFragmentに渡すモノを決めてね
-        String title = "マスターワード確認";
-        String message = "あなたのマスターパスワードは、\n" + fixMaster + " でよろしいですか？";
+        String title = "マスターパスワード確認";
+        String message = InitialSet1.fullname + " さんのマスターパスワードは、\n" + fixMaster + " でよろしいですか？";
         String posi = "登録";
         String nega = "戻る";
         //ダイアログのレイアウトResId

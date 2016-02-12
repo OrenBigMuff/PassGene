@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/passGeneBackgroundBlue</item>
         <item name="colorPrimaryDark">@color/passGeneBackgroundBlue</item>
         <item name="colorAccent">@color/passGeneFloatingButtonRed</item>
+        <item name="android:editTextStyle">@style/EditTextColorControl</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -16,5 +17,15 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="EditTextHint" parent="@style/TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/passGeneTextBlue</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="EditTextColorControl" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/passGeneBackgroundBlue</item>
+        <item name="colorControlActivated">@color/passGeneBackgroundBlue</item>
+        <item name="colorControlHighlight">@color/passGeneBackgroundBlue</item>
+    </style>
 
 </resources>

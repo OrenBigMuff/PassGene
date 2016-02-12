@@ -166,7 +166,7 @@ public class PassGeneDialog extends DialogFragment{
             @Override
             public void onClick(View v) {
                 // ok ボタンがおされた
-                toast(InitialSet1.name + " さんのマスターパスワードは" + masterPass + " で登録しました。");
+                toast(InitialSet1.fullname + " さんのマスターパスワードは" + masterPass + " で登録しました。");
                 Intent intent = new Intent(getActivity(), InitialSet3.class);
                 startActivity(intent);
 
@@ -180,7 +180,6 @@ public class PassGeneDialog extends DialogFragment{
 
             }
         });
-
 
         return dialog;
     }
