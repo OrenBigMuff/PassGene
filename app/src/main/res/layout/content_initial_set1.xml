@@ -23,17 +23,24 @@
                       android:background="@drawable/flame_style_pg"
                       android:orientation="vertical"
                       android:padding="10dp">
+
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:text="@string/guide_text_inputname"
                       android:textColor="@color/passGeneTextBlue"
+                      android:focusable="true"
+                      android:focusableInTouchMode="true"
                       android:layout_marginBottom="5dp"
-                      android:textSize="20dp"/>
+                      android:textSize="20dp">
+                <requestFocus />
+            </TextView>
+
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:text="@string/guide_text_alphabet_only"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="15dp"/>
+
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"

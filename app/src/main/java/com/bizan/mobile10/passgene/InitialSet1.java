@@ -26,6 +26,7 @@ public class InitialSet1 extends AppCompatActivity
     private TextInputLayout inputLayoutF;
     private EditText inputLastname;
     private EditText inputFirstname;
+    static String name ;
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -70,6 +71,9 @@ public class InitialSet1 extends AppCompatActivity
         }
         String tmpLast = inputLastname.getText().toString();
         String tmpFirst = inputFirstname.getText().toString();
+        //ユーザーの名前を変数nameに・・・
+        name = tmpLast + " " + tmpFirst;
+
         toast("はじめまして" + tmpLast + " " + tmpFirst +"さん、\n次はマスターパスワードを決めてください。");
         Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
         startActivity(intent);
@@ -134,6 +138,7 @@ public class InitialSet1 extends AppCompatActivity
     @Override
     public void onClick(View v) {
 
+        //ここにDBへの登録コードを記述
 
         submitForm();
 
