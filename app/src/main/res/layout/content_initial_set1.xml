@@ -38,21 +38,23 @@
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputUserLastname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
                 <EditText
                     android:id="@+id/inputLastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+
                     android:layout_marginTop="15dp"
                     android:backgroundTint="@color/passGeneTextBlue"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -65,7 +67,9 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputUserFirstname"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
 
                 <EditText
                     android:id="@+id/inputFirstname"
@@ -73,8 +77,7 @@
                     android:layout_height="wrap_content"
 
                     android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
+
                     android:layout_marginTop="5dp"
                     android:backgroundTint="@color/passGeneTextBlue"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
