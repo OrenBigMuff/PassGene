@@ -9,6 +9,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.view.View;
@@ -26,7 +27,9 @@ public class InitialSet1 extends AppCompatActivity
     private TextInputLayout inputLayoutF;
     private EditText inputLastname;
     private EditText inputFirstname;
-    static String name ;
+    static String lastname ;
+    static String firstname ;
+    static String fullname ;
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -43,6 +46,8 @@ public class InitialSet1 extends AppCompatActivity
 
         inputLastname = (EditText)findViewById(R.id.inputLastname);
         inputFirstname = (EditText)findViewById(R.id.inputFirstname);
+
+
 
         inputLayoutL = (TextInputLayout) findViewById(R.id.inputUserLastname);
         inputLayoutL.setError("姓をアルファベットで入力して下さい。"); // show error
@@ -69,12 +74,13 @@ public class InitialSet1 extends AppCompatActivity
         if (!validateFirstname()) {
             return;
         }
-        String tmpLast = inputLastname.getText().toString();
-        String tmpFirst = inputFirstname.getText().toString();
+        lastname = inputLastname.getText().toString();
+        firstname = inputFirstname.getText().toString();
         //ユーザーの名前を変数nameに・・・
-        name = tmpLast + " " + tmpFirst;
+        fullname = lastname + " " + firstname;
 
-        toast("はじめまして" + tmpLast + " " + tmpFirst +"さん、\n次はマスターパスワードを決めてください。");
+
+        toast("はじめまして" + fullname +"さん、\n次はマスターパスワードを決めてください。");
         Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
         startActivity(intent);
     }

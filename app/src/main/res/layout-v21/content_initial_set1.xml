@@ -12,6 +12,7 @@
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
+                  android:background="@color/passGeneAllBack"
                   android:orientation="vertical">
 
         <LinearLayout android:layout_width="match_parent"
@@ -47,13 +48,14 @@
                       android:layout_height="wrap_content"
                       android:layout_marginLeft="20dp"
                       android:layout_marginRight="20dp"
-            android:orientation="vertical">
+                      android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputUserLastname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                app:hintTextAppearance="@style/EditTextHint"
                 android:layout_marginRight="20dp">
 
                 <EditText
@@ -61,37 +63,41 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
-
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="5dp"
+                    android:textColorHint="@color/passGeneTextBlue"
                     android:backgroundTint="@color/passGeneTextBlue"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:hint="@string/hint_lastname"
+
                     android:inputType="text"
                     android:singleLine="true"
-                    android:theme="@style/MaterialEditTextTheme"/>
+                    android:theme="@style/EditTextColorControl"/>
 
             </android.support.design.widget.TextInputLayout>
+
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/inputUserFirstname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+
+                app:hintTextAppearance="@style/EditTextHint"
                 android:layout_marginRight="20dp">
 
                 <EditText
                     android:id="@+id/inputFirstname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:textColorHint="@color/passGeneTextBlue"
                     android:layout_marginBottom="5dp"
 
-                    android:layout_marginTop="5dp"
+
                     android:backgroundTint="@color/passGeneTextBlue"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                     android:hint="@string/hint_firstname"
                     android:inputType="text"
                     android:singleLine="true"
-                    android:theme="@style/MaterialEditTextTheme"/>
+                    android:theme="@style/EditTextColorControl"/>
 
             </android.support.design.widget.TextInputLayout>
 
@@ -99,12 +105,13 @@
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:gravity="center"
-                      android:layout_marginTop="5dp">
+                      android:layout_margin="5dp">
 
             <Button android:id="@+id/btnInitialSet1"
                     android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-
+                    android:layout_height="100dp"
+                    android:layout_margin="6dp"
+                    android:elevation="4dp"
                     android:background="@drawable/pass_blue_button"
                     android:padding="2dp"
                     android:text="登録"
