@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
+
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -13,6 +14,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -20,8 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class PassGeneDialog extends DialogFragment
-        implements OnClickListener {
+public class PassGeneDialog extends DialogFragment{
 
     TextView title_pgdf;
     TextView message_pgdf;
@@ -65,11 +66,14 @@ public class PassGeneDialog extends DialogFragment
         return instance;
     }
 
-    /**
+/*
+    */
+/**
      * activityにアタッチされていなければ使えないgetString系とリスナー
      *
      * @param activity
-     */
+     *//*
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -78,13 +82,18 @@ public class PassGeneDialog extends DialogFragment
         }
         mListener = (DialogListener) activity;
     }
+*/
 
 
     /**
      * Dialog Listener
+     * ダイアログのボタンにListnerを設定する（今はやり方がわからない）
      */
 
+/*
     private DialogListener mListener = null;
+
+
 
     public interface DialogListener {
 
@@ -93,7 +102,7 @@ public class PassGeneDialog extends DialogFragment
         public void onNegativeButtonClick(String tag);
     }
 
-    /*@Override
+    @Override
     public void onClick(DialogInterface dialog, int which) {
         switch (which) {
             case DialogInterface.BUTTON_POSITIVE:
@@ -109,14 +118,14 @@ public class PassGeneDialog extends DialogFragment
             default:
                 break;
         }
-    }*/
+    }
+*/
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         final Dialog dialog = new Dialog(this.getActivity());
-
 
         //値を受け取る
         String title = getTitle();
@@ -154,12 +163,22 @@ public class PassGeneDialog extends DialogFragment
         positive_button_pgdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onPositiveButtonClick(getTag());
-                }
+                // ok ボタンがおされた
+                toast("うぬのマスパスは" + "DBに登録したぞよい！");
+                Intent intent = new Intent(getActivity(), InitialSet3.class);
+                startActivity(intent);
+
             }
         });
         close_button_pgdf.setText(nega);
+        close_button_pgdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            dismiss();
+
+            }
+        });
+
 
         return dialog;
     }
@@ -220,25 +239,17 @@ public class PassGeneDialog extends DialogFragment
         return getArguments().getInt(KEY_DIALOG_LAYOUT_NEGATIVE, DEFAULT_INT_VALUE);
     }
 
+    /**
+     * あったら便利！トーストメソッドだよ
+     *
+     * @param text
+     */
+    private void toast(String text) {
+        if (text == null) {
+            text = "";
+        }
+        Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
+    }
 
-/*
-//いざという時の為に残しとく
-    // positive button title and click listener
-    if (onClickListener != null && args.containsKey(FIELD_LABEL_POSITIVE)) {
-        positive_button_pgdf = (Button) dialog.findViewById(R.id.positive_button_pgdf);
-        positive_button_pgdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListener.onClick(dialog, 0);
-            }
-        });
-    } else if (onClickListener != null && args.containsKey(FIELD_LABEL_NEGATIVE)) {
-        positive_button_pgdf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onClickListener.onClick(dialog, 0);
-            }
-        });
-    }*/
 
 }

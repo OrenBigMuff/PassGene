@@ -13,10 +13,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class InitialSet2 extends AppCompatActivity
-        implements PassGeneDialog.DialogListener, View.OnClickListener {
+        implements View.OnClickListener {
 
     NumberPicker npk1;
     NumberPicker npk2;
@@ -24,6 +25,7 @@ public class InitialSet2 extends AppCompatActivity
     NumberPicker npk4;
     Button btn;
     String fixMaster;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,11 +36,6 @@ public class InitialSet2 extends AppCompatActivity
 
         btn = (Button) findViewById(R.id.btnInitialSet2);
         btn.setOnClickListener(this);
-
-/*
-scrollView = (ScrollView)findViewById(R.id.scrollview);
-        scrollView.fullScroll(ScrollView.FOCUS_DOWN);
-*/
 
         npk1 = (NumberPicker) findViewById(R.id.npk1);
         npk2 = (NumberPicker) findViewById(R.id.npk2);
@@ -53,7 +50,6 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
         npk3.setMaxValue(9);
         npk4.setMinValue(0);
         npk4.setMaxValue(9);
-
 
     }
 
@@ -76,18 +72,14 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
      * DialogFragmentにゴニョゴニョするメソッド
      */
     private void openPG_Dialog() {
-//        Bundle args = new Bundle();
 
-//        DialogFragmentに渡すモノを決めてね
+        //DialogFragmentに渡すモノを決めてね
         String title = "マスターパスhogehoge";
         String message = "あなたのマスパスは" + fixMaster + "どえす！";
         String posi = "登録";
         String nega = "戻る";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
-        //ポジティブボタン、ネガティブボタンのレイアウト
-        int resId_Posi = R.drawable.bt_dialog_positive;
-        int resId_Nega = R.drawable.bt_dialog_negative;
 
         //以下は触らない方がいいかも
         PassGeneDialog dialog = new PassGeneDialog().newInstance();
@@ -120,7 +112,8 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
     }
 
 
-
+/*
+//今はDialogFragmentへのListener設定方法がわからないので コメントアウトしておく
     @Override
     public void onPositiveButtonClick(String tag) {
         if("TAG_PG".equals(tag)) {
@@ -136,7 +129,7 @@ scrollView = (ScrollView)findViewById(R.id.scrollview);
         if("TAG_PG".equals(tag)){
             return;
         }
-    }
+    }*/
 
 
 /*    // TODO Auto-generated method stub
