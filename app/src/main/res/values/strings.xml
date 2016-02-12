@@ -9,12 +9,11 @@
     <!-- ボタン -->
     <string name="button1">登録</string>
     <string name="button2">削除</string>
-    <string name="button3">戻る</string>
-    <string name="button4">編集</string>
-    <string name="button5">確認</string>
+    <string name="button3">編集</string>
+    <string name="button4">確認</string>
 
     <!-- ユーザー情報確認画面 -->
-    <string name="user_info_index_explanation1">ユーザー情報確認</string>
+    <string name="user_info_index_explanation1">このユーザー情報を\n使用中のサービス</string>
     <string name="user_info_index_explanation2">さんの</string>
     <string name="user_info_index_explanation3">です｡</string>
 
