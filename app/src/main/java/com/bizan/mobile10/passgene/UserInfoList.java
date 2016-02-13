@@ -15,8 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class UserInfoList extends AppCompatActivity {
-    private int[] mUserInfoId = {0, 1, 2, 3, 4, 5, 6, 7};
-    private String[] mUserInfoName = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
+    private static int[] mUserInfoId = {0, 1, 2, 3, 4, 5, 6, 7};
+    private static String[] mUserInfoName = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
+    private static String[] mUserInfo = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
+
+    public static int getUserInfoId;
+    public static String getUserInfoName;
+    public static String getUserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +31,11 @@ public class UserInfoList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //FABボタンの動作
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabUserInfoList);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RegistInfo.class);
+                Intent intent = new Intent(UserInfoList.this, RegistInfo.class);
                 startActivity(intent);
             }
         });
@@ -47,16 +52,20 @@ public class UserInfoList extends AppCompatActivity {
             CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
 
             //ユーザー情報名
-            TextView txvInfoUserInfo = (TextView) linearLayout.findViewById(R.id.txvInfoUserInfo);
-            txvInfoUserInfo.setText(mUserInfoName[i]);
+            TextView userInfo = (TextView) linearLayout.findViewById(R.id.txvInfoCardUserInfo);
+            userInfo.setText(mUserInfoName[i]);
 
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), RegistInfo.class);
-                    intent.putExtra("UserInfoId", mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))]);
+                    Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
                     startActivity(intent);
+
+                    getUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
+                    getUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
+                    getUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+
                 }
             });
 
@@ -93,16 +102,20 @@ public class UserInfoList extends AppCompatActivity {
             CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
 
             //ユーザー情報名
-            TextView txvInfoUserInfo = (TextView) linearLayout.findViewById(R.id.txvInfoUserInfo);
-            txvInfoUserInfo.setText(mUserInfoName[i]);
+            TextView userInfo = (TextView) linearLayout.findViewById(R.id.txvInfoCardUserInfo);
+            userInfo.setText(mUserInfoName[i]);
 
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(getApplicationContext(), RegistInfo.class);
-                    intent.putExtra("UserInfoId", mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))]);
+                    Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
                     startActivity(intent);
+
+                    getUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
+                    getUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
+                    getUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+
                 }
             });
 
