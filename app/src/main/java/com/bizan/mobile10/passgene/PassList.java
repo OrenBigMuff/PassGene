@@ -1,5 +1,7 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -138,6 +140,15 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                         break;
 
                     case 2:
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(PassList.this, AppSetting.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }, 250);
+                        plDrawer.closeDrawers();
                         break;
 
                     case 3:
