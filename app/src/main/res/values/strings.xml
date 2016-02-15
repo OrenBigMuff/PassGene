@@ -19,4 +19,43 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- タイトル -->
+    <string name="title_activity_regist_info">ユーザー情報登録</string>
+    <string name="title_activity_user_info_index">ユーザー情報確認</string>
+    <string name="title_activity_user_info_list">ユーザー情報一覧</string>
+
+
+    <!-- ボタン -->
+    <string name="button1">登録</string>
+    <string name="button2">削除</string>
+    <string name="button3">編集</string>
+    <string name="button4">確認</string>
+
+    <!-- ユーザー情報確認画面 -->
+    <string name="user_info_index_explanation1">このユーザー情報を\n使用中のサービス</string>
+    <string name="user_info_index_explanation2">さんの</string>
+    <string name="user_info_index_explanation3">です｡</string>
+
+    <!-- ユーザー情報登録画面 -->
+    <string name="regist_info_explanation1">ユーザー情報登録</string>
+    <string name="regist_info_explanation2">PW生成の基になるUser情報の\nタイトル、カテゴリーを\n入力・選択して下さい。</string>
+    <string name="regist_info_hint1">英字(アルファベット)で入力してください</string>
+    <string name="regist_info_hint2">数字で入力してください</string>
+    <string name="regist_info_hint3">英数字で入力してください</string>
+    <string name="regist_info_category1">電話番号</string>
+    <string name="regist_info_category2">生年月日</string>
+    <string name="regist_info_category3">姓名</string>
+    <string name="regist_info_category4">フリーテキスト</string>
+    <string name="regist_info_category5">フリーナンバー</string>
+    <string name="regist_info_category6">オールフリー</string>
+    <string name="regist_info_heading1">Tag</string>
+    <string name="regist_info_heading2">Category</string>
+    <string name="regist_info_heading3">Data</string>
+    <string name="regist_info_Date1">年</string>
+    <string name="regist_info_Date2">月</string>
+    <string name="regist_info_Date3">日</string>
+
+    <string name="large_text"></string>
+
 </resources>

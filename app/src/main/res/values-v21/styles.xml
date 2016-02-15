@@ -1,29 +1,16 @@
-<resources>>
-    <style name="AppBaseTheme" parent="@android:style/Theme.Material.Light">
+<resources>
+
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:windowContentTransitions">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:editTextStyle">@style/EditTextColorControl</item>
-    </style>
-    <!--<style name="MaterialEditTextTheme">
-        &lt;!&ndash; Used for the bottom line when not selected / focused &ndash;&gt;
-        <item name="colorControlNormal">@color/passGeneBackgroundBlue</item>
-        &lt;!&ndash; colorControlActivated & colorControlHighlight use the colorAccent color by default &ndash;&gt;
-    </style>-->
-    <style name="ButtonAppTheme" parent="android:Widget.Material.Button">
-        <item name="android:background">@drawable/pass_blue_button</item>
-    </style>
-    <style name="EditTextHint" parent="@style/TextAppearance.Design.Hint">
-        <item name="android:textColor">@color/passGeneTextBlue</item>
-        <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="EditTextColorControl" parent="Widget.AppCompat.EditText">
+    <style name="MaterialEditTextTheme">
+        <!-- Used for the bottom line when not selected / focused -->
         <item name="colorControlNormal">@color/passGeneBackgroundBlue</item>
-        <item name="colorControlActivated">@color/passGeneBackgroundBlue</item>
-        <item name="colorControlHighlight">@color/passGeneBackgroundBlue</item>
+        <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
     </style>
 
 </resources>

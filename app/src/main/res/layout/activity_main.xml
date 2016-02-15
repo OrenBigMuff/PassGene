@@ -11,21 +11,46 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bizan.mobile10.passgene.MainActivity">
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+        android:orientation="vertical">
     <com.balysv.materialripple.MaterialRippleLayout
-        android:id="@+id/ripple"
+        android:id="@+id/ripple_i"
         android:layout_width="wrap_content"
         app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
         app:mrl_rippleOverlay="true"
         app:mrl_rippleDelayClick="true"
         android:layout_height="wrap_content">
         <Button
-            android:id="@+id/btn_test"
+            android:id="@+id/btn_test_i"
             android:layout_width="250dp"
             android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
             android:background="@color/passGeneBackgroundBlue"
             android:layout_centerHorizontal="true"
-            android:text="Go \nInitial \nScreen"/>
+            android:text="Go \nImai \nActivity"/>
     </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple_u"
+            android:layout_width="wrap_content"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleOverlay="true"
+            app:mrl_rippleDelayClick="true"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/btn_test_u"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_margin="5dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/passGeneBackgroundBlue"
+                android:layout_centerHorizontal="true"
+                android:text="Go \nUrashima \nActivity"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
