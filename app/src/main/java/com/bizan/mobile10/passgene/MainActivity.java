@@ -15,6 +15,7 @@ implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Button btn_test = (Button)findViewById(R.id.btn_test);
         btn_test.setOnClickListener(this);
 
