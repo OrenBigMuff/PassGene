@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +37,7 @@ public class AppSetting extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.appsetting);
+        setContentView(R.layout.activity_appsetting);
 
         //タイトル変更
         asCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.AppSetting_toolbar_layout);
@@ -96,15 +95,15 @@ public class AppSetting extends AppCompatActivity {
                 switch (recyclerView.getChildPosition(child)) {
 
                     case 1:
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(AppSetting.this, Sample.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        }, 260);
-                        asDrawer.closeDrawers();
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Intent intent = new Intent(AppSetting.this, Sample.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        }, 260);
+//                        asDrawer.closeDrawers();
                         break;
 
                     case 2:
@@ -115,7 +114,7 @@ public class AppSetting extends AppCompatActivity {
                                 startActivity(intent);
                                 finish();
                             }
-                        }, 260);
+                        }, 250);
                         asDrawer.closeDrawers();
                         break;
 
