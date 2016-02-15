@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/PassList_DrawerLayout"
+    android:id="@+id/AppSetting_DrawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:elevation="7dp">
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".PassList">
+        tools:context=".AppSetting">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/AppSetting_app_bar"
@@ -28,6 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimaryDark">
 
                 <android.support.v7.widget.Toolbar
