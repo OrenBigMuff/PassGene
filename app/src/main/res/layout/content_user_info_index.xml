@@ -19,7 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             style="@style/flame_style"
-            android:id="@+id/indext1">
+            android:id="@+id/index1">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -50,24 +50,33 @@
             android:layout_height="wrap_content"
             android:text="New Text"
             android:gravity="center_horizontal"
-            android:id="@+id/txvInfoUserInfo"
+            android:id="@+id/txvIndexUserInfo"
             style="@style/fontSize_Big"
             android:layout_marginTop="50dp"
-            android:layout_below="@+id/indext1"
+            android:layout_below="@+id/index1"
             android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/txvInfoUserInfo"
+            android:layout_below="@+id/txvIndexUserInfo"
             android:id="@+id/index2"
             android:gravity="center_horizontal">
 
-            <Button
-                android:text="@string/button2"
-                android:id="@+id/btnInfoElimination"
-                style="@style/pass_gray_button" />
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripIndexRipple"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+                app:mrl_rippleOverlay="true">
+
+                <Button
+                    android:text="@string/button2"
+                    android:id="@+id/btnIndexElimination"
+                    style="@style/pass_gray_button" />
+
+            </com.balysv.materialripple.MaterialRippleLayout>
         </RelativeLayout>
     </RelativeLayout>
 
