@@ -73,7 +73,7 @@ public class InitialSet2 extends AppCompatActivity
 
         //DialogFragmentに渡すモノを決めてね
         String title = "マスターパスワード確認";
-        String message = InitialSet1.fullname + " さんのマスターパスワードは、\n「 " + fixMaster + " 」でよろしいですか？";
+        String message = InitialSet1.fullname + " さんの\nマスターパスワードは、\n「 " + fixMaster + " 」でよろしいですか？";
         String posi = "登録";
         String nega = "戻る";
         //ダイアログのレイアウトResId
@@ -99,7 +99,7 @@ public class InitialSet2 extends AppCompatActivity
 
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
-        // ok ボタンがおされた
+        // Positiveボタンが押された時の動作
         toast(InitialSet1.fullname + " さんのマスターパスワードは 「" + fixMaster + " 」で登録しました。");
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
         startActivity(intent);
@@ -108,6 +108,7 @@ public class InitialSet2 extends AppCompatActivity
 
     @Override
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
+        // Negativeボタンが押された時の動作
         dialog.dismiss();
     }
 

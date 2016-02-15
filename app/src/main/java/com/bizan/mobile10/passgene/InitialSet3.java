@@ -37,11 +37,13 @@ public class InitialSet3 extends AppCompatActivity
         if(v.getId() == R.id.btnInitialSet3Posi){
 
             Intent intent1 = new Intent(InitialSet3.this, MainActivity.class);
+            toast("ユーザー情報登録画面に遷移");
             startActivity(intent1);
 
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 
             Intent intent2 = new Intent(InitialSet3.this, MainActivity.class);
+            toast("サービス名一覧画面に遷移");
             startActivity(intent2);
 
         }
