@@ -30,6 +30,7 @@
             android:label="@string/title_activity_initial_set3"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
     </application>
 
 </manifest>

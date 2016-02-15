@@ -1,24 +1,22 @@
 package com.bizan.mobile10.passgene;
 
 import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 public class InitialSet2 extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener, PassGeneDialog.DialogListener {
 
     NumberPicker npk1;
     NumberPicker npk2;
@@ -65,7 +63,6 @@ public class InitialSet2 extends AppCompatActivity
 
         //Dialogを表示させる
         openPG_Dialog();
-
     }
 
 
@@ -76,29 +73,15 @@ public class InitialSet2 extends AppCompatActivity
 
         //DialogFragmentに渡すモノを決めてね
         String title = "マスターパスワード確認";
-        String message = InitialSet1.fullname + " さんのマスターパスワードは、\n" + fixMaster + " でよろしいですか？";
+        String message = InitialSet1.fullname + " さんのマスターパスワードは、\n「 " + fixMaster + " 」でよろしいですか？";
         String posi = "登録";
         String nega = "戻る";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
-        //以下は触らない方がいいかも
-        PassGeneDialog dialog = new PassGeneDialog().newInstance();
-        //Titleをセット
-        dialog.setTitle(title);
-        //メッセージをセット
-        dialog.setMessage(message);
-        //マスターパスワードをセット(このケースのみ使用)
-        dialog.setMaster(fixMaster);
-        // 自分で定義したレイアウト
-        dialog.setContentViewId(resId_dialog);
-        //ポジティブボタンテキストをセット
-        dialog.setPositiveButtonText(posi);
-        //ネガティブボタンテキストをセット
-        dialog.setNegativeButtonText(nega);
-
-//        dialog.setArguments(args);
-        dialog.show(getSupportFragmentManager(), "TAG_PG");
+        FragmentManager fm = getSupportFragmentManager();
+        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
+        alertDialog.show(fm, "fragment_alert");
     }
 
 
@@ -112,6 +95,20 @@ public class InitialSet2 extends AppCompatActivity
             text = "";
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
+        // ok ボタンがおされた
+        toast(InitialSet1.fullname + " さんのマスターパスワードは 「" + fixMaster + " 」で登録しました。");
+        Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
+        startActivity(intent);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
+        dialog.dismiss();
     }
 
 
