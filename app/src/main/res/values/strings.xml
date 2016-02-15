@@ -58,4 +58,7 @@
 
     <string name="large_text"></string>
 
+    <string name="title_activity_user_conf">UserConf</string>
+    <string name="title_activity_pw_conf">PwConf</string>
+
 </resources>

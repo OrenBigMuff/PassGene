@@ -35,5 +35,27 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/pass_blue_button"
             android:text="Go \nUrashima \nActivity"/>
+
+        <Button
+            android:id="@+id/btn_test_k1"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/pass_blue_button"
+            android:text="Go \nKawano \nActivity1"/>
+
+        <Button
+            android:id="@+id/btn_test_k2"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/pass_blue_button"
+            android:text="Go \nKawano \nActivity2"/>
     </LinearLayout>
 </RelativeLayout>

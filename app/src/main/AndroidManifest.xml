@@ -30,19 +30,26 @@
         <activity
             android:name=".InitialSet1"
             android:label="@string/title_activity_initial_set1"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InitialSet2"
             android:label="@string/title_activity_initial_set2"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InitialSet3"
             android:label="@string/title_activity_initial_set3"
+
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity
+            android:name=".UserConf"
+            android:label="@string/title_activity_user_conf"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PwConf"
+            android:label="@string/title_activity_pw_conf"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
