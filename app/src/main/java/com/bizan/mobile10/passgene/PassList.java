@@ -1,12 +1,9 @@
 package com.bizan.mobile10.passgene;
 
-import android.content.Intent;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,15 +11,26 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.GestureDetector;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.SearchView;
 
-public class PassList extends AppCompatActivity {
+
+
+public class PassList extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
     int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
@@ -41,7 +49,15 @@ public class PassList extends AppCompatActivity {
     ActionBarDrawerToggle plDrawerToggle;            //NVを開くためのトグル
     FloatingActionButton plFab;                      //ふぁぶ
 
-    LinearLayout plCardLinear ;
+    View containerView;         //カードビューのサービスタイトル
+    Animation inAnimation;       //インアニメーション
+    Animation outAnimetion;     //アウトアニメーション
+    Animation swapAnimation;
+    TextView plcardHint;
+    Button plcardButton;
+    CardView plCardView;        //カードビュー
+
+    SearchView mSearchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +70,15 @@ public class PassList extends AppCompatActivity {
 
         //ツールバーにNVトグルを追加
         plDrawer = (DrawerLayout) findViewById(R.id.PassList_DrawerLayout);
-        plDrawerToggle = new ActionBarDrawerToggle(this,plDrawer,plToolbar,R.string.openDrawer,R.string.closeDrawer){
+        plDrawerToggle = new ActionBarDrawerToggle(this, plDrawer, plToolbar, R.string.openDrawer, R.string.closeDrawer) {
 
             @Override
-        public void onDrawerOpened(View drawerView){
+            public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
             }
+
             @Override
-        public void onDrawerClosed(View drawerView){
+            public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
             }
         };
@@ -84,16 +101,16 @@ public class PassList extends AppCompatActivity {
         plRecycleView.setHasFixedSize(true);
 
         //アダプターセット
-        plAdapter = new RecyclerViewAdapter(nvTITLES,nvICONS,nvSETTING,useNAME);
+        plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, nvSETTING, useNAME);
         plRecycleView.setAdapter(plAdapter);
 
         //リサイクルビューにレイアウトマネージャをセット
         plLayoutManager = new LinearLayoutManager(this);
         plRecycleView.setLayoutManager(plLayoutManager);
 
-        final GestureDetector mGestureDetector = new GestureDetector(PassList.this, new GestureDetector.SimpleOnGestureListener(){
+        final GestureDetector mGestureDetector = new GestureDetector(PassList.this, new GestureDetector.SimpleOnGestureListener() {
             @Override
-            public boolean onSingleTapUp(MotionEvent e){
+            public boolean onSingleTapUp(MotionEvent e) {
                 return true;
             }
         });
@@ -139,26 +156,85 @@ public class PassList extends AppCompatActivity {
             }
 
         });
+        //カードビューのアニメーションキャスト
+        containerView = findViewById(R.id.plcontainer);
+        //隠れるビュー
+        plcardHint = (TextView) findViewById(R.id.plcardHint);
+        plcardButton = (Button) findViewById(R.id.plcardbutton);
+        inAnimation = AnimationUtils.loadAnimation(this, R.anim.card_in_anim);
+        outAnimetion = AnimationUtils.loadAnimation(this, R.anim.card_out_anim);
 
-//        //カードビュー設定
-//        LinearLayout cardLinear = (LinearLayout)this.findViewById(R.id.cardLinear);
-//        cardLinear.removeAllViews();
-//        for (int i = 0; i<10 ; i++){
-//            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//            LinearLayout  linearLayout  = (LinearLayout) inflater.inflate(R.layout.samplecard,null);
-//            CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
-//            TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardText);
-//            textBox.setText("CardView" + i);
-//            cardView.setTag(i);
-//            cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        cardLinear.addView(linearLayout,i);
-//        }
-//
+        //カードビュー設定
+        LinearLayout cardLinear = (LinearLayout) this.findViewById(R.id.cardLinear);
+        cardLinear.removeAllViews();
+        for (int i = 0; i < 10; i++) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+            final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+            TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+            textBox.setText("CardView" + i);
+            cardView.setTag(i);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    plcardHint = (TextView) findViewById(R.id.plcardHint);
+                    plcardButton = (Button) findViewById(R.id.plcardbutton);
+                    Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+                    if (plcardButton.getVisibility() == View.GONE) {
+                        plcardButton.startAnimation(inAnimation);
+                        plcardHint.startAnimation(inAnimation);
+                        plcardButton.setVisibility(View.VISIBLE);
+                        plcardHint.setVisibility(View.VISIBLE);
+                    } else if (plcardButton.getVisibility() == View.VISIBLE) {
+                        plcardButton.startAnimation(outAnimetion);
+                        plcardHint.startAnimation(outAnimetion);
+                        plcardButton.setVisibility(View.GONE);
+                        plcardHint.setVisibility(View.GONE);
+                    }
+                }
+            });
+            cardLinear.addView(linearLayout, i);
+        }
+    }
+    //検索機能
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.plsearch, menu);
+        final MenuItem searchItem = menu.findItem(R.id.plsearchView);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setIconifiedByDefault(true);
+        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean queryTextFocused) {
+                if (!queryTextFocused) {
+                    searchItem.collapseActionView();
+                    mSearchView.setQuery("", false);
+                }
+            }
+        });
+        return true;
     }
 
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mSearchView.clearFocus();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+    @Override
+    public void onBackPressed() {
+        if (mSearchView !=null && !mSearchView.isIconified()) {
+            mSearchView.clearFocus();
+            mSearchView.onActionViewCollapsed();
+            mSearchView.setQuery("", false);
+            mSearchView.setIconified(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
