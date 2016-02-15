@@ -1,13 +1,16 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.app.Activity;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -21,28 +24,14 @@ public class UserConf extends Activity implements OnClickListener {
     TextView textView3;
     NumberPicker numPicker4;
     TextView textView4;
+    String textview;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_conf);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        button1 = (Button) findViewById(R.id.button1);
-        button1.setOnClickListener(this);
-
-        
         findViews();
         initViews();
         findViews2();
@@ -51,6 +40,45 @@ public class UserConf extends Activity implements OnClickListener {
         initViews3();
         findViews4();
         initViews4();
+
+        final String rightPass = "0001";
+
+
+        final String textView5 = textView1.getText().toString() +
+                textView2.getText().toString() +
+                textView3.getText().toString() +
+                textView4.getText().toString();
+
+
+        button1 = (Button) findViewById(R.id.button1);
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String password = textView5;
+                if (password.equals(rightPass)) {
+                    // ページ遷移2
+                    Intent intent = new Intent(UserConf.this, InitialSet1.class);
+                    startActivity(intent);
+                    Log.d("", "OK");
+                } else {
+                    // エラー表示
+                    Log.d("", "Error");
+                }
+            }
+        });
+
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
+
+
     }
 
     private void setSupportActionBar(Toolbar toolbar) {
@@ -104,17 +132,25 @@ public class UserConf extends Activity implements OnClickListener {
     }
 
     @Override
-    //押された数字が正しければ次に進むのを書く
     public void onClick(View v) {
-        textView1.setText(numPicker.getValue() + "");
-        textView2.setText(numPicker2.getValue() + "");
-        textView3.setText(numPicker3.getValue() + "");
-        textView4.setText(numPicker4.getValue() + "");
-        setContentView(R.layout.activity_pw_conf);
+
     }
-
-
 }
+
+//    @Override
+//    //押された数字が正しければ次に進むのを書く
+//    public void onClick(View v) {
+//        textView1.setText(numPicker.getValue() + "");
+//        textView2.setText(numPicker2.getValue() + "");
+//        textView3.setText(numPicker3.getValue() + "");
+//        textView4.setText(numPicker4.getValue() + "");
+//        setContentView(R.layout.activity_pw_conf);
+//    }
+
+
+
+
+
 
 
 //public class UserConf extends AppCompatActivity {

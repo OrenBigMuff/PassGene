@@ -1,6 +1,7 @@
 package com.bizan.mobile10.passgene;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,16 +34,17 @@ public class PwConf extends Activity implements View.OnClickListener {
         text6 = (TextView)findViewById(R.id.textView6);
         text7 = (TextView)findViewById(R.id.textView7);
 
-        editText = (EditText) findViewById(R.id.editText);
-        editText.setText("service");
-        String service = editText.getText().toString();
-
-
-
-
+        editText = (EditText)findViewById(R.id.editText);
+        editText.setText(service);
+        String test = editText.getText().toString();
 
         editText2 = (EditText) findViewById(R.id.editText2);
+        editText2.setText(passward);
+        String test2= editText.getText().toString();
+
         editText3 = (EditText) findViewById(R.id.editText3);
+        editText3.setText(mail);
+        String test3 = editText.getText().toString();
 
         button2 = (Button) findViewById(R.id.button2);
         button3 = (Button) findViewById(R.id.button3);
@@ -52,11 +54,13 @@ public class PwConf extends Activity implements View.OnClickListener {
 
     public void onClick(View v) {
         // ボタン1が押された場合
-        if (v.getId() == R.id.button1) {
-
+        if (v.getId() == R.id.button2) {
+            Intent intent = new Intent(PwConf.this, UserConf.class);
+            startActivity(intent);
             // ボタン2が押された場合
-        } else if (v.getId() == R.id.button2) {
-
+        } else if (v.getId() == R.id.button3) {
+            Intent intent = new Intent(PwConf.this, UserConf.class);
+            startActivity(intent);
         }
     }
 

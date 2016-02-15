@@ -97,4 +97,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_initial_set2">InitialSet2</string>
     <string name="title_activity_initial_set3">InitialSet3</string>
+    <string name="title_activity_user_conf">UserConf</string>
+    <string name="title_activity_pw_conf">PwConf</string>
 </resources>
