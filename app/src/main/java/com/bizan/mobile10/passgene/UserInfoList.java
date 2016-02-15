@@ -19,9 +19,21 @@ public class UserInfoList extends AppCompatActivity {
     private static String[] mUserInfoName = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
     private static String[] mUserInfo = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
 
-    public static int getUserInfoId;
-    public static String getUserInfoName;
-    public static String getUserInfo;
+    public static int setUserInfoId;
+    public static String setUserInfoName;
+    public static String setUserInfo;
+
+    public static int getUserInfoId() {
+        return setUserInfoId;
+    }
+
+    public static String getUserInfoName() {
+        return setUserInfoName;
+    }
+
+    public static String getUserInfo() {
+        return setUserInfo;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +43,7 @@ public class UserInfoList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         //FABボタンの動作
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabUserInfoList);
+        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fabUserInfoList);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,8 +64,8 @@ public class UserInfoList extends AppCompatActivity {
             CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
 
             //ユーザー情報名
-            TextView userInfo = (TextView) linearLayout.findViewById(R.id.txvInfoCardUserInfo);
-            userInfo.setText(mUserInfoName[i]);
+            TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
+            txvUserInfo.setText(mUserInfoName[i]);
 
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -62,9 +74,9 @@ public class UserInfoList extends AppCompatActivity {
                     Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
                     startActivity(intent);
 
-                    getUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
-                    getUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
-                    getUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
 
                 }
             });
@@ -102,8 +114,8 @@ public class UserInfoList extends AppCompatActivity {
             CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
 
             //ユーザー情報名
-            TextView userInfo = (TextView) linearLayout.findViewById(R.id.txvInfoCardUserInfo);
-            userInfo.setText(mUserInfoName[i]);
+            TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
+            txvUserInfo.setText(mUserInfoName[i]);
 
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +124,9 @@ public class UserInfoList extends AppCompatActivity {
                     Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
                     startActivity(intent);
 
-                    getUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
-                    getUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
-                    getUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
 
                 }
             });

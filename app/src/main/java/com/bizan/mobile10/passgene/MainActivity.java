@@ -23,7 +23,7 @@ implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btn_test) {
-            Intent intent = new Intent(MainActivity.this, InitialSet1.class);
+            Intent intent = new Intent(MainActivity.this, UserInfoList.class);
             startActivity(intent);
         }
     }
