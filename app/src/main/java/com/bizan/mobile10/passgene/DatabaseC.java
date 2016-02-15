@@ -236,6 +236,43 @@ public class DatabaseC {
     }
 
     /**
+     * マスターパスのチェック
+     * @param pass
+     * @return boolean あったらtrue : 一致しなかったらfalse
+     */
+    public boolean checkMasterPass(String pass) {
+        try {
+            String[] sqlD = {"master", pass};
+            String sql = "SELECT value FROM user_info WHERE info_name=? AND value=?";
+            Cursor cursor = db.rawQuery(sql, sqlD);
+            if(cursor.getCount() == 1){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e("readMasterPass", "err");
+            return false;
+        }
+    }
+    public boolean checkMasterPass(int passInt) {
+        String pass = String.valueOf(passInt);
+        try {
+            String[] sqlD = {"master", pass};
+            String sql = "SELECT value FROM user_info WHERE info_name=? AND value=?";
+            Cursor cursor = db.rawQuery(sql, sqlD);
+            if(cursor.getCount() == 1){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e("readMasterPass", "err");
+            return false;
+        }
+    }
+
+    /**
      * *マスターパスワードの変更
      *
      * @param value
