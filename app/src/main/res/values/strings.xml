@@ -7,8 +7,8 @@
     <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\n英字で入力して下さい。</string>
     <string name="guide_text_masterpass">マスターパスワードを\n数字4桁で登録してください。</string>
     <string name="caution_text_masterpass">ユーザー確認に使用します。\n忘れないように保管下さい。</string>
-    <string name="hint_lastname">姓を英字で入力して下さい。（例）satoh</string>
-    <string name="hint_firstname">名を英字で入力して下さい。(例)gajiro</string>
+    <string name="hint_lastname">姓を英字で入力して下さい。（例）Satoh</string>
+    <string name="hint_firstname">名を英字で入力して下さい。(例)Gajiro</string>
     <string name="do_input_userinfo">〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。</string>
     <string name="now_input_userinfo">今、あなたのユーザー情報を\n追加で登録しませんか？</string>
     <string name="err_msg_lastname">姓(Last name)の入力は必須です。</string>
