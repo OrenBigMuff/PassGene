@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <!-- コンテンツ -->
+    <LinearLayout
+        android:id="@+id/linear_pgdf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_dialog"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        >
+
+        <!-- タイトル -->
+        <TextView
+            android:id="@+id/title_pgdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_pgdf"
+            android:background="@drawable/bg_dialog_title"
+            android:padding="10dp"
+            android:text="マスターパスワード確認"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            />
+
+        <!-- メッセージ -->
+        <TextView
+            android:id="@+id/message_pgdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/passGeneTextBlue"
+            android:text="マスターパスワードは・・・"
+            android:textSize="15sp"
+            />
+
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_gravity="center"
+                      android:gravity="center">
+
+            <!--OKボタン-->
+            <Button
+                android:id="@+id/positive_button_pgdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/bt_dialog_positive"
+                android:text="登録"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:textSize="20dp"
+                />
+            <!--キャンセル-->
+            <Button
+                android:id="@+id/close_button_pgdf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/bt_dialog_negative"
+                android:text="戻る"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

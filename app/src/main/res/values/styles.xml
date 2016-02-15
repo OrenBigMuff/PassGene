@@ -1,17 +1,86 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/passGeneBackgroundBlue</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/passGeneBackgroundBlue</item>
         <item name="colorAccent">@color/passGeneFloatingButtonRed</item>
+        <item name="android:editTextStyle">@style/EditTextColorControl</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="ButtonAppTheme" parent="android:Widget.DeviceDefault.ActionButton">
+        <item name="android:background">@drawable/pass_blue_button</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="EditTextHint" parent="@style/TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/passGeneTextBlue</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 
+    <style name="EditTextColorControl" parent="Widget.AppCompat.EditText">
+        <item name="colorControlNormal">@color/passGeneBackgroundBlue</item>
+        <item name="colorControlActivated">@color/passGeneBackgroundBlue</item>
+        <item name="colorControlHighlight">@color/passGeneBackgroundBlue</item>
+    </style>
+
+    <!-- テキストのスタイル -->
+    <style name="fontSize_Big">         テキストサイズ大
+        <item name="android:textColor">@color/passGeneTextBlue</item>
+        <item name="android:textSize">35sp</item>
+    </style>
+
+    <style name="fontSize_Normal">      テキストサイズ中
+        <item name="android:textColor">@color/passGeneTextBlue</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="fontSize_Small">       テキストサイズ小
+    <item name="android:textColor">@color/passGeneTextBlue</item>
+    <item name="android:textSize">15sp</item>
+    </style>
+
+    <!-- 丸角背景のスタイル -->
+    <style name="flame_style">          丸角背景白地青縁
+        <item name="android:background">@drawable/flame_style_pg</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="pass_blue_heading">    丸角背景青見出し
+        <item name="android:background">@drawable/pass_blue_heading</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/passGeneAllBack</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="pass_blue_button">     丸角背景青ボタン
+        <item name="android:background">@drawable/pass_blue_button</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/passGeneAllBack</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="pass_red_button">      丸角背景赤ボタン
+    <item name="android:background">@drawable/pass_red_button</item>
+    <item name="android:textSize">25sp</item>
+    <item name="android:textColor">@color/passGeneAllBack</item>
+    <item name="android:layout_width">150dp</item>
+    <item name="android:layout_height">100dp</item>
+    <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="pass_gray_button">      丸角背景灰色ボタン
+        <item name="android:background">@drawable/pass_gray_button</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/passGeneAllBack</item>
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
 </resources>
