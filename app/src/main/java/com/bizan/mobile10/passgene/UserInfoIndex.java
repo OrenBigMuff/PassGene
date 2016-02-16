@@ -1,7 +1,9 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,9 +13,9 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 
-public class UserInfoIndex extends AppCompatActivity {
+public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.DialogListener {
 
-    private static String mUseService = "･Twitter\n･LINE\n･Facebook";
+    private static String mUseService = "";     //"･Twitter\n･LINE\n･Facebook"
     private static String mUserInfo = "携帯電話番号";
     UserInfoList userInfoList = new UserInfoList();
     private int mUserInfoId = userInfoList.getUserInfoId();
@@ -46,11 +48,49 @@ public class UserInfoIndex extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mUseService.equals("")) {
-                    Toast.makeText(UserInfoIndex.this, "削除するけどいいですか?", Toast.LENGTH_SHORT).show();
+                    openPG_Dialog();
                 } else if (!mUseService.equals("")) {
-                    Toast.makeText(UserInfoIndex.this, "使用中のサービスがあるため削除できません｡", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserInfoIndex.this, getString(R.string.dialog_message2), Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    /**
+     * DialogFragmentにゴニョゴニョするメソッド
+     */
+    private void openPG_Dialog() {
+
+        //DialogFragmentに渡すモノを決めてね
+        String title = getString(R.string.dialog_title1);
+        String message = getString(R.string.dialog_message1);
+        String posi = getString(R.string.button2);
+        String nega = getString(R.string.button5);
+        //ダイアログのレイアウトResId
+        int resId_dialog = R.layout.fragment_pass_gene_dialog;
+
+        FragmentManager fm = getSupportFragmentManager();
+        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
+        alertDialog.show(fm, "fragment_alert");
+    }
+
+    /**
+     * Positiveボタンが押された時の動作
+     * @param dialog
+     */
+    @Override
+    public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
+        Toast.makeText(this, mUserInfoName + "を削除しました｡", Toast.LENGTH_SHORT).show();
+        this.finish();
+        dialog.dismiss();
+    }
+
+    /**
+     * Negativeボタンが押された時の動作
+     * @param dialog
+     */
+    @Override
+    public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
+        dialog.dismiss();
     }
 }
