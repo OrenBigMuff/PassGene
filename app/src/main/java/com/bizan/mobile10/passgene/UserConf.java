@@ -26,7 +26,6 @@ public class UserConf extends Activity implements OnClickListener {
     TextView textView4;
     String textview;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +41,6 @@ public class UserConf extends Activity implements OnClickListener {
         initViews4();
 
         final String rightPass = "0001";
-
 
         final String textView5 = textView1.getText().toString() +
                 textView2.getText().toString() +

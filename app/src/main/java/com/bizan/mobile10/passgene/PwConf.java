@@ -18,11 +18,10 @@ public class PwConf extends Activity implements View.OnClickListener {
     EditText editText;
     EditText editText2;
     EditText editText3;
-    String service="facebook";
-    String userid="syun";
-    String mail="bizan@g.mail";
-    String passward="dfefedfcs";
-
+    String service = "facebook";
+    String userid = "syun";
+    String mail = "bizan@g.mail";
+    String passward = "dfefedfcs";
 
 
     @Override
@@ -30,17 +29,17 @@ public class PwConf extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pw_conf);
 
-        text5 = (TextView)findViewById(R.id.textView5);
-        text6 = (TextView)findViewById(R.id.textView6);
-        text7 = (TextView)findViewById(R.id.textView7);
+        text5 = (TextView) findViewById(R.id.textView5);
+        text6 = (TextView) findViewById(R.id.textView6);
+        text7 = (TextView) findViewById(R.id.textView7);
 
-        editText = (EditText)findViewById(R.id.editText);
+        editText = (EditText) findViewById(R.id.editText);
         editText.setText(service);
         String test = editText.getText().toString();
 
         editText2 = (EditText) findViewById(R.id.editText2);
         editText2.setText(passward);
-        String test2= editText.getText().toString();
+        String test2 = editText.getText().toString();
 
         editText3 = (EditText) findViewById(R.id.editText3);
         editText3.setText(mail);
@@ -66,15 +65,6 @@ public class PwConf extends Activity implements View.OnClickListener {
 
 
 }
-
-
-
-
-
-
-
-
-
 
 
 //public class PwConf extends AppCompatActivity {
