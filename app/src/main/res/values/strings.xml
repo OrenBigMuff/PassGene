@@ -4,6 +4,7 @@
     <string name="title_activity_initial_set2">ユーザー情報</string>
     <string name="title_activity_initial_set3">ユーザー情報</string>
     <string name="guide_text_inputname">あなたのお名前（姓名）を\n入力して下さい。</string>
+
     <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\n英字で入力して下さい。</string>
     <string name="guide_text_masterpass">マスターパスワードを\n数字4桁で登録してください。</string>
     <string name="caution_text_masterpass">ユーザー確認に使用します。\n忘れないように保管下さい。</string>
@@ -57,5 +58,18 @@
     <string name="regist_info_Date3">日</string>
 
     <string name="large_text"></string>
+
+    <string name="service">Service</string>
+    <string name="id">ID</string>
+    <string name="address">address</string>
+    <string name="password">Password</string>
+    <string name="upnotifi">Update Notification</string>
+    <string name="next">Next</string>
+    <string name="passlength">パスワード文字数　8文字</string>
+    <string name="kyoudo">パス強度</string>
+    <string name="passn">数字</string>
+    <string name="passb">英字（大文字）</string>
+    <string name="passs">英字（小文字）</string>
+    <string name="passk">記号</string>
 
 </resources>
