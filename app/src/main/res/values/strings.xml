@@ -61,4 +61,11 @@
     <string name="title_activity_user_conf">UserConf</string>
     <string name="title_activity_pw_conf">PwConf</string>
 
+    <string name="title_pass_list">登録サービス一覧</string>
+
+
+
+    <string name="openDrawer">オープン</string>     //オープンドロワー
+    <string name="closeDrawer">クローズ</string>    //クローズドロワー
+
 </resources>
