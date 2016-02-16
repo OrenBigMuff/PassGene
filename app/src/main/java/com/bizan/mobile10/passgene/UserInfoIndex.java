@@ -14,10 +14,10 @@ import com.balysv.materialripple.MaterialRippleLayout;
 public class UserInfoIndex extends AppCompatActivity {
 
     private static String mUseService = "･Twitter\n･LINE\n･Facebook";
+    private static String mUserInfo = "携帯電話番号";
     UserInfoList userInfoList = new UserInfoList();
     private int mUserInfoId = userInfoList.getUserInfoId();
     private String mUserInfoName = userInfoList.getUserInfoName();
-    private String mUserInfo = userInfoList.getUserInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,6 @@ public class UserInfoIndex extends AppCompatActivity {
 
         TextView userInfoName = (TextView) this.findViewById(R.id.txvIndexUserInfo);
         userInfoName.setText(mUserInfo);
-
-        MaterialRippleLayout indexRipple = (MaterialRippleLayout) findViewById(R.id.ripIndexRipple);
-        indexRipple.setRippleColor(R.color.passGeneCardBackgroundGray);
 
         Button btnElimination = (Button) this.findViewById(R.id.btnIndexElimination);
 

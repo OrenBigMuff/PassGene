@@ -232,13 +232,24 @@
                 android:id="@+id/edtRegistInfoAll" />
         </RelativeLayout>
 
-        <Button
-            android:text="@string/button1"
-            android:id="@+id/button"
-            android:layout_marginTop="15dp"
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripRegistRipple"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleOverlay="true"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/rtlRegistInfoAll"
-            style="@style/pass_blue_button" />
+            android:layout_below="@+id/rtlRegistInfoAll">
+
+            <Button
+                android:text="@string/button1"
+                android:id="@+id/btnRegistRegistration"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/rtlRegistInfoAll"
+                style="@style/pass_blue_button" />
+
+        </com.balysv.materialripple.MaterialRippleLayout>
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>
