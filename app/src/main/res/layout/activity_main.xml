@@ -1,19 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:gravity="center"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bizan.mobile10.passgene.MainActivity">
 
-    <Button
-        android:layout_width="250dp"
-        android:layout_height="100dp"
-        android:text="Go \nInitial \nScreen"
-        android:id="@+id/btn_test" android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" android:layout_marginBottom="211dp"/>
-</RelativeLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:gravity="center"
+                  android:orientation="vertical">
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple_i"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+            <Button
+                android:id="@+id/btn_test_i"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:background="@color/passGeneBackgroundBlue"
+                android:text="Go \nImai \nActivity"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple_u"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+            <Button
+                android:id="@+id/btn_test_u"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:background="@color/passGeneBackgroundBlue"
+                android:text="Go \nUrashima \nActivity"/>
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple_k1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+            <Button
+                android:id="@+id/btn_test_k1"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="5dp"
+                android:background="@color/passGeneBackgroundBlue"
+                android:text="Go \nKawano \nActivity1"
+                />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripple_k2"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleOverlay="true">
+        <Button
+            android:id="@+id/btn_test_k2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:background="@color/passGeneBackgroundBlue"
+            android:text="Go \nKawano \nActivity2"
+            />
+        </com.balysv.materialripple.MaterialRippleLayout>
+    </LinearLayout>
+
+</LinearLayout>
+

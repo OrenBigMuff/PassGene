@@ -1,10 +1,30 @@
 <resources>
+    <string name="app_name">パスじぇねくん</string>
+    <string name="title_activity_initial_set1">ユーザー情報</string>
+    <string name="title_activity_initial_set2">ユーザー情報</string>
+    <string name="title_activity_initial_set3">ユーザー情報</string>
+    <string name="guide_text_inputname">あなたのお名前（姓名）を\n入力して下さい。</string>
+    <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\n英字で入力して下さい。</string>
+    <string name="guide_text_masterpass">マスターパスワードを\n数字4桁で登録してください。</string>
+    <string name="caution_text_masterpass">ユーザー確認に使用します。\n忘れないように保管下さい。</string>
+    <string name="hint_lastname">姓を英字で入力して下さい。（例）Satoh</string>
+    <string name="hint_firstname">名を英字で入力して下さい。(例)Gajiro</string>
+    <string name="do_input_userinfo">〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。</string>
+    <string name="now_input_userinfo">今、あなたのユーザー情報を\n追加で登録しませんか？</string>
+    <string name="err_msg_lastname">姓(Last name)の入力は必須です。</string>
+    <string name="err_msg_firstname">名(First name)の入力は必須です。</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
     <!-- タイトル -->
-    <string name="app_name">PassGene</string>
     <string name="title_activity_regist_info">ユーザー情報登録</string>
     <string name="title_activity_user_info_index">ユーザー情報確認</string>
     <string name="title_activity_user_info_list">ユーザー情報一覧</string>
-    <string name="action_settings">Settings</string>
+
 
     <!-- ボタン -->
     <string name="button1">登録</string>
@@ -36,13 +56,9 @@
     <string name="regist_info_Date2">月</string>
     <string name="regist_info_Date3">日</string>
 
-    <string name="title_activity_initial_set1">ユーザー情報</string>
-    <string name="guide_text_inputname">あなたのお名前（姓名）を\n入力して下さい。</string>
-    <string name="guide_text_alphabet_only">パスワード生成時に使用しますので\nアルファベットで入力して下さい。</string>
-    <string name="hint_lastname">姓をアルファベットで入力して下さい。（例）satoh</string>
-    <string name="hint_firstname">名をアルファベットで入力して下さい。(例)gajiro</string>
-    <string name="title_activity_initial_set2">InitialSet2</string>
-    <string name="title_activity_initial_set3">InitialSet3</string>
-
     <string name="large_text"></string>
+
+    <string name="title_activity_user_conf">UserConf</string>
+    <string name="title_activity_pw_conf">PwConf</string>
+
 </resources>
