@@ -64,6 +64,9 @@
         <activity android:name=".AppSetting">
 
         </activity>
+        <activity android:name=".AppInit">
+
+        </activity>
 
     </application>
 
