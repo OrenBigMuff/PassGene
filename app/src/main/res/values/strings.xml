@@ -66,10 +66,15 @@
     <string name="upnotifi">Update Notification</string>
     <string name="next">Next</string>
     <string name="passlength">パスワード文字数　8文字</string>
+    <string name="passlengthbef">パスワード文字数　</string>
+    <string name="passlengthaft">文字</string>
     <string name="kyoudo">パス強度</string>
     <string name="passn">数字</string>
     <string name="passb">英字（大文字）</string>
     <string name="passs">英字（小文字）</string>
     <string name="passk">記号</string>
+    <string name="month1">1ヶ月</string>
+    <string name="month3">3ヶ月</string>
+    <string name="month6">6ヶ月</string>
 
 </resources>
