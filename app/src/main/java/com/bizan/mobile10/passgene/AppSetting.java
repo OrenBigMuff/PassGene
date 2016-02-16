@@ -13,11 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 /**
  * Created by user on 2016/02/15.
  */
-public class AppSetting extends AppCompatActivity {
+public class AppSetting extends AppCompatActivity implements View.OnClickListener{
 
     String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
     int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
@@ -34,6 +35,8 @@ public class AppSetting extends AppCompatActivity {
     CollapsingToolbarLayout asCollapsingToolbarLayout;  //ツールバーレイアウト
 
     ActionBarDrawerToggle asDrawerToggle;            //NVを開くためのトグル
+
+    Button btn2;                     //アプリ初期化に遷移するボタン
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -135,5 +138,20 @@ public class AppSetting extends AppCompatActivity {
 
         });
 
+        //ボタンキャスト
+        btn2 = (Button) findViewById(R.id.AppSetting_btn);
+        btn2.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.AppSetting_btn:
+                Intent intent = new Intent(AppSetting.this, AppInit.class);
+                startActivity(intent);
+
+                break;
+        }
     }
 }
