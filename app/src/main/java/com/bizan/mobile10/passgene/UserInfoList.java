@@ -60,7 +60,7 @@ public class UserInfoList extends AppCompatActivity {
             //ユーザー情報名
             TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
             txvUserInfo.setText(mUserInfoName[i]);
-
+            //カード押下時の動作
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -109,7 +109,7 @@ public class UserInfoList extends AppCompatActivity {
             //ユーザー情報名
             TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
             txvUserInfo.setText(mUserInfoName[i]);
-
+            //カード押下時の動作
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override

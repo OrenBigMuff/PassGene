@@ -28,22 +28,25 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //ツールバーにユーザー情報名を表示
         CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) this.findViewById(R.id.tblIndexToolbarLayout);
         toolbarLayout.setTitle(mUserInfoName);
 
+        //使用中のサービス
         TextView serviceName = (TextView) this.findViewById(R.id.txvIndexServiceName);
         serviceName.setText(mUseService);
 
+        //ユーザー情報
         TextView userInfoName = (TextView) this.findViewById(R.id.txvIndexUserInfo);
         userInfoName.setText(mUserInfo);
 
+        //削除ボタン
         Button btnElimination = (Button) this.findViewById(R.id.btnIndexElimination);
-
         //削除ボタンの背景色決定
         if (mUseService.equals("")) {
             btnElimination.setBackgroundResource(R.drawable.pass_red_button);
         }
-
+        //タップされた時の動作
         btnElimination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
