@@ -17,11 +17,9 @@ import android.widget.TextView;
 public class UserInfoList extends AppCompatActivity {
     private static int[] mUserInfoId = {0, 1, 2, 3, 4, 5, 6, 7};
     private static String[] mUserInfoName = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
-    private static String[] mUserInfo = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
 
     public static int setUserInfoId;
     public static String setUserInfoName;
-    public static String setUserInfo;
 
     public static int getUserInfoId() {
         return setUserInfoId;
@@ -29,10 +27,6 @@ public class UserInfoList extends AppCompatActivity {
 
     public static String getUserInfoName() {
         return setUserInfoName;
-    }
-
-    public static String getUserInfo() {
-        return setUserInfo;
     }
 
     @Override
@@ -66,7 +60,7 @@ public class UserInfoList extends AppCompatActivity {
             //ユーザー情報名
             TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
             txvUserInfo.setText(mUserInfoName[i]);
-
+            //カード押下時の動作
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -76,7 +70,6 @@ public class UserInfoList extends AppCompatActivity {
 
                     setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
                     setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
-                    setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
 
                 }
             });
@@ -116,7 +109,7 @@ public class UserInfoList extends AppCompatActivity {
             //ユーザー情報名
             TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
             txvUserInfo.setText(mUserInfoName[i]);
-
+            //カード押下時の動作
             cardView.setTag(i);
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -126,7 +119,6 @@ public class UserInfoList extends AppCompatActivity {
 
                     setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
                     setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
-                    setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
 
                 }
             });
