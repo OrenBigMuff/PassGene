@@ -280,8 +280,10 @@ public class DatabaseC {
         }
     }
 
+
     /**
-     * PasswordListInfo
+     * PasswordListInfoページで使用
+     * @param str 空もしくはupdate:変更日時の降順 service:サービス名の昇順
      * @return
      */
     public Cursor readPasswordListInfo(){
@@ -289,11 +291,31 @@ public class DatabaseC {
         try {
             String[] sqlD = {"0"};
             String sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
-                    " FROM service_info WHERE delete_flag=?";
+                    " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
             cursor = db.rawQuery(sql, sqlD);
             return cursor;
         } catch (Exception e) {
-            Log.e("readMasterPass", "err");
+            Log.e("readPasswordListInfo", "err");
+        }
+        return cursor;
+    }
+    public Cursor readPasswordListInfo(String str){
+        Cursor cursor = null;
+        String sql = "";
+        try {
+            String[] sqlD = {"0"};
+            if(str.equals("update")){
+                sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
+                        " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
+            }else if(str.equals("service")){
+                sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
+                        " FROM service_info WHERE delete_flag=? ORDER BY service";
+            }
+
+            cursor = db.rawQuery(sql, sqlD);
+            return cursor;
+        } catch (Exception e) {
+            Log.e("readPasswordListInfo", "err");
         }
         return cursor;
     }
