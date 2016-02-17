@@ -1,6 +1,12 @@
 package com.bizan.mobile10.passgene;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PathDashPathEffect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,6 +58,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
     FloatingActionButton plFab;                      //ふぁぶ
 
     View containerView;         //カードビューのサービスタイトル
+
     Animation inAnimation;       //インアニメーション
     Animation outAnimetion;     //アウトアニメーション
     Animation swapAnimation;
@@ -200,6 +207,9 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                     plcardHint = (TextView) findViewById(R.id.plcardHint);
                     plcardButton = (Button) findViewById(R.id.plcardbutton);
                     Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+
+
+                    //ヒントと編集ボタンをアニメーションさせる
                     if (plcardButton.getVisibility() == View.GONE) {
                         plcardButton.startAnimation(inAnimation);
                         plcardHint.startAnimation(inAnimation);
@@ -247,7 +257,15 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 
         dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
         dbC = new DatabaseC(PassList.getDbHelper());
+
+//        //リニアレイアウトの枠色を変更
+//        LinearLayout strokeLinear = (LinearLayout) findViewById(R.id.strokeLinear);
+//
+//        //青枠追加
+//        Drawable strokeBLUE = getResources().getDrawable(R.drawable.flame_style_pg);
+//        containerView.setBackgroundDrawable(strokeBLUE);
     }
+
     //検索機能
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.plsearch, menu);
