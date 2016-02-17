@@ -301,6 +301,16 @@ public class DatabaseC {
         return cursor;
     }
 
+    public Cursor readSingleclum(String clumName){
+        Cursor cursor = null;
+        String sql = "";
+        String[] sqlD = {clumName, "0"};
+        sql = "SELECT ? WHERE delete_flag=?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+
     public Cursor readPasswordListInfo(String str) {
         Cursor cursor = null;
         String sql = "";
