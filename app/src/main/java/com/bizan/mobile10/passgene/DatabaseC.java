@@ -7,60 +7,13 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 /**
  * @author yyukihhide
  * @version 0.5
  */
 
 public class DatabaseC {
-
-
-    /*
-    private final String DB_NAME = "QA.db"; //データベース名
-    private final int DB_VERSION = 1;       //データベースのバージョン
-    //テーブル名
-    private static final String[] DB_TABLE = {"service_info","user_info"};
-
-    String[] dbColTable = {
-                    "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " service TEXT UNIQUE NOT NULL," +
-                    " user_id TEXT NOT NULL," +
-                    " mail_address TEXT NOT NULL," +
-                    " char_num INTEGER NOT NULL," +
-                    " char_uppercase INTEGER NOT NULL," +
-                    " char_lowercase INTEGER NOT NULL," +
-                    " char_symbol INTEGER NOT NULL," +
-                    " num_of_char INTEGER NOT NULL," +
-                    " generated_datetime TEXT NOT NULL," +
-                    " updated_datetime TEXT NOT NULL," +
-                    " fixed_pass TEXT NOT NULL," +
-                    " pass_hint TEXT NOT NULL," +
-                    " gene_id1 INTEGER NOT NULL," +
-                    " gene_id2 INTEGER NOT NULL," +
-                    " gene_id3 INTEGER NOT NULL," +
-                    " gene_id4 INTEGER NOT NULL," +
-                    " algorithm INTEGER NOT NULL," +
-                    " delete_flag INTEGER NOT NULL)" ,
-
-                    "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    " info_name TEXT UNIQUE NOT NULL," +
-                    " value TEXT NOT NULL," +
-                    " category INTEGER NOT NULL," +
-                    " delete_flag INTEGER NOT NULL," +
-                    " useless_flag INTEGER NOT NULL)"
-                    };
-                    0	・電話番号　〇〇〇〇 - 〇〇〇〇 - 〇〇〇〇 の形式？
-                    1	・生年月日 yyyy 年 mm 月 dd日 の形式？
-                    2	・姓名 姓：・・・ （アルファベット）
-                    3	・姓名 名：・・・ （アルファベット）
-                    4	・フリーテキスト
-                    5	・フリーナンバー
-                    6	・オールフリー
-
-
-
-    */
-
     //テーブル名
     private static String[] dbTable = {"service_info", "user_info"};
     private static SQLiteDatabase db;
@@ -327,6 +280,48 @@ public class DatabaseC {
         }
     }
 
+
+    /**
+     * PasswordListInfoページで使用
+     *
+     * @param str 空もしくはupdate:変更日時の降順 service:サービス名の昇順
+     * @return
+     */
+    public Cursor readPasswordListInfo() {
+        Cursor cursor = null;
+        try {
+            String[] sqlD = {"0"};
+            String sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
+                    " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
+            cursor = db.rawQuery(sql, sqlD);
+            return cursor;
+        } catch (Exception e) {
+            Log.e("readPasswordListInfo", "err");
+        }
+        return cursor;
+    }
+
+    public Cursor readPasswordListInfo(String str) {
+        Cursor cursor = null;
+        String sql = "";
+        try {
+            String[] sqlD = {"0"};
+            if (str.equals("update")) {
+                sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
+                        " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
+            } else if (str.equals("service")) {
+                sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
+                        " FROM service_info WHERE delete_flag=? ORDER BY service";
+            }
+
+            cursor = db.rawQuery(sql, sqlD);
+            return cursor;
+        } catch (Exception e) {
+            Log.e("readPasswordListInfo", "err");
+        }
+        return cursor;
+    }
+
     /**
      * *service_infoの全情報
      *
@@ -353,6 +348,113 @@ public class DatabaseC {
                         "_id", "info_name",
                         "value", "category", "delete_flag", "useless_flag"},
                 null, null, null, null, null);
+        return cursor;
+    }
+
+    public Cursor readServiceInfo(String id) {
+        String[] sqlD = {id};
+        Cursor cursor;
+        String sql = "SELECT * FROM service_info WHERE delete_flag=0 AND _id=?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * 一件のユーザー情報を返す
+     *
+     * @return
+     */
+    public Cursor readUserInfo() {
+        String[] sqlD = {"1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * カテゴリー別
+     * 一件のユーザー情報を返す
+     *
+     * @param category 0:電話
+     *                 1:生年月日
+     *                 2:姓
+     *                 3:名
+     *                 4:フリーテキスト
+     *                 5:フリーナンバー
+     *                 6:オールフリー
+     * @return
+     */
+    public Cursor readUserInfo(String category) {
+        String[] sqlD = {category, "1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND category=? ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * 数字だけ
+     * @return
+     */
+    public Cursor readUserInfoCategryNumber() {
+        String[] sqlD = {"0", "1", "5", "1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND (category=? OR category=? OR category=?) ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * 文字だけ
+     * @return
+     */
+    public Cursor readUserInfoCategryString() {
+        String[] sqlD = {"2", "3", "4", "1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND (category=? OR category=? OR category=?) ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+
+    /**
+     * 試作品です。　user_info の ID 渡すと　service_info の　IDを含むカーソルが返ってくる
+     *
+     * @param id
+     * @return
+     */
+    public Cursor readGeneUseid(String id) {
+        String[] sqlD = new String[4];
+        for (int i = 0; i < sqlD.length; i++) {
+            sqlD[i] = id;
+        }
+        Cursor cursor = null;
+        try {
+            //String[] sqlD = {"master"};
+            String sql = "SELECT _id FROM service_info WHERE gene_id1=? OR gene_id2=? OR gene_id3=? OR gene_id4=?";
+            cursor = db.rawQuery(sql, sqlD);
+            return cursor;
+        } catch (Exception e) {
+            Log.e("readMasterPass", "err");
+        }
+        return cursor;
+    }
+
+    public Cursor readGeneUseid(int id) {
+        String[] sqlD = new String[4];
+        for (int i = 0; i < sqlD.length; i++) {
+            sqlD[i] = String.valueOf(id);
+        }
+        Cursor cursor = null;
+        try {
+            //String[] sqlD = {"master"};
+            String sql = "SELECT _id FROM service_info WHERE gene_id1=? OR gene_id2=? OR gene_id3=? OR gene_id4=?";
+            cursor = db.rawQuery(sql, sqlD);
+            return cursor;
+        } catch (Exception e) {
+            Log.e("readMasterPass", "err");
+        }
         return cursor;
     }
 
