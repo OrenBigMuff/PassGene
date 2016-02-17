@@ -57,7 +57,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         chbs = pref.readConfig("chbs", true);
         chbk = pref.readConfig("chbk", true);
         chbnum = pref.readConfig("chbn", true);
-        seekbarP = pref.readConfig("seekbar", 8);
+        seekbarP = pref.readConfig("seekbar", 8) - 4;
 
         gp_txv_pass = (TextView) findViewById(R.id.gp_txv_pass);
         gp_txv_hint = (TextView) findViewById(R.id.gp_txv_hint);
