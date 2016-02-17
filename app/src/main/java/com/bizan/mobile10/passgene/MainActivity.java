@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, UserInfoList.class);
             startActivity(intent);
         }else if (v.getId() == R.id.btn_test_k1) {
-            Intent intent = new Intent(MainActivity.this, UserConf.class);
+            Intent intent = new Intent(MainActivity.this, UserConf2.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_k2) {
             Intent intent = new Intent(MainActivity.this, PwConf.class);
