@@ -281,6 +281,24 @@ public class DatabaseC {
     }
 
     /**
+     * PasswordListInfo
+     * @return
+     */
+    public Cursor readPasswordListInfo(){
+        Cursor cursor = null;
+        try {
+            String[] sqlD = {"0"};
+            String sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
+                    " FROM service_info WHERE delete_flag=?";
+            cursor = db.rawQuery(sql, sqlD);
+            return cursor;
+        } catch (Exception e) {
+            Log.e("readMasterPass", "err");
+        }
+        return cursor;
+    }
+
+    /**
      * *service_infoの全情報
      *
      * @return
