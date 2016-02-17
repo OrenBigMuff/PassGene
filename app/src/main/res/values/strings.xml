@@ -25,7 +25,8 @@
     <string name="title_activity_regist_info">ユーザー情報登録</string>
     <string name="title_activity_user_info_index">ユーザー情報確認</string>
     <string name="title_activity_user_info_list">ユーザー情報一覧</string>
-
+    <string name="title_activity_regist_new_pass">Password registration</string>
+    <string name="title_activity_gene_pass">Generated Password</string>
 
     <!-- ボタン -->
     <string name="button1">登録</string>
@@ -76,5 +77,7 @@
     <string name="month1">1ヶ月</string>
     <string name="month3">3ヶ月</string>
     <string name="month6">6ヶ月</string>
+    <string name="regene">Re Gene</string>
+
 
 </resources>
