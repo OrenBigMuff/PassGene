@@ -13,7 +13,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Spinner;
+import android.widget.Switch;
 
 /**
  * Created by user on 2016/02/15.
@@ -36,7 +41,11 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
 
     ActionBarDrawerToggle asDrawerToggle;            //NVを開くためのトグル
 
+    Button btn1;                     //password編集画面に遷移するボタン
     Button btn2;                     //アプリ初期化に遷移するボタン
+
+    Spinner asSpiner;                //スピナー
+    Switch asSwict;                  //スウィッチ
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -139,17 +148,78 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
         });
 
         //ボタンキャスト
+        btn1 = (Button) findViewById(R.id.asPSbtn);
+        btn1.setOnClickListener(this);
+
         btn2 = (Button) findViewById(R.id.AppSetting_btn);
         btn2.setOnClickListener(this);
+
+        //Adapter作成
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //Adapterにアイテム追加
+        adapter.add("2ヵ月に1回");
+        adapter.add("3ヵ月に1回");
+        adapter.add("半年に1回");
+
+        asSpiner = (Spinner) findViewById(R.id.asBNspn);
+        asSpiner.setAdapter(adapter);
+
+        //Spinerのアイテム取得
+        asSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Spinner spinner = (Spinner) parent;
+                String item = (String) spinner.getSelectedItem();
+
+                //選択されたアイテムの処理
+                if (item.equals("2ヵ月に1回")){
+
+                }else if (item.equals("3ヵ月に1回")){
+
+                }else if (item.equals("半年に1回")){
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //swichの実装
+        asSwict = (Switch) findViewById(R.id.asBNswt);
+        asSwict.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked == true){
+                    //ONにした場合
+                    asSpiner.setEnabled(true);
+
+                }else if (isChecked == false){
+                    //OFFにした場合
+                    asSpiner.setEnabled(false);
+                }
+            }
+        });
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.asPSbtn:
+                Intent intent1 = new Intent(AppSetting.this, InitialSet2.class);
+                startActivity(intent1);
+
+                break;
+
             case R.id.AppSetting_btn:
-                Intent intent = new Intent(AppSetting.this, AppInit.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(AppSetting.this, AppInit.class);
+                startActivity(intent2);
 
                 break;
         }

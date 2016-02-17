@@ -52,23 +52,23 @@
                 android:layout_weight="1"
                 android:layout_marginTop="5dp">
 
-                <EditText
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:id="@+id/asPSedt"
                     android:layout_weight="4"
-                    android:inputType="numberPassword"
                     android:textSize="25sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center_horizontal"
                     android:maxLength="4"
-                    android:letterSpacing="1"/>
+                    android:letterSpacing="1"
+                    android:inputType="number" />
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="編集"
+                    android:text="@string/button3"
                     android:id="@+id/asPSbtn"
                     android:textSize="25sp"
                     android:background="@color/passGeneFloatingButtonRed"
@@ -116,7 +116,7 @@
                     android:layout_marginLeft="10dp"
                     android:textOff="OFF"
                     android:textOn="ON"
-                    android:checked="false" />
+                    android:text="off/on" />
             </LinearLayout>
 
             <LinearLayout
