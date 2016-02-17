@@ -34,11 +34,11 @@ import android.support.v7.widget.SearchView;
 
 public class PassList extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-    String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
-    int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
+    static String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
+    static int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
 
-    String nvSETTING = "設定画面";                                    //ヘッダービュー内の”設定”の文字
-    String useNAME = "ユーザーネーム";                                             //ユーザーネーム
+    static String nvSETTING = "設定画面";                                    //ヘッダービュー内の”設定”の文字
+    static String useNAME = "ユーザーネーム";                                             //ユーザーネーム
 
 //    int HEADERICOCVIEW = R.drawable.freeheaderview;                                             //ヘッダーのビュー
 
@@ -60,6 +60,15 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
     CardView plCardView;        //カードビュー
 
     SearchView mSearchView;
+
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
+    private static DatabaseHelper dbHelper; //DBヘルパー
+    public static DatabaseHelper getDbHelper() {
+        return dbHelper;
+    }
+    private DatabaseC dbC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -206,6 +215,38 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
             });
             cardLinear.addView(linearLayout, i);
         }
+        //onCreateに
+        String[] dbColTable = {
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " service TEXT UNIQUE NOT NULL," +
+                        " user_id TEXT NOT NULL," +
+                        " mail_address TEXT NOT NULL," +
+                        " char_num INTEGER NOT NULL," +
+                        " char_uppercase INTEGER NOT NULL," +
+                        " char_lowercase INTEGER NOT NULL," +
+                        " char_symbol INTEGER NOT NULL," +
+                        " num_of_char INTEGER NOT NULL," +
+                        " generated_datetime TEXT NOT NULL," +
+                        " updated_datetime TEXT NOT NULL," +
+                        " fixed_pass TEXT NOT NULL," +
+                        " pass_hint TEXT NOT NULL," +
+                        " gene_id1 INTEGER NOT NULL," +
+                        " gene_id2 INTEGER NOT NULL," +
+                        " gene_id3 INTEGER NOT NULL," +
+                        " gene_id4 INTEGER NOT NULL," +
+                        " algorithm INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL)",
+
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " info_name TEXT UNIQUE NOT NULL," +
+                        " value TEXT NOT NULL," +
+                        " category INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL," +
+                        " useless_flag INTEGER NOT NULL)"
+        };
+
+        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+        dbC = new DatabaseC(PassList.getDbHelper());
     }
     //検索機能
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -91,6 +91,11 @@
 
     //クローズドロワー
 
+            <!--アプリ初期化画面-->
+    <string name="appinit_massage">アプリを初期化します。\nこの操作は取り消すことができません。\nマスターパスワード入力でボタンが押せるようになります。</string>
+    <string name="appinit_kakunin">【確認】</string>
+
+
     <string name="service">Service</string>
     <string name="id">ID</string>
     <string name="address">address</string>

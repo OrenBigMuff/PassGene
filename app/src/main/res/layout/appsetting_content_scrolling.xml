@@ -144,7 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:text="アプリの初期化"
-                android:id="@+id/button"
+                android:id="@+id/AppSetting_btn"
                 android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
                 android:textSize="35sp"
