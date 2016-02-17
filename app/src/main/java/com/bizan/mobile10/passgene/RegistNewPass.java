@@ -1,6 +1,7 @@
 package com.bizan.mobile10.passgene;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -21,7 +22,8 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-public class RegistNewPass extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
+public class RegistNewPass extends AppCompatActivity implements View.OnClickListener,
+        CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
     PreferenceC pref;
     AutoCompleteTextView rnptxvservice;
     AutoCompleteTextView rnptxvid;
@@ -44,6 +46,14 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
     HashMap<String, String> hashMapDB;
 
+    DatabaseC dbC;
+
+    String exID;
+
+    String[] arrayService;
+    String[] arrayid;
+    String[] arrayadd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,65 +61,61 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        pref = new PreferenceC(this);
 
-        //prefが0以下ならデータを未記入
+        //データベース準備
+        //dbC = new DatabaseC(MainActivity.getDbHelper(), MainActivity.getDB_TABLE());
+        pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
+
+        //前のページから飛んできたIDをセット
+        exID = "";
+        Bundle extrasID = getIntent().getExtras();
+        if (extrasID != null) {
+            exID = extrasID.getString("SID");
+        }
+
+        if (exID.length() > 0) {
+            //readDB();
+        } else {
+            pref.writeConfig("id", "0");
+        }
         String readid = pref.readConfig("id", "0");
 
-        //デバッグ用に書き込み
-        pref.writeConfig("id", "0");
-        readid = pref.readConfig("id", "0");
-
-        //db　をみるpref に書き込み
         if (!readid.equals("0")) {
-            Log.e("1-", "atai");
             //DBデータをセットする
-            hashMapDB.put("id", "1");
-            hashMapDB.put("service", "facebook");
-            hashMapDB.put("mailadd", "aea@rij.com");
-            hashMapDB.put("pass", "afff123456");
-            hashMapDB.put("passhint", "aegafaeeeff");
-            hashMapDB.put("char_num", "1");
-            hashMapDB.put("char_uppercase", "1");
-            hashMapDB.put("char_lowercase", "1");
-            hashMapDB.put("char_symbol", "1");
-            hashMapDB.put("num_of_char", "16");
+            setDB2hash();
         } else {
-            Log.e("0", "atai");
             //データがなかったらここでぷリファレンスの値を入れちゃう 以下ハッシュマップでとる　ぷリファレンスはページ受け渡し
             hashMapDB.put("id", "");
             hashMapDB.put("service", "");
             hashMapDB.put("mailadd", "");
             hashMapDB.put("pass", "");
             hashMapDB.put("passhint", "");
-
-            if(pref.readConfig("chbn", true)){
+            if (pref.readConfig("chbn", true)) {
                 hashMapDB.put("char_num", "1");
-            }else{
+            } else {
                 hashMapDB.put("char_num", "0");
             }
-            if(pref.readConfig("chbb", true)){
+            if (pref.readConfig("chbb", true)) {
                 hashMapDB.put("char_uppercase", "1");
-            }else{
+            } else {
                 hashMapDB.put("char_uppercase", "0");
             }
-            if(pref.readConfig("chbs", true)){
+            if (pref.readConfig("chbs", true)) {
                 hashMapDB.put("char_lowercase", "1");
-            }else{
+            } else {
                 hashMapDB.put("char_lowercase", "0");
             }
-            if(pref.readConfig("chbk", true)){
+            if (pref.readConfig("chbk", true)) {
                 hashMapDB.put("char_symbol", "1");
-            }else{
+            } else {
                 hashMapDB.put("char_symbol", "0");
             }
             hashMapDB.put("num_of_char", String.valueOf(pref.readConfig("seekbar", 8)));
         }
 
-        String[] arrayService = {"abc", "def", "geg", "あいう"};
-        String[] arrayid = {"gae", "geeeeff", "arhtg"};
-        String[] arrayadd = {"agaa@agjowr.com", "agera@jgei.jp", "gajwri@igr.ko", "agj@gk.jp"};
+        setDB2serviceInfo();
+
         rnptxvservice = (AutoCompleteTextView) findViewById(R.id.rnptxvservice);
         rnptxvservice.setAdapter(createAdapter(arrayService));
         rnptxvservice.setThreshold(0);
@@ -166,7 +172,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
         rnpskb = (SeekBar) findViewById(R.id.rnpskb);
         rnpskb.setMax(12);
-        rnpskb.setProgress(Integer.parseInt(hashMapDB.get("num_of_char").toString())-4);
+        rnpskb.setProgress(Integer.parseInt(hashMapDB.get("num_of_char").toString()) - 4);
         rnpskb.setOnSeekBarChangeListener(this);
 
         //文字数を表示させる
@@ -179,6 +185,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
         rnpspn = (Spinner) findViewById(R.id.rnpspn);
         String[] spnstr = {getResources().getString(R.string.month1),
+                getResources().getString(R.string.month2),
                 getResources().getString(R.string.month3),
                 getResources().getString(R.string.month6)};
         rnpspn.setAdapter(createAdapter(spnstr));
@@ -191,8 +198,58 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         rnpchbk.setOnCheckedChangeListener(this);
         rnpchbnum.setOnCheckedChangeListener(this);
 
-
         writePref();
+    }
+
+    private void setDB2serviceInfo() {
+        Cursor cursor;
+        cursor = dbC.readSingleclum("service");
+        arrayService = new String[cursor.getCount()];
+        arrayService = arrayset(cursor);
+
+        cursor = dbC.readSingleclum("user_id");
+        arrayid = new String[cursor.getCount()];
+        arrayid = arrayset(cursor);
+
+        cursor = dbC.readSingleclum("mail_address");
+        arrayadd = new String[cursor.getCount()];
+        arrayadd = arrayset(cursor);
+    }
+
+    private String[] arrayset(Cursor cursor) {
+        String[] str = new String[cursor.getCount()];
+        for (int i = 0; i < cursor.getCount(); i++) {
+            str[i] = cursor.getString(0);
+        }
+        return str;
+    }
+
+    private void setDB2hash() {
+        Cursor cursor = dbC.readServiceInfo(exID);
+        cursorLog(cursor);
+        hashMapDB.put("id", "1");
+        hashMapDB.put("service", "facebook");
+        hashMapDB.put("mailadd", "aea@rij.com");
+        hashMapDB.put("pass", "afff123456");
+        hashMapDB.put("passhint", "aegafaeeeff");
+        hashMapDB.put("char_num", "1");
+        hashMapDB.put("char_uppercase", "1");
+        hashMapDB.put("char_lowercase", "1");
+        hashMapDB.put("char_symbol", "1");
+        hashMapDB.put("num_of_char", "16");
+    }
+
+    private void cursorLog(Cursor cursor) {
+        while (cursor.moveToNext()) {
+            StringBuilder stb = new StringBuilder();
+            for (int i = 0; i < cursor.getColumnCount(); i++) {
+                stb.append(cursor.getColumnName(i).toString());
+                stb.append(":");
+                stb.append(cursor.getString(i));
+                cursor.getString(i);
+            }
+            Log.e("log", stb.toString());
+        }
     }
 
     private void writePref() {
