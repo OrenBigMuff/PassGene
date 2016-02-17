@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">パスじぇねくん</string>
+
+    <!-- 初回起動画面 -->
     <string name="title_activity_initial_set1">ユーザー情報</string>
     <string name="title_activity_initial_set2">ユーザー情報</string>
     <string name="title_activity_initial_set3">ユーザー情報</string>
@@ -9,7 +11,9 @@
     <string name="caution_text_masterpass">ユーザー確認に使用します。\n忘れないように保管下さい。</string>
     <string name="hint_lastname">姓を英字で入力して下さい。（例）Satoh</string>
     <string name="hint_firstname">名を英字で入力して下さい。(例)Gajiro</string>
-    <string name="do_input_userinfo">〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。</string>
+    <string name="do_input_userinfo">
+        〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。
+    </string>
     <string name="now_input_userinfo">今、あなたのユーザー情報を\n追加で登録しませんか？</string>
     <string name="err_msg_lastname">姓(Last name)の入力は必須です。</string>
     <string name="err_msg_firstname">名(First name)の入力は必須です。</string>
@@ -19,6 +23,19 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- ユーザー確認画面(MP確認) -->
+    <string name="title_activity_user_conf2">ユーザー確認</string>
+    <string name="guide_title_iforgot">【マスターパスワード再送】</string>
+    <string name="guide_text_iforgot">○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。</string>
+
+    <!-- MP失念SMS再送画面 -->
+    <string name="title_activity_iforgot">マスターパスワード再送／初期化</string>
+    <string name="guide_title_userconf">【パスワード確認】</string>
+    <string name="guide_text_userconf">〇〇さんの\nマスターパスワードを入力して下さい。</string>
+    <string name="hint_iforgot">SMSを受信可能な携帯番号を入力して下さい。</string>
+    <string name="err_msg_iforgot">SMS送信を希望される場合、番号の入力は必須です。</string>
+    <string name="err_msg_iforgot2">携帯番号の桁数を確認して下さい。</string>
 
     <!-- タイトル -->
     <string name="title_activity_regist_info">ユーザー情報登録</string>
@@ -64,8 +81,11 @@
     <string name="title_pass_list">登録サービス一覧</string>
 
 
+    <string name="openDrawer">オープン</string>
+    //オープンドロワー
+    <string name="closeDrawer">クローズ</string>
 
-    <string name="openDrawer">オープン</string>     //オープンドロワー
-    <string name="closeDrawer">クローズ</string>    //クローズドロワー
+
+    //クローズドロワー
 
 </resources>
