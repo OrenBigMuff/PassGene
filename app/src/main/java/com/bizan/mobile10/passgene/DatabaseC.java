@@ -283,10 +283,11 @@ public class DatabaseC {
 
     /**
      * PasswordListInfoページで使用
+     *
      * @param str 空もしくはupdate:変更日時の降順 service:サービス名の昇順
      * @return
      */
-    public Cursor readPasswordListInfo(){
+    public Cursor readPasswordListInfo() {
         Cursor cursor = null;
         try {
             String[] sqlD = {"0"};
@@ -299,15 +300,16 @@ public class DatabaseC {
         }
         return cursor;
     }
-    public Cursor readPasswordListInfo(String str){
+
+    public Cursor readPasswordListInfo(String str) {
         Cursor cursor = null;
         String sql = "";
         try {
             String[] sqlD = {"0"};
-            if(str.equals("update")){
+            if (str.equals("update")) {
                 sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
                         " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
-            }else if(str.equals("service")){
+            } else if (str.equals("service")) {
                 sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
                         " FROM service_info WHERE delete_flag=? ORDER BY service";
             }
@@ -349,8 +351,76 @@ public class DatabaseC {
         return cursor;
     }
 
+    public Cursor readServiceInfo(String id) {
+        String[] sqlD = {id};
+        Cursor cursor;
+        String sql = "SELECT * FROM service_info WHERE delete_flag=0 AND _id=?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
     /**
-     * 試作品です。　user_info の ID 渡すと　service_info の　IDを含むカーソルが返ってくる　
+     * 一件のユーザー情報を返す
+     *
+     * @return
+     */
+    public Cursor readUserInfo() {
+        String[] sqlD = {"1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * カテゴリー別
+     * 一件のユーザー情報を返す
+     *
+     * @param category 0:電話
+     *                 1:生年月日
+     *                 2:姓
+     *                 3:名
+     *                 4:フリーテキスト
+     *                 5:フリーナンバー
+     *                 6:オールフリー
+     * @return
+     */
+    public Cursor readUserInfo(String category) {
+        String[] sqlD = {category, "1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND category=? ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * 数字だけ
+     * @return
+     */
+    public Cursor readUserInfoCategryNumber() {
+        String[] sqlD = {"0", "1", "5", "1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND (category=? OR category=? OR category=?) ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    /**
+     * 文字だけ
+     * @return
+     */
+    public Cursor readUserInfoCategryString() {
+        String[] sqlD = {"2", "3", "4", "1"};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND (category=? OR category=? OR category=?) ORDER BY RANDOM() LIMIT ?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+
+    /**
+     * 試作品です。　user_info の ID 渡すと　service_info の　IDを含むカーソルが返ってくる
+     *
      * @param id
      * @return
      */
@@ -370,6 +440,7 @@ public class DatabaseC {
         }
         return cursor;
     }
+
     public Cursor readGeneUseid(int id) {
         String[] sqlD = new String[4];
         for (int i = 0; i < sqlD.length; i++) {
