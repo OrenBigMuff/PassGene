@@ -15,13 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class UserInfoList extends AppCompatActivity {
-    private static int[] mUserInfoId = {0, 1, 2, 3, 4, 5, 6, 7};
+    private static String[] mUserInfoId = {"0", "1", "2", "3", "4", "5", "6", "7"};
     private static String[] mUserInfoName = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
 
-    public static int setUserInfoId;
+    public static String setUserInfoId;
     public static String setUserInfoName;
 
-    public static int getUserInfoId() {
+    public static String getUserInfoId() {
         return setUserInfoId;
     }
 
@@ -36,8 +36,10 @@ public class UserInfoList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //FABボタンの動作
-        FloatingActionButton fab = (FloatingActionButton) this.findViewById(R.id.fabUserInfoList);
+        /**
+         * FABボタンの動作
+         */
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabUserInfoList);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,8 +48,10 @@ public class UserInfoList extends AppCompatActivity {
             }
         });
 
-        //CardViewを表示させる
-        LinearLayout cardLinear = (LinearLayout) this.findViewById(R.id.lilUserInfoList);
+        /**
+         * CardViewを表示させる
+         */
+        LinearLayout cardLinear = (LinearLayout) findViewById(R.id.lilUserInfoList);
         cardLinear.removeAllViews();
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -95,8 +99,10 @@ public class UserInfoList extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        //CardViewを表示させる
-        LinearLayout cardLinear = (LinearLayout) this.findViewById(R.id.lilUserInfoList);
+        /**
+         * CardViewを表示させる
+         */
+        LinearLayout cardLinear = (LinearLayout) findViewById(R.id.lilUserInfoList);
         cardLinear.removeAllViews();
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
