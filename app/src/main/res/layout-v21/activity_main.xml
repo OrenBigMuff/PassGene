@@ -57,5 +57,16 @@
             android:layout_centerHorizontal="true"
             android:background="@drawable/pass_blue_button"
             android:text="Go \nKawano \nActivity2"/>
+
+        <Button
+            android:id="@+id/btn_test_h1"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
+            android:layout_margin="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/pass_blue_button"
+            android:text="Go \nHorikawa \nActivity2"/>
     </LinearLayout>
 </RelativeLayout>

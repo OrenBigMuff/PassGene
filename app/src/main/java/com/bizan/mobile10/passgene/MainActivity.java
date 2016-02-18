@@ -23,11 +23,14 @@ public class MainActivity extends AppCompatActivity
         Button btn_test_u = (Button)findViewById(R.id.btn_test_u);
         btn_test_u.setOnClickListener(this);
 
-        Button btn_test = (Button) findViewById(R.id.btn_test_k1);
-        btn_test.setOnClickListener(this);
+        Button btn_test_k1 = (Button) findViewById(R.id.btn_test_k1);
+        btn_test_k1.setOnClickListener(this);
 
-        Button btn_test2 = (Button) findViewById(R.id.btn_test_k2);
-        btn_test2.setOnClickListener(this);
+        Button btn_test_k2 = (Button) findViewById(R.id.btn_test_k2);
+        btn_test_k2.setOnClickListener(this);
+
+        Button btn_test_h1 = (Button) findViewById(R.id.btn_test_h1);
+        btn_test_h1.setOnClickListener(this);
 
     }
 
@@ -40,10 +43,13 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, UserInfoList.class);
             startActivity(intent);
         }else if (v.getId() == R.id.btn_test_k1) {
-            Intent intent = new Intent(MainActivity.this, UserConf.class);
+            Intent intent = new Intent(MainActivity.this, UserConf2.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_k2) {
             Intent intent = new Intent(MainActivity.this, PwConf.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btn_test_h1) {
+            Intent intent = new Intent(MainActivity.this, PassList.class);
             startActivity(intent);
         }
     }
