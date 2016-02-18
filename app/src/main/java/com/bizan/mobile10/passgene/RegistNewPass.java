@@ -20,6 +20,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class RegistNewPass extends AppCompatActivity implements View.OnClickListener,
@@ -54,6 +55,14 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     String[] arrayid;
     String[] arrayadd;
 
+    /**debug*****************************/
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    //テーブル名
+    private static final String[] DB_TABLE = {"service_info","user_info"};
+    private static DatabaseHelper dbHelper; //DBヘルパー
+    /*******************************/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +70,56 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+/**debug*****************************/
+        String[] dbColTable = {
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " service TEXT UNIQUE NOT NULL," +
+                        " user_id TEXT NOT NULL," +
+                        " mail_address TEXT NOT NULL," +
+                        " char_num INTEGER NOT NULL," +
+                        " char_uppercase INTEGER NOT NULL," +
+                        " char_lowercase INTEGER NOT NULL," +
+                        " char_symbol INTEGER NOT NULL," +
+                        " num_of_char INTEGER NOT NULL," +
+                        " generated_datetime TEXT NOT NULL," +
+                        " updated_datetime TEXT NOT NULL," +
+                        " fixed_pass TEXT NOT NULL," +
+                        " pass_hint TEXT NOT NULL," +
+                        " gene_id1 INTEGER NOT NULL," +
+                        " gene_id2 INTEGER NOT NULL," +
+                        " gene_id3 INTEGER NOT NULL," +
+                        " gene_id4 INTEGER NOT NULL," +
+                        " algorithm INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL)" ,
 
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " info_name TEXT UNIQUE NOT NULL," +
+                        " value TEXT NOT NULL," +
+                        " category INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL," +
+                        " useless_flag INTEGER NOT NULL)"
+        };
+        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+/*******************************/
         //データベース準備
-        //dbC = new DatabaseC(MainActivity.getDbHelper(), MainActivity.getDB_TABLE());
+        dbC = new DatabaseC(dbHelper);
+        Cursor cursor = dbC.readPasswordListInfo();
+        cursorLog(cursor);
+        cursor.close();
+/**debug*****************************/
+
+//        String[] str2 = new String[]{"姓", "jouge", "2"};
+//        dbC.insertUserInfo(str2);
+//        str2 = new String[]{"名", "sayuu", "3"};
+//        dbC.insertUserInfo(str2);
+//
+//        dbC.insertMasterPass(1234);
+//
+//        str2 = new String[]{"生年月日", "19900801", "1"};
+//        dbC.insertUserInfo(str2);
+/*******************************/
+
+
         pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
 
@@ -73,7 +129,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         if (extrasID != null) {
             exID = extrasID.getString("SID");
         }
-
+///////////////////////////////一時対比
         if (exID.length() > 0) {
             //readDB();
         } else {
@@ -87,6 +143,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         } else {
             //データがなかったらここでぷリファレンスの値を入れちゃう 以下ハッシュマップでとる　ぷリファレンスはページ受け渡し
             hashMapDB.put("id", "");
+            hashMapDB.put("user_id", "");
             hashMapDB.put("service", "");
             hashMapDB.put("mailadd", "");
             hashMapDB.put("pass", "");
@@ -112,22 +169,47 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
                 hashMapDB.put("char_symbol", "0");
             }
             hashMapDB.put("num_of_char", String.valueOf(pref.readConfig("seekbar", 8)));
+            hashMapDB.put("spinner", "0");
         }
 
-        setDB2serviceInfo();
+        setDB2userInfo();
+        Cursor cursor1 = dbC.readUserInfoAll();
+        //cursorLog(cursor1);
+        cursor.close();
 
         rnptxvservice = (AutoCompleteTextView) findViewById(R.id.rnptxvservice);
-        rnptxvservice.setAdapter(createAdapter(arrayService));
+        if(arrayService != null){
+            rnptxvservice.setAdapter(createAdapter(arrayService));
+        }else{
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getResources().getString(R.string.service));
+            stringBuilder.append(getResources().getString(R.string.mei));
+            rnptxvservice.setHint(stringBuilder.toString());
+        }
         rnptxvservice.setThreshold(0);
         rnptxvservice.setText(hashMapDB.get("service").toString());
 
         rnptxvid = (AutoCompleteTextView) findViewById(R.id.rnptxvid);
-        rnptxvid.setAdapter(createAdapter(arrayid));
+        if(arrayid != null){
+            rnptxvid.setAdapter(createAdapter(arrayid));
+        }else{
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getResources().getString(R.string.id));
+            stringBuilder.append(getResources().getString(R.string.mei));
+            rnptxvid.setHint(stringBuilder.toString());
+        }
         rnptxvid.setThreshold(0);
-        rnptxvid.setText(hashMapDB.get("id").toString());
+        rnptxvid.setText(hashMapDB.get("user_id").toString());
 
         rnptxvaddress = (AutoCompleteTextView) findViewById(R.id.rnptxvaddress);
-        rnptxvaddress.setAdapter(createAdapter(arrayadd));
+        if(arrayadd != null){
+            rnptxvaddress.setAdapter(createAdapter(arrayadd));
+        }else{
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(getResources().getString(R.string.address));
+            //stringBuilder.append(getResources().getString(R.string.mei));
+            rnptxvaddress.setHint(stringBuilder.toString());
+        }
         rnptxvaddress.setThreshold(0);
         rnptxvaddress.setText(hashMapDB.get("mailadd").toString());
 
@@ -189,6 +271,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
                 getResources().getString(R.string.month3),
                 getResources().getString(R.string.month6)};
         rnpspn.setAdapter(createAdapter(spnstr));
+        rnpspn.setSelection(Integer.parseInt(hashMapDB.get("spinner")));
 
         rnpbtnnext = (Button) findViewById(R.id.rnpbtnnext);
         rnpbtnnext.setOnClickListener(this);
@@ -201,33 +284,70 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         writePref();
     }
 
-    private void setDB2serviceInfo() {
+    private void setDB2userInfo() {
         Cursor cursor;
         cursor = dbC.readSingleclum("service");
-        arrayService = new String[cursor.getCount()];
-        arrayService = arrayset(cursor);
+        if(cursor.getCount() != 0) {
+            arrayService = new String[cursor.getCount()];
+            arrayService = arrayset(cursor);
+        }else{
+            arrayService = null;
+            Log.e("arrayService","err");
+        }
 
         cursor = dbC.readSingleclum("user_id");
-        arrayid = new String[cursor.getCount()];
-        arrayid = arrayset(cursor);
+        if(cursor.getCount() != 0) {
+            arrayid = new String[cursor.getCount()];
+            arrayid = arrayset(cursor);
+        }else{
+            Log.e("arrayid","err");
+        }
 
         cursor = dbC.readSingleclum("mail_address");
-        arrayadd = new String[cursor.getCount()];
-        arrayadd = arrayset(cursor);
+        if(cursor.getCount() != 0) {
+            arrayadd = new String[cursor.getCount()];
+            arrayadd = arrayset(cursor);
+        }else{
+            Log.e("arrayadd","err");
+        }
+        cursor.close();
     }
 
     private String[] arrayset(Cursor cursor) {
         String[] str = new String[cursor.getCount()];
+        cursor.moveToFirst();
         for (int i = 0; i < cursor.getCount(); i++) {
             str[i] = cursor.getString(0);
         }
+        cursor.close();
         return str;
     }
 
     private void setDB2hash() {
         Cursor cursor = dbC.readServiceInfo(exID);
         cursorLog(cursor);
+//                " user_id TEXT NOT NULL," +
+//                " mail_address TEXT NOT NULL," +
+//                " char_num INTEGER NOT NULL," +
+//                " char_uppercase INTEGER NOT NULL," +
+//                " char_lowercase INTEGER NOT NULL," +
+//                " char_symbol INTEGER NOT NULL," +
+//                " num_of_char INTEGER NOT NULL," +
+//                " generated_datetime TEXT NOT NULL," +
+//                " updated_datetime TEXT NOT NULL," +
+//                " fixed_pass TEXT NOT NULL," +
+//                " pass_hint TEXT NOT NULL," +
+//                " gene_id1 INTEGER NOT NULL," +
+//                " gene_id2 INTEGER NOT NULL," +
+//                " gene_id3 INTEGER NOT NULL," +
+//                " gene_id4 INTEGER NOT NULL," +
+//                " algorithm INTEGER NOT NULL," +
+//                " delete_flag INTEGER NOT NULL)" ,
+        //すぴなーにはupdated_datetimeからえる値を入れる
+        //0-3の値
+        //updated_datetime（20160217,0）
         hashMapDB.put("id", "1");
+        hashMapDB.put("user_id", "Tokugawa");
         hashMapDB.put("service", "facebook");
         hashMapDB.put("mailadd", "aea@rij.com");
         hashMapDB.put("pass", "afff123456");
@@ -236,7 +356,9 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         hashMapDB.put("char_uppercase", "1");
         hashMapDB.put("char_lowercase", "1");
         hashMapDB.put("char_symbol", "1");
-        hashMapDB.put("num_of_char", "16");
+        hashMapDB.put("num_of_char", "12");
+        hashMapDB.put("spinner", "1");
+        cursor.close();
     }
 
     private void cursorLog(Cursor cursor) {
@@ -260,12 +382,6 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         pref.writeConfig("seekbar", rnpskb.getProgress() + 4);
     }
 
-
-    //データベースの情報を配列に格納するメソッド
-//    private String[] arrayString(){
-//
-//    }
-
     private ArrayAdapter createAdapter(String[] dbdata) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1);
@@ -278,10 +394,22 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (rnpbtnnext == v) {
+            createSendData();
             //ネクストボタン　登録やページ遷移
             Intent intent = new Intent(RegistNewPass.this, GenePass.class);
             startActivity(intent);
         }
+    }
+
+    private void createSendData(){
+        writePref();
+        pref.writeConfig("id", hashMapDB.get("id").toString());
+        pref.writeConfig("user_id", hashMapDB.get("user_id").toString());
+        pref.writeConfig("service", hashMapDB.get("service").toString());
+        pref.writeConfig("mailadd", hashMapDB.get("mailadd").toString());
+        pref.writeConfig("passhint", hashMapDB.get("passhint").toString());
+        pref.writeConfig("passhint", hashMapDB.get("passhint").toString());
+        pref.writeConfig("spinner", hashMapDB.get("spinner").toString());
     }
 
 
