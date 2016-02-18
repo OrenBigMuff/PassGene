@@ -18,43 +18,52 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
     private static String mUseService = "";     //"･Twitter\n･LINE\n･Facebook"
     private static String mUserInfo = "携帯電話番号";
     UserInfoList userInfoList = new UserInfoList();
-    private int mUserInfoId = userInfoList.getUserInfoId();
+    private String mUserInfoId = userInfoList.getUserInfoId();
     private String mUserInfoName = userInfoList.getUserInfoName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info_index);
-        Toolbar toolbar = (Toolbar) this.findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         //ツールバーにユーザー情報名を表示
-        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) this.findViewById(R.id.tblIndexToolbarLayout);
+        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.tblIndexToolbarLayout);
         toolbarLayout.setTitle(mUserInfoName);
 
         //使用中のサービス
-        TextView serviceName = (TextView) this.findViewById(R.id.txvIndexServiceName);
+        TextView serviceName = (TextView) findViewById(R.id.txvIndexServiceName);
         serviceName.setText(mUseService);
 
         //ユーザー情報
-        TextView userInfoName = (TextView) this.findViewById(R.id.txvIndexUserInfo);
+        TextView userInfoName = (TextView) findViewById(R.id.txvIndexUserInfo);
         userInfoName.setText(mUserInfo);
 
-        //削除ボタン
-        Button btnElimination = (Button) this.findViewById(R.id.btnIndexElimination);
+        /**
+         * 削除ボタン
+         */
+        Button btnElimination1 = (Button) findViewById(R.id.btnIndexElimination1);
+        Button btnElimination2 = (Button) findViewById(R.id.btnIndexElimination2);
         //削除ボタンの背景色決定
         if (mUseService.equals("")) {
-            btnElimination.setBackgroundResource(R.drawable.pass_red_button);
+            btnElimination1.setVisibility(View.GONE);
+            btnElimination2.setVisibility(View.VISIBLE);
+        } else if (!mUseService.equals("")) {
+            btnElimination1.setVisibility(View.VISIBLE);
+            btnElimination2.setVisibility(View.GONE);
         }
-        //タップされた時の動作
-        btnElimination.setOnClickListener(new View.OnClickListener() {
+        //削除ボタン押下時の動作
+        btnElimination1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mUseService.equals("")) {
-                    openPG_Dialog();
-                } else if (!mUseService.equals("")) {
-                    Toast.makeText(UserInfoIndex.this, getString(R.string.dialog_message2), Toast.LENGTH_LONG).show();
-                }
+                Toast.makeText(UserInfoIndex.this, getString(R.string.dialog_message2), Toast.LENGTH_LONG).show();
+            }
+        });
+        btnElimination2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPG_Dialog();
             }
         });
     }
@@ -83,7 +92,6 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
      */
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
-        Toast.makeText(this, mUserInfoName + "を削除しました｡", Toast.LENGTH_SHORT).show();
         this.finish();
         dialog.dismiss();
     }
