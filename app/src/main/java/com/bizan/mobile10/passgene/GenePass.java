@@ -80,16 +80,17 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
             //インサート処理
         } else if (v == btnRegene) {
             //もう一度パスワード作る
+            poolString.init();
             makePass();
         }
     }
 
     private void setStringD() {
         //とりあえず引っ張る/////////////////////////////////////////////////////////////
-        String partsAlb1 = "zxyvw";
-        String partsAlb2 = "aiu";
+        String partsAlb1 = "a";
+        String partsAlb2 = "x";
         String partsSign = "@%+^#$:\\/!?.(){-_[~]}'";
-        String partsNum = "19870605";
+        String partsNum = "5";
         String partsAlb1E = "姓";
         String partsAlb2E = "名";
         String partsSignE = "記号";
@@ -167,6 +168,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
                 Log.e("passM1", passM1);
             } else {
                 //文字数が足りないとき
+                numB = passM1.length();
                 Log.e("passM1", "文字不足");
             }
         }
@@ -174,6 +176,9 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         if (chbs && numS > 0) {
             if (passM2.length() >= numS) {
                 passM2 = passM2.substring(0, numS);
+
+            }else{
+                numS = passM2.length();
                 Log.e("passM2", "文字不足");
             }
         }
@@ -198,21 +203,21 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         //ミックス
         Log.e("passM1", passM1);//zxyvw
         Log.e("passM2", passM2);//aiu
-        if(passM1.length() < passM2.length()){
+        if (passM1.length() < passM2.length()) {
             for (int k = 0; k < passM1.length(); k++) {
                 stringC.append(passM1.substring(k, k + 1));
                 stringC.append(passM2.substring(k, k + 1));
             }
             int temp = passM2.length() - passM1.length();
             stringC.append(passM2.substring(temp + 1, passM2.length()));
-        }else if(passM1.length() > passM2.length()){
+        } else if (passM1.length() > passM2.length()) {
             for (int k = 0; k < passM2.length(); k++) {
                 stringC.append(passM1.substring(k, k + 1));
                 stringC.append(passM2.substring(k, k + 1));
             }
             int temp = passM1.length() - passM2.length();
             stringC.append(passM1.substring(temp + 1, passM1.length()));
-        }else {
+        } else {
             for (int k = 0; k < passM2.length(); k++) {
                 stringC.append(passM1.substring(k, k + 1));
                 stringC.append(passM2.substring(k, k + 1));
@@ -329,17 +334,39 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         return str;
     }
 
+    String returnstring = "";
     private String loopMakePass(String baseStr, int totalNum) {
         StringBuilder stb = new StringBuilder();
+
         stb.append(baseStr);
         if (stb.toString().length() < totalNum) {
-            stb.append(stb.toString().substring(0, totalNum - stb.toString().length()));
+            try {
+                stb.append(stb.toString().substring(0, totalNum - stb.toString().length()));
+            }catch (Exception e){
+                stb.append(stb.toString().substring(0, stb.toString().length()));
+            }
             poolString.setLoop(true);
             loopMakePass(stb.toString(), totalNum);
         } else {
+            returnstring = stb.toString();
             return stb.toString();
         }
-        return stb.toString();
+        return returnstring;
     }
 
+    @Override
+    public void onPause(){
+        super.onPause();
+        resetSendData();
+    }
+
+    private void resetSendData(){
+        //writePref();
+        pref.writeConfig("id", "");
+        pref.writeConfig("user_id","");
+        pref.writeConfig("service", "");
+        pref.writeConfig("mailadd", "");
+        pref.writeConfig("passhint", "");
+        pref.writeConfig("passhint", "");
+    }
 }
