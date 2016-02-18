@@ -75,9 +75,10 @@
     <string name="passs">英字（小文字）</string>
     <string name="passk">記号</string>
     <string name="month1">1ヶ月</string>
+    <string name="month2">2ヶ月</string>
     <string name="month3">3ヶ月</string>
     <string name="month6">6ヶ月</string>
     <string name="regene">Re Gene</string>
-
+    <string name="mei">名</string>
 
 </resources>
