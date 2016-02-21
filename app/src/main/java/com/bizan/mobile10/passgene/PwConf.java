@@ -33,31 +33,31 @@ public class PwConf extends Activity implements View.OnClickListener {
         text6 = (TextView) findViewById(R.id.textView6);
         text7 = (TextView) findViewById(R.id.textView7);
 
-        editText = (EditText) findViewById(R.id.editText);
+        editText = (EditText) findViewById(R.id.pwconf_address_edt);
         editText.setText(service);
         String test = editText.getText().toString();
 
-        editText2 = (EditText) findViewById(R.id.editText2);
+        editText2 = (EditText) findViewById(R.id.pwconf_Password_edt);
         editText2.setText(passward);
         String test2 = editText.getText().toString();
 
-        editText3 = (EditText) findViewById(R.id.editText3);
+        editText3 = (EditText) findViewById(R.id.pwconf_account_edt);
         editText3.setText(mail);
         String test3 = editText.getText().toString();
 
-        button2 = (Button) findViewById(R.id.button2);
-        button3 = (Button) findViewById(R.id.button3);
+        button2 = (Button) findViewById(R.id.pwconf_hensyubtn);
+        button3 = (Button) findViewById(R.id.pwconf_deletebtn);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
     }
 
     public void onClick(View v) {
         // ボタン1が押された場合
-        if (v.getId() == R.id.button2) {
+        if (v.getId() == R.id.pwconf_hensyubtn) {
             Intent intent = new Intent(PwConf.this, UserConf.class);
             startActivity(intent);
             // ボタン2が押された場合
-        } else if (v.getId() == R.id.button3) {
+        } else if (v.getId() == R.id.pwconf_deletebtn) {
             Intent intent = new Intent(PwConf.this, UserConf.class);
             startActivity(intent);
         }

@@ -42,7 +42,8 @@
                     android:background="@color/passGeneBackgroundBlue"
                     android:textColor="#ffffff"
                     android:gravity="center"
-                    style="@style/pass_blue_button"/>
+                    style="@style/pass_blue_heading"
+                    android:elevation="9dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -55,7 +56,7 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/asPSedt"
+                    android:id="@+id/asPStxv"
                     android:layout_weight="4"
                     android:textSize="25sp"
                     android:layout_marginLeft="10dp"
@@ -105,7 +106,9 @@
                     android:gravity="center"
                     android:textColor="#ffffff"
                     android:background="@color/passGeneBackgroundBlue"
-                    style="@style/pass_blue_button"/>
+                    style="@style/pass_blue_heading"
+                    android:elegantTextHeight="false"
+                    android:elevation="9dp" />
 
                 <Switch
                     android:layout_width="0dp"

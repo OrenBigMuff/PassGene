@@ -32,8 +32,9 @@
                 android:layout_weight="1"
                 android:text="address"
                 android:id="@+id/pwconf_address_txv"
-                android:gravity="center_vertical"
-                style="@style/pass_blue_heading"/>
+                style="@style/pass_blue_heading"
+                android:gravity="center"
+                android:elevation="9dp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -59,8 +60,9 @@
                 android:text="Password"
                 android:id="@+id/pwconf_Password_txv"
                 android:layout_weight="1"
-                android:gravity="fill_vertical"
-                style="@style/pass_blue_heading"/>
+                style="@style/pass_blue_heading"
+                android:gravity="center"
+                android:elevation="9dp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -87,8 +89,9 @@
                 android:text="account"
                 android:id="@+id/pwconf_account_txv"
                 android:layout_weight="1"
-                android:gravity="center_vertical"
-                style="@style/pass_blue_heading"/>
+                android:gravity="center_vertical|center"
+                style="@style/pass_blue_heading"
+                android:elevation="9dp"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -116,7 +119,8 @@
                 android:text="@string/button3"
                 android:id="@+id/pwconf_hensyubtn"
                 style="@style/pass_blue_button"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:elevation="9dp" />
 
             <Button
                 android:layout_width="wrap_content"
@@ -124,7 +128,8 @@
                 android:text="@string/button2"
                 android:id="@+id/pwconf_deletebtn"
                 style="@style/pass_red_button"
-                android:layout_marginLeft="10dp" />
+                android:layout_marginLeft="10dp"
+                android:elevation="9dp" />
         </LinearLayout>
     </LinearLayout>
 
