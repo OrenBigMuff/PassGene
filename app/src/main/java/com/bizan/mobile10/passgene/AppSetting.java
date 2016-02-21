@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,11 +20,21 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 /**
  * Created by user on 2016/02/15.
  */
 public class AppSetting extends AppCompatActivity implements View.OnClickListener{
+
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
+    private static DatabaseHelper dbHelper; //DBヘルパー
+    public static DatabaseHelper getDbHelper() {
+        return dbHelper;
+    }
+    private DatabaseC dbC;
 
     String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
     int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
@@ -47,6 +58,8 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
     Spinner asSpiner;                //スピナー
     Switch asSwict;                  //スウィッチ
 
+    String masterPass;
+
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appsetting);
@@ -58,6 +71,17 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
         //アクションバーの代わりにツールバーを設定
         asToolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
         setSupportActionBar(asToolbar);
+
+        dbC = new DatabaseC(PassList.getDbHelper());
+
+        dbC.readMasterPass();
+        masterPass = String.valueOf(dbC.readMasterPass());
+
+        Log.e("Passnum", String.valueOf(masterPass));
+
+        //Txvにマスターパス表示
+        TextView passTxv = (TextView) findViewById(R.id.asPStxv);
+        passTxv.setText(masterPass);
 
         //ツールバーにNVトグルを追加
         asDrawer = (DrawerLayout) findViewById(R.id.AppSetting_DrawerLayout);
@@ -164,6 +188,8 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
         adapter.add("半年に1回");
 
         asSpiner = (Spinner) findViewById(R.id.asBNspn);
+        //デフォはfalse
+        asSpiner.setEnabled(false);
         asSpiner.setAdapter(adapter);
 
         //Spinerのアイテム取得
