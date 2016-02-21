@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,79 +9,123 @@
     tools:context="com.bizan.mobile10.passgene.PwConf"
     tools:showIn="@layout/activity_pw_conf">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Id"
-            android:id="@+id/textView5"
-            android:textSize="22dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editText"
-            android:textSize="22dp"
-            android:layout_marginTop="22dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="address"
+                android:id="@+id/pwconf_address_txv"
+                android:gravity="center_vertical"
+                style="@style/pass_blue_heading"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Passward"
-            android:id="@+id/textView6"
-            android:textSize="22dp"
-            android:layout_marginTop="22dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:id="@+id/pwconf_address_edt"
+                android:textSize="15sp"
+                android:text="testtesttestest"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editText2"
-            android:textSize="22dp"
-            android:layout_marginTop="22dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address"
-            android:id="@+id/textView7"
-            android:textSize="22dp"
-            android:layout_marginTop="22dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="Password"
+                android:id="@+id/pwconf_Password_txv"
+                android:layout_weight="1"
+                android:gravity="fill_vertical"
+                style="@style/pass_blue_heading"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/pwconf_Password_edt"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:text="testtesttest"
+                android:gravity="center_vertical"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/editText3"
-            android:textSize="22dp"
-            android:layout_marginTop="22dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="account"
+                android:id="@+id/pwconf_account_txv"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                style="@style/pass_blue_heading"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:id="@+id/pwconf_account_edt"
+                android:layout_weight="1"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:text="testtesttest"
+                android:layout_marginTop="5dp" />
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="33dp">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="編集"
-                android:id="@+id/button2"
-                android:textSize="22dp" />
+                android:text="@string/button3"
+                android:id="@+id/pwconf_hensyubtn"
+                style="@style/pass_blue_button"
+                android:layout_marginRight="10dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="削除"
-                android:id="@+id/button3"
-                android:textSize="22dp" />
+                android:text="@string/button2"
+                android:id="@+id/pwconf_deletebtn"
+                style="@style/pass_red_button"
+                android:layout_marginLeft="10dp" />
         </LinearLayout>
     </LinearLayout>
-
-
 
 </android.support.v4.widget.NestedScrollView>
