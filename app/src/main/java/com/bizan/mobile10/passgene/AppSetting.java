@@ -50,6 +50,8 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
     DrawerLayout asDrawer;           //ドロワー
     CollapsingToolbarLayout asCollapsingToolbarLayout;  //ツールバーレイアウト
 
+    private int mBackupNumber;       //Switchのバックアップカテゴリー
+
     ActionBarDrawerToggle asDrawerToggle;            //NVを開くためのトグル
 
     Button btn1;                     //password編集画面に遷移するボタン
@@ -66,7 +68,7 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
 
         //タイトル変更
         asCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.AppSetting_toolbar_layout);
-        asCollapsingToolbarLayout.setTitle("App Setting");
+        asCollapsingToolbarLayout.setTitle("アプリ設定");
 
         //アクションバーの代わりにツールバーを設定
         asToolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
@@ -183,14 +185,32 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //Adapterにアイテム追加
-        adapter.add("2ヵ月に1回");
+        adapter.add("1ヵ月に1回");
         adapter.add("3ヵ月に1回");
-        adapter.add("半年に1回");
+        adapter.add("6ヵ月に1回");
 
         asSpiner = (Spinner) findViewById(R.id.asBNspn);
         //デフォはfalse
         asSpiner.setEnabled(false);
         asSpiner.setAdapter(adapter);
+
+        //swichの実装
+        asSwict = (Switch) findViewById(R.id.asBNswt);
+        asSwict.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked == true) {
+                    //ONにした場合
+                    asSpiner.setEnabled(true);
+
+                } else if (isChecked == false) {
+                    //OFFにした場合
+                    asSpiner.setEnabled(false);
+                }
+            }
+        });
+
 
         //Spinerのアイテム取得
         asSpiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -199,38 +219,33 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
                 Spinner spinner = (Spinner) parent;
                 String item = (String) spinner.getSelectedItem();
 
-                //選択されたアイテムの処理
-                if (item.equals("2ヵ月に1回")){
-
-                }else if (item.equals("3ヵ月に1回")){
-
-                }else if (item.equals("半年に1回")){
-
+                //選択されたアイテムに番号をつける
+                if (item.equals("1ヵ月に1回")) {
+                    mBackupNumber = 1;
+                } else if (item.equals("3ヵ月に1回")) {
+                    mBackupNumber = 2;
+                } else if (item.equals("6ヵ月に1回")) {
+                    mBackupNumber = 3;
                 }
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
-        //swichの実装
-        asSwict = (Switch) findViewById(R.id.asBNswt);
-        asSwict.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                if (isChecked == true){
-                    //ONにした場合
-                    asSpiner.setEnabled(true);
-
-                }else if (isChecked == false){
-                    //OFFにした場合
-                    asSpiner.setEnabled(false);
-                }
-            }
-        });
+        switch (mBackupNumber){
+            //1か月に1回の処理
+            case 1:
+                break;
+            //2か月に1回の処理
+            case 2:
+                break;
+            //3か月に1回の処理
+            case 3:
+                break;
+        }
 
     }
 
