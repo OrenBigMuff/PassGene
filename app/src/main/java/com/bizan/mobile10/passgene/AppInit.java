@@ -1,7 +1,10 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,7 +17,8 @@ import android.widget.Toolbar;
 /**
  * Created by user on 2016/02/16.
  */
-public class AppInit extends AppCompatActivity implements View.OnClickListener, NumberPicker.OnValueChangeListener{
+public class AppInit extends AppCompatActivity implements View.OnClickListener, NumberPicker.OnValueChangeListener,
+DeleteDialog.DialogListener{
 
     Button btnSyokika;      //初期化ボタン
     View appinitView;       //ボタンにかぶせるView
@@ -87,6 +91,7 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
         AppInit_npk4.setMaxValue(9);
         num4 = String.valueOf(0);
 
+        //numberpickerの初期値設定
         PassNum = num1 + num2 + num3 + num4;
 
 
@@ -148,7 +153,9 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
 
         switch (v.getId()){
             case R.id.appinitbtn:
-                Toast.makeText(this,"aaa",Toast.LENGTH_SHORT).show();
+                openDeleteDialog();
+                finish();
+                break;
         }
 
 //        tmp1 = String.valueOf(AppInit_npk1.getValue());
@@ -175,7 +182,7 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
         }
         PassNum = num1 + num2 + num3 + num4;
 
-        Log.e("Passnum", PassNum +":"+ PassA);
+        Log.e("Passnum", PassNum + ":" + PassA);
 
         if (PassNum.equals(PassA)){
             appinitView.setVisibility(View.GONE);
@@ -184,5 +191,33 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
             appinitView.setVisibility(View.VISIBLE);
             btnSyokika.setEnabled(false);
         }
+    }
+
+    private void openDeleteDialog(){
+        //DialogFragmentに渡すモノを決めてね
+        String title = "アプリ初期化";
+        String message = "アプリを初期化します\n本当によろしいですか？";
+        String posi = "初期化";
+        String nega = "戻る";
+        //ダイアログのレイアウトResId
+        int resId_dialog = R.layout.delete_dialog;
+
+        FragmentManager fm = getSupportFragmentManager();
+        DeleteDialog alertDialog = DeleteDialog.newInstance(title, message, posi, nega, resId_dialog);
+        alertDialog.show(fm, "fragment_alert");
+    }
+
+    @Override
+    public void onPositiveButtonClick(DialogFragment dialog) {
+        //positiveぼたん
+        Toast.makeText(this,"アプリが初期化されました",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(AppInit.this,PassList.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onNegativeButtonClick(DialogFragment dialog) {
+        //negativeぼたん
+        Toast.makeText(this,"°˖✧◝(⁰▿⁰)◜✧˖°",Toast.LENGTH_SHORT).show();
     }
 }
