@@ -21,29 +21,29 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class RegistInfo extends AppCompatActivity implements PassGeneDialog.DialogListener {
-    private static String mCategoryNumber;
-    private static int mYear;
-    private static int mMonth;
-    private static int mDay;
-    private static String mMessage;
-    private static String mRegistTag;
-    private static String mRegistData;
+    private DatabaseC dbC;
+    private String mCategoryNumber;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private String mRegistTag;
+    private String mRegistData;
 
-    private static EditText mTag;
-    private static EditText mTel;
-    private static DatePicker dpkBirthday;
-    private static EditText mSurname;
-    private static EditText mName;
-    private static EditText mText;
-    private static EditText mNumber;
-    private static EditText mAll;
-    private static TextInputLayout mTilTag;
-    private static TextInputLayout mTilTel;
-    private static TextInputLayout mTilSurname;
-    private static TextInputLayout mTilName;
-    private static TextInputLayout mTilText;
-    private static TextInputLayout mTilNumber;
-    private static TextInputLayout mTilAll;
+    private EditText mTag;
+    private EditText mTel;
+    private DatePicker dpkBirthday;
+    private EditText mSurname;
+    private EditText mName;
+    private EditText mText;
+    private EditText mNumber;
+    private EditText mAll;
+    private TextInputLayout mTilTag;
+    private TextInputLayout mTilTel;
+    private TextInputLayout mTilSurname;
+    private TextInputLayout mTilName;
+    private TextInputLayout mTilText;
+    private TextInputLayout mTilNumber;
+    private TextInputLayout mTilAll;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,10 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //情報名の入力
+        /**
+         * 各情報の入力
+         */
+        //情報名
         mTag = (EditText) findViewById(R.id.edtRegistInfoTag);
         mTilTag = (TextInputLayout) findViewById(R.id.tilRegistInfoTag);
         mTilTag.setError(getString(R.string.regist_info_errormessage1)); // show error
@@ -266,7 +269,6 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                         mRegistData = mAll.getText().toString();
                         break;
                 }
-                mMessage = mRegistTag + "を" + mRegistData + "で登録します｡";
                 openPG_Dialog();
             }
         });
@@ -410,7 +412,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
         //DialogFragmentに渡すモノを決めてね
         String title = getString(R.string.dialog_title2);
-        String message = mMessage;
+        String message = mRegistTag + "を" + mRegistData + "で登録します｡";;
         String posi = getString(R.string.button1);
         String nega = getString(R.string.button5);
         //ダイアログのレイアウトResId
@@ -427,6 +429,8 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
      */
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
+        String[] value = {mRegistTag, mRegistData, mCategoryNumber};
+        dbC.insertUserInfo(value);
         this.finish();
         dialog.dismiss();
     }

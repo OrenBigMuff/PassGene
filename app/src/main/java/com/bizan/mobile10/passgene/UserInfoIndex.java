@@ -1,6 +1,7 @@
 package com.bizan.mobile10.passgene;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
@@ -14,12 +15,17 @@ import android.widget.Toast;
 import com.balysv.materialripple.MaterialRippleLayout;
 
 public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.DialogListener {
-
-    private static String mUseService = "";     //"･Twitter\n･LINE\n･Facebook"
-    private static String mUserInfo = "携帯電話番号";
+    private DatabaseC dbC;
     UserInfoList userInfoList = new UserInfoList();
     private String mUserInfoId = userInfoList.getUserInfoId();
     private String mUserInfoName = userInfoList.getUserInfoName();
+    private String mUserInfo = userInfoList.getUserInfo();
+    private String mUseService;
+
+    private String[] mServiceId1;
+    private String[] mServiceId2;
+    private String[] mServiceName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,42 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        /**
+         * データベースからデータ読み出し
+         */
+        Cursor cursor1 = dbC.readGeneUseid(mUserInfoId);
+        Cursor cursor2 = dbC.readServiceInfoAll()
+                ;
+        if (cursor1.getCount()==0) {
+            mUseService = "";
+        } else {
+            //情報IDから使用中のサービスIDを取得
+            int i = 0;
+            while (cursor1.moveToNext()) {
+                mServiceId1[i] = cursor1.getString(0);
+                i++;
+            }
+
+            //全サービスIDとサービス名を取得
+            int j = 0;
+            while (cursor2.moveToNext()) {
+                mServiceId2[j] = cursor1.getString(0);
+                mServiceName[j] = cursor1.getString(1);
+                j++;
+            }
+
+            for (i = 0; i < mServiceId1.length; i++) {
+                for (j = 0; j < mServiceId2.length; j++) {
+                    if (mServiceId2[j].equals(mServiceId1[i])) {
+                        mUseService = mUseService + "･ " + mServiceName[j] + "\n";
+                    }
+                }
+            }
+        }
+
+        /**
+         * 各TextViewに内容を代入
+         */
         //ツールバーにユーザー情報名を表示
         CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.tblIndexToolbarLayout);
         toolbarLayout.setTitle(mUserInfoName);
@@ -45,6 +87,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
          */
         Button btnElimination1 = (Button) findViewById(R.id.btnIndexElimination1);
         Button btnElimination2 = (Button) findViewById(R.id.btnIndexElimination2);
+
         //削除ボタンの背景色決定
         if (mUseService.equals("")) {
             btnElimination1.setVisibility(View.GONE);
@@ -53,6 +96,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
             btnElimination1.setVisibility(View.VISIBLE);
             btnElimination2.setVisibility(View.GONE);
         }
+
         //削除ボタン押下時の動作
         btnElimination1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +136,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
      */
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
+        dbC.deleteUserInfoDeleteFlag(Integer.parseInt(mUserInfoId));
         this.finish();
         dialog.dismiss();
     }
