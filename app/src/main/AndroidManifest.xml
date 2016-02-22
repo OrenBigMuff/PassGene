@@ -38,7 +38,7 @@
         <activity
             android:name=".InitialSet3"
             android:label="@string/title_activity_initial_set3"
-<<<<<<< HEAD
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistNewPass"
@@ -48,11 +48,8 @@
             android:name=".GenePass"
             android:label="@string/title_activity_gene_pass"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-=======
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
 
->>>>>>> 0da32b9cc66dc4b7aa0827581933b8f527282c53
+
     </application>
 
 </manifest>

@@ -19,48 +19,55 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
 public class RegistNewPass extends AppCompatActivity implements View.OnClickListener,
         CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
-    PreferenceC pref;
-    AutoCompleteTextView rnptxvservice;
-    AutoCompleteTextView rnptxvid;
-    AutoCompleteTextView rnptxvaddress;
 
-    LinearLayout rnplayout; //パスワードのレイアウト
-    TextView rnptxvpass;
+    private PreferenceC pref;
+    private AutoCompleteTextView rnptxvservice;
+    private AutoCompleteTextView rnptxvid;
+    private AutoCompleteTextView rnptxvaddress;
 
-    CheckBox rnpchbnum;
-    CheckBox rnpchbb;
-    CheckBox rnpchbs;
-    CheckBox rnpchbk;
+    private LinearLayout rnplayout; //パスワードのレイアウト
+    private TextView rnptxvpass;
 
-    SeekBar rnpskb;
+    private CheckBox rnpchbnum;
+    private CheckBox rnpchbb;
+    private CheckBox rnpchbs;
+    private CheckBox rnpchbk;
 
-    TextView rnptxvpasslength;
-    TextView rpnpasslength;
-    Spinner rnpspn;
-    Button rnpbtnnext;
+    private SeekBar rnpskb;
 
-    HashMap<String, String> hashMapDB;
+    private TextView rnptxvpasslength;
+    private TextView rpnpasslength;
+    private Spinner rnpspn;
+    private Button rnpbtnnext;
 
-    DatabaseC dbC;
+    private HashMap<String, String> hashMapDB;
 
-    String exID;
+    private DatabaseC dbC;
 
-    String[] arrayService;
-    String[] arrayid;
-    String[] arrayadd;
+    private String exID;
 
-    /**debug*****************************/
+    private String[] arrayService;
+    private String[] arrayid;
+    private String[] arrayadd;
+
+    /**
+     * debug
+     *****************************/
     private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     //テーブル名
-    private static final String[] DB_TABLE = {"service_info","user_info"};
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
     private static DatabaseHelper dbHelper; //DBヘルパー
+
     /*******************************/
 
     @Override
@@ -90,7 +97,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
                         " gene_id3 INTEGER NOT NULL," +
                         " gene_id4 INTEGER NOT NULL," +
                         " algorithm INTEGER NOT NULL," +
-                        " delete_flag INTEGER NOT NULL)" ,
+                        " delete_flag INTEGER NOT NULL)",
 
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " info_name TEXT UNIQUE NOT NULL," +
@@ -103,11 +110,12 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 /*******************************/
         //データベース準備
         dbC = new DatabaseC(dbHelper);
-        Cursor cursor = dbC.readPasswordListInfo();
-        cursorLog(cursor);
-        cursor.close();
+//        Cursor cursor = dbC.readServiceInfoAll();
+//        cursorLog(cursor);
+//        cursor.close();
 /**debug*****************************/
-
+        //cursorLog(dbC.readServiceInfoAll());
+        //cursorLog(dbC.readUserInfoAll());
 //        String[] str2 = new String[]{"姓", "jouge", "2"};
 //        dbC.insertUserInfo(str2);
 //        str2 = new String[]{"名", "sayuu", "3"};
@@ -137,12 +145,12 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
         String readid = pref.readConfig("id", "0");
 
-        if (!readid.equals("0")) {
+        if (readid.equals("0")) {
             //DBデータをセットする
             setDB2hash();
         } else {
             //データがなかったらここでぷリファレンスの値を入れちゃう 以下ハッシュマップでとる　ぷリファレンスはページ受け渡し
-            hashMapDB.put("id", "");
+            hashMapDB.put("id", "0");
             hashMapDB.put("user_id", "");
             hashMapDB.put("service", "");
             hashMapDB.put("mailadd", "");
@@ -173,43 +181,44 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
 
         setDB2userInfo();
-        Cursor cursor1 = dbC.readUserInfoAll();
-        //cursorLog(cursor1);
-        cursor.close();
+//        Cursor cursor1 = dbC.readUserInfoAll();
+//        //cursorLog(cursor1);
+//        cursor.close();
 
         rnptxvservice = (AutoCompleteTextView) findViewById(R.id.rnptxvservice);
-        if(arrayService != null){
+        if (arrayService != null) {
             rnptxvservice.setAdapter(createAdapter(arrayService));
-        }else{
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(getResources().getString(R.string.service));
-            stringBuilder.append(getResources().getString(R.string.mei));
-            rnptxvservice.setHint(stringBuilder.toString());
+        } else {
+
         }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getResources().getString(R.string.service));
+        rnptxvservice.setHint(stringBuilder.toString());
         rnptxvservice.setThreshold(0);
         rnptxvservice.setText(hashMapDB.get("service").toString());
 
         rnptxvid = (AutoCompleteTextView) findViewById(R.id.rnptxvid);
-        if(arrayid != null){
+        if (arrayid != null) {
             rnptxvid.setAdapter(createAdapter(arrayid));
-        }else{
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(getResources().getString(R.string.id));
-            stringBuilder.append(getResources().getString(R.string.mei));
-            rnptxvid.setHint(stringBuilder.toString());
+        } else {
+
+
         }
+        stringBuilder = new StringBuilder();
+        stringBuilder.append(getResources().getString(R.string.id));
+        rnptxvid.setHint(stringBuilder.toString());
         rnptxvid.setThreshold(0);
         rnptxvid.setText(hashMapDB.get("user_id").toString());
 
         rnptxvaddress = (AutoCompleteTextView) findViewById(R.id.rnptxvaddress);
-        if(arrayadd != null){
+        if (arrayadd != null) {
             rnptxvaddress.setAdapter(createAdapter(arrayadd));
-        }else{
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(getResources().getString(R.string.address));
-            //stringBuilder.append(getResources().getString(R.string.mei));
-            rnptxvaddress.setHint(stringBuilder.toString());
-        }
+        } else {
+
+        }stringBuilder = new StringBuilder();
+        stringBuilder.append(getResources().getString(R.string.address));
+        //stringBuilder.append(getResources().getString(R.string.mei));
+        rnptxvaddress.setHint(stringBuilder.toString());
         rnptxvaddress.setThreshold(0);
         rnptxvaddress.setText(hashMapDB.get("mailadd").toString());
 
@@ -267,7 +276,6 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
         rnpspn = (Spinner) findViewById(R.id.rnpspn);
         String[] spnstr = {getResources().getString(R.string.month1),
-                getResources().getString(R.string.month2),
                 getResources().getString(R.string.month3),
                 getResources().getString(R.string.month6)};
         rnpspn.setAdapter(createAdapter(spnstr));
@@ -286,29 +294,30 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
     private void setDB2userInfo() {
         Cursor cursor;
-        cursor = dbC.readSingleclum("service");
-        if(cursor.getCount() != 0) {
+        cursor = dbC.readSingleclum(1);
+
+        if (cursor.getCount() != 0) {
             arrayService = new String[cursor.getCount()];
             arrayService = arrayset(cursor);
-        }else{
+        } else {
             arrayService = null;
-            Log.e("arrayService","err");
+            Log.e("arrayService", "err");
         }
 
-        cursor = dbC.readSingleclum("user_id");
-        if(cursor.getCount() != 0) {
+        cursor = dbC.readSingleclum(2);
+        if (cursor.getCount() != 0) {
             arrayid = new String[cursor.getCount()];
             arrayid = arrayset(cursor);
-        }else{
-            Log.e("arrayid","err");
+        } else {
+            Log.e("arrayid", "err");
         }
 
-        cursor = dbC.readSingleclum("mail_address");
-        if(cursor.getCount() != 0) {
+        cursor = dbC.readSingleclum(3);
+        if (cursor.getCount() != 0) {
             arrayadd = new String[cursor.getCount()];
             arrayadd = arrayset(cursor);
-        }else{
-            Log.e("arrayadd","err");
+        } else {
+            Log.e("arrayadd", "err");
         }
         cursor.close();
     }
@@ -316,16 +325,18 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     private String[] arrayset(Cursor cursor) {
         String[] str = new String[cursor.getCount()];
         cursor.moveToFirst();
+        Log.e("cursor", cursor.getString(0).toString());
         for (int i = 0; i < cursor.getCount(); i++) {
-            str[i] = cursor.getString(0);
+            str[i] = cursor.getString(0).toString();
+            cursor.moveToNext();
         }
-        cursor.close();
+        //cursor.close();
         return str;
     }
 
     private void setDB2hash() {
         Cursor cursor = dbC.readServiceInfo(exID);
-        cursorLog(cursor);
+        //cursorLog(cursor);
 //                " user_id TEXT NOT NULL," +
 //                " mail_address TEXT NOT NULL," +
 //                " char_num INTEGER NOT NULL," +
@@ -346,6 +357,10 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         //すぴなーにはupdated_datetimeからえる値を入れる
         //0-3の値
         //updated_datetime（20160217,0）
+
+        //これはここに書かないといけない
+        pref.writeConfig("id", "1");
+
         hashMapDB.put("id", "1");
         hashMapDB.put("user_id", "Tokugawa");
         hashMapDB.put("service", "facebook");
@@ -392,8 +407,14 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    //todo koonokoto
     public void onClick(View v) {
         if (rnpbtnnext == v) {
+            //サービス名がかぶっている、新規（idが0）の場合
+            if (checkServiceName(rnptxvservice.getText().toString()) && pref.readConfig("id", "0").equals("0")) {
+                Toast.makeText(this, getText(R.string.errServiceInfo), Toast.LENGTH_SHORT).show();
+                return;
+            }
             createSendData();
             //ネクストボタン　登録やページ遷移
             Intent intent = new Intent(RegistNewPass.this, GenePass.class);
@@ -401,13 +422,23 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void createSendData(){
+    private boolean checkServiceName(String string) {
+        if (arrayService != null) {
+            for (String s : arrayService) {
+                if (s.equals(string)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void createSendData() {
         writePref();
         pref.writeConfig("id", hashMapDB.get("id").toString());
-        pref.writeConfig("user_id", hashMapDB.get("user_id").toString());
-        pref.writeConfig("service", hashMapDB.get("service").toString());
-        pref.writeConfig("mailadd", hashMapDB.get("mailadd").toString());
-        pref.writeConfig("passhint", hashMapDB.get("passhint").toString());
+        pref.writeConfig("user_id", rnptxvid.getText().toString());
+        pref.writeConfig("service", rnptxvservice.getText().toString());
+        pref.writeConfig("mailadd", rnptxvaddress.getText().toString());
         pref.writeConfig("passhint", hashMapDB.get("passhint").toString());
         pref.writeConfig("spinner", hashMapDB.get("spinner").toString());
     }
@@ -447,4 +478,5 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     public void onStopTrackingTouch(SeekBar seekBar) {
 
     }
+
 }

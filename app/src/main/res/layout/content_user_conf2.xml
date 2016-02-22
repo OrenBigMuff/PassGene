@@ -8,8 +8,8 @@
     android:layout_height="match_parent"
     android:background="@color/passGeneAllBack"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.bizan.mobile10.passgene.InitialSet1"
-    tools:showIn="@layout/activity_initial_set1">
+    tools:context="com.bizan.mobile10.passgene.UserConf2"
+    tools:showIn="@layout/activity_user_conf2">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
@@ -27,12 +27,12 @@
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginBottom="5dp"
-                      android:text="@string/guide_text_masterpass"
+                      android:text="@string/guide_title_userconf"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="20dp"/>
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="@string/caution_text_masterpass"
+                      android:text="@string/guide_text_userconf"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="15dp"/>
         </LinearLayout>
@@ -43,7 +43,7 @@
                       android:orientation="horizontal">
             <NumberPicker android:layout_width="0dp"
                           android:layout_height="wrap_content"
-                          android:id="@+id/npk1"
+                          android:id="@+id/npk_uc1"
                           android:layout_marginLeft="5dp"
                           android:layout_marginRight="5dp"
                           android:layout_weight="1"
@@ -52,7 +52,7 @@
             </NumberPicker>
             <NumberPicker android:layout_width="0dp"
                           android:layout_height="wrap_content"
-                          android:id="@+id/npk2"
+                          android:id="@+id/npk_uc2"
                           android:layout_marginLeft="5dp"
                           android:layout_marginRight="5dp"
                           android:layout_weight="1"
@@ -61,7 +61,7 @@
             </NumberPicker>
             <NumberPicker android:layout_width="0dp"
                           android:layout_height="wrap_content"
-                          android:id="@+id/npk3"
+                          android:id="@+id/npk_uc3"
                           android:layout_marginLeft="5dp"
                           android:layout_marginRight="5dp"
                           android:layout_weight="1"
@@ -70,14 +70,13 @@
             </NumberPicker>
             <NumberPicker android:layout_width="0dp"
                           android:layout_height="wrap_content"
-                          android:id="@+id/npk4"
+                          android:id="@+id/npk_uc4"
                           android:layout_marginLeft="5dp"
                           android:layout_marginRight="5dp"
                           android:layout_weight="1"
                           android:descendantFocusability="blocksDescendants">
 
             </NumberPicker>
-
 
         </LinearLayout>
         <LinearLayout android:layout_width="match_parent"
@@ -85,19 +84,18 @@
                       android:layout_marginTop="15dp"
                       android:gravity="center">
 
-            <Button android:id="@+id/btnInitialSet2"
+            <Button android:id="@+id/btnUserConf"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
 
                     android:background="@drawable/pass_blue_button"
                     android:padding="2dp"
-                    android:text="登録"
+                    android:text="確認"
                     android:textColor="#ffffff"
                     android:textSize="25sp"/>
 
         </LinearLayout>
 
     </LinearLayout>
-
 
 </android.support.v4.widget.NestedScrollView>

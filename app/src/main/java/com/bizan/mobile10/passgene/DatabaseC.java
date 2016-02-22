@@ -73,6 +73,10 @@ public class DatabaseC {
      */
     public long insertServiceInfo(String[] value) {
         long result;
+        StringBuilder stb = new StringBuilder();
+        stb.append(getDate());
+        stb.append(",");
+        stb.append(value[15]);
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
@@ -85,7 +89,7 @@ public class DatabaseC {
             contentValues.put("char_symbol", Integer.valueOf(value[6]));
             contentValues.put("num_of_char", Integer.valueOf(value[7]));
             contentValues.put("generated_datetime", getDate());
-            contentValues.put("updated_datetime", getDate());
+            contentValues.put("updated_datetime", stb.toString());
             contentValues.put("fixed_pass", value[8]);
             contentValues.put("pass_hint", value[9]);
             contentValues.put("gene_id1", Integer.valueOf(value[10]));
@@ -112,6 +116,10 @@ public class DatabaseC {
      * @return
      */
     public boolean updateServiceInfo(int id, String[] value) {
+        StringBuilder stb = new StringBuilder();
+        stb.append(getDate());
+        stb.append(",");
+        stb.append(value[15]);
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
@@ -124,7 +132,7 @@ public class DatabaseC {
             contentValues.put("char_symbol", Integer.valueOf(value[6]));
             contentValues.put("num_of_char", Integer.valueOf(value[7]));
             //contentValues.put("generated_datetime", getDate());
-            contentValues.put("updated_datetime", getDate());
+            contentValues.put("updated_datetime", stb.toString());
             contentValues.put("fixed_pass", value[8]);
             contentValues.put("pass_hint", value[9]);
             contentValues.put("gene_id1", Integer.valueOf(value[10]));
@@ -304,11 +312,47 @@ public class DatabaseC {
         return cursor;
     }
 
-    public Cursor readSingleclum(String clumName){
+
+//    public Cursor readSingleclum(int col){
+//        Cursor cursor = null;
+//        String sql = "";
+//        String[] sqlD = {"0"};
+//        switch(col){
+//            case 1:
+//                sql = "SELECT DISTINCT * FROM service_info WHERE delete_flag=?";
+//                break;
+//            case 2:
+//
+//                break;
+//            case 3:
+//
+//                break;
+//        }
+//
+//        try{
+//            cursor = db.rawQuery(sql, sqlD);
+//        }catch (Exception e){
+//            Log.e("readSingleclum", e.getMessage());
+//        }
+//        return cursor;
+//    }
+
+    public Cursor readSingleclum(int col){
         Cursor cursor = null;
         String sql = "";
-        String[] sqlD = {clumName, "0"};
-        sql = "SELECT ? FROM service_info WHERE delete_flag=?";
+        String[] sqlD = {"0"};
+        switch(col){
+            case 1:
+                sql = "SELECT DISTINCT service FROM service_info WHERE delete_flag=?";
+                break;
+            case 2:
+                sql = "SELECT DISTINCT user_id FROM service_info WHERE delete_flag=?";
+                break;
+            case 3:
+                sql = "SELECT DISTINCT mail_address FROM service_info WHERE delete_flag=?";
+                break;
+        }
+
         try{
             cursor = db.rawQuery(sql, sqlD);
         }catch (Exception e){
