@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bizan.mobile10.passgene.UserInfoList"
-    tools:showIn="@layout/activity_user_info_list">
+    tools:showIn="@layout/activity_user_info_list"
+    android:padding="25dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="25dp">
+        android:layout_height="match_parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
