@@ -2,7 +2,9 @@ package com.bizan.mobile10.passgene;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -42,6 +44,7 @@ import android.widget.Toast;
 import android.support.v7.widget.SearchView;
 
 import java.util.Date;
+import java.util.logging.Filter;
 
 
 public class PassList extends AppCompatActivity implements SearchView.OnQueryTextListener{
@@ -162,9 +165,9 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         plFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //PaSS確認を通してRegistNewPassに飛ばす
-                Intent intent = new Intent(PassList.this,UserConf2.class);
-                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.RegistNewPass");
+                //RegistNewPassに遷移
+                Intent intent = new Intent(PassList.this,RegistNewPass.class);
+//                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.RegistNewPass");
                 startActivity(intent);
             }
         });
@@ -207,21 +210,22 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                             public void run() {
                                 Intent intent = new Intent(PassList.this, UserConf2.class);
                                 intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
+                                intent.putExtra("UID","1");
                                 startActivity(intent);
-                                finish();
                             }
                         }, 250);
                         plDrawer.closeDrawers();
                         break;
 
                     case 2:
+                        //PW確認画面を通してアプリ設定画面に飛ばす
 //                        new Handler().postDelayed(new Runnable() {
 //                            @Override
 //                            public void run() {
 //                                Intent intent = new Intent(PassList.this, UserConf2.class);
 //                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
+//                                intent.putExtra("SID","0");
 //                                startActivity(intent);
-//                                finish();
 //                            }
 //                        }, 250);
 //                        plDrawer.closeDrawers();
@@ -231,7 +235,6 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                             public void run() {
                                 Intent intent = new Intent(PassList.this, AppSetting.class);
                                 startActivity(intent);
-                                finish();
                             }
                         }, 250);
                         plDrawer.closeDrawers();
@@ -305,14 +308,14 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 //                    }
 //                });
 //
-//            //確認画面に遷移させる
+//            //PW確認画面を通して確認画面に遷移させる
 //            cardButton.setTag(cursor.getString(0));
 //            cardButton.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    //遷移するときデータを渡す
 //                    Intent intent = new Intent(PassList.this, UserConf2.class);
-//                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.InitialSet3");
+//                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
 //                    intent.putExtra("SID", v.getTag().toString());
 //                }
 //            });
@@ -375,8 +378,10 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
     //検索機能
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.plsearch, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         final MenuItem searchItem = menu.findItem(R.id.plsearchView);
         mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setIconifiedByDefault(true);
         mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
@@ -390,7 +395,6 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         });
         return true;
     }
-
 
     @Override
     public boolean onQueryTextSubmit(String query) {
