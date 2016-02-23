@@ -334,45 +334,27 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         return str;
     }
 
-    private void setDB2hash() {
+    private void setDB2hash() {exID= String.valueOf(1);
         Cursor cursor = dbC.readServiceInfo(exID);
-        //cursorLog(cursor);
-//                " user_id TEXT NOT NULL," +
-//                " mail_address TEXT NOT NULL," +
-//                " char_num INTEGER NOT NULL," +
-//                " char_uppercase INTEGER NOT NULL," +
-//                " char_lowercase INTEGER NOT NULL," +
-//                " char_symbol INTEGER NOT NULL," +
-//                " num_of_char INTEGER NOT NULL," +
-//                " generated_datetime TEXT NOT NULL," +
-//                " updated_datetime TEXT NOT NULL," +
-//                " fixed_pass TEXT NOT NULL," +
-//                " pass_hint TEXT NOT NULL," +
-//                " gene_id1 INTEGER NOT NULL," +
-//                " gene_id2 INTEGER NOT NULL," +
-//                " gene_id3 INTEGER NOT NULL," +
-//                " gene_id4 INTEGER NOT NULL," +
-//                " algorithm INTEGER NOT NULL," +
-//                " delete_flag INTEGER NOT NULL)" ,
-        //すぴなーにはupdated_datetimeからえる値を入れる
-        //0-3の値
-        //updated_datetime（20160217,0）
+        cursor.moveToFirst();
+        String[] spindata = cursor.getString(10).split(",");
+
+        hashMapDB.put("id", String.valueOf(cursor.getInt(0)));
+        hashMapDB.put("service", cursor.getString(1));
+        hashMapDB.put("user_id", cursor.getString(2));
+        hashMapDB.put("mailadd", cursor.getString(3));
+        hashMapDB.put("char_num", cursor.getString(4));
+        hashMapDB.put("char_uppercase", cursor.getString(5));
+        hashMapDB.put("char_lowercase", cursor.getString(6));
+        hashMapDB.put("char_symbol", cursor.getString(7));
+        hashMapDB.put("num_of_char", cursor.getString(8));
+        hashMapDB.put("pass", cursor.getString(11));
+        hashMapDB.put("passhint", cursor.getString(12));
+        hashMapDB.put("spinner", spindata[1]);
 
         //これはここに書かないといけない
         pref.writeConfig("id", "1");
 
-        hashMapDB.put("id", "1");
-        hashMapDB.put("user_id", "Tokugawa");
-        hashMapDB.put("service", "facebook");
-        hashMapDB.put("mailadd", "aea@rij.com");
-        hashMapDB.put("pass", "afff123456");
-        hashMapDB.put("passhint", "aegafaeeeff");
-        hashMapDB.put("char_num", "1");
-        hashMapDB.put("char_uppercase", "1");
-        hashMapDB.put("char_lowercase", "1");
-        hashMapDB.put("char_symbol", "1");
-        hashMapDB.put("num_of_char", "12");
-        hashMapDB.put("spinner", "1");
         cursor.close();
     }
 
@@ -407,7 +389,6 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
-    //todo koonokoto
     public void onClick(View v) {
         if (rnpbtnnext == v) {
             //サービス名がかぶっている、新規（idが0）の場合
