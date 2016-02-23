@@ -154,7 +154,6 @@ DeleteDialog.DialogListener{
         switch (v.getId()){
             case R.id.appinitbtn:
                 openDeleteDialog();
-                finish();
                 break;
         }
 
@@ -219,5 +218,6 @@ DeleteDialog.DialogListener{
     public void onNegativeButtonClick(DialogFragment dialog) {
         //negativeぼたん
         Toast.makeText(this,"°˖✧◝(⁰▿⁰)◜✧˖°",Toast.LENGTH_SHORT).show();
+
     }
 }
