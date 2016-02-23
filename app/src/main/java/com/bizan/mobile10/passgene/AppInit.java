@@ -20,6 +20,16 @@ import android.widget.Toolbar;
 public class AppInit extends AppCompatActivity implements View.OnClickListener, NumberPicker.OnValueChangeListener,
 DeleteDialog.DialogListener{
 
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
+    private static DatabaseHelper dbHelper; //DBヘルパー
+    public static DatabaseHelper getDbHelper() {
+        return dbHelper;
+    }
+    private DatabaseC dbC;
+
+
     Button btnSyokika;      //初期化ボタン
     View appinitView;       //ボタンにかぶせるView
 
@@ -49,6 +59,7 @@ DeleteDialog.DialogListener{
 
     String PassA;
 
+    String masterPass;      //マスターパス
 
     CollapsingToolbarLayout collapsingToolbar;
 
@@ -57,6 +68,12 @@ DeleteDialog.DialogListener{
         setContentView(R.layout.activity_appinit);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
+
+        dbC = new DatabaseC(PassList.getDbHelper());
+        //マスターパス呼び出し
+        dbC.readMasterPass();
+        masterPass = String.valueOf(dbC.readMasterPass());
+
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.AppInit_toolbar_layout);
         collapsingToolbar.setTitle("アプリ初期化画面");
@@ -183,7 +200,7 @@ DeleteDialog.DialogListener{
 
         Log.e("Passnum", PassNum + ":" + PassA);
 
-        if (PassNum.equals(PassA)){
+        if (PassNum.equals(masterPass)){
             appinitView.setVisibility(View.GONE);
             btnSyokika.setEnabled(true);
         }else {
@@ -209,8 +226,10 @@ DeleteDialog.DialogListener{
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
         //positiveぼたん
+        //テーブル初期化
+        dbC.reset();
         Toast.makeText(this,"アプリが初期化されました",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AppInit.this,PassList.class);
+        Intent intent = new Intent(AppInit.this,InitialSet1.class);
         startActivity(intent);
     }
 
@@ -218,6 +237,6 @@ DeleteDialog.DialogListener{
     public void onNegativeButtonClick(DialogFragment dialog) {
         //negativeぼたん
         Toast.makeText(this,"°˖✧◝(⁰▿⁰)◜✧˖°",Toast.LENGTH_SHORT).show();
-
+        dialog.dismiss();
     }
 }

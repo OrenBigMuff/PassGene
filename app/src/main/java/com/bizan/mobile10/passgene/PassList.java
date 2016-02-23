@@ -210,7 +210,6 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                             public void run() {
                                 Intent intent = new Intent(PassList.this, UserConf2.class);
                                 intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
-                                intent.putExtra("UID","1");
                                 startActivity(intent);
                             }
                         }, 250);
