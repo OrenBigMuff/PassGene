@@ -1,35 +1,61 @@
 package com.bizan.mobile10.passgene;
+/**
+ * imai
+ */
 
-import android.animation.Animator;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
-import android.text.Html;
-import android.text.Layout;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class InitialSet1 extends AppCompatActivity
         implements View.OnClickListener {
 
+    public static DatabaseHelper dbH;
+    private DatabaseC dbC;
+    private PreferenceC pref;
     Button btn;
+
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    //テーブル名
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
+
     private TextInputLayout inputLayoutL;
     private TextInputLayout inputLayoutF;
+
     private EditText inputLastname;
     private EditText inputFirstname;
-    static String lastname ;
-    static String firstname ;
-    static String fullname ;
+    private DatePicker dpkBirthDay;
+    private SimpleDateFormat dateFormatter;
+    private SimpleDateFormat dateFormatter2;
+    String dispBirth;
+    static String lastname;
+    static String firstname;
+    static String fullname;
+    int mYear;
+    int mMonth;
+    int mDay;
+
 
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -41,19 +67,76 @@ public class InitialSet1 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        String[] dbColTable = {
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " service TEXT UNIQUE NOT NULL," +
+                        " user_id TEXT NOT NULL," +
+                        " mail_address TEXT NOT NULL," +
+                        " char_num INTEGER NOT NULL," +
+                        " char_uppercase INTEGER NOT NULL," +
+                        " char_lowercase INTEGER NOT NULL," +
+                        " char_symbol INTEGER NOT NULL," +
+                        " num_of_char INTEGER NOT NULL," +
+                        " generated_datetime TEXT NOT NULL," +
+                        " updated_datetime TEXT NOT NULL," +
+                        " fixed_pass TEXT NOT NULL," +
+                        " pass_hint TEXT NOT NULL," +
+                        " gene_id1 INTEGER NOT NULL," +
+                        " gene_id2 INTEGER NOT NULL," +
+                        " gene_id3 INTEGER NOT NULL," +
+                        " gene_id4 INTEGER NOT NULL," +
+                        " algorithm INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL)",
+
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " info_name TEXT UNIQUE NOT NULL," +
+                        " value TEXT NOT NULL," +
+                        " category INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL," +
+                        " useless_flag INTEGER NOT NULL)"
+        };
+
+        dbH = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+        dbC = new DatabaseC(this.dbH);
+
+        pref = new PreferenceC(this);
+
+        dpkBirthDay = (DatePicker)findViewById(R.id.dpkBirthDay);
+        dpkBirthDay.setCalendarViewShown(false);
+        dpkBirthDay.updateDate(1978, 4, 8);
+
+        dateFormatter = new SimpleDateFormat("yyyy年MM月dd日", Locale.US);
+        dateFormatter2 = new SimpleDateFormat("yyyyMMdd", Locale.US);
+
         btn = (Button) findViewById(R.id.btnInitialSet1);
         btn.setOnClickListener(this);
 
-        inputLastname = (EditText)findViewById(R.id.inputLastname);
-        inputFirstname = (EditText)findViewById(R.id.inputFirstname);
+        inputLastname = (EditText) findViewById(R.id.inputLastname);
+        inputFirstname = (EditText) findViewById(R.id.inputFirstname);
 
+        //EnterKey押下時にソフトキーボードを非表示にする。
+        inputFirstname.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // EnterKeyが押されたか判定
+                if (event.getAction() == KeyEvent.ACTION_DOWN
+                        && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    InputMethodManager imputMethodManager =
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
 
-
+        //EditTextの外枠（TIL）にErrorヒントを表示させる
         inputLayoutL = (TextInputLayout) findViewById(R.id.inputUserLastname);
+
         inputLayoutL.setError("姓をアルファベットで入力して下さい。"); // show error
         inputLayoutL.setError(null); // hide error
 
         inputLayoutF = (TextInputLayout) findViewById(R.id.inputUserFirstname);
+
         inputLayoutF.setError("名をアルファベットで入力して下さい。"); // show error
         inputLayoutF.setError(null); // hide error
 
@@ -70,21 +153,30 @@ public class InitialSet1 extends AppCompatActivity
         if (!validateLastname()) {
             return;
         }
-
         if (!validateFirstname()) {
             return;
         }
+
         lastname = inputLastname.getText().toString();
         firstname = inputFirstname.getText().toString();
         //ユーザーの名前を変数nameに・・・
         fullname = lastname + " " + firstname;
 
+        mYear = dpkBirthDay.getYear();
+        mMonth = dpkBirthDay.getMonth();
+        mDay = dpkBirthDay.getDayOfMonth();
 
-        toast("はじめまして" + fullname +"さん、\n次はマスターパスワードを決めてください。");
+        dispBirth = String.valueOf(mYear) + "年" + String.valueOf(mMonth+1) + "月" + String.valueOf(mDay) + "日";
+
+        toast("はじめまして" + fullname + "さん、\n生年月日は、" + dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
         Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
         startActivity(intent);
     }
 
+    /**
+     * Errorメッセージのくだり
+     * @return
+     */
     private boolean validateLastname() {
         if (inputLastname.getText().toString().trim().isEmpty()) {
             inputLayoutL.setError(getString(R.string.err_msg_lastname));
@@ -93,7 +185,6 @@ public class InitialSet1 extends AppCompatActivity
         } else {
             inputLayoutL.setErrorEnabled(false);
         }
-
         return true;
     }
 
@@ -115,6 +206,9 @@ public class InitialSet1 extends AppCompatActivity
         }
     }
 
+    /**
+     * TextWatcherのコーナー
+     */
     private class PGTextWatcher implements TextWatcher {
 
         private View view;
@@ -143,13 +237,33 @@ public class InitialSet1 extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.btnInitialSet1) {
 
-        //ここにDBへの登録コードを記述
+            submitForm();
+            //ここにDBへの登録コードを記述
+            String[] value_sei ={"ユーザーの姓", lastname, "2"};
+            dbC.insertUserInfo(value_sei);
+            String[] value_mei ={"ユーザーの姓", firstname, "3"};
+            dbC.insertUserInfo(value_mei);
+            String[] value_birth ={"ユーザーの生年月日", dispBirth, "1"};
+            dbC.insertUserInfo(value_birth);
 
-        submitForm();
+            //preference に渡す(初回時以外表示させないフラグ)
+            pref.writeConfig("p0_1", true);
+        }
+    }
 
+    public static String getDB_TABLE_S() {
+        return DB_TABLE[0];
+    }
 
+    public static String getDB_TABLE_U() {
+        return DB_TABLE[1];
+    }
 
+    //DBヘルパーゲットだぜ なや～つ
+    public static DatabaseHelper getDbHelper() {
+        return dbH;
     }
 
     /**
@@ -161,6 +275,6 @@ public class InitialSet1 extends AppCompatActivity
         if (text == null) {
             text = "";
         }
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
     }
 }

@@ -35,6 +35,4 @@
 
     <include layout="@layout/content_initial_set1"/>
 
-
-
 </android.support.design.widget.CoordinatorLayout>

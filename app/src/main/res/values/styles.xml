@@ -4,9 +4,10 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
+
         <item name="colorPrimary">@color/passGeneBackgroundBlue</item>
         <item name="colorPrimaryDark">@color/passGeneBackgroundBlue</item>
-        <item name="colorAccent">@color/passGeneFloatingButtonRed</item>
+        <item name="colorAccent">@color/passGeneBackgroundBlue</item>
         <item name="android:editTextStyle">@style/EditTextColorControl</item>
 
     </style>
@@ -56,12 +57,12 @@
         <item name="android:padding">10dp</item>
     </style>
 
-    <style name="flame_style_red">          丸角背景赤
+    <style name="flame_style_red">丸角背景赤
         <item name="android:background">@drawable/flame_style_red</item>
         <item name="android:padding">10dp</item>
     </style>
 
-    <style name="pass_blue_heading">    丸角背景青見出し
+    <style name="pass_blue_heading">丸角背景青見出し
         <item name="android:background">@drawable/pass_blue_heading</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/passGeneAllBack</item>
@@ -93,5 +94,13 @@
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">100dp</item>
         <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="datePickerTheme" parent="@android:style/Widget.DeviceDefault.DatePicker">
+        <item name="android:divider">@drawable/divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:headerBackground">@color/passGeneBackgroundBlue</item>
+        <item name="android:textColor">@color/passGeneTextBlue</item>
     </style>
 </resources>

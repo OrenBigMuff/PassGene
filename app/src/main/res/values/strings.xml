@@ -28,7 +28,9 @@
     <!-- ユーザー確認画面(MP確認) -->
     <string name="title_activity_user_conf2">ユーザー確認</string>
     <string name="guide_title_iforgot">【マスターパスワード再送】</string>
-    <string name="guide_text_iforgot">○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。</string>
+    <string name="guide_text_iforgot">
+        ○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。
+    </string>
 
     <!-- MP失念SMS再送画面 -->
     <string name="title_activity_iforgot">マスターパスワード再送／初期化</string>
@@ -99,8 +101,9 @@
 
     //クローズドロワー
 
-            <!--アプリ初期化画面-->
-    <string name="appinit_massage">アプリを初期化します。\nこの操作は取り消すことができません。\nマスターパスワード入力でボタンが押せるようになります。</string>
+    <!--アプリ初期化画面-->
+    <string name="appinit_massage">アプリを初期化します。\nこの操作は取り消すことができません。\nマスターパスワード入力でボタンが押せるようになります。
+    </string>
     <string name="appinit_kakunin">【確認】</string>
 
 

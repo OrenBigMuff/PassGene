@@ -10,63 +10,77 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bizan.mobile10.passgene.MainActivity">
 
-    <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:gravity="center"
-                  android:orientation="vertical">
-        <Button
-            android:id="@+id/btn_test_i"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp"
-            android:background="@drawable/pass_blue_button"
-            android:text="Go \nImai \nActivity"/>
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:gravity="center"
+                      android:orientation="vertical">
+            <Button
+                android:id="@+id/btn_test_i"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/pass_blue_button"
+                android:text="Go \nImai \nActivity"/>
 
-        <Button
-            android:id="@+id/btn_test_u"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/pass_blue_button"
-            android:text="Go \nUrashima \nActivity"/>
+            <Button
+                android:id="@+id/btn_test_u"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/pass_blue_button"
+                android:text="Go \nUrashima \nActivity"/>
 
-        <Button
-            android:id="@+id/btn_test_k1"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_margin="5dp"
-            android:background="@drawable/pass_blue_button"
-            android:text="Go \nKawano \nActivity1"/>
+            <Button
+                android:id="@+id/btn_test_k1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/pass_blue_button"
+                android:text="Go \nKawano \nActivity1"/>
 
-        <Button
-            android:id="@+id/btn_test_k2"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/pass_blue_button"
-            android:text="Go \nKawano \nActivity2"/>
+            <Button
+                android:id="@+id/btn_test_k2"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/pass_blue_button"
+                android:text="Go \nKawano \nActivity2"/>
 
-        <Button
-            android:id="@+id/btn_test_h1"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="250dp"
-            android:layout_height="100dp"
-            android:layout_margin="5dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/pass_blue_button"
-            android:text="Go \nHorikawa \nActivity2"/>
-    </LinearLayout>
+            <Button
+                android:id="@+id/btn_test_h1"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/pass_blue_button"
+                android:text="Go \nHorikawa \nActivity2"/>
+
+            <Button
+                android:id="@+id/btn_test_gdb"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="5dp"
+                android:background="@drawable/pass_blue_button"
+                android:text="Go \nGoogleDrve \nBackup"/>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
