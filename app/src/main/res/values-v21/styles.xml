@@ -1,6 +1,10 @@
 <resources>
 
     <style name="AppTheme.NoActionBar">
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+       <item name="android:datePickerStyle">@style/datePickerTheme</item>
+        
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -11,6 +15,11 @@
         <!-- Used for the bottom line when not selected / focused -->
         <item name="colorControlNormal">@color/passGeneBackgroundBlue</item>
         <!-- colorControlActivated & colorControlHighlight use the colorAccent color by default -->
+    </style>
+
+    <style name="datePickerTheme" parent="@android:style/Widget.DeviceDefault.DatePicker">
+        <item name="android:divider">@color/passGeneBackgroundBlue</item>
+        <item name="android:textColor">@color/passGeneTextBlue</item>
     </style>
 
 </resources>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class UserConf2 extends AppCompatActivity
         implements View.OnClickListener, PassGeneDialog.DialogListener {
 
+    DatabaseC dbC;
     NumberPicker npk_uc1;
     NumberPicker npk_uc2;
     NumberPicker npk_uc3;
@@ -23,17 +24,25 @@ public class UserConf2 extends AppCompatActivity
 
     //【重要】///////////////////////////////////////////////
     //
-    //　投げる元のActivityに、intent.putExtra("CLASSNAME")
-    //
+    //  投げる元のActivityに、intent.putExtra("CLASSNAME")を記述
+    //  投げる元のActivityに、intent.putExtra("UID",int) or ("SID", int)を記述
     //
     //
     //User認証がクリアだった時に遷移するクラス名をここで設定する
-    Intent i = getIntent();
-    //final String CLASSNAME = i.getStringExtra("CLASSNAME");
-//    final int ID_S = i.getIntExtra("SID", -1);
-//    final int ID_U = i.getIntExtra("UID", -1);
-    int ID_S = 10;
-    int ID_U = -1;
+    Intent intent = getIntent();
+
+    /**
+     * この部分を後で復活させる
+     */
+    //    final String CLASSNAME = intent.getStringExtra("CLASSNAME");
+    //    final int ID_S = intent.getIntExtra("SID", -1);
+    //    final int ID_U = intent.getIntExtra("UID", -1);
+
+    /**
+     * ここは逆に本番では削除する
+     */
+    int ID_S = 10;      //test
+    int ID_U = -1;      //test
     final String CLASSNAME = "com.bizan.mobile10.passgene.InitialSet3";       //遷移させたい先の完全なClass名（.java不要） ←最終的に削除の行
     final String PKGNAME = "com.bizan.mobile10.passgene";    //ここは変更不要
     //
@@ -46,6 +55,10 @@ public class UserConf2 extends AppCompatActivity
         setContentView(R.layout.activity_user_conf2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        //マスターパスの呼出し
+        rightPass = String.valueOf(dbC.readMasterPass());
 
         btn = (Button) findViewById(R.id.btnUserConf);
         btn.setOnClickListener(this);
@@ -75,11 +88,6 @@ public class UserConf2 extends AppCompatActivity
         String tmp_uc4 = String.valueOf(npk_uc4.getValue());
         fixMaster_uc = tmp_uc1 + tmp_uc2 + tmp_uc3 + tmp_uc4;
 
-
-        //DBからユーザーのMPを引っ張って来る
-        rightPass = "0000";
-
-
         //入力パスが登録済MPと一致した時は次の画面へ
         if (fixMaster_uc.equals(rightPass)) {
             //次の画面へ遷移するコードを記述
@@ -102,7 +110,6 @@ public class UserConf2 extends AppCompatActivity
             //Dialogを表示させる
             openPG_Dialog();
         }
-
     }
 
     /**
