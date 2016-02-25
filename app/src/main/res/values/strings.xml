@@ -12,12 +12,16 @@
     <string name="caution_text_masterpass">ユーザー確認に使用します。\n忘れないように保管下さい。</string>
     <string name="hint_lastname">姓を英字で入力して下さい。（例）Satoh</string>
     <string name="hint_firstname">名を英字で入力して下さい。(例)Gajiro</string>
+    <string name="hint_birthday">生年月日を入力して下さい。</string>
+
     <string name="do_input_userinfo">
         〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。
     </string>
     <string name="now_input_userinfo">今、あなたのユーザー情報を\n追加で登録しませんか？</string>
     <string name="err_msg_lastname">姓(Last name)の入力は必須です。</string>
     <string name="err_msg_firstname">名(First name)の入力は必須です。</string>
+    <string name="err_msg_birthday">生年月日の入力は必須です。</string>
+
 
     <string name="action_settings">Settings</string>
 
@@ -30,6 +34,7 @@
     <string name="guide_title_iforgot">【マスターパスワード再送】</string>
     <string name="guide_text_iforgot">○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。</string>
 
+
     <!-- MP失念SMS再送画面 -->
     <string name="title_activity_iforgot">マスターパスワード再送／初期化</string>
     <string name="guide_title_userconf">【パスワード確認】</string>
@@ -37,6 +42,12 @@
     <string name="hint_iforgot">SMSを受信可能な携帯番号を入力して下さい。</string>
     <string name="err_msg_iforgot">SMS送信を希望される場合、番号の入力は必須です。</string>
     <string name="err_msg_iforgot2">携帯番号の桁数を確認して下さい。</string>
+
+    <!-- GoogleDriveバックアップ画面 -->
+    <string name="title_activity_google_drive_backup">GoogleDrive バックアップ</string>
+    <string name="guide_title_gdb">【情報のバックアップ】</string>
+    <string name="guide_text_gdb">○○さん、\nパスじぇねくんに登録した情報をGoogleDriveにアップロードしてバックアップを取ることができます。</string>
+
 
     <!-- タイトル -->
     <string name="title_activity_regist_info">ユーザー情報登録</string>
