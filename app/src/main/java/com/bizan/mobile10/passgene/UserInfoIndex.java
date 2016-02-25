@@ -1,12 +1,10 @@
 package com.bizan.mobile10.passgene;
 
-<<<<<<< HEAD
 import android.content.Intent;
 import android.database.Cursor;
-=======
->>>>>>> origin/Hori1
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,27 +14,18 @@ import android.widget.Toast;
 
 import com.balysv.materialripple.MaterialRippleLayout;
 
-<<<<<<< HEAD
 public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.DialogListener {
     private DatabaseC dbC;
-=======
-public class UserInfoIndex extends AppCompatActivity {
-
-    private static String mUseService = "･Twitter\n･LINE\n･Facebook";
->>>>>>> origin/Hori1
     UserInfoList userInfoList = new UserInfoList();
     private String mUserInfoId = userInfoList.getUserInfoId();
     private String mUserInfoName = userInfoList.getUserInfoName();
     private String mUserInfo = userInfoList.getUserInfo();
-<<<<<<< HEAD
     private String mUseService;
 
     private String[] mServiceId1;
     private String[] mServiceId2;
     private String[] mServiceName;
 
-=======
->>>>>>> origin/Hori1
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +34,6 @@ public class UserInfoIndex extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
         /**
          * データベースからデータ読み出し
          */
@@ -99,21 +87,6 @@ public class UserInfoIndex extends AppCompatActivity {
          */
         Button btnElimination1 = (Button) findViewById(R.id.btnIndexElimination1);
         Button btnElimination2 = (Button) findViewById(R.id.btnIndexElimination2);
-=======
-        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) this.findViewById(R.id.tblIndexToolbarLayout);
-        toolbarLayout.setTitle(mUserInfoName);
-
-        TextView serviceName = (TextView) this.findViewById(R.id.txvIndexServiceName);
-        serviceName.setText(mUseService);
-
-        TextView userInfoName = (TextView) this.findViewById(R.id.txvIndexUserInfo);
-        userInfoName.setText(mUserInfo);
-
-        MaterialRippleLayout indexRipple = (MaterialRippleLayout) findViewById(R.id.ripIndexRipple);
-        indexRipple.setRippleColor(R.color.passGeneCardBackgroundGray);
-
-        Button btnElimination = (Button) this.findViewById(R.id.btnIndexElimination);
->>>>>>> origin/Hori1
 
         //削除ボタンの背景色決定
         if (mUseService.equals("")) {
@@ -124,7 +97,6 @@ public class UserInfoIndex extends AppCompatActivity {
             btnElimination2.setVisibility(View.GONE);
         }
 
-<<<<<<< HEAD
         //削除ボタン押下時の動作
         btnElimination1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,17 +149,4 @@ public class UserInfoIndex extends AppCompatActivity {
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
         dialog.dismiss();
     }
-=======
-        btnElimination.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mUseService.equals("")) {
-                    Toast.makeText(UserInfoIndex.this, "削除するけどいいですか?", Toast.LENGTH_SHORT).show();
-                } else if (!mUseService.equals("")) {
-                    Toast.makeText(UserInfoIndex.this, "使用中のサービスがあるため削除できません｡", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
->>>>>>> origin/Hori1
 }
