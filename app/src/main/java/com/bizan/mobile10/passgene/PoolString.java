@@ -8,6 +8,7 @@ import java.util.LinkedHashMap;
  * 文字生成のため
  */
 public class PoolString {
+    private final static String BR = System.getProperty("line.separator");
 
     public void setElem1S(String elem1S) {
         this.elem1S = elem1S;
@@ -101,6 +102,8 @@ public class PoolString {
 
     public String makeString() {
         StringBuilder stb = new StringBuilder();
+        stb.append("【　ヒント　】");
+        stb.append(BR);
         if (elem1S.length() != 0) {
             stb.append(elem1S);
             stb.append(elem1N);

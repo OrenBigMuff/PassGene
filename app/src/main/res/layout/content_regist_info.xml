@@ -124,7 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/regist_info_Date1"
-                android:id="@+id/textView8"
+                android:id="@+id/rnptxvpasslength"
                 android:layout_weight="1.5"
                 android:layout_toRightOf="@+id/spnRegistInfoYear"
                 android:layout_marginLeft="4dp" />
@@ -133,7 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spnRegistInfoMonth"
-                android:layout_toRightOf="@+id/textView8"
+                android:layout_toRightOf="@+id/rnptxvpasslength"
                 android:layout_weight="1.5"
                 android:layout_marginLeft="4dp" />
 
@@ -141,7 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/regist_info_Date2"
-                android:id="@+id/textView9"
+                android:id="@+id/rpnpasslength"
                 android:layout_toRightOf="@+id/spnRegistInfoMonth"
                 android:layout_weight="1.5"
                 android:layout_marginLeft="4dp" />
@@ -150,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spnRegistInfoDay"
-                android:layout_toRightOf="@+id/textView9"
+                android:layout_toRightOf="@+id/rpnpasslength"
                 android:layout_weight="1.5"
                 android:layout_marginLeft="4dp" />
 

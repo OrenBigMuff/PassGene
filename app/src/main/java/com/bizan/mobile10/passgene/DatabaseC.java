@@ -47,10 +47,10 @@ public class DatabaseC {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put("info_name", "master");
-            contentValues.put("value", value);
-            contentValues.put("category", "5");
-            contentValues.put("delete_flag", "2");
-            contentValues.put("useless_flag", "2");
+            contentValues.put("value", String.valueOf(value));
+            contentValues.put("category", 5);
+            contentValues.put("delete_flag", 2);
+            contentValues.put("useless_flag", 2);
             result = db.insert(dbTable[USER_INFO], "", contentValues);
         } catch (Exception e) {
             result = -1;
@@ -59,6 +59,9 @@ public class DatabaseC {
             db.endTransaction();
         }
         return result;
+    }
+    public void insertMasterPass(String value) {
+        this.insertMasterPass(Integer.parseInt(value));
     }
 
 
@@ -70,27 +73,31 @@ public class DatabaseC {
      */
     public long insertServiceInfo(String[] value) {
         long result;
+        StringBuilder stb = new StringBuilder();
+        stb.append(getDate());
+        stb.append(",");
+        stb.append(value[15]);
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put("service", value[0]);
             contentValues.put("user_id", value[1]);
             contentValues.put("mail_address", value[2]);
-            contentValues.put("char_num", value[3]);
-            contentValues.put("char_uppercase", value[4]);
-            contentValues.put("char_lowercase", value[5]);
-            contentValues.put("char_symbol", value[6]);
-            contentValues.put("num_of_char", value[7]);
+            contentValues.put("char_num", Integer.valueOf(value[3]));
+            contentValues.put("char_uppercase", Integer.valueOf(value[4]));
+            contentValues.put("char_lowercase", Integer.valueOf(value[5]));
+            contentValues.put("char_symbol", Integer.valueOf(value[6]));
+            contentValues.put("num_of_char", Integer.valueOf(value[7]));
             contentValues.put("generated_datetime", getDate());
-            contentValues.put("updated_datetime", getDate());
+            contentValues.put("updated_datetime", stb.toString());
             contentValues.put("fixed_pass", value[8]);
             contentValues.put("pass_hint", value[9]);
-            contentValues.put("gene_id1", value[10]);
-            contentValues.put("gene_id2", value[11]);
-            contentValues.put("gene_id3", value[12]);
-            contentValues.put("gene_id4", value[13]);
-            contentValues.put("algorithm", value[14]);
-            contentValues.put("delete_flag", "0");
+            contentValues.put("gene_id1", Integer.valueOf(value[10]));
+            contentValues.put("gene_id2", Integer.valueOf(value[11]));
+            contentValues.put("gene_id3", Integer.valueOf(value[12]));
+            contentValues.put("gene_id4", Integer.valueOf(value[13]));
+            contentValues.put("algorithm", Integer.valueOf(value[14]));
+            contentValues.put("delete_flag", 0);
             result = db.insert(dbTable[SERVICE_INFO], "", contentValues);
         } catch (Exception e) {
             result = -1;
@@ -109,26 +116,30 @@ public class DatabaseC {
      * @return
      */
     public boolean updateServiceInfo(int id, String[] value) {
+        StringBuilder stb = new StringBuilder();
+        stb.append(getDate());
+        stb.append(",");
+        stb.append(value[15]);
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put("service", value[0]);
             contentValues.put("user_id", value[1]);
             contentValues.put("mail_address", value[2]);
-            contentValues.put("char_num", value[3]);
-            contentValues.put("char_uppercase", value[4]);
-            contentValues.put("char_lowercase", value[5]);
-            contentValues.put("char_symbol", value[6]);
-            contentValues.put("num_of_char", value[7]);
+            contentValues.put("char_num", Integer.valueOf(value[3]));
+            contentValues.put("char_uppercase", Integer.valueOf(value[4]));
+            contentValues.put("char_lowercase", Integer.valueOf(value[5]));
+            contentValues.put("char_symbol", Integer.valueOf(value[6]));
+            contentValues.put("num_of_char", Integer.valueOf(value[7]));
             //contentValues.put("generated_datetime", getDate());
-            contentValues.put("updated_datetime", getDate());
+            contentValues.put("updated_datetime", stb.toString());
             contentValues.put("fixed_pass", value[8]);
             contentValues.put("pass_hint", value[9]);
-            contentValues.put("gene_id1", value[10]);
-            contentValues.put("gene_id2", value[11]);
-            contentValues.put("gene_id3", value[12]);
-            contentValues.put("gene_id4", value[13]);
-            contentValues.put("algorithm", value[14]);
+            contentValues.put("gene_id1", Integer.valueOf(value[10]));
+            contentValues.put("gene_id2", Integer.valueOf(value[11]));
+            contentValues.put("gene_id3", Integer.valueOf(value[12]));
+            contentValues.put("gene_id4", Integer.valueOf(value[13]));
+            contentValues.put("algorithm", Integer.valueOf(value[14]));
             //contentValues.put("delete_flag", value[15]);
             db.update(dbTable[SERVICE_INFO], contentValues, "_id=?",
                     new String[]{String.valueOf(id)});
@@ -154,9 +165,9 @@ public class DatabaseC {
             ContentValues contentValues = new ContentValues();
             contentValues.put("info_name", value[0]);
             contentValues.put("value", value[1]);
-            contentValues.put("category", value[2]);
-            contentValues.put("delete_flag", "0");
-            contentValues.put("useless_flag", "0");
+            contentValues.put("category", Integer.valueOf(value[2]));
+            contentValues.put("delete_flag", 0);
+            contentValues.put("useless_flag", 0);
             result = db.insert(dbTable[USER_INFO], "", contentValues);
         } catch (Exception e) {
             result = -1;
@@ -220,7 +231,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
-            val.put("delete_flag", "1");
+            val.put("delete_flag", 1);
             db.update(dbTable[USER_INFO], val, "_id=?",
                     new String[]{String.valueOf(id)});
             db.setTransactionSuccessful();
@@ -246,7 +257,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
-            val.put("useless_flag", uselessFlag);
+            val.put("useless_flag", Integer.valueOf(uselessFlag));
             db.update(dbTable[USER_INFO], val, "_id=?",
                     new String[]{String.valueOf(id)});
             db.setTransactionSuccessful();
@@ -268,7 +279,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
-            val.put("delete_flag", "1");
+            val.put("delete_flag", 1);
             db.update(dbTable[SERVICE_INFO], val, "_id=?",
                     new String[]{String.valueOf(id)});
             db.setTransactionSuccessful();
@@ -284,7 +295,7 @@ public class DatabaseC {
     /**
      * PasswordListInfoページで使用
      *
-     * @param str 空もしくはupdate:変更日時の降順 service:サービス名の昇順
+     * @param変更日時の降順 service:サービス名の昇順
      * @return
      */
     public Cursor readPasswordListInfo() {
@@ -297,6 +308,55 @@ public class DatabaseC {
             return cursor;
         } catch (Exception e) {
             Log.e("readPasswordListInfo", "err");
+        }
+        return cursor;
+    }
+
+
+//    public Cursor readSingleclum(int col){
+//        Cursor cursor = null;
+//        String sql = "";
+//        String[] sqlD = {"0"};
+//        switch(col){
+//            case 1:
+//                sql = "SELECT DISTINCT * FROM service_info WHERE delete_flag=?";
+//                break;
+//            case 2:
+//
+//                break;
+//            case 3:
+//
+//                break;
+//        }
+//
+//        try{
+//            cursor = db.rawQuery(sql, sqlD);
+//        }catch (Exception e){
+//            Log.e("readSingleclum", e.getMessage());
+//        }
+//        return cursor;
+//    }
+
+    public Cursor readSingleclum(int col){
+        Cursor cursor = null;
+        String sql = "";
+        String[] sqlD = {"0"};
+        switch(col){
+            case 1:
+                sql = "SELECT DISTINCT service FROM service_info WHERE delete_flag=?";
+                break;
+            case 2:
+                sql = "SELECT DISTINCT user_id FROM service_info WHERE delete_flag=?";
+                break;
+            case 3:
+                sql = "SELECT DISTINCT mail_address FROM service_info WHERE delete_flag=?";
+                break;
+        }
+
+        try{
+            cursor = db.rawQuery(sql, sqlD);
+        }catch (Exception e){
+            Log.e("readSingleclum", e.getMessage());
         }
         return cursor;
     }
