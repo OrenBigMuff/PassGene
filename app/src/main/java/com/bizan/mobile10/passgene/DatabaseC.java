@@ -7,13 +7,60 @@ import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 /**
  * @author yyukihhide
  * @version 0.5
  */
 
 public class DatabaseC {
+
+
+    /*
+    private final String DB_NAME = "QA.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    //テーブル名
+    private static final String[] DB_TABLE = {"service_info","user_info"};
+
+    String[] dbColTable = {
+                    "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    " service TEXT UNIQUE NOT NULL," +
+                    " user_id TEXT NOT NULL," +
+                    " mail_address TEXT NOT NULL," +
+                    " char_num INTEGER NOT NULL," +
+                    " char_uppercase INTEGER NOT NULL," +
+                    " char_lowercase INTEGER NOT NULL," +
+                    " char_symbol INTEGER NOT NULL," +
+                    " num_of_char INTEGER NOT NULL," +
+                    " generated_datetime TEXT NOT NULL," +
+                    " updated_datetime TEXT NOT NULL," +
+                    " fixed_pass TEXT NOT NULL," +
+                    " pass_hint TEXT NOT NULL," +
+                    " gene_id1 INTEGER NOT NULL," +
+                    " gene_id2 INTEGER NOT NULL," +
+                    " gene_id3 INTEGER NOT NULL," +
+                    " gene_id4 INTEGER NOT NULL," +
+                    " algorithm INTEGER NOT NULL," +
+                    " delete_flag INTEGER NOT NULL)" ,
+
+                    "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    " info_name TEXT UNIQUE NOT NULL," +
+                    " value TEXT NOT NULL," +
+                    " category INTEGER NOT NULL," +
+                    " delete_flag INTEGER NOT NULL," +
+                    " useless_flag INTEGER NOT NULL)"
+                    };
+                    0	・電話番号　〇〇〇〇 - 〇〇〇〇 - 〇〇〇〇 の形式？
+                    1	・生年月日 yyyy 年 mm 月 dd日 の形式？
+                    2	・姓名 姓：・・・ （アルファベット）
+                    3	・姓名 名：・・・ （アルファベット）
+                    4	・フリーテキスト
+                    5	・フリーナンバー
+                    6	・オールフリー
+
+
+
+    */
+
     //テーブル名
     private static String[] dbTable = {"service_info", "user_info"};
     private static SQLiteDatabase db;
@@ -47,10 +94,10 @@ public class DatabaseC {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put("info_name", "master");
-            contentValues.put("value", String.valueOf(value));
-            contentValues.put("category", 5);
-            contentValues.put("delete_flag", 2);
-            contentValues.put("useless_flag", 2);
+            contentValues.put("value", value);
+            contentValues.put("category", "5");
+            contentValues.put("delete_flag", "2");
+            contentValues.put("useless_flag", "2");
             result = db.insert(dbTable[USER_INFO], "", contentValues);
         } catch (Exception e) {
             result = -1;
@@ -59,9 +106,6 @@ public class DatabaseC {
             db.endTransaction();
         }
         return result;
-    }
-    public void insertMasterPass(String value) {
-        this.insertMasterPass(Integer.parseInt(value));
     }
 
 
@@ -73,31 +117,27 @@ public class DatabaseC {
      */
     public long insertServiceInfo(String[] value) {
         long result;
-        StringBuilder stb = new StringBuilder();
-        stb.append(getDate());
-        stb.append(",");
-        stb.append(value[15]);
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put("service", value[0]);
             contentValues.put("user_id", value[1]);
             contentValues.put("mail_address", value[2]);
-            contentValues.put("char_num", Integer.valueOf(value[3]));
-            contentValues.put("char_uppercase", Integer.valueOf(value[4]));
-            contentValues.put("char_lowercase", Integer.valueOf(value[5]));
-            contentValues.put("char_symbol", Integer.valueOf(value[6]));
-            contentValues.put("num_of_char", Integer.valueOf(value[7]));
+            contentValues.put("char_num", value[3]);
+            contentValues.put("char_uppercase", value[4]);
+            contentValues.put("char_lowercase", value[5]);
+            contentValues.put("char_symbol", value[6]);
+            contentValues.put("num_of_char", value[7]);
             contentValues.put("generated_datetime", getDate());
-            contentValues.put("updated_datetime", stb.toString());
+            contentValues.put("updated_datetime", getDate());
             contentValues.put("fixed_pass", value[8]);
             contentValues.put("pass_hint", value[9]);
-            contentValues.put("gene_id1", Integer.valueOf(value[10]));
-            contentValues.put("gene_id2", Integer.valueOf(value[11]));
-            contentValues.put("gene_id3", Integer.valueOf(value[12]));
-            contentValues.put("gene_id4", Integer.valueOf(value[13]));
-            contentValues.put("algorithm", Integer.valueOf(value[14]));
-            contentValues.put("delete_flag", 0);
+            contentValues.put("gene_id1", value[10]);
+            contentValues.put("gene_id2", value[11]);
+            contentValues.put("gene_id3", value[12]);
+            contentValues.put("gene_id4", value[13]);
+            contentValues.put("algorithm", value[14]);
+            contentValues.put("delete_flag", "0");
             result = db.insert(dbTable[SERVICE_INFO], "", contentValues);
         } catch (Exception e) {
             result = -1;
@@ -116,30 +156,26 @@ public class DatabaseC {
      * @return
      */
     public boolean updateServiceInfo(int id, String[] value) {
-        StringBuilder stb = new StringBuilder();
-        stb.append(getDate());
-        stb.append(",");
-        stb.append(value[15]);
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
             contentValues.put("service", value[0]);
             contentValues.put("user_id", value[1]);
             contentValues.put("mail_address", value[2]);
-            contentValues.put("char_num", Integer.valueOf(value[3]));
-            contentValues.put("char_uppercase", Integer.valueOf(value[4]));
-            contentValues.put("char_lowercase", Integer.valueOf(value[5]));
-            contentValues.put("char_symbol", Integer.valueOf(value[6]));
-            contentValues.put("num_of_char", Integer.valueOf(value[7]));
+            contentValues.put("char_num", value[3]);
+            contentValues.put("char_uppercase", value[4]);
+            contentValues.put("char_lowercase", value[5]);
+            contentValues.put("char_symbol", value[6]);
+            contentValues.put("num_of_char", value[7]);
             //contentValues.put("generated_datetime", getDate());
-            contentValues.put("updated_datetime", stb.toString());
+            contentValues.put("updated_datetime", getDate());
             contentValues.put("fixed_pass", value[8]);
             contentValues.put("pass_hint", value[9]);
-            contentValues.put("gene_id1", Integer.valueOf(value[10]));
-            contentValues.put("gene_id2", Integer.valueOf(value[11]));
-            contentValues.put("gene_id3", Integer.valueOf(value[12]));
-            contentValues.put("gene_id4", Integer.valueOf(value[13]));
-            contentValues.put("algorithm", Integer.valueOf(value[14]));
+            contentValues.put("gene_id1", value[10]);
+            contentValues.put("gene_id2", value[11]);
+            contentValues.put("gene_id3", value[12]);
+            contentValues.put("gene_id4", value[13]);
+            contentValues.put("algorithm", value[14]);
             //contentValues.put("delete_flag", value[15]);
             db.update(dbTable[SERVICE_INFO], contentValues, "_id=?",
                     new String[]{String.valueOf(id)});
@@ -165,9 +201,9 @@ public class DatabaseC {
             ContentValues contentValues = new ContentValues();
             contentValues.put("info_name", value[0]);
             contentValues.put("value", value[1]);
-            contentValues.put("category", Integer.valueOf(value[2]));
-            contentValues.put("delete_flag", 0);
-            contentValues.put("useless_flag", 0);
+            contentValues.put("category", value[2]);
+            contentValues.put("delete_flag", "0");
+            contentValues.put("useless_flag", "0");
             result = db.insert(dbTable[USER_INFO], "", contentValues);
         } catch (Exception e) {
             result = -1;
@@ -231,7 +267,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
-            val.put("delete_flag", 1);
+            val.put("delete_flag", "1");
             db.update(dbTable[USER_INFO], val, "_id=?",
                     new String[]{String.valueOf(id)});
             db.setTransactionSuccessful();
@@ -257,7 +293,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
-            val.put("useless_flag", Integer.valueOf(uselessFlag));
+            val.put("useless_flag", uselessFlag);
             db.update(dbTable[USER_INFO], val, "_id=?",
                     new String[]{String.valueOf(id)});
             db.setTransactionSuccessful();
@@ -279,7 +315,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
-            val.put("delete_flag", 1);
+            val.put("delete_flag", "1");
             db.update(dbTable[SERVICE_INFO], val, "_id=?",
                     new String[]{String.valueOf(id)});
             db.setTransactionSuccessful();
@@ -289,97 +325,6 @@ public class DatabaseC {
             Log.e("deleteServiceInfo", "err");
             return false;
         }
-    }
-
-
-    /**
-     * PasswordListInfoページで使用
-     *
-     * @param変更日時の降順 service:サービス名の昇順
-     * @return
-     */
-    public Cursor readPasswordListInfo() {
-        Cursor cursor = null;
-        try {
-            String[] sqlD = {"0"};
-            String sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
-                    " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
-            cursor = db.rawQuery(sql, sqlD);
-            return cursor;
-        } catch (Exception e) {
-            Log.e("readPasswordListInfo", "err");
-        }
-        return cursor;
-    }
-
-
-//    public Cursor readSingleclum(int col){
-//        Cursor cursor = null;
-//        String sql = "";
-//        String[] sqlD = {"0"};
-//        switch(col){
-//            case 1:
-//                sql = "SELECT DISTINCT * FROM service_info WHERE delete_flag=?";
-//                break;
-//            case 2:
-//
-//                break;
-//            case 3:
-//
-//                break;
-//        }
-//
-//        try{
-//            cursor = db.rawQuery(sql, sqlD);
-//        }catch (Exception e){
-//            Log.e("readSingleclum", e.getMessage());
-//        }
-//        return cursor;
-//    }
-
-    public Cursor readSingleclum(int col){
-        Cursor cursor = null;
-        String sql = "";
-        String[] sqlD = {"0"};
-        switch(col){
-            case 1:
-                sql = "SELECT DISTINCT service FROM service_info WHERE delete_flag=?";
-                break;
-            case 2:
-                sql = "SELECT DISTINCT user_id FROM service_info WHERE delete_flag=?";
-                break;
-            case 3:
-                sql = "SELECT DISTINCT mail_address FROM service_info WHERE delete_flag=?";
-                break;
-        }
-
-        try{
-            cursor = db.rawQuery(sql, sqlD);
-        }catch (Exception e){
-            Log.e("readSingleclum", e.getMessage());
-        }
-        return cursor;
-    }
-
-    public Cursor readPasswordListInfo(String str) {
-        Cursor cursor = null;
-        String sql = "";
-        try {
-            String[] sqlD = {"0"};
-            if (str.equals("update")) {
-                sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
-                        " FROM service_info WHERE delete_flag=? ORDER BY updated_datetime DESC";
-            } else if (str.equals("service")) {
-                sql = "SELECT _id,service,pass_hint,generated_datetime, updated_datetime" +
-                        " FROM service_info WHERE delete_flag=? ORDER BY service";
-            }
-
-            cursor = db.rawQuery(sql, sqlD);
-            return cursor;
-        } catch (Exception e) {
-            Log.e("readPasswordListInfo", "err");
-        }
-        return cursor;
     }
 
     /**
@@ -408,113 +353,6 @@ public class DatabaseC {
                         "_id", "info_name",
                         "value", "category", "delete_flag", "useless_flag"},
                 null, null, null, null, null);
-        return cursor;
-    }
-
-    public Cursor readServiceInfo(String id) {
-        String[] sqlD = {id};
-        Cursor cursor;
-        String sql = "SELECT * FROM service_info WHERE delete_flag=0 AND _id=?";
-        cursor = db.rawQuery(sql, sqlD);
-        return cursor;
-    }
-
-    /**
-     * 一件のユーザー情報を返す
-     *
-     * @return
-     */
-    public Cursor readUserInfo() {
-        String[] sqlD = {"1"};
-        Cursor cursor;
-        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 ORDER BY RANDOM() LIMIT ?";
-        cursor = db.rawQuery(sql, sqlD);
-        return cursor;
-    }
-
-    /**
-     * カテゴリー別
-     * 一件のユーザー情報を返す
-     *
-     * @param category 0:電話
-     *                 1:生年月日
-     *                 2:姓
-     *                 3:名
-     *                 4:フリーテキスト
-     *                 5:フリーナンバー
-     *                 6:オールフリー
-     * @return
-     */
-    public Cursor readUserInfo(String category) {
-        String[] sqlD = {category, "1"};
-        Cursor cursor;
-        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND category=? ORDER BY RANDOM() LIMIT ?";
-        cursor = db.rawQuery(sql, sqlD);
-        return cursor;
-    }
-
-    /**
-     * 数字だけ
-     * @return
-     */
-    public Cursor readUserInfoCategryNumber() {
-        String[] sqlD = {"0", "1", "5", "1"};
-        Cursor cursor;
-        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND (category=? OR category=? OR category=?) ORDER BY RANDOM() LIMIT ?";
-        cursor = db.rawQuery(sql, sqlD);
-        return cursor;
-    }
-
-    /**
-     * 文字だけ
-     * @return
-     */
-    public Cursor readUserInfoCategryString() {
-        String[] sqlD = {"2", "3", "4", "1"};
-        Cursor cursor;
-        String sql = "SELECT * FROM user_info WHERE useless_flag=0 AND delete_flag=0 AND (category=? OR category=? OR category=?) ORDER BY RANDOM() LIMIT ?";
-        cursor = db.rawQuery(sql, sqlD);
-        return cursor;
-    }
-
-
-    /**
-     * 試作品です。　user_info の ID 渡すと　service_info の　IDを含むカーソルが返ってくる
-     *
-     * @param id
-     * @return
-     */
-    public Cursor readGeneUseid(String id) {
-        String[] sqlD = new String[4];
-        for (int i = 0; i < sqlD.length; i++) {
-            sqlD[i] = id;
-        }
-        Cursor cursor = null;
-        try {
-            //String[] sqlD = {"master"};
-            String sql = "SELECT _id FROM service_info WHERE gene_id1=? OR gene_id2=? OR gene_id3=? OR gene_id4=?";
-            cursor = db.rawQuery(sql, sqlD);
-            return cursor;
-        } catch (Exception e) {
-            Log.e("readMasterPass", "err");
-        }
-        return cursor;
-    }
-
-    public Cursor readGeneUseid(int id) {
-        String[] sqlD = new String[4];
-        for (int i = 0; i < sqlD.length; i++) {
-            sqlD[i] = String.valueOf(id);
-        }
-        Cursor cursor = null;
-        try {
-            //String[] sqlD = {"master"};
-            String sql = "SELECT _id FROM service_info WHERE gene_id1=? OR gene_id2=? OR gene_id3=? OR gene_id4=?";
-            cursor = db.rawQuery(sql, sqlD);
-            return cursor;
-        } catch (Exception e) {
-            Log.e("readMasterPass", "err");
-        }
         return cursor;
     }
 

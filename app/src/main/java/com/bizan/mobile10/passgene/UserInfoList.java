@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class UserInfoList extends AppCompatActivity {
+<<<<<<< HEAD
     private DatabaseC dbC;
     private String[] mUserInfoId;
     private String[] mUserInfoName;
@@ -29,6 +30,17 @@ public class UserInfoList extends AppCompatActivity {
 
     //押下されたユーザー情報カードのIDを他Activityで使用するためのメソッド
     public static String getUserInfoId() {
+=======
+    private static int[] mUserInfoId = {0, 1, 2, 3, 4, 5, 6, 7};
+    private static String[] mUserInfoName = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
+    private static String[] mUserInfo = {"姓", "名", "生年月日", "携帯電話番号", "自宅電話番号", "ペットの名前", "出身校名", "車のナンバー"};
+
+    public static int setUserInfoId;
+    public static String setUserInfoName;
+    public static String setUserInfo;
+
+    public static int getUserInfoId() {
+>>>>>>> origin/Hori1
         return setUserInfoId;
     }
     //押下されたユーザー情報カードの情報名を他Activityで使用するためのメソッド
@@ -36,6 +48,10 @@ public class UserInfoList extends AppCompatActivity {
         return setUserInfoName;
     }
     //押下されたユーザー情報カードの情報を他Activityで使用するためのメソッド
+    public static String getUserInfo() {
+        return setUserInfo;
+    }
+
     public static String getUserInfo() {
         return setUserInfo;
     }
@@ -87,6 +103,7 @@ public class UserInfoList extends AppCompatActivity {
 
                 CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
 
+<<<<<<< HEAD
                 //ユーザー情報名
                 TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
                 txvUserInfo.setText(mUserInfoName[i]);
@@ -103,6 +120,22 @@ public class UserInfoList extends AppCompatActivity {
                         setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
                         setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
                         setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+=======
+            //ユーザー情報名
+            TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
+            txvUserInfo.setText(mUserInfoName[i]);
+
+            cardView.setTag(i);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
+                    startActivity(intent);
+
+                    setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+>>>>>>> origin/Hori1
 
                     }
                 });
@@ -151,6 +184,7 @@ public class UserInfoList extends AppCompatActivity {
 
                 CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
 
+<<<<<<< HEAD
                 //ユーザー情報名
                 TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
                 txvUserInfo.setText(mUserInfoName[i]);
@@ -166,6 +200,22 @@ public class UserInfoList extends AppCompatActivity {
                         setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
                         setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
                         setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+=======
+            //ユーザー情報名
+            TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
+            txvUserInfo.setText(mUserInfoName[i]);
+
+            cardView.setTag(i);
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
+                    startActivity(intent);
+
+                    setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
+                    setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
+>>>>>>> origin/Hori1
 
                     }
                 });
