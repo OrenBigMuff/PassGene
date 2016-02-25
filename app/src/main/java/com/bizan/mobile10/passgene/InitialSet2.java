@@ -1,5 +1,9 @@
 package com.bizan.mobile10.passgene;
 
+/**
+ * imai
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +17,8 @@ import android.widget.Toast;
 public class InitialSet2 extends AppCompatActivity
         implements View.OnClickListener, PassGeneDialog.DialogListener {
 
+    public static DatabaseC dbC;
+    private PreferenceC pref;
     NumberPicker npk1;
     NumberPicker npk2;
     NumberPicker npk3;
@@ -30,6 +36,8 @@ public class InitialSet2 extends AppCompatActivity
 
         btn = (Button) findViewById(R.id.btnInitialSet2);
         btn.setOnClickListener(this);
+
+        pref = new PreferenceC(this);
 
         npk1 = (NumberPicker) findViewById(R.id.npk1);
         npk2 = (NumberPicker) findViewById(R.id.npk2);
@@ -95,70 +103,23 @@ public class InitialSet2 extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
+        //DBに登録
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC.insertMasterPass(Integer.parseInt(fixMaster));
         toast(InitialSet1.fullname + " さんのマスターパスワードは 「" + fixMaster + " 」で登録しました。");
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
         startActivity(intent);
+        //preference に渡す(初回時以外表示させないフラグ)
+        pref.writeConfig("p0_2", true);
+        //次画面から戻ってきた時の為に一旦、ダイアログを閉じる
         dialog.dismiss();
     }
 
     @Override
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Negativeボタンが押された時の動作
+        //ダイアログを閉じる
         dialog.dismiss();
     }
-
-
-
-
-/*
-//今はDialogFragmentへのListener設定方法がわからないので コメントアウトしておく
-    @Override
-    public void onPositiveButtonClick(String tag) {
-        if("TAG_PG".equals(tag)) {
-            // ok ボタンがおされた
-            toast("うぬのマスパスは" + "DBに登録したぞよい！");
-            Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
-            startActivity(intent);
-        }
-    }
-
-    @Override
-    public void onNegativeButtonClick(String tag) {
-        if("TAG_PG".equals(tag)){
-            return;
-        }
-    }*/
-
-
-/*    // TODO Auto-generated method stub
-    new AlertDialog.Builder(InitialSet2.this)
-            .setTitle("マスターパスワード確認")
-    .setMessage("パスは、" + fixMaster + " でよろしいですか？")
-    // 肯定的な意味を持つボタンを設定
-    .setPositiveButton("登録", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            // Positive Buttonが押された時の処理を記述{
-            Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
-            toast("マスターパスワード" + fixMaster + "を登録しました。");
-            startActivity(intent);
-            Log.v("Alert", "Positive Button");
-
-        }
-    })
-            // 否定的な意味を持つボタンを設定
-            .setNegativeButton("やりなおす", new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            // TODO Auto-generated method stub
-            // Negative Buttonが押された時の処理を記述
-            toast("もう一度、マスターパスワードを登録してください。");
-            Log.v("Alert", "Negative Button");
-        }
-    })
-            .create()
-    .show();*/
-
-
 }
 

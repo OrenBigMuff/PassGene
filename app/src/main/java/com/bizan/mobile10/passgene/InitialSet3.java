@@ -14,6 +14,8 @@ import android.widget.Toast;
 public class InitialSet3 extends AppCompatActivity
         implements View.OnClickListener {
 
+    private PreferenceC pref;
+
     Button btn0_3Posi;
     Button btn0_3Nega;
 
@@ -23,6 +25,8 @@ public class InitialSet3 extends AppCompatActivity
         setContentView(R.layout.activity_initial_set3);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        pref = new PreferenceC(this);
 
         btn0_3Posi = (Button) findViewById(R.id.btnInitialSet3Posi);
         btn0_3Posi.setOnClickListener(this);
@@ -36,15 +40,17 @@ public class InitialSet3 extends AppCompatActivity
     public void onClick(View v) {
         if(v.getId() == R.id.btnInitialSet3Posi){
 
-            Intent intent1 = new Intent(InitialSet3.this, MainActivity.class);
+            Intent intent1 = new Intent(InitialSet3.this, RegistInfo.class);
             toast("ユーザー情報登録画面に遷移");
             startActivity(intent1);
+            pref.writeConfig("p0_3", true);
 
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 
-            Intent intent2 = new Intent(InitialSet3.this, MainActivity.class);
+            Intent intent2 = new Intent(InitialSet3.this, PassList.class);
             toast("サービス名一覧画面に遷移");
             startActivity(intent2);
+            pref.writeConfig("p0_3", true);
 
         }
 
