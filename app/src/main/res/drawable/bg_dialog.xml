@@ -3,7 +3,7 @@
 
     <corners android:radius="5dp"/>
 
-    <stroke android:width="2dp" android:color="@color/passGeneBackgroundBlue"/>
+    <stroke android:width="2dp" android:color="@color/passGeneTextBlue"/>
 
     <solid android:color="@color/passGeneCardBackgroundGray"/>
 

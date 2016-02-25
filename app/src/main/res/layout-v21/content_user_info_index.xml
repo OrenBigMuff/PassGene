@@ -69,20 +69,12 @@
                 android:id="@+id/btnIndexElimination1"
                 style="@style/pass_gray_button" />
 
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:id="@+id/ripIndexRipple"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
-                app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
-                app:mrl_rippleOverlay="true"
-                android:layout_below="@+id/btnIndexElimination1">
+            <Button
+                android:text="@string/button2"
+                android:id="@+id/btnIndexElimination2"
+                style="@style/pass_red_button"
+                android:layout_below="@+id/btnIndexElimination1" />
 
-                <Button
-                    android:text="@string/button2"
-                    android:id="@+id/btnIndexElimination2"
-                    style="@style/pass_red_button" />
-
-            </com.balysv.materialripple.MaterialRippleLayout>
         </RelativeLayout>
     </RelativeLayout>
 

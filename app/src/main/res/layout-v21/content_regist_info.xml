@@ -222,25 +222,14 @@
                 android:singleLine="true"/>
         </android.support.design.widget.TextInputLayout>
 
-        <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/ripRegistRipple"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
-            app:mrl_rippleOverlay="true"
+        <Button
+            android:text="@string/button1"
+            android:id="@+id/btnRegistRegistration"
+            android:layout_marginTop="15dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/tilRegistInfoAll"
-            android:layout_marginTop="15dp">
+            style="@style/pass_blue_button" />
 
-            <Button
-                android:text="@string/button1"
-                android:id="@+id/btnRegistRegistration"
-                android:layout_marginTop="15dp"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/tilRegistInfoAll"
-                style="@style/pass_blue_button" />
-
-        </com.balysv.materialripple.MaterialRippleLayout>
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

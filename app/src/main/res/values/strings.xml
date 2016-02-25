@@ -63,14 +63,16 @@
     <string name="button4">確認</string>
     <string name="button5">戻る</string>
 
+    <!-- ユーザー情報一覧画面 -->
+    <string name="user_info_list_explanation1">ユーザー情報一覧</string>
+    <string name="user_info_list_explanation2">各カードにあるチェックボックスが\nチェック中である場合､その情報を\nパスワード生成に使用します｡</string>
+
     <!-- ユーザー情報確認画面 -->
     <string name="user_info_index_explanation1">このユーザー情報を\n使用中のサービス</string>
-    <string name="user_info_index_explanation2">さんの</string>
-    <string name="user_info_index_explanation3">です｡</string>
 
     <!-- ユーザー情報登録画面 -->
     <string name="regist_info_explanation1">ユーザー情報登録</string>
-    <string name="regist_info_explanation2">PW生成の基になるUser情報の\nタイトル、カテゴリーを\n入力・選択して下さい。</string>
+    <string name="regist_info_explanation2">PW生成の基になるユーザー情報の\n情報名、カテゴリー､ユーザー情報を\n入力・選択して下さい。</string>
     <string name="regist_info_hint1">情報名を入力してください｡</string>
     <string name="regist_info_hint2">数字(0-9)で入力してください｡</string>
     <string name="regist_info_hint3">英字(A-Z,a-z)で入力してください｡</string>
@@ -88,9 +90,13 @@
     <string name="regist_info_Date1">年</string>
     <string name="regist_info_Date2">月</string>
     <string name="regist_info_Date3">日</string>
+    <string name="regist_info_errormessage1">情報名の入力は必須です。</string>
+    <string name="regist_info_errormessage2">電話番号の入力は必須です。</string>
+    <string name="regist_info_errormessage3">情報の入力は必須です。</string>
 
     <!-- ダイアログ -->
     <string name="dialog_title1">削除確認</string>
+    <string name="dialog_title2">登録確認</string>
     <string name="dialog_message1">削除するけどいいですか?</string>
     <string name="dialog_message2">使用中のサービスがあるため削除できません｡</string>
 
