@@ -74,7 +74,7 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
         asToolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
         setSupportActionBar(asToolbar);
 
-        dbC = new DatabaseC(PassList.getDbHelper());
+//        dbC = new DatabaseC(PassList.getDbHelper());
 
         dbC.readMasterPass();
         masterPass = String.valueOf(dbC.readMasterPass());

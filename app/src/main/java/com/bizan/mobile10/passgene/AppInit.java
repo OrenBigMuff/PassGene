@@ -69,10 +69,10 @@ DeleteDialog.DialogListener{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
 
-        dbC = new DatabaseC(PassList.getDbHelper());
+//        dbC = new DatabaseC(PassList.getDbHelper());
         //マスターパス呼び出し
         dbC.readMasterPass();
-        masterPass = String.valueOf(dbC.readMasterPass());
+        masterPass = dbC.readMasterPass();
 
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.AppInit_toolbar_layout);

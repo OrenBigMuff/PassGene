@@ -41,7 +41,7 @@ public class DatabaseC {
      * @param value
      * @return
      */
-    public long insertMasterPass(int value) {
+    public long insertMasterPass(String value) {
         long result;
         try {
             db.beginTransaction();
@@ -173,19 +173,19 @@ public class DatabaseC {
      *
      * @return int マスターパスの呼び出し
      */
-    public int readMasterPass() {
-        int masterPass = 0;
+    public String readMasterPass() {
+        String masterpass = null;
         try {
             String[] sqlD = {"master"};
             String sql = "SELECT value FROM user_info WHERE info_name=?";
             Cursor cursor = db.rawQuery(sql, sqlD);
             cursor.moveToNext();
-            String temp = cursor.getString(0);
-            masterPass = Integer.parseInt(temp);
+            masterpass = cursor.getString(0);
+
         } catch (Exception e) {
             Log.e("readMasterPass", "err");
         }
-        return masterPass;
+        return masterpass;
     }
 
     /**
@@ -194,7 +194,7 @@ public class DatabaseC {
      * @param value
      * @return
      */
-    public boolean updateMasterPass(int value) {
+    public boolean updateMasterPass(String value) {
         try {
             db.beginTransaction();
             ContentValues val = new ContentValues();
@@ -284,7 +284,7 @@ public class DatabaseC {
     /**
      * PasswordListInfoページで使用
      *
-     * @param str 空もしくはupdate:変更日時の降順 service:サービス名の昇順
+     *
      * @return
      */
     public Cursor readPasswordListInfo() {
@@ -337,7 +337,6 @@ public class DatabaseC {
                 sql = "SELECT DISTINCT mail_address FROM service_info WHERE delete_flag=?";
                 break;
         }
-
         try{
             cursor = db.rawQuery(sql, sqlD);
         }catch (Exception e){
@@ -380,6 +379,14 @@ public class DatabaseC {
         String[] sqlD = {id};
         Cursor cursor;
         String sql = "SELECT * FROM service_info WHERE delete_flag=0 AND _id=?";
+        cursor = db.rawQuery(sql, sqlD);
+        return cursor;
+    }
+
+    public Cursor readUserSingleInfo(String id) {
+        String[] sqlD = {id};
+        Cursor cursor;
+        String sql = "SELECT * FROM user_info WHERE delete_flag=0 AND _id=?";
         cursor = db.rawQuery(sql, sqlD);
         return cursor;
     }
@@ -558,4 +565,5 @@ public class DatabaseC {
         str = sdf.format(longNum);
         return str;
     }
+
 }
