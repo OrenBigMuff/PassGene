@@ -93,16 +93,16 @@ public class UserConf2 extends AppCompatActivity
             //次の画面へ遷移するコードを記述
             //前のActivityから渡ってきたIDがUIDかSIDで判別（来ていない方は「-1」なので、、、それをトリガーに）
             if(ID_S == -1 && ID_U != -1) {
-                toast("パスワードが一致しました。ID_U");
+                toast("パスワードが一致しました。UID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("UID", ID_U);
                 startActivity(intent);
             }else if(ID_S != -1 && ID_U == -1){
-                toast("パスワードが一致しました。ID_S");
+                toast("パスワードが一致しました。SID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
-                intent.putExtra("UID", ID_U);
+                intent.putExtra("SID", ID_S);
                 startActivity(intent);
             }return;
 

@@ -103,7 +103,7 @@ public class InitialSet1 extends AppCompatActivity
 
         dpkBirthDay = (DatePicker)findViewById(R.id.dpkBirthDay);
         dpkBirthDay.setCalendarViewShown(false);
-        dpkBirthDay.updateDate(1978, 4, 8);
+        dpkBirthDay.updateDate(1978, 4, 8);  //Mは　+1で表示
 
         dateFormatter = new SimpleDateFormat("yyyy年MM月dd日", Locale.US);
         dateFormatter2 = new SimpleDateFormat("yyyyMMdd", Locale.US);
@@ -248,8 +248,7 @@ public class InitialSet1 extends AppCompatActivity
             String[] value_birth ={"ユーザーの生年月日", dispBirth, "1"};
             dbC.insertUserInfo(value_birth);
 
-            //preference に渡す(初回時以外表示させないフラグ)
-            pref.writeConfig("p0_1", true);
+
         }
     }
 

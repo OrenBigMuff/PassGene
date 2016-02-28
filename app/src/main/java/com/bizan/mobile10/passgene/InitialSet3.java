@@ -47,11 +47,10 @@ public class InitialSet3 extends AppCompatActivity
 
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 
-            Intent intent2 = new Intent(InitialSet3.this, PassList.class);
+            Intent intent2 = new Intent(InitialSet3.this, PassList2.class);
             toast("サービス名一覧画面に遷移");
             startActivity(intent2);
             pref.writeConfig("p0_3", true);
-
         }
 
     }
@@ -74,19 +73,19 @@ public class InitialSet3 extends AppCompatActivity
      * @param event
      * @return
      */
-/*    @Override
+    @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN) {
             switch (event.getKeyCode()) {
                 case KeyEvent.KEYCODE_BACK:
                     // ダイアログ表示など特定の処理を行いたい場合はここに記述
                     // 親クラスのdispatchKeyEvent()を呼び出さずにtrueを返す
-                    Intent intent = new Intent(InitialSet3.this, InitialSet2.class);
-                    startActivity(intent);
-                    *//*toast("この操作はできません。");
-                    return true;*//*
+//                    Intent intent = new Intent(InitialSet3.this, InitialSet2.class);
+//                    startActivity(intent);
+//                    toast("この操作はできません。");
+                    break;
             }
         }
         return super.dispatchKeyEvent(event);
-    }*/
+    }
 }

@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity
         Button btn_test_h1 = (Button) findViewById(R.id.btn_test_h1);
         btn_test_h1.setOnClickListener(this);
 
+        Button btn_test_t1 = (Button) findViewById(R.id.btn_test_t1);
+        btn_test_t1.setOnClickListener(this);
+
         Button btn_test_gdb = (Button) findViewById(R.id.btn_test_gdb);
         btn_test_gdb.setOnClickListener(this);
 
@@ -51,7 +54,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, PwConf.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_h1) {
-            Intent intent = new Intent(MainActivity.this, PassList.class);
+            Intent intent = new Intent(MainActivity.this, PassList2.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btn_test_t1) {
+            Intent intent = new Intent(MainActivity.this, RegistNewPass.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_gdb) {
             Intent intent = new Intent(MainActivity.this, GoogleDriveBackup.class);

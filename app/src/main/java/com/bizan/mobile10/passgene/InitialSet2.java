@@ -105,11 +105,12 @@ public class InitialSet2 extends AppCompatActivity
         // Positiveボタンが押された時の動作
         //DBに登録
         dbC = new DatabaseC(InitialSet1.getDbHelper());
-        dbC.insertMasterPass(Integer.parseInt(fixMaster));
+        dbC.insertMasterPass(fixMaster);
         toast(InitialSet1.fullname + " さんのマスターパスワードは 「" + fixMaster + " 」で登録しました。");
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
         startActivity(intent);
         //preference に渡す(初回時以外表示させないフラグ)
+        pref.writeConfig("p0_1", true);
         pref.writeConfig("p0_2", true);
         //次画面から戻ってきた時の為に一旦、ダイアログを閉じる
         dialog.dismiss();
