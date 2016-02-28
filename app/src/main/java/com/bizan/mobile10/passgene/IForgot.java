@@ -21,12 +21,13 @@ import android.widget.Toast;
 public class IForgot extends AppCompatActivity
         implements View.OnClickListener, PassGeneDialog.DialogListener {
 
+    DatabaseC dbC;
     Button btnIForgot1;
     Button btnIForgot2;
     TextInputLayout tilSmsNum;
     EditText edtSmsNum;
     String smsNum;
-    String rightPass;
+    String rightPass;           //マスターパスワード from DB
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,9 @@ public class IForgot extends AppCompatActivity
         setContentView(R.layout.activity_iforgot);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        rightPass = dbC.readMasterPass();
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
         btnIForgot1.setOnClickListener(this);
@@ -104,8 +108,6 @@ public class IForgot extends AppCompatActivity
         }
         //入力されたSMS番号を取得
         smsNum = edtSmsNum.getText().toString();
-        //ユーザーのマスターパスをDBより取得
-        //rightPass = ・・・
         toast(InitialSet1.fullname + "+さんのマスターパスワードを、" + smsNum + "へ送信します。");
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         Uri smsNumber = Uri.parse("sms:smsNum");       //SMS番号09012345678
