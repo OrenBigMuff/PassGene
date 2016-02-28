@@ -31,17 +31,18 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:text="address"
-                android:id="@+id/pwconf_address_txv"
+                android:id="@+id/pwconf_txvTitle_address"
                 style="@style/pass_blue_heading"
                 android:gravity="center"
                 android:elevation="9dp"/>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:id="@+id/pwconf_address_edt"
-                android:textSize="15sp"
+                android:id="@+id/pwconf_txvValue_address"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
                 android:text="testtesttestest"
                 android:layout_marginTop="5dp" />
         </LinearLayout>
@@ -58,18 +59,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="Password"
-                android:id="@+id/pwconf_Password_txv"
+                android:id="@+id/pwconf_txvTitle_Password"
                 android:layout_weight="1"
                 style="@style/pass_blue_heading"
                 android:gravity="center"
                 android:elevation="9dp"/>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/pwconf_Password_edt"
+                android:id="@+id/pwconf_txvValue_Password"
                 android:layout_weight="1"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:text="testtesttest"
                 android:gravity="center_vertical"
                 android:layout_marginTop="5dp" />
@@ -87,18 +88,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:text="account"
-                android:id="@+id/pwconf_account_txv"
+                android:id="@+id/pwconf_txvTitle_account"
                 android:layout_weight="1"
                 android:gravity="center_vertical|center"
                 style="@style/pass_blue_heading"
                 android:elevation="9dp"/>
 
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/pwconf_account_edt"
+                android:id="@+id/pwconf_txvValue_account"
                 android:layout_weight="1"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:gravity="center_vertical"
                 android:text="testtesttest"
                 android:layout_marginTop="5dp" />
@@ -114,22 +115,20 @@
             android:layout_marginRight="15dp">
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
                 android:text="@string/button3"
                 android:id="@+id/pwconf_hensyubtn"
                 style="@style/pass_blue_button"
                 android:layout_marginRight="10dp"
-                android:elevation="9dp" />
+                android:elevation="6dp" />
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+
                 android:text="@string/button2"
                 android:id="@+id/pwconf_deletebtn"
                 style="@style/pass_red_button"
                 android:layout_marginLeft="10dp"
-                android:elevation="9dp" />
+                android:elevation="6dp" />
         </LinearLayout>
     </LinearLayout>
 
