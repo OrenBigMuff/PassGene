@@ -47,6 +47,8 @@ public class UserInfoList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
         /**
          * データベースからデータ読み出し
          */

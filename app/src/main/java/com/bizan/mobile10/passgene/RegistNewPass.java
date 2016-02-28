@@ -59,9 +59,11 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     private String[] arrayid;
     private String[] arrayadd;
 
+
+
     /**
      * debug
-     *****************************/
+     *****************************
     private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     //テーブル名
@@ -77,7 +79,9 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-/**debug*****************************/
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
+/**debug*****************************
         String[] dbColTable = {
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " service TEXT UNIQUE NOT NULL," +
@@ -107,7 +111,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
                         " useless_flag INTEGER NOT NULL)"
         };
         dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
-/*******************************/
+/*******************************
         //データベース準備
         dbC = new DatabaseC(dbHelper);
 //        Cursor cursor = dbC.readServiceInfoAll();
@@ -127,7 +131,6 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 //        dbC.insertUserInfo(str2);
 /*******************************/
 
-
         pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
 
@@ -143,13 +146,13 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         } else {
             pref.writeConfig("id", "0");
         }
-        String readid = pref.readConfig("id", "0");
+        String readId = pref.readConfig("id", "0");
 
-        if (readid.equals("0")) {
+        if (readId.equals("0")) {
             //DBデータをセットする
             setDB2hash();
         } else {
-            //データがなかったらここでぷリファレンスの値を入れちゃう 以下ハッシュマップでとる　ぷリファレンスはページ受け渡し
+            //データがなかったらここでプリファレンスの値を入れちゃう 以下ハッシュマップでとる　プリファレンスはページ受け渡し
             hashMapDB.put("id", "0");
             hashMapDB.put("user_id", "");
             hashMapDB.put("service", "");
