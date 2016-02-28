@@ -76,6 +76,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 
     public static final int NOTIFICATION_BROADCAST_REQUEST_CODE = 100;;
 
+/*
     private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     private static final String[] DB_TABLE = {"service_info", "user_info"};
@@ -83,6 +84,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
     public static DatabaseHelper getDbHelper() {
         return dbHelper;
     }
+*/
     private DatabaseC dbC;
 
     private int SERVICE_INFO = 0;
@@ -107,8 +109,11 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         plToolbar = (Toolbar) findViewById(R.id.PassList_toolbar);
         setSupportActionBar(plToolbar);
 
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
+
         //onCreateに
-        String[] dbColTable = {
+/*        String[] dbColTable = {
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " service TEXT UNIQUE NOT NULL," +
                         " user_id TEXT NOT NULL," +
@@ -135,10 +140,11 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                         " category INTEGER NOT NULL," +
                         " delete_flag INTEGER NOT NULL," +
                         " useless_flag INTEGER NOT NULL)"
-        };
+        };*/
 
-        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
-        dbC = new DatabaseC(PassList.getDbHelper());
+//        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+//        dbC = new DatabaseC(PassList.getDbHelper());
+
         final Cursor cursor = dbC.readPasswordListInfo();
 
 
@@ -161,12 +167,12 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         //ここまでNVトグル設定
 
         //FAB設定
-        plFab = (FloatingActionButton) findViewById(R.id.PassList_fab);
+        plFab = (FloatingActionButton) findViewById(R.id.passList_fab);
         plFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //RegistNewPassに遷移
-                Intent intent = new Intent(PassList.this,RegistNewPass.class);
+                Intent intent = new Intent(PassList.this, RegistNewPass.class);
 //                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.RegistNewPass");
                 startActivity(intent);
             }

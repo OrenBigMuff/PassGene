@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoTag"
-                android:hint="@string/regist_info_hint1"
+                android:hint="@string/regist_info_hint0"
                 android:singleLine="true"/>
         </android.support.design.widget.TextInputLayout>
 
