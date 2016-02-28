@@ -11,7 +11,9 @@
     <string name="hint_firstname">名を英字で入力して下さい。(例)Gajiro</string>
     <string name="hint_birthday">生年月日を入力して下さい。</string>
 
-    <string name="do_input_userinfo">〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。</string>
+    <string name="do_input_userinfo">
+        〇〇さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。
+    </string>
 
     <string name="now_input_userinfo">今、あなたのユーザー情報を\n追加で登録しませんか？</string>
     <string name="err_msg_lastname">姓(Last name)の入力は必須です。</string>
@@ -33,7 +35,9 @@
     <!-- MP失念SMS再送画面 -->
     <string name="title_activity_iforgot">マスターパスワード再送／初期化</string>
     <string name="guide_title_iforgot">【マスターパスワード再送】</string>
-    <string name="guide_text_iforgot">○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。</string>
+    <string name="guide_text_iforgot">
+        ○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。
+    </string>
 
     <string name="hint_iforgot">SMSを受信可能な携帯番号を入力して下さい。</string>
     <string name="err_msg_iforgot">SMS送信を希望される場合、番号の入力は必須です。</string>
@@ -42,7 +46,8 @@
     <!-- GoogleDriveバックアップ画面 -->
     <string name="title_activity_google_drive_backup">GoogleDrive バックアップ</string>
     <string name="guide_title_gdb">【情報のバックアップ】</string>
-    <string name="guide_text_gdb">○○さん、\nパスじぇねくんに登録した情報をGoogleDriveにアップロードしてバックアップを取ることができます。</string>
+    <string name="guide_text_gdb">○○さん、\nパスじぇねくんに登録した情報をGoogleDriveにアップロードしてバックアップを取ることができます。
+    </string>
 
 
     <!-- タイトル -->
@@ -60,7 +65,8 @@
 
     <!-- ユーザー情報一覧画面 -->
     <string name="user_info_list_explanation1">ユーザー情報一覧</string>
-    <string name="user_info_list_explanation2">各カードにあるチェックボックスが\nチェック中である場合､その情報を\nパスワード生成に使用します｡</string>
+    <string name="user_info_list_explanation2">各カードにあるチェックボックスが\nチェック中である場合､その情報を\nパスワード生成に使用します｡
+    </string>
 
     <!-- ユーザー情報確認画面 -->
     <string name="user_info_index_explanation1">このユーザー情報を\n使用中のサービス</string>
@@ -68,9 +74,10 @@
     <!-- ユーザー情報登録画面 -->
     <string name="regist_info_explanation1">ユーザー情報登録</string>
     <string name="regist_info_explanation2">PW生成の基になるユーザー情報の\nタイトル、カテゴリーを\n入力・選択して下さい。</string>
-    <string name="regist_info_hint1">英字(アルファベット)で入力してください</string>
-    <string name="regist_info_hint2">数字で入力してください</string>
-    <string name="regist_info_hint3">英数字で入力してください</string>
+    <string name="regist_info_hint0">入力情報のタイトルを入力してください。</string>
+    <string name="regist_info_hint1">英字(アルファベット)で入力してください。</string>
+    <string name="regist_info_hint2">数字で入力してください。</string>
+    <string name="regist_info_hint3">英数字で入力してください。</string>
     <string name="regist_info_hint4">英数字(A-Z,a-z,0-9)で入力してください｡</string>
     <string name="regist_info_category1">電話番号</string>
     <string name="regist_info_category2">生年月日</string>
@@ -106,10 +113,10 @@
 
     <string name="title_pass_list">登録サービス一覧</string>
 
-            <!--アプリ初期化画面-->
-    <string name="appinit_massage">アプリを初期化します。\nこの操作は取り消すことができません。\nマスターパスワード入力でボタンが押せるようになります。</string>
+    <!--アプリ初期化画面-->
+    <string name="appinit_massage">アプリを初期化します。\nこの操作は取り消すことができません。\nマスターパスワード入力でボタンが押せるようになります。
+    </string>
     <string name="appinit_kakunin">【確認】</string>
-
 
 
     <string name="service">Service</string>
@@ -133,8 +140,11 @@
     <string name="pg_comment">のパスワードは以下ではいかがですか？</string>
     <string name="errServiceInfo">サービス名が重複しています。</string>
 
-    <string name="openDrawer">オープン</string>     //オープンドロワー
-    <string name="closeDrawer">クローズ</string>    //クローズドロワー
+    <string name="openDrawer">オープン</string>
+    //オープンドロワー
+    <string name="closeDrawer">クローズ</string>
+    <string name="title_activity_pass_list2">PassList2</string>
+    //クローズドロワー
 
 
 </resources>

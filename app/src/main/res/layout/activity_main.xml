@@ -75,15 +75,15 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple_k2"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
                 app:mrl_rippleDelayClick="true"
                 app:mrl_rippleOverlay="true">
                 <Button
                     android:id="@+id/btn_test_k2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
@@ -94,15 +94,15 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple_h1"
-                android:layout_width="250dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
                 app:mrl_rippleDelayClick="true"
                 app:mrl_rippleOverlay="true">
                 <Button
                     android:id="@+id/btn_test_h1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
                     android:layout_centerHorizontal="true"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
