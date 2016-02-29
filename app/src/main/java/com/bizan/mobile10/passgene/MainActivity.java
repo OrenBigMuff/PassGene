@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, PwConf.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_h1) {
-            Intent intent = new Intent(MainActivity.this, PassList2.class);
+            Intent intent = new Intent(MainActivity.this, PassList.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_t1) {
             Intent intent = new Intent(MainActivity.this, RegistNewPass.class);
