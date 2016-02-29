@@ -24,7 +24,7 @@ public class InitialSet2 extends AppCompatActivity
     NumberPicker npk3;
     NumberPicker npk4;
     Button btn;
-    String fixMaster;
+    static String fixMaster;
 
 
     @Override
@@ -33,6 +33,8 @@ public class InitialSet2 extends AppCompatActivity
         setContentView(R.layout.activity_initial_set2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         btn = (Button) findViewById(R.id.btnInitialSet2);
         btn.setOnClickListener(this);
@@ -103,14 +105,12 @@ public class InitialSet2 extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
-        //DBに登録
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
-        dbC.insertMasterPass(fixMaster);
-        toast(InitialSet1.fullname + " さんのマスターパスワードは 「" + fixMaster + " 」で登録しました。");
+
+        toast(InitialSet1.fullname + " さんのマスターパスワードは 「" + this.fixMaster + " 」で登録します。");
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         //preference に渡す(初回時以外表示させないフラグ)
-        pref.writeConfig("p0_1", true);
         pref.writeConfig("p0_2", true);
         //次画面から戻ってきた時の為に一旦、ダイアログを閉じる
         dialog.dismiss();

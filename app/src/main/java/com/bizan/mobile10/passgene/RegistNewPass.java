@@ -148,7 +148,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
         String readId = pref.readConfig("id", "0");
 
-        if (readId.equals("0")) {
+        if (!readId.equals("0")) {
             //DBデータをセットする
             setDB2hash();
         } else {

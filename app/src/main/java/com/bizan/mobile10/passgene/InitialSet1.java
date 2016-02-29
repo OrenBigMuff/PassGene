@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class InitialSet1 extends AppCompatActivity
@@ -48,7 +49,8 @@ public class InitialSet1 extends AppCompatActivity
     private DatePicker dpkBirthDay;
     private SimpleDateFormat dateFormatter;
     private SimpleDateFormat dateFormatter2;
-    String dispBirth;
+    static String dispBirth;
+    static String registBirth;
     static String lastname;
     static String firstname;
     static String fullname;
@@ -168,9 +170,13 @@ public class InitialSet1 extends AppCompatActivity
 
         dispBirth = String.valueOf(mYear) + "年" + String.valueOf(mMonth+1) + "月" + String.valueOf(mDay) + "日";
 
-        toast("はじめまして" + fullname + "さん、\n生年月日は、" + dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
-        Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
-        startActivity(intent);
+        if(mMonth >= 10){
+            registBirth = String.valueOf(mYear) + String.valueOf(mMonth+1) + String.valueOf(mDay);
+        }else{
+            registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth+1) + String.valueOf(mDay);
+        }
+
+
     }
 
     /**
@@ -240,14 +246,12 @@ public class InitialSet1 extends AppCompatActivity
         if (v.getId() == R.id.btnInitialSet1) {
 
             submitForm();
-            //ここにDBへの登録コードを記述
-            String[] value_sei ={"ユーザーの姓", lastname, "2"};
-            dbC.insertUserInfo(value_sei);
-            String[] value_mei ={"ユーザーの姓", firstname, "3"};
-            dbC.insertUserInfo(value_mei);
-            String[] value_birth ={"ユーザーの生年月日", dispBirth, "1"};
-            dbC.insertUserInfo(value_birth);
 
+            pref.writeConfig("p0_1", true);
+
+            toast("はじめまして" + this.fullname + "さん、\n生年月日は、" + this.dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
+            Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
+            startActivity(intent);
 
         }
     }
@@ -260,7 +264,7 @@ public class InitialSet1 extends AppCompatActivity
         return DB_TABLE[1];
     }
 
-    //DBヘルパーゲットだぜ なや～つ
+    //DBヘルパーゲットだぜ なや～つ DBに関係する
     public static DatabaseHelper getDbHelper() {
         return dbH;
     }

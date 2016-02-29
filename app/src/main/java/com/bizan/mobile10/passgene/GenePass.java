@@ -136,6 +136,8 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         btnRegene = (Button) findViewById(R.id.pg_btn_regene);
         btnRegene.setOnClickListener(this);
 
+        makePass();
+
     }
 
     @Override
@@ -148,7 +150,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
                 dataupdate();
             }
 
-            Intent intent = new Intent(GenePass.this, MainActivity.class);
+            Intent intent = new Intent(GenePass.this, PassList.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (v == btnRegene) {
