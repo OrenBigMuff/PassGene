@@ -45,9 +45,10 @@ import android.support.v7.widget.SearchView;
 
 import java.util.Date;
 import java.util.logging.Filter;
+import java.util.regex.Pattern;
 
 
-public class PassList extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class PassList extends AppCompatActivity {
 
     static String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
     static int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
@@ -70,9 +71,14 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 
     Animation inAnimation;       //インアニメーション
     Animation outAnimetion;     //アウトアニメーション
-    Animation swapAnimation;
 
-    SearchView mSearchView;
+    SearchView mSearchView;     //searchView
+
+    LinearLayout cardLinear;    //カードビューのリニアレイアウト
+
+    String serarchWord;         //searchワード
+
+    String SerarchHint = "検索ワードを入れてください";
 
     public static final int NOTIFICATION_BROADCAST_REQUEST_CODE = 100;;
 
@@ -85,17 +91,10 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
     }
     private DatabaseC dbC;
 
+    private PreferenceC pref;       //プリファレンス
+
     private int SERVICE_INFO = 0;
     private int USER_INFO = 1;
-
-//    //DB読み込み
-//    private static String str = "update";
-//
-//    private static int[] id = new int[Integer.parseInt(str)];                   //ID
-//    private static String[] service = new String[Integer.parseInt(str)];        //Service名
-//    private static String[] pass_hint = new String[Integer.parseInt(str)];      //ヒント
-//    private static int[] generated_datetime = new int[Integer.parseInt(str)];   //ジェネレートデータタイム
-//    private static int[] updated_datetime = new int[Integer.parseInt(str)];     //アップデートデータタイム
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +140,13 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         dbC = new DatabaseC(PassList.getDbHelper());
         final Cursor cursor = dbC.readPasswordListInfo();
 
+        //初回起動時InitialSet1に飛ばす
+//        if (!pref.readConfig("Ini1",false) || !pref.readConfig("newIni1", false)){
+//            pref.writeConfig("newIni1", true);
+//            Intent intent = new Intent(this, InitialSet1.class);
+//            startActivity(intent);
+//        }
+
 
         //ツールバーにNVトグルを追加
         plDrawer = (DrawerLayout) findViewById(R.id.PassList_DrawerLayout);
@@ -166,7 +172,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
             @Override
             public void onClick(View view) {
                 //RegistNewPassに遷移
-                Intent intent = new Intent(PassList.this,RegistNewPass.class);
+                Intent intent = new Intent(PassList.this, RegistNewPass.class);
 //                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.RegistNewPass");
                 startActivity(intent);
             }
@@ -204,12 +210,15 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                 switch (recyclerView.getChildPosition(child)) {
 
                     case 1:
-                          //PW確認画面と通してユーザー情報一覧のページに飛ばす
+                        //PW確認画面と通してユーザー情報一覧のページに飛ばす
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 Intent intent = new Intent(PassList.this, UserConf2.class);
-                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
+                                intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.UserInfoList");
+                                for (int i = 0; i < 5; i++) {
+                                    intent.putExtra("UID", i);
+                                }
                                 startActivity(intent);
                             }
                         }, 250);
@@ -258,6 +267,183 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 
 //        ーーここまでリサイクルビュー関連ーー
 
+        //カードリスト表示
+        CardList();
+
+        //Notification関連
+    }
+
+    //検索機能
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.plsearch, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        final MenuItem searchItem = menu.findItem(R.id.plsearchView);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+//        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        mSearchView.setIconifiedByDefault(true);
+
+
+        //searchviewのテキスト
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                mSearchView.clearFocus();
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                serarchWord = newText;
+                //カードビューのアニメーションキャスト
+
+                //アニメーション
+                inAnimation = AnimationUtils.loadAnimation(PassList.this, R.anim.card_in_anim);
+                outAnimetion = AnimationUtils.loadAnimation(PassList.this, R.anim.card_out_anim);
+
+                //カードビュー設定
+                cardLinear = (LinearLayout) findViewById(R.id.cardLinear);
+                cardLinear.removeAllViews();
+                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//        int j = 0;
+//        while (cursor.moveToNext()) {
+//                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+//                CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+//
+//                //サービス名
+//                final TextView serviceTxv = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+//                serviceTxv.setText(cursor.getString(1));
+//
+//                //確認ボタン
+//                final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+//
+//                //ヒント
+//                final TextView hintTxv = (TextView) cardView.findViewById(R.id.plcardHint);
+//                hintTxv.setText(cursor.getString(2));
+//
+//                cardLinear.addView(linearLayout, j);
+//
+//                containerView.setTag(j);
+//                containerView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+//
+//                        //ヒントと編集ボタンをアニメーションさせる
+//                        if (cardButton.getVisibility() == View.GONE) {
+//                            cardButton.startAnimation(inAnimation);
+//                            hintTxv.startAnimation(inAnimation);
+//                            cardButton.setVisibility(View.VISIBLE);
+//                            hintTxv.setVisibility(View.VISIBLE);
+//                        } else if (cardButton.getVisibility() == View.VISIBLE) {
+//                            cardButton.startAnimation(outAnimetion);
+//                            hintTxv.startAnimation(outAnimetion);
+//                            cardButton.setVisibility(View.GONE);
+//                            hintTxv.setVisibility(View.GONE);
+//                        }
+//                    }
+//                });
+//
+//            //PW確認画面を通して確認画面に遷移させる
+//            cardButton.setTag(cursor.getString(0));
+//            cardButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    //遷移するときデータを渡す
+//                    Intent intent = new Intent(PassList.this, UserConf2.class);
+//                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
+//                    intent.putExtra("SID", v.getTag().toString());
+//                }
+//            });
+//            j++;
+//        }
+
+                for (int i = 0; i < 10; i++) {
+                    LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+                    final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+                    TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+                    textBox.setText("CardView" + i);
+                    if (serarchWord.equals("")){
+                        cardLinear.addView(linearLayout, i);
+                    }else {
+                        int j = Integer.parseInt(String.valueOf(Pattern.compile(String.valueOf(textBox)).matcher(serarchWord).find()));
+                        cardLinear.addView(linearLayout, j);
+                    }
+
+
+                    final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
+                    final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+
+                    final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
+
+                    mLineaLayout.setTag(i);
+                    mLineaLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+
+
+                            //ヒントと編集ボタンをアニメーションさせる
+                            if (cardButton.getVisibility() == View.GONE) {
+                                cardButton.startAnimation(inAnimation);
+                                cardHint.startAnimation(inAnimation);
+                                cardButton.setVisibility(View.VISIBLE);
+                                cardHint.setVisibility(View.VISIBLE);
+                            } else if (cardButton.getVisibility() == View.VISIBLE) {
+                                cardButton.startAnimation(outAnimetion);
+                                cardHint.startAnimation(outAnimetion);
+                                cardButton.setVisibility(View.GONE);
+                                cardHint.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+                    cardButton.setTag(i);
+                    cardButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(PassList.this,"(∩´∀｀)∩ﾜｰｲ"+String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+                return false;
+            }
+        });
+
+//        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean queryTextFocused) {
+//                if (!queryTextFocused) {
+//                    searchItem.collapseActionView();
+//                    mSearchView.setQuery("", false);
+//                }
+//            }
+//        });
+        return true;
+    }
+
+//    @Override
+//    public boolean onQueryTextSubmit(String query) {
+//        return false;
+//    }
+//
+//
+//    @Override
+//    public boolean onQueryTextChange(String newText) {
+//        return true;
+//    }
+    //キーボート展開時にテキスト打ち込み０でバックボタンを押すと検索アイコン表示まで戻る
+    @Override
+    public void onBackPressed() {
+        if (mSearchView !=null && !mSearchView.isIconified()) {
+            mSearchView.clearFocus();
+            mSearchView.onActionViewCollapsed();
+            mSearchView.setQuery("", false);
+            mSearchView.setIconified(true);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    public void CardList(){
         //カードビューのアニメーションキャスト
 
         //アニメーション
@@ -265,11 +451,11 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         outAnimetion = AnimationUtils.loadAnimation(this, R.anim.card_out_anim);
 
         //カードビュー設定
-        LinearLayout cardLinear = (LinearLayout) this.findViewById(R.id.cardLinear);
+        cardLinear = (LinearLayout) this.findViewById(R.id.cardLinear);
         cardLinear.removeAllViews();
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//        int j = 0;
 //        while (cursor.moveToNext()) {
-//            int j = 0;
 //                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
 //                CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
 //
@@ -326,8 +512,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
             final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
             TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
             textBox.setText("CardView" + i);
-            cardLinear.addView(linearLayout, i);
-
+                cardLinear.addView(linearLayout, i);
 
             final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
             final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
@@ -364,81 +549,5 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
             });
         }
 
-//        //リニアレイアウトの枠色を変更
-//        LinearLayout strokeLinear = (LinearLayout) findViewById(R.id.strokeLinear);
-//
-//        //青枠追加
-//        Drawable strokeBLUE = getResources().getDrawable(R.drawable.flame_style_pg);
-//        containerView.setBackgroundDrawable(strokeBLUE);
-
-        //Notification関連
     }
-
-    //検索機能
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.plsearch, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final MenuItem searchItem = menu.findItem(R.id.plsearchView);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        mSearchView.setOnQueryTextListener(this);
-        mSearchView.setIconifiedByDefault(true);
-        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean queryTextFocused) {
-                if (!queryTextFocused) {
-                    searchItem.collapseActionView();
-                    mSearchView.setQuery("", false);
-                }
-            }
-        });
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        mSearchView.clearFocus();
-        return false;
-    }
-
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
-    }
-    //キーボート展開時にテキスト打ち込み０でバックボタンを押すと検索アイコン表示まで戻る
-    @Override
-    public void onBackPressed() {
-        if (mSearchView !=null && !mSearchView.isIconified()) {
-            mSearchView.clearFocus();
-            mSearchView.onActionViewCollapsed();
-            mSearchView.setQuery("", false);
-            mSearchView.setIconified(true);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-//    /**
-//     * ID、サービス名、ヒント、リジェネデータタイム、アップデートタイムを取得して各種配列に入れる
-//     *
-//     * @return
-//     */
-//    public Cursor readPassListInfo(){
-//        Cursor cursor = null;
-//        int i = 0;
-//        while (cursor.moveToNext()){
-//            id[i] = Integer.parseInt(cursor.getString(0));
-//            service[i] = cursor.getString(1);
-//            pass_hint[i] = cursor.getString(2);
-//            generated_datetime[i] = Integer.parseInt(cursor.getString(3));
-//            updated_datetime[i] = Integer.parseInt(cursor.getString(4));
-//            i++;
-//
-//        }
-//        cursor.close();
-//        return cursor;
-//    }
-
-
 }

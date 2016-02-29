@@ -236,7 +236,7 @@ DeleteDialog.DialogListener{
     @Override
     public void onNegativeButtonClick(DialogFragment dialog) {
         //negativeぼたん
-        Toast.makeText(this,"°˖✧◝(⁰▿⁰)◜✧˖°",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"キャンセルされました",Toast.LENGTH_SHORT).show();
         dialog.dismiss();
     }
 }
