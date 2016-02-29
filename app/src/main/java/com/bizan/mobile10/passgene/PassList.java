@@ -67,8 +67,6 @@ public class PassList extends AppCompatActivity {
     ActionBarDrawerToggle plDrawerToggle;            //NVを開くためのトグル
     FloatingActionButton plFab;                      //ふぁぶ
 
-    View containerView;         //カードビューのサービスタイトル
-
     Animation inAnimation;       //インアニメーション
     Animation outAnimetion;     //アウトアニメーション
 
@@ -82,6 +80,7 @@ public class PassList extends AppCompatActivity {
 
     public static final int NOTIFICATION_BROADCAST_REQUEST_CODE = 100;;
 
+
     private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     private static final String[] DB_TABLE = {"service_info", "user_info"};
@@ -89,6 +88,7 @@ public class PassList extends AppCompatActivity {
     public static DatabaseHelper getDbHelper() {
         return dbHelper;
     }
+
     private DatabaseC dbC;
 
     private PreferenceC pref;       //プリファレンス
@@ -106,8 +106,9 @@ public class PassList extends AppCompatActivity {
         plToolbar = (Toolbar) findViewById(R.id.PassList_toolbar);
         setSupportActionBar(plToolbar);
 
+
         //onCreateに
-        String[] dbColTable = {
+      String[] dbColTable = {
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " service TEXT UNIQUE NOT NULL," +
                         " user_id TEXT NOT NULL," +
@@ -137,7 +138,8 @@ public class PassList extends AppCompatActivity {
         };
 
         dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
-        dbC = new DatabaseC(PassList.getDbHelper());
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
         final Cursor cursor = dbC.readPasswordListInfo();
 
         //初回起動時InitialSet1に飛ばす
@@ -167,7 +169,7 @@ public class PassList extends AppCompatActivity {
         //ここまでNVトグル設定
 
         //FAB設定
-        plFab = (FloatingActionButton) findViewById(R.id.PassList_fab);
+        plFab = (FloatingActionButton) findViewById(R.id.passList_fab);
         plFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -216,9 +218,7 @@ public class PassList extends AppCompatActivity {
                             public void run() {
                                 Intent intent = new Intent(PassList.this, UserConf2.class);
                                 intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.UserInfoList");
-                                for (int i = 0; i < 5; i++) {
-                                    intent.putExtra("UID", i);
-                                }
+                                intent.putExtra("UID", 0);
                                 startActivity(intent);
                             }
                         }, 250);
@@ -227,25 +227,25 @@ public class PassList extends AppCompatActivity {
 
                     case 2:
                         //PW確認画面を通してアプリ設定画面に飛ばす
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Intent intent = new Intent(PassList.this, UserConf2.class);
-//                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
-//                                intent.putExtra("SID","0");
-//                                startActivity(intent);
-//                            }
-//                        }, 250);
-//                        plDrawer.closeDrawers();
-
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList.this, AppSetting.class);
+                                Intent intent = new Intent(PassList.this, UserConf2.class);
+                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
+                                intent.putExtra("SID","0");
                                 startActivity(intent);
                             }
                         }, 250);
                         plDrawer.closeDrawers();
+
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Intent intent = new Intent(PassList.this, AppSetting.class);
+//                                startActivity(intent);
+//                            }
+//                        }, 250);
+//                        plDrawer.closeDrawers();
                         break;
 
                     case 3:
@@ -268,7 +268,111 @@ public class PassList extends AppCompatActivity {
 //        ーーここまでリサイクルビュー関連ーー
 
         //カードリスト表示
-        CardList();
+        //カードビューのアニメーションキャスト
+
+        //アニメーション
+        inAnimation = AnimationUtils.loadAnimation(this, R.anim.card_in_anim);
+        outAnimetion = AnimationUtils.loadAnimation(this, R.anim.card_out_anim);
+
+        //カードビュー設定
+        cardLinear = (LinearLayout) this.findViewById(R.id.cardLinear);
+        cardLinear.removeAllViews();
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+        CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+        //確認ボタン
+        final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+        //ヒント
+        final TextView hintTxv = (TextView) cardView.findViewById(R.id.plcardHint);
+        //サービス名
+        final TextView serviceTxv = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+
+        final LinearLayout containerView = (LinearLayout) cardView.findViewById(R.id.plcontainer);
+
+        int j = 0;
+
+        while (cursor.moveToNext()) {
+
+            containerView.setTag(j);
+            serviceTxv.setText(cursor.getString(1));
+            hintTxv.setText(cursor.getString(2));
+            containerView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+
+                    //ヒントと編集ボタンをアニメーションさせる
+                    if (cardButton.getVisibility() == View.GONE) {
+                        cardButton.startAnimation(inAnimation);
+                        hintTxv.startAnimation(inAnimation);
+                        cardButton.setVisibility(View.VISIBLE);
+                        hintTxv.setVisibility(View.VISIBLE);
+                    } else if (cardButton.getVisibility() == View.VISIBLE) {
+                        cardButton.startAnimation(outAnimetion);
+                        hintTxv.startAnimation(outAnimetion);
+                        cardButton.setVisibility(View.GONE);
+                        hintTxv.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            //PW確認画面を通して確認画面に遷移させる
+            cardButton.setTag(cursor.getString(0));
+            cardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //遷移するときデータを渡す
+                    Intent intent = new Intent(PassList.this, UserConf2.class);
+                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
+                    intent.putExtra("SID", v.getTag().toString());
+                }
+            });
+            cardLinear.addView(linearLayout, j);
+            j++;
+        }
+
+        //ダミーデータ
+//        for (int i = 0; i < 10; i++) {
+//            LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+//            final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+//            TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+//            textBox.setText("CardView" + i);
+//                cardLinear.addView(linearLayout, i);
+//
+//            final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
+//            final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+//
+//            final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
+//
+//            mLineaLayout.setTag(i);
+//            mLineaLayout.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+//
+//
+//                    //ヒントと編集ボタンをアニメーションさせる
+//                    if (cardButton.getVisibility() == View.GONE) {
+//                        cardButton.startAnimation(inAnimation);
+//                        cardHint.startAnimation(inAnimation);
+//                        cardButton.setVisibility(View.VISIBLE);
+//                        cardHint.setVisibility(View.VISIBLE);
+//                    } else if (cardButton.getVisibility() == View.VISIBLE) {
+//                        cardButton.startAnimation(outAnimetion);
+//                        cardHint.startAnimation(outAnimetion);
+//                        cardButton.setVisibility(View.GONE);
+//                        cardHint.setVisibility(View.GONE);
+//                    }
+//                }
+//            });
+//            cardButton.setTag(i);
+//            cardButton.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(PassList.this,"(∩´∀｀)∩ﾜｰｲ"+String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
 
         //Notification関連
     }
@@ -293,17 +397,17 @@ public class PassList extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                serarchWord = newText;
-                //カードビューのアニメーションキャスト
-
-                //アニメーション
-                inAnimation = AnimationUtils.loadAnimation(PassList.this, R.anim.card_in_anim);
-                outAnimetion = AnimationUtils.loadAnimation(PassList.this, R.anim.card_out_anim);
-
-                //カードビュー設定
-                cardLinear = (LinearLayout) findViewById(R.id.cardLinear);
-                cardLinear.removeAllViews();
-                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+//                serarchWord = newText;
+//                //カードビューのアニメーションキャスト
+//
+//                //アニメーション
+//                inAnimation = AnimationUtils.loadAnimation(PassList.this, R.anim.card_in_anim);
+//                outAnimetion = AnimationUtils.loadAnimation(PassList.this, R.anim.card_out_anim);
+//
+//                //カードビュー設定
+//                cardLinear = (LinearLayout) findViewById(R.id.cardLinear);
+//                cardLinear.removeAllViews();
+//                LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 //        int j = 0;
 //        while (cursor.moveToNext()) {
 //                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
@@ -357,53 +461,53 @@ public class PassList extends AppCompatActivity {
 //            j++;
 //        }
 
-                for (int i = 0; i < 10; i++) {
-                    LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
-                    final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
-                    TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
-                    textBox.setText("CardView" + i);
-                    if (serarchWord.equals("")){
-                        cardLinear.addView(linearLayout, i);
-                    }else {
-                        int j = Integer.parseInt(String.valueOf(Pattern.compile(String.valueOf(textBox)).matcher(serarchWord).find()));
-                        cardLinear.addView(linearLayout, j);
-                    }
-
-
-                    final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
-                    final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
-
-                    final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
-
-                    mLineaLayout.setTag(i);
-                    mLineaLayout.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
-
-
-                            //ヒントと編集ボタンをアニメーションさせる
-                            if (cardButton.getVisibility() == View.GONE) {
-                                cardButton.startAnimation(inAnimation);
-                                cardHint.startAnimation(inAnimation);
-                                cardButton.setVisibility(View.VISIBLE);
-                                cardHint.setVisibility(View.VISIBLE);
-                            } else if (cardButton.getVisibility() == View.VISIBLE) {
-                                cardButton.startAnimation(outAnimetion);
-                                cardHint.startAnimation(outAnimetion);
-                                cardButton.setVisibility(View.GONE);
-                                cardHint.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-                    cardButton.setTag(i);
-                    cardButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(PassList.this,"(∩´∀｀)∩ﾜｰｲ"+String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+//                for (int i = 0; i < 10; i++) {
+//                    LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+//                    final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+//                    TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+//                    textBox.setText("CardView" + i);
+//                    if (serarchWord.equals("")){
+//                        cardLinear.addView(linearLayout, i);
+//                    }else {
+//                        int j = Integer.parseInt(String.valueOf(Pattern.compile(String.valueOf(textBox)).matcher(serarchWord).find()));
+//                        cardLinear.addView(linearLayout, j);
+//                    }
+//
+//
+//                    final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
+//                    final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+//
+//                    final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
+//
+//                    mLineaLayout.setTag(i);
+//                    mLineaLayout.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+//
+//
+//                            //ヒントと編集ボタンをアニメーションさせる
+//                            if (cardButton.getVisibility() == View.GONE) {
+//                                cardButton.startAnimation(inAnimation);
+//                                cardHint.startAnimation(inAnimation);
+//                                cardButton.setVisibility(View.VISIBLE);
+//                                cardHint.setVisibility(View.VISIBLE);
+//                            } else if (cardButton.getVisibility() == View.VISIBLE) {
+//                                cardButton.startAnimation(outAnimetion);
+//                                cardHint.startAnimation(outAnimetion);
+//                                cardButton.setVisibility(View.GONE);
+//                                cardHint.setVisibility(View.GONE);
+//                            }
+//                        }
+//                    });
+//                    cardButton.setTag(i);
+//                    cardButton.setOnClickListener(new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            Toast.makeText(PassList.this,"(∩´∀｀)∩ﾜｰｲ"+String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//                }
                 return false;
             }
         });
@@ -444,110 +548,6 @@ public class PassList extends AppCompatActivity {
     }
 
     public void CardList(){
-        //カードビューのアニメーションキャスト
-
-        //アニメーション
-        inAnimation = AnimationUtils.loadAnimation(this, R.anim.card_in_anim);
-        outAnimetion = AnimationUtils.loadAnimation(this, R.anim.card_out_anim);
-
-        //カードビュー設定
-        cardLinear = (LinearLayout) this.findViewById(R.id.cardLinear);
-        cardLinear.removeAllViews();
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-//        int j = 0;
-//        while (cursor.moveToNext()) {
-//                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
-//                CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
-//
-//                //サービス名
-//                final TextView serviceTxv = (TextView) linearLayout.findViewById(R.id.plcardTitle);
-//                serviceTxv.setText(cursor.getString(1));
-//
-//                //確認ボタン
-//                final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
-//
-//                //ヒント
-//                final TextView hintTxv = (TextView) cardView.findViewById(R.id.plcardHint);
-//                hintTxv.setText(cursor.getString(2));
-//
-//                cardLinear.addView(linearLayout, j);
-//
-//                containerView.setTag(j);
-//                containerView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
-//
-//                        //ヒントと編集ボタンをアニメーションさせる
-//                        if (cardButton.getVisibility() == View.GONE) {
-//                            cardButton.startAnimation(inAnimation);
-//                            hintTxv.startAnimation(inAnimation);
-//                            cardButton.setVisibility(View.VISIBLE);
-//                            hintTxv.setVisibility(View.VISIBLE);
-//                        } else if (cardButton.getVisibility() == View.VISIBLE) {
-//                            cardButton.startAnimation(outAnimetion);
-//                            hintTxv.startAnimation(outAnimetion);
-//                            cardButton.setVisibility(View.GONE);
-//                            hintTxv.setVisibility(View.GONE);
-//                        }
-//                    }
-//                });
-//
-//            //PW確認画面を通して確認画面に遷移させる
-//            cardButton.setTag(cursor.getString(0));
-//            cardButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    //遷移するときデータを渡す
-//                    Intent intent = new Intent(PassList.this, UserConf2.class);
-//                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
-//                    intent.putExtra("SID", v.getTag().toString());
-//                }
-//            });
-//            j++;
-//        }
-
-        for (int i = 0; i < 10; i++) {
-            LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
-            final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
-            TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
-            textBox.setText("CardView" + i);
-                cardLinear.addView(linearLayout, i);
-
-            final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
-            final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
-
-            final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
-
-            mLineaLayout.setTag(i);
-            mLineaLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
-
-
-                    //ヒントと編集ボタンをアニメーションさせる
-                    if (cardButton.getVisibility() == View.GONE) {
-                        cardButton.startAnimation(inAnimation);
-                        cardHint.startAnimation(inAnimation);
-                        cardButton.setVisibility(View.VISIBLE);
-                        cardHint.setVisibility(View.VISIBLE);
-                    } else if (cardButton.getVisibility() == View.VISIBLE) {
-                        cardButton.startAnimation(outAnimetion);
-                        cardHint.startAnimation(outAnimetion);
-                        cardButton.setVisibility(View.GONE);
-                        cardHint.setVisibility(View.GONE);
-                    }
-                }
-            });
-            cardButton.setTag(i);
-            cardButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(PassList.this,"(∩´∀｀)∩ﾜｰｲ"+String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
     }
 }

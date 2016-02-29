@@ -69,10 +69,10 @@ DeleteDialog.DialogListener{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
 
-        dbC = new DatabaseC(PassList.getDbHelper());
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
         //マスターパス呼び出し
         dbC.readMasterPass();
-        masterPass = String.valueOf(dbC.readMasterPass());
+        masterPass = dbC.readMasterPass();
 
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.AppInit_toolbar_layout);
@@ -111,13 +111,13 @@ DeleteDialog.DialogListener{
         //numberpickerの初期値設定
         PassNum = num1 + num2 + num3 + num4;
 
-
-        a1 = String.valueOf(1);
-        a2 = String.valueOf(0);
-        a3 = String.valueOf(0);
-        a4 = String.valueOf(0);
-
-        PassA = a1 + a2 + a3 + a4;
+        //ダミーマスターパス
+//        a1 = String.valueOf(1);
+//        a2 = String.valueOf(0);
+//        a3 = String.valueOf(0);
+//        a4 = String.valueOf(0);
+//
+//        PassA = a1 + a2 + a3 + a4;
 
 //        AppInit_npk1.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
@@ -231,6 +231,7 @@ DeleteDialog.DialogListener{
         Toast.makeText(this,"アプリが初期化されました",Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AppInit.this,InitialSet1.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
