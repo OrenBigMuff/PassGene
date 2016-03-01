@@ -246,6 +246,15 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                         break;
 
                     case 3:
+                        //GoogleDriveページに遷移
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(PassList.this, SaveLoadDB.class);
+                                startActivity(intent);
+                            }
+                        }, 250);
+                        plDrawer.closeDrawers();
                         break;
                 }
                 return false;

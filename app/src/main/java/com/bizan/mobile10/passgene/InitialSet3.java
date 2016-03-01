@@ -103,8 +103,8 @@ public class InitialSet3 extends AppCompatActivity
                     // 親クラスのdispatchKeyEvent()を呼び出さずにtrueを返す
 //                    Intent intent = new Intent(InitialSet3.this, InitialSet2.class);
 //                    startActivity(intent);
-//                    toast("この操作はできません。");
-                    break;
+                    toast("この操作はできません。");
+                    return true;
             }
         }
         return super.dispatchKeyEvent(event);
