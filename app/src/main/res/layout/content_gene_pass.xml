@@ -11,7 +11,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="25dp">
 
         <LinearLayout
             android:orientation="vertical"
@@ -58,17 +59,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
             <Button
                 android:text="@string/button1"
                 android:id="@+id/pg_btn_insert"
-                style="@style/pass_blue_button" />
+                style="@style/pass_blue_button"
+                android:layout_weight="1" />
+
+            <Space
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
 
             <Button
                 android:text="@string/regene"
                 android:id="@+id/pg_btn_regene"
-                style="@style/pass_blue_button" />
+                style="@style/pass_blue_button"
+                android:layout_weight="1" />
 
         </LinearLayout>
 

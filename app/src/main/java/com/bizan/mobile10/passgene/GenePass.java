@@ -1,5 +1,7 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -43,12 +45,74 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
     private TextView gp_txv_pass;
     private TextView gp_txv_hint;
 
+    private String fixed_pass = "";
+    private String passHint;
+
+    private DatabaseC dbC;
+
+    private int userInfoId1;
+    private String partsAlb1E;
+    private String partsAlb1;
+
+    private int userInfoId2;
+    private String partsAlb2E;
+    private String partsAlb2;
+
+    private int userInfoId3;
+    private String partsNum;
+    private String partsNumE;
+
+    /**
+     * debug
+     *****************************/
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    //テーブル名
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
+    private static DatabaseHelper dbHelper; //DBヘルパー
+
+    /*******************************/
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gene_pass);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+/**debug*****************************/
+        String[] dbColTable = {
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " service TEXT UNIQUE NOT NULL," +
+                        " user_id TEXT NOT NULL," +
+                        " mail_address TEXT NOT NULL," +
+                        " char_num INTEGER NOT NULL," +
+                        " char_uppercase INTEGER NOT NULL," +
+                        " char_lowercase INTEGER NOT NULL," +
+                        " char_symbol INTEGER NOT NULL," +
+                        " num_of_char INTEGER NOT NULL," +
+                        " generated_datetime TEXT NOT NULL," +
+                        " updated_datetime TEXT NOT NULL," +
+                        " fixed_pass TEXT NOT NULL," +
+                        " pass_hint TEXT NOT NULL," +
+                        " gene_id1 INTEGER NOT NULL," +
+                        " gene_id2 INTEGER NOT NULL," +
+                        " gene_id3 INTEGER NOT NULL," +
+                        " gene_id4 INTEGER NOT NULL," +
+                        " algorithm INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL)",
+
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " info_name TEXT UNIQUE NOT NULL," +
+                        " value TEXT NOT NULL," +
+                        " category INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL," +
+                        " useless_flag INTEGER NOT NULL)"
+        };
+        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+/*******************************/
+        dbC = new DatabaseC(dbHelper);
 
         poolString = new PoolString();
 
@@ -57,7 +121,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         chbs = pref.readConfig("chbs", true);
         chbk = pref.readConfig("chbk", true);
         chbnum = pref.readConfig("chbn", true);
-        seekbarP = pref.readConfig("seekbar", 8);
+        seekbarP = pref.readConfig("seekbar", 8) - 4;
 
         gp_txv_pass = (TextView) findViewById(R.id.gp_txv_pass);
         gp_txv_hint = (TextView) findViewById(R.id.gp_txv_hint);
@@ -72,28 +136,130 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         btnRegene = (Button) findViewById(R.id.pg_btn_regene);
         btnRegene.setOnClickListener(this);
 
+        makePass();
+
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnInsert) {
             //インサート処理
+            if (pref.readConfig("id", "0").equals("0")) {
+                datainsert();
+            } else {
+                dataupdate();
+            }
+
+            Intent intent = new Intent(GenePass.this, PassList.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         } else if (v == btnRegene) {
             //もう一度パスワード作る
+            poolString.init();
             makePass();
         }
     }
 
+    //todo 初期値文字を変える
+    private void dataupdate() {
+        String[] dataset = new String[16];
+        dataset[0] = pref.readConfig("service", "service名");
+        dataset[1] = pref.readConfig("user_id", "user_id名");
+        dataset[2] = pref.readConfig("mailadd", "mailadd");
+        dataset[3] = pref.readConfig("chbn", true) ? "1" : "0";
+        dataset[4] = pref.readConfig("chbb", true) ? "1" : "0";
+        dataset[5] = pref.readConfig("chbs", true) ? "1" : "0";
+        dataset[6] = pref.readConfig("chbk", true) ? "1" : "0";
+        dataset[7] = String.valueOf(pref.readConfig("seekbar", 8));
+        dataset[8] = pref.readConfig("fixed_pass", fixed_pass);
+        dataset[9] = pref.readConfig("pass_hint", passHint);
+        dataset[10] = String.valueOf(userInfoId1);
+        dataset[11] = String.valueOf(userInfoId2);
+        dataset[12] = String.valueOf(userInfoId3);
+        dataset[13] = "0";
+        dataset[14] = "1";
+        dataset[15] = pref.readConfig("spinner", "0");
+        for (String s : dataset) {
+            Log.e("aaaaaaaaa", s + "");
+            Log.e("bbbbbbbb", "" + pref.readConfig("id", "0"));
+
+        }
+        dbC.updateServiceInfo(Integer.parseInt(pref.readConfig("id", "999")),
+                dataset);
+    }
+
+    private void datainsert() {
+        String[] dataset = new String[16];
+        dataset[0] = pref.readConfig("service", "service名");
+        dataset[1] = pref.readConfig("user_id", "user_id名");
+        dataset[2] = pref.readConfig("mailadd", "service名");
+        dataset[3] = pref.readConfig("chbn", true) ? "1" : "0";
+        dataset[4] = pref.readConfig("chbb", true) ? "1" : "0";
+        dataset[5] = pref.readConfig("chbs", true) ? "1" : "0";
+        dataset[6] = pref.readConfig("chbk", true) ? "1" : "0";
+        dataset[7] = String.valueOf(pref.readConfig("seekbar", 8));
+        dataset[8] = pref.readConfig("fixed_pass", fixed_pass);
+        dataset[9] = pref.readConfig("pass_hint", passHint);
+        dataset[10] = String.valueOf(userInfoId1);
+        dataset[11] = String.valueOf(userInfoId2);
+        dataset[12] = String.valueOf(userInfoId3);
+        dataset[13] = "0";
+        dataset[14] = "1";
+        dataset[15] = pref.readConfig("spinner", "0");
+        dbC.insertServiceInfo(dataset);
+    }
+
+    private String[] tempstr = new String[3];
+
+    private String[] randuserinfo() {
+        String[] str = new String[3];
+        Cursor cursor = dbC.readUserInfo();
+        cursor.moveToFirst();
+        if (cursor.getInt(3) == 2 || cursor.getInt(3) == 3 || cursor.getInt(3) == 4) {
+            str[0] = String.valueOf(cursor.getInt(0));
+            str[1] = cursor.getString(1);
+            str[2] = cursor.getString(2);
+            tempstr = str;
+            return str;
+        } else {
+            randuserinfo();
+        }
+        return tempstr;
+    }
+
+    private String[] randuserinfoNum() {
+        String[] str = new String[3];
+        Cursor cursor = dbC.readUserInfo();
+        cursor.moveToFirst();
+        if (cursor.getInt(3) == 0 || cursor.getInt(3) == 1 || cursor.getInt(3) == 5) {
+            str[0] = String.valueOf(cursor.getInt(0));
+            str[1] = cursor.getString(1);
+            str[2] = cursor.getString(2);
+            tempstr = str;
+            return str;
+        } else {
+            randuserinfoNum();
+        }
+        return tempstr;
+    }
+
     private void setStringD() {
         //とりあえず引っ張る/////////////////////////////////////////////////////////////
-        String partsAlb1 = "zxyvw";
-        String partsAlb2 = "aiu";
+        String[] temp;
+        temp = randuserinfo();
+        userInfoId1 = Integer.parseInt(temp[0]);
+        partsAlb1E = temp[1];
+        partsAlb1 = temp[2];
+        temp = randuserinfo();
+        userInfoId2 = Integer.parseInt(temp[0]);
+        partsAlb2E = temp[1];
+        partsAlb2 = temp[2];
         String partsSign = "@%+^#$:\\/!?.(){-_[~]}'";
-        String partsNum = "19870605";
-        String partsAlb1E = "姓";
-        String partsAlb2E = "名";
-        String partsSignE = "記号";
-        String partsNumE = "生年月日";
+        String partsSignE = getResources().getString(R.string.passk);
+        temp = randuserinfoNum();
+        userInfoId3 = Integer.parseInt(temp[0]);
+        partsNumE = temp[1];
+        partsNum = temp[2];
 
         passM1 = partsAlb1.toLowerCase();
         passM2 = partsAlb2.toLowerCase();
@@ -167,6 +333,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
                 Log.e("passM1", passM1);
             } else {
                 //文字数が足りないとき
+                numB = passM1.length();
                 Log.e("passM1", "文字不足");
             }
         }
@@ -174,6 +341,9 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         if (chbs && numS > 0) {
             if (passM2.length() >= numS) {
                 passM2 = passM2.substring(0, numS);
+
+            } else {
+                numS = passM2.length();
                 Log.e("passM2", "文字不足");
             }
         }
@@ -198,21 +368,21 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         //ミックス
         Log.e("passM1", passM1);//zxyvw
         Log.e("passM2", passM2);//aiu
-        if(passM1.length() < passM2.length()){
+        if (passM1.length() < passM2.length()) {
             for (int k = 0; k < passM1.length(); k++) {
                 stringC.append(passM1.substring(k, k + 1));
                 stringC.append(passM2.substring(k, k + 1));
             }
             int temp = passM2.length() - passM1.length();
             stringC.append(passM2.substring(temp + 1, passM2.length()));
-        }else if(passM1.length() > passM2.length()){
+        } else if (passM1.length() > passM2.length()) {
             for (int k = 0; k < passM2.length(); k++) {
                 stringC.append(passM1.substring(k, k + 1));
                 stringC.append(passM2.substring(k, k + 1));
             }
             int temp = passM1.length() - passM2.length();
             stringC.append(passM1.substring(temp + 1, passM1.length()));
-        }else {
+        } else {
             for (int k = 0; k < passM2.length(); k++) {
                 stringC.append(passM1.substring(k, k + 1));
                 stringC.append(passM2.substring(k, k + 1));
@@ -271,6 +441,18 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
 
         gp_txv_pass.setText(minipass);
         gp_txv_hint.setText(poolString.makeString());
+
+        passHint = poolString.makeString();
+        fixed_pass = minipass;
+        txvSheep.setText(setComment());
+
+    }
+
+    private String setComment() {
+        StringBuilder stb = new StringBuilder();
+        stb.append(pref.readConfig("service", ""));
+        stb.append(getText(R.string.pg_comment));
+        return stb.toString();
     }
 
     /**
@@ -329,17 +511,40 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         return str;
     }
 
+    String returnstring = "";
+
     private String loopMakePass(String baseStr, int totalNum) {
         StringBuilder stb = new StringBuilder();
+
         stb.append(baseStr);
         if (stb.toString().length() < totalNum) {
-            stb.append(stb.toString().substring(0, totalNum - stb.toString().length()));
+            try {
+                stb.append(stb.toString().substring(0, totalNum - stb.toString().length()));
+            } catch (Exception e) {
+                stb.append(stb.toString().substring(0, stb.toString().length()));
+            }
             poolString.setLoop(true);
             loopMakePass(stb.toString(), totalNum);
         } else {
+            returnstring = stb.toString();
             return stb.toString();
         }
-        return stb.toString();
+        return returnstring;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        resetSendData();
+    }
+
+    private void resetSendData() {
+        //writePref();
+        pref.writeConfig("id", "0");
+        pref.writeConfig("user_id", "");
+        pref.writeConfig("service", "");
+        pref.writeConfig("mailadd", "");
+        pref.writeConfig("passhint", "");
+        pref.writeConfig("passhint", "");
+    }
 }

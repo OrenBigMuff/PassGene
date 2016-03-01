@@ -3,13 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/initialLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/passGeneAllBack"
-    android:transcriptMode="alwaysScroll"
-    tools:context="com.bizan.mobile10.passgene.InitialSet2">
+    tools:context="com.bizan.mobile10.passgene.GoogleDriveBackup">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -36,7 +33,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_initial_set2"/>
+    <include layout="@layout/content_google_drive_backup"/>
 
 
 

@@ -52,6 +52,8 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
         /**
          * 各情報の入力
          */

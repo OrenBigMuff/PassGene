@@ -4,55 +4,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/scrollview"
     android:layout_height="match_parent"
     android:background="@color/passGeneAllBack"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.bizan.mobile10.passgene.InitialSet1"
-    tools:showIn="@layout/activity_initial_set1">
+    tools:context="com.bizan.mobile10.passgene.GoogleDriveBackup"
+    tools:showIn="@layout/activity_google_drive_backup">
 
     <LinearLayout android:layout_width="match_parent"
                   android:layout_height="match_parent"
+                  android:background="@color/passGeneAllBack"
                   android:orientation="vertical">
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_marginBottom="25dp"
+                      android:layout_marginBottom="90dp"
                       android:layout_marginLeft="20dp"
                       android:layout_marginRight="20dp"
                       android:layout_marginTop="25dp"
                       android:background="@drawable/flame_style_pg"
                       android:orientation="vertical"
                       android:padding="10dp">
+
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_marginBottom="10dp"
-                      android:text="@string/now_input_userinfo"
+                      android:text="@string/guide_title_gdb"
                       android:textColor="@color/passGeneTextBlue"
-                      android:textSize="20dp"/>
+                      android:focusable="true"
+                      android:focusableInTouchMode="true"
+                      android:layout_marginBottom="5dp"
+                      android:textSize="20dp">
+                <requestFocus />
+            </TextView>
+
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:text="@string/do_input_userinfo"
+                      android:text="@string/guide_text_gdb"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="15dp"/>
+
         </LinearLayout>
 
 
         <LinearLayout android:layout_width="match_parent"
                       android:layout_height="wrap_content"
-                      android:layout_marginTop="15dp"
+                      android:layout_marginBottom="90dp"
                       android:orientation="horizontal"
                       android:gravity="center">
 
-            <Button android:id="@+id/btnInitialSet3Posi"
-                    style="@style/pass_blue_button"
-                    android:layout_marginRight="10dp"
-                    android:text="登録する"/>
+            <Button android:id="@+id/btnGdSave"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="5dp"
+                    android:elevation="4dp"
+                    android:background="@drawable/pass_blue_button"
+                    android:padding="2dp"
+                    android:text="Google\nDriveに\nSaveする"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"/>
 
-            <Button android:id="@+id/btnInitialSet3Nega"
-                    android:layout_marginLeft="10dp"
-                    style="@style/pass_blue_button"
-                    android:text="今は\nしない"/>
+            <Button android:id="@+id/btnGdLoad"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginLeft="5dp"
+                    android:elevation="4dp"
+                    android:background="@drawable/pass_blue_button"
+                    android:padding="2dp"
+                    android:text="Google\nDriveから\nLoadする"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"/>
 
         </LinearLayout>
 

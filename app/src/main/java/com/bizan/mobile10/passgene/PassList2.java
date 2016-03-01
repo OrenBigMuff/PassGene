@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PathDashPathEffect;
@@ -23,6 +24,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -47,13 +49,22 @@ import java.util.Date;
 import java.util.logging.Filter;
 
 
-public class PassList extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    static String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
-    static int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
+    static String nvTITLES[] = {"ユーザー情報設定", "アプリ設定", "バックアップ"};    //NV内のメニュー
+    static int nvICONS[] = {android.R.drawable.ic_input_add, android.R.drawable.ic_input_add, android.R.drawable.ic_input_add};                                             //NV内のメニューアイコン
 
     static String nvSETTING = "設定画面";                                    //ヘッダービュー内の”設定”の文字
-    static String useNAME = "ユーザーネーム";                                             //ユーザーネーム
+    static String useNAME = "ユーザーネーム";
+
+    String[] mServiceId;      //0
+    String[] mServiceInfoName;      //1
+    String[] mServicePassHint;      //12
+    String[] mServiceDeleteFlag;      //18
+
+    private static String setUserInfoId;
+    private static String setUserInfoName;
+    private static String setUserInfo;//ユーザーネーム
 
 //    int HEADERICOCVIEW = R.drawable.freeheaderview;                                             //ヘッダーのビュー
 
@@ -64,7 +75,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
     DrawerLayout plDrawer;           //ドロワー
 
     ActionBarDrawerToggle plDrawerToggle;            //NVを開くためのトグル
-    FloatingActionButton plFab;                      //ふぁぶ
+    FloatingActionButton plFab;                      //FAB
 
     View containerView;         //カードビューのサービスタイトル
 
@@ -74,79 +85,36 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 
     SearchView mSearchView;
 
-    public static final int NOTIFICATION_BROADCAST_REQUEST_CODE = 100;;
+    public static final int NOTIFICATION_BROADCAST_REQUEST_CODE = 100;
 
-/*
-    private final String DB_NAME = "pg.db"; //データベース名
-    private final int DB_VERSION = 1;       //データベースのバージョン
-    private static final String[] DB_TABLE = {"service_info", "user_info"};
-    private static DatabaseHelper dbHelper; //DBヘルパー
-    public static DatabaseHelper getDbHelper() {
-        return dbHelper;
-    }
-*/
     private DatabaseC dbC;
 
     private int SERVICE_INFO = 0;
     private int USER_INFO = 1;
-
-//    //DB読み込み
-//    private static String str = "update";
-//
-//    private static int[] id = new int[Integer.parseInt(str)];                   //ID
-//    private static String[] service = new String[Integer.parseInt(str)];        //Service名
-//    private static String[] pass_hint = new String[Integer.parseInt(str)];      //ヒント
-//    private static int[] generated_datetime = new int[Integer.parseInt(str)];   //ジェネレートデータタイム
-//    private static int[] updated_datetime = new int[Integer.parseInt(str)];     //アップデートデータタイム
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
 
-
         //アクションバーの代わりにツールバーを設定
         plToolbar = (Toolbar) findViewById(R.id.PassList_toolbar);
         setSupportActionBar(plToolbar);
 
         dbC = new DatabaseC(InitialSet1.getDbHelper());
-
-
-        //onCreateに
-/*        String[] dbColTable = {
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " service TEXT UNIQUE NOT NULL," +
-                        " user_id TEXT NOT NULL," +
-                        " mail_address TEXT NOT NULL," +
-                        " char_num INTEGER NOT NULL," +
-                        " char_uppercase INTEGER NOT NULL," +
-                        " char_lowercase INTEGER NOT NULL," +
-                        " char_symbol INTEGER NOT NULL," +
-                        " num_of_char INTEGER NOT NULL," +
-                        " generated_datetime TEXT NOT NULL," +
-                        " updated_datetime TEXT NOT NULL," +
-                        " fixed_pass TEXT NOT NULL," +
-                        " pass_hint TEXT NOT NULL," +
-                        " gene_id1 INTEGER NOT NULL," +
-                        " gene_id2 INTEGER NOT NULL," +
-                        " gene_id3 INTEGER NOT NULL," +
-                        " gene_id4 INTEGER NOT NULL," +
-                        " algorithm INTEGER NOT NULL," +
-                        " delete_flag INTEGER NOT NULL)",
-
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " info_name TEXT UNIQUE NOT NULL," +
-                        " value TEXT NOT NULL," +
-                        " category INTEGER NOT NULL," +
-                        " delete_flag INTEGER NOT NULL," +
-                        " useless_flag INTEGER NOT NULL)"
-        };*/
-
-//        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
-//        dbC = new DatabaseC(PassList.getDbHelper());
-
         final Cursor cursor = dbC.readPasswordListInfo();
 
+        /**
+         * データベースからデータ読み出し
+         */
+        int j = 0;
+        while (cursor.moveToNext()) {
+            mServiceId[j] = cursor.getString(0);
+            mServiceInfoName[j] = cursor.getString(1);
+            mServicePassHint[j] = cursor.getString(12);
+            mServiceDeleteFlag[j] = cursor.getString(18);
+            j++;
+        }
 
         //ツールバーにNVトグルを追加
         plDrawer = (DrawerLayout) findViewById(R.id.PassList_DrawerLayout);
@@ -166,33 +134,37 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         plDrawerToggle.syncState();
         //ここまでNVトグル設定
 
+
         //FAB設定
         plFab = (FloatingActionButton) findViewById(R.id.passList_fab);
         plFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //RegistNewPassに遷移
-                Intent intent = new Intent(PassList.this, RegistNewPass.class);
+                Intent intent = new Intent(PassList2.this, RegistNewPass.class);
 //                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.RegistNewPass");
                 startActivity(intent);
             }
         });
 
-//      ーーここからリサイクルビュー関連ーー
+        /**
+         *  ここからリサイクルビュー関連
+         */
 
         //リサイクルビューキャスト
         plRecycleView = (RecyclerView) findViewById(R.id.PassList_RecycleView);
         plRecycleView.setHasFixedSize(true);
 
-        //アダプターセット
-        plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, nvSETTING, useNAME);
-        plRecycleView.setAdapter(plAdapter);
+
 
         //リサイクルビューにレイアウトマネージャをセット
         plLayoutManager = new LinearLayoutManager(this);
+//        mSearchView.setOrientation(LinearLayoutCompat.VERTICAL);
         plRecycleView.setLayoutManager(plLayoutManager);
 
-        final GestureDetector mGestureDetector = new GestureDetector(PassList.this, new GestureDetector.SimpleOnGestureListener() {
+
+
+        final GestureDetector mGestureDetector = new GestureDetector(PassList2.this, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onSingleTapUp(MotionEvent e) {
                 return true;
@@ -210,12 +182,12 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                 switch (recyclerView.getChildPosition(child)) {
 
                     case 1:
-                          //PW確認画面と通してユーザー情報一覧のページに飛ばす
+                        //PW確認画面を通してユーザー情報一覧のページに飛ばす
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList.this, UserConf2.class);
-                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
+                                Intent intent = new Intent(PassList2.this, UserConf2.class);
+                                intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.UserInfoList");
                                 startActivity(intent);
                             }
                         }, 250);
@@ -238,7 +210,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList.this, AppSetting.class);
+                                Intent intent = new Intent(PassList2.this, AppSetting.class);
                                 startActivity(intent);
                             }
                         }, 250);
@@ -274,6 +246,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         LinearLayout cardLinear = (LinearLayout) this.findViewById(R.id.cardLinear);
         cardLinear.removeAllViews();
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+
 //        while (cursor.moveToNext()) {
 //            int j = 0;
 //                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
@@ -327,48 +300,58 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
 //            j++;
 //        }
 
-        for (int i = 0; i < 10; i++) {
-            LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
-            final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
-            TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
-            textBox.setText("CardView" + i);
-            cardLinear.addView(linearLayout, i);
 
+        if (mServiceId.length > 0) {
+            for (int i = 0; mServiceId.length > i; i++) {
+                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+                final CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
 
-            final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
-            final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+                TextView textBox = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+                textBox.setText(mServiceInfoName[i]);
+                cardLinear.addView(linearLayout, i);
 
-            final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
+                final LinearLayout mLineaLayout = (LinearLayout) cardView.findViewById(R.id.plcontainer);
+                final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
 
-            mLineaLayout.setTag(i);
-            mLineaLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(PassList.this, String.valueOf(v.getTag()) + "番目のCardViewがクリックされました", Toast.LENGTH_SHORT).show();
+                final TextView cardHint = (TextView) cardView.findViewById(R.id.plcardHint);
+                cardHint.setText(mServicePassHint[i]);
 
+                mLineaLayout.setTag(i);
+                final int finalI = i;
+                mLineaLayout.setOnClickListener(new View.OnClickListener() {
+                    //cardViewクリック時のアクション
+                    @Override
+                    public void onClick(View v) {
+                        toast(mServiceInfoName[finalI] + "のカードが選択されました。");
 
-                    //ヒントと編集ボタンをアニメーションさせる
-                    if (cardButton.getVisibility() == View.GONE) {
-                        cardButton.startAnimation(inAnimation);
-                        cardHint.startAnimation(inAnimation);
-                        cardButton.setVisibility(View.VISIBLE);
-                        cardHint.setVisibility(View.VISIBLE);
-                    } else if (cardButton.getVisibility() == View.VISIBLE) {
-                        cardButton.startAnimation(outAnimetion);
-                        cardHint.startAnimation(outAnimetion);
-                        cardButton.setVisibility(View.GONE);
-                        cardHint.setVisibility(View.GONE);
+                        //ヒントと編集ボタンの表示・非表示をアニメーションさせる
+                        if (cardButton.getVisibility() == View.GONE) {
+                            cardButton.startAnimation(inAnimation);
+                            cardHint.startAnimation(inAnimation);
+                            cardButton.setVisibility(View.VISIBLE);
+                            cardHint.setVisibility(View.VISIBLE);
+                        } else if (cardButton.getVisibility() == View.VISIBLE) {
+                            cardButton.startAnimation(outAnimetion);
+                            cardHint.startAnimation(outAnimetion);
+                            cardButton.setVisibility(View.GONE);
+                            cardHint.setVisibility(View.GONE);
+                        }
                     }
-                }
-            });
-            cardButton.setTag(i);
-            cardButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(PassList.this,"(∩´∀｀)∩ﾜｰｲ"+String.valueOf(v.getTag()),Toast.LENGTH_SHORT).show();
-                }
-            });
+                });
+                cardButton.setTag(i);
+                cardButton.setOnClickListener(new View.OnClickListener() {
+                    //確認ボタン押下時のアクション
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(PassList2.this, "(∩´∀｀)∩ﾜｰｲ" + String.valueOf(v.getTag()), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
+
+        //アダプターセット
+        plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, nvSETTING, useNAME);
+        plRecycleView.setAdapter(plAdapter);
 
 //        //リニアレイアウトの枠色を変更
 //        LinearLayout strokeLinear = (LinearLayout) findViewById(R.id.strokeLinear);
@@ -407,15 +390,15 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         return false;
     }
 
-
     @Override
     public boolean onQueryTextChange(String newText) {
         return false;
     }
+
     //キーボート展開時にテキスト打ち込み０でバックボタンを押すと検索アイコン表示まで戻る
     @Override
     public void onBackPressed() {
-        if (mSearchView !=null && !mSearchView.isIconified()) {
+        if (mSearchView != null && !mSearchView.isIconified()) {
             mSearchView.clearFocus();
             mSearchView.onActionViewCollapsed();
             mSearchView.setQuery("", false);
@@ -423,6 +406,18 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         } else {
             super.onBackPressed();
         }
+    }
+
+    /**
+     * あったら便利！トーストメソッドだよ
+     *
+     * @param text
+     */
+    private void toast(String text) {
+        if (text == null) {
+            text = "";
+        }
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
 //    /**

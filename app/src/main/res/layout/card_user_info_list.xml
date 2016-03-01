@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -16,9 +15,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
         android:foreground="?android:attr/selectableItemBackground"
-        card_view:cardCornerRadius="12dp"
-        app:cardUseCompatPadding="true"
-        card_view:cardPreventCornerOverlap="false">
+        card_view:cardCornerRadius="10dp">
 
         <!-- カードに載せる情報 -->
 

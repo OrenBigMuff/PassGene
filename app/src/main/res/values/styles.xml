@@ -57,12 +57,12 @@
         <item name="android:padding">10dp</item>
     </style>
 
-    <style name="flame_style_red">          丸角背景白地赤縁
+    <style name="flame_style_red">丸角背景白地赤縁
         <item name="android:background">@drawable/flame_style_red</item>
         <item name="android:padding">10dp</item>
     </style>
 
-    <style name="pass_blue_heading">    丸角背景青見出し
+    <style name="pass_blue_heading">丸角背景青見出し
         <item name="android:background">@drawable/pass_blue_heading</item>
         <item name="android:textSize">25sp</item>
         <item name="android:textColor">@color/passGeneAllBack</item>
@@ -77,6 +77,7 @@
         <item name="android:layout_height">100dp</item>
         <item name="android:padding">10dp</item>
     </style>
+
 
     <style name="pass_red_button">丸角背景赤ボタン
         <item name="android:background">@drawable/pass_red_button</item>

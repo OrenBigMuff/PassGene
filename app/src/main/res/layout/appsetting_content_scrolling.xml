@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_main"
+    tools:showIn="@layout/activity_appsetting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AppSetting">
@@ -38,10 +38,12 @@
                     android:layout_height="match_parent"
                     android:text="Master Password"
                     android:id="@+id/asMPtxv"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:background="@color/passGeneBackgroundBlue"
                     android:textColor="#ffffff"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    style="@style/pass_blue_heading"
+                    android:elevation="9dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -51,28 +53,29 @@
                 android:layout_weight="1"
                 android:layout_marginTop="5dp">
 
-                <EditText
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:id="@+id/asPSedt"
+                    android:id="@+id/asPStxv"
                     android:layout_weight="4"
-                    android:inputType="numberPassword"
                     android:textSize="25sp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:gravity="center_horizontal"
                     android:maxLength="4"
-                    android:letterSpacing="1"/>
+                    android:letterSpacing="1"
+                    android:inputType="number" />
 
                 <Button
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="編集"
+                    android:text="@string/button3"
                     android:id="@+id/asPSbtn"
                     android:textSize="25sp"
                     android:background="@color/passGeneFloatingButtonRed"
                     android:textColor="#ffffff"
-                    android:layout_weight="2" />
+                    android:layout_weight="2"
+                    style="@style/pass_red_button"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -99,19 +102,24 @@
                     android:text="Backup Notification"
                     android:id="@+id/asBNtxv"
                     android:layout_weight="5"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:gravity="center"
                     android:textColor="#ffffff"
-                    android:background="@color/passGeneBackgroundBlue" />
+                    android:background="@color/passGeneBackgroundBlue"
+                    style="@style/pass_blue_heading"
+                    android:elegantTextHeight="false"
+                    android:elevation="9dp" />
 
                 <Switch
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="New Switch"
                     android:id="@+id/asBNswt"
                     android:layout_weight="2"
                     android:gravity="center"
-                    android:layout_marginLeft="10dp" />
+                    android:layout_marginLeft="10dp"
+                    android:textOff="OFF"
+                    android:textOn="ON"
+                    android:text="off/on" />
             </LinearLayout>
 
             <LinearLayout
@@ -151,7 +159,8 @@
                 android:textColor="#ffffff"
                 android:background="@color/passGeneFloatingButtonRed"
                 android:gravity="center"
-                android:layout_marginBottom="20dp" />
+                android:layout_marginBottom="20dp"
+                style="@style/pass_red_button"/>
         </LinearLayout>
 
     </RelativeLayout>
