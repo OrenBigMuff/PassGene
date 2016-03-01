@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserInfoList extends AppCompatActivity {
     private DatabaseC dbC;
@@ -40,6 +41,13 @@ public class UserInfoList extends AppCompatActivity {
         return setUserInfo;
     }
 
+
+
+    private static DatabaseHelper dbHelper;
+    public static DatabaseHelper getDbHelper() {
+        return dbHelper;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,20 +56,6 @@ public class UserInfoList extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         dbC = new DatabaseC(InitialSet1.getDbHelper());
-
-        /**
-         * データベースからデータ読み出し
-         */
-        Cursor cursor = dbC.readUserInfoAll();
-        int j = 0;
-        while (cursor.moveToNext()) {
-            mUserInfoId[j] = cursor.getString(0);
-            mUserInfoName[j] = cursor.getString(1);
-            mUserInfo[j] = cursor.getString(2);
-            mDeleteFlag[j] = cursor.getString(4);
-            mUselessFlag[j] = cursor.getString(5);
-            j++;
-        }
 
         /**
          * FABボタンの動作
@@ -74,65 +68,6 @@ public class UserInfoList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        /**
-         * CardViewを表示させる
-         */
-        LinearLayout cardLinear = (LinearLayout) findViewById(R.id.lilUserInfoList);
-        cardLinear.removeAllViews();
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        for (int i = mUserInfoId.length; i > 0; i--) {
-
-            if (mDeleteFlag[i].equals("0")) {
-                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.card_user_info_list, null);
-
-                CardView cardView = (CardView) linearLayout.findViewById(R.id.cdvUserInfoList);
-
-                //ユーザー情報名
-                TextView txvUserInfo = (TextView) linearLayout.findViewById(R.id.txvCardUserInfo);
-                txvUserInfo.setText(mUserInfoName[i]);
-
-                //カード押下時の動作
-                cardView.setTag(i);
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(UserInfoList.this, UserConf2.class);
-                        intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoIndex");
-                        startActivity(intent);
-
-                        setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];
-                        setUserInfoName = mUserInfoName[Integer.parseInt(String.valueOf(v.getTag()))];
-                        setUserInfo = mUserInfo[Integer.parseInt(String.valueOf(v.getTag()))];
-
-                    }
-                });
-
-                cardLinear.addView(linearLayout, i);
-
-                //CheckBoxの動作
-                final CheckBox checkBox = (CheckBox) cardView.findViewById(R.id.chbGenerateFlag);
-                final int userInfoId = Integer.parseInt(mUserInfoId[i]);
-
-                if (mUselessFlag[i].equals("0")) {
-                    checkBox.setChecked(true);
-                }
-
-                checkBox.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (checkBox.isChecked() == true) {
-                            // チェックされた状態の時の処理を記述
-                            dbC.changeUserInfoUselessFlag(userInfoId, "0");
-                        } else {
-                            // チェックされていない状態の時の処理を記述
-                            dbC.changeUserInfoUselessFlag(userInfoId, "1");
-                        }
-                    }
-                });
-            }
-        }
     }
 
     @Override
@@ -140,13 +75,42 @@ public class UserInfoList extends AppCompatActivity {
         super.onResume();
 
         /**
+         * データベースからデータ読み出し
+         */
+        InitialSet1 initialSet1 = new InitialSet1();
+        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        dbC = new DatabaseC(dbHelper);
+
+        Cursor cursor = dbC.readUserInfoAll();
+        boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+        mUserInfoId = new String[cursor.getCount()];
+        mUserInfoName = new String[cursor.getCount()];
+        mUserInfo = new String[cursor.getCount()];
+        mDeleteFlag = new String[cursor.getCount()];
+        mUselessFlag = new String[cursor.getCount()];
+        int i = 0;
+
+        while (cPlace) {
+            mUserInfoId[i] = cursor.getString(0);
+            mUserInfoName[i] = cursor.getString(1);
+            mUserInfo[i] = cursor.getString(2);
+            mDeleteFlag[i] = cursor.getString(4);
+            mUselessFlag[i] = cursor.getString(5);
+            cPlace = cursor.moveToNext();
+            i++;
+        }
+        cursor.close();     //cursorを閉じる
+
+        /**
          * CardViewを表示させる
          */
         LinearLayout cardLinear = (LinearLayout) findViewById(R.id.lilUserInfoList);
         cardLinear.removeAllViews();
+        int j = 0;
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        for (int i = mUserInfoId.length; i > 0; i--) {
+        for (i = mUserInfoId.length - 1; i > -1; i--) {
 
             if (mDeleteFlag[i].equals("0")) {
                 LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.card_user_info_list, null);
@@ -172,7 +136,7 @@ public class UserInfoList extends AppCompatActivity {
                     }
                 });
 
-                cardLinear.addView(linearLayout, i);
+                cardLinear.addView(linearLayout, j);
 
                 //CheckBoxの動作
                 final CheckBox checkBox = (CheckBox) cardView.findViewById(R.id.chbGenerateFlag);
@@ -194,6 +158,7 @@ public class UserInfoList extends AppCompatActivity {
                         }
                     }
                 });
+                j++;
             }
         }
     }
