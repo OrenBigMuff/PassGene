@@ -1,6 +1,5 @@
 package com.bizan.mobile10.passgene;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -11,8 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.balysv.materialripple.MaterialRippleLayout;
 
 public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.DialogListener {
     private DatabaseC dbC;
@@ -37,24 +34,35 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         /**
          * データベースからデータ読み出し
          */
+        InitialSet1 initialSet1 = new InitialSet1();
+        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        dbC = new DatabaseC(dbHelper);
         Cursor cursor1 = dbC.readGeneUseid(mUserInfoId);
-        Cursor cursor2 = dbC.readServiceInfoAll()
-                ;
+        Cursor cursor2 = dbC.readServiceInfoAll();
+        boolean cPlace1 = cursor1.moveToFirst();       // 参照先を一番始めに
+        boolean cPlace2 = cursor2.moveToFirst();       // 参照先を一番始めに
+
+        mServiceId1 = new String[cursor2.getCount()];
+        mServiceId2 = new String[cursor2.getCount()];
+        mServiceName = new String[cursor2.getCount()];
+
         if (cursor1.getCount()==0) {
             mUseService = "";
         } else {
             //情報IDから使用中のサービスIDを取得
             int i = 0;
-            while (cursor1.moveToNext()) {
+            while (cPlace1) {
                 mServiceId1[i] = cursor1.getString(0);
+                cPlace1 = cursor1.moveToNext();
                 i++;
             }
 
             //全サービスIDとサービス名を取得
             int j = 0;
-            while (cursor2.moveToNext()) {
+            while (cPlace2) {
                 mServiceId2[j] = cursor1.getString(0);
                 mServiceName[j] = cursor1.getString(1);
+                cPlace2 = cursor2.moveToNext();
                 j++;
             }
 
@@ -66,6 +74,8 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
                 }
             }
         }
+        cursor1.close();     //cursorを閉じる
+        cursor2.close();     //cursorを閉じる
 
         /**
          * 各TextViewに内容を代入

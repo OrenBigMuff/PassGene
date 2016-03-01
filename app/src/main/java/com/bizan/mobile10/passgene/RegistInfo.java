@@ -429,6 +429,10 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
      */
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
+        InitialSet1 initialSet1 = new InitialSet1();
+        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        dbC = new DatabaseC(dbHelper);
+
         String[] value = {mRegistTag, mRegistData, mCategoryNumber};
         dbC.insertUserInfo(value);
         this.finish();
