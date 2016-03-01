@@ -1,5 +1,6 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -8,7 +9,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -134,6 +137,8 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
 
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
         //前のページから飛んできたIDをセット
         exID = "";
         Bundle extrasID = getIntent().getExtras();
@@ -196,7 +201,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(getResources().getString(R.string.service));
-        rnptxvservice.setHint(stringBuilder.toString());
+//        rnptxvservice.setHint(stringBuilder.toString());
         rnptxvservice.setThreshold(0);
         rnptxvservice.setText(hashMapDB.get("service").toString());
 
@@ -209,7 +214,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
         stringBuilder = new StringBuilder();
         stringBuilder.append(getResources().getString(R.string.id));
-        rnptxvid.setHint(stringBuilder.toString());
+//        rnptxvid.setHint(stringBuilder.toString());
         rnptxvid.setThreshold(0);
         rnptxvid.setText(hashMapDB.get("user_id").toString());
 
@@ -221,9 +226,28 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }stringBuilder = new StringBuilder();
         stringBuilder.append(getResources().getString(R.string.address));
         //stringBuilder.append(getResources().getString(R.string.mei));
-        rnptxvaddress.setHint(stringBuilder.toString());
+//        rnptxvaddress.setHint(stringBuilder.toString());
         rnptxvaddress.setThreshold(0);
         rnptxvaddress.setText(hashMapDB.get("mailadd").toString());
+
+        /*****************************************
+         * 今井追加 ソフトキーボード非表示にするや～つ
+         *****************************************/
+        //EnterKey押下時にソフトキーボードを非表示にする。
+        rnptxvaddress.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // EnterKeyが押されたか判定
+                if (event.getAction() == KeyEvent.ACTION_DOWN
+                        && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    InputMethodManager imputMethodManager =
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
+        /**ここまで****************************************************/
 
 
         rnplayout = (LinearLayout) findViewById(R.id.rnplayout);
@@ -277,12 +301,12 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         stb.append(getResources().getString(R.string.passlengthaft));
         rnptxvpasslength.setText(stb.toString());
 
-        rnpspn = (Spinner) findViewById(R.id.rnpspn);
+/*        rnpspn = (Spinner) findViewById(R.id.rnpspn);
         String[] spnstr = {getResources().getString(R.string.month1),
                 getResources().getString(R.string.month3),
                 getResources().getString(R.string.month6)};
         rnpspn.setAdapter(createAdapter(spnstr));
-        rnpspn.setSelection(Integer.parseInt(hashMapDB.get("spinner")));
+        rnpspn.setSelection(Integer.parseInt(hashMapDB.get("spinner")));*/
 
         rnpbtnnext = (Button) findViewById(R.id.rnpbtnnext);
         rnpbtnnext.setOnClickListener(this);
