@@ -29,39 +29,31 @@
             android:id="@+id/plcontainer"
             style="@style/flame_style">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-               >
+                android:gravity="center_horizontal"
+                android:id="@+id/plcardTitle"
+                style="@style/fontSize_Big"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:id="@+id/plcardTitle"
-                    style="@style/fontSize_Big"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ああああああああああああああああああああああああああああああああああああああああああああああああああ"
+                android:id="@+id/plcardHint"
+                android:visibility="gone"
+                style="@style/fontSize_Small"
+                android:layout_marginTop="5dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ああああああああああああああああああああああああああああああああああああああああああああああああああ"
-                    android:id="@+id/plcardHint"
-                    android:visibility="gone"
-                    style="@style/fontSize_Small"
-                    android:layout_marginTop="5dp" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button4"
-                    android:id="@+id/plcardbutton"
-                    android:visibility="gone"
-                    style="@style/pass_blue_button"
-                    android:layout_marginTop="5dp"
-                    android:layout_gravity="center_horizontal" />
-
-            </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button4"
+                android:id="@+id/plcardbutton"
+                android:visibility="gone"
+                style="@style/pass_blue_button"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 
