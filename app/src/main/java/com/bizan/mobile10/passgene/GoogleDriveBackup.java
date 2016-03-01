@@ -5,7 +5,11 @@ package com.bizan.mobile10.passgene;
 
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -15,13 +19,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.ErrorDialogFragment;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.drive.DriveApi;
+import com.google.android.gms.drive.DriveContents;
+import com.google.android.gms.drive.DriveFile;
+import com.google.android.gms.drive.DriveFolder;
+import com.google.android.gms.drive.MetadataChangeSet;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
@@ -38,7 +52,11 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,7 +65,7 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 
 public class GoogleDriveBackup extends AppCompatActivity
-        implements View.OnClickListener {
+        implements View.OnClickListener,GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 /*
 
     Activity 起動時に Google アカウントを選択
@@ -63,8 +81,8 @@ public class GoogleDriveBackup extends AppCompatActivity
     static final int REQUEST_ACCOUNT_PICKER = 1;
     static final int REQUEST_AUTHORIZATION = 2;
 
-    static final String DB_TITLE = "pg.db";
-    static final String FILE_TITLE = "pg.csv";
+//    static final String DB_TITLE = "pg.db";
+//    static final String FILE_TITLE = "pg.csv";
 
     private Drive service = null;
     private GoogleAccountCredential credential = null;
@@ -74,6 +92,15 @@ public class GoogleDriveBackup extends AppCompatActivity
      */
     private GoogleApiClient client;
 
+    /**
+     * ここからお試し
+     */
+    private boolean mResolvingError = false;
+    private DriveFile mfile;
+    private static final int DIALOG_ERROR_CODE =100;
+    private static final String DATABASE_NAME = "pg.db";
+    private static final String GOOGLE_DRIVE_FILE_NAME = "passgene_db_backup";
+    private static final String TAG = "GoogleDriveBackup";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +108,8 @@ public class GoogleDriveBackup extends AppCompatActivity
         setContentView(R.layout.activity_google_drive_backup);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         btnGdSave = (Button) findViewById(R.id.btnGdSave);
         btnGdSave.setOnClickListener(this);
@@ -90,6 +119,8 @@ public class GoogleDriveBackup extends AppCompatActivity
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+//        client = new GoogleApiClient.Builder(this).addApi(Drive.API).addScope(Drive.SCOPE_FILE).
+//                addConnectionCallbacks(this).addOnConnectionFailedListener(this).build();
     }
 
     @Override
@@ -97,8 +128,12 @@ public class GoogleDriveBackup extends AppCompatActivity
         super.onStart();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        if (service == null) {
+        if(!mResolvingError){
+            client.connect();
+        }
+
+
+        /*if (service == null) {
             credential = GoogleAccountCredential.usingOAuth2(this, Arrays.asList(DriveScopes.DRIVE));
             startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
         }
@@ -116,8 +151,30 @@ public class GoogleDriveBackup extends AppCompatActivity
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://com.bizan.mobile10.passgene/http/host/path")
         );
-        AppIndex.AppIndexApi.start(client, viewAction);
+        AppIndex.AppIndexApi.start(client, viewAction);*/
     }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.v(TAG, "Connection failed");
+        if(mResolvingError) { // If already in resolution state, just return.
+            return;
+        } else if(result.hasResolution()) { // Error can be resolved by starting an intent with user interaction
+            mResolvingError = true;
+            try {
+                result.startResolutionForResult(this, DIALOG_ERROR_CODE);
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else { // Error cannot be resolved. Display Error Dialog stating the reason if possible.
+            ErrorDialogFragment fragment = new ErrorDialogFragment();
+            Bundle args = new Bundle();
+            args.putInt("error", result.getErrorCode());
+            fragment.setArguments(args);
+            fragment.show(getFragmentManager(), "errordialog");
+        }
+    }
+
 
     //ボタンのクリック処理
     @Override
@@ -126,19 +183,19 @@ public class GoogleDriveBackup extends AppCompatActivity
 
             //ここにGoogleDriveへのセーブコードを記述
             toast("セーブじゃ！セーブするのじゃ～");
-            saveDataToDrive();
+//            saveDataToDrive();
 
         } else if (v.getId() == R.id.btnGdLoad) {
 
             //ここにGoogleDriveからのロードコードを記述
             toast("ロードじゃ！ロードせんか～い\nせんのか～い！");
-            loadDataFromDrive();
+//            loadDataFromDrive();
         }
     }
 
     @Override
     protected void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        switch (requestCode) {
+       /* switch (requestCode) {
             case REQUEST_ACCOUNT_PICKER:
                 if (resultCode == RESULT_OK && data != null && data.getExtras() != null) {
                     String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
@@ -153,49 +210,51 @@ public class GoogleDriveBackup extends AppCompatActivity
                     startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
                 }
                 break;
+        }*/
+        if(requestCode == DIALOG_ERROR_CODE) {
+            mResolvingError = false;
+            if(resultCode == RESULT_OK) { // Error was resolved, now connect to the client if not done so.
+                if(!client.isConnecting() && !client.isConnected()) {
+                    client.connect();
+                }
+            }
         }
     }
 
     /**
      * セーブの処理を記述
-     *
-     *
-     *
      */
-    private void saveDataToDrive() {
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
-        Cursor cursor = dbC.readUserInfoAll();
-//        Cursor cursor2 = dbC.readServiceInfoAll();
-
-        final java.io.File ff_u = createCSV(cursor);
-//        final java.io.File ff_s = createCSV(cursor2);
-
-        //DBからexportしたcsvファイルを定義する
+/*    private void saveDataToDrive() {
         Thread t = new Thread(new Runnable() {
+            String fileIdOrNull = null;
             @Override
             public void run() {
-                String fileIdOrNull = null;
                 try {
-                    toast("ここまでおK");
-                    FileList list = service.files().list().execute();
+
+                    *//*FileList list = service.files().list().execute();
                     for (File f : list.getItems()) {
                         if (DB_TITLE.equals(f.getTitle())) {
                             fileIdOrNull = f.getId();
                         }
-                    }
+                    }*//*
 
-                    File body = new File();
-                    body.setTitle(FILE_TITLE);                  //fileContent.getName();
-                    body.setMimeType("text/plain");             //csvで保存
-                    final FileContent content = new FileContent("text/plain", ff_u);
+                    Uri fileUri = Uri.fromFile(new java.io.File(Environment.getDataDirectory().getPath()
+                            + "/data/com.bizan.mobile10/databases/pg.db"));
 
-//                    ByteArrayContent content = new ByteArrayContent("text/plain", inputText.getBytes(Charset.forName("UTF-8")));
+                    java.io.File fileContent = new java.io.File(fileUri.getPath());
 
+                    FileContent mediaContent = new FileContent("db", fileContent);
+
+                    File body = new com.google.api.services.drive.model.File();
+                    body.setTitle(DB_TITLE);
+                    body.setMimeType("db");
                     if (fileIdOrNull == null) {
-                        service.files().insert(body, content).execute();
+                        toast("ここまでおK");
+                        service.files().insert(body, mediaContent).execute();
                         toast("insert!");
+                        fileIdOrNull = DB_TITLE;
                     } else {
-                        service.files().update(fileIdOrNull, body, content).execute();
+                        service.files().update(fileIdOrNull, body, mediaContent).execute();
                         toast("update!");
                     }
                     //TODO失敗時の処理
@@ -207,18 +266,16 @@ public class GoogleDriveBackup extends AppCompatActivity
                     e.printStackTrace();
                 }
             }
+
         });
         t.start();
-    }
+    }*/
 
 
     /**
      * ロードの処理を記述
-     *
-     *
-     *
      */
-    private void loadDataFromDrive() {
+ /*   private void loadDataFromDrive() {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -263,8 +320,8 @@ public class GoogleDriveBackup extends AppCompatActivity
         });
         t.start();
     }
-
-    private static InputStream downloadFile(Drive service, File file) {
+*/
+ /*   private static InputStream downloadFile(Drive service, File file) {
         if (file.getDownloadUrl() != null && file.getDownloadUrl().length() > 0) {
             try {
                 HttpResponse resp =
@@ -282,7 +339,7 @@ public class GoogleDriveBackup extends AppCompatActivity
     private Drive getDriveService(GoogleAccountCredential credential) {
         return new Drive.Builder(AndroidHttp.newCompatibleTransport(), new GsonFactory(), credential)
                 .build();
-    }
+    }*/
 
 
     /**
@@ -298,9 +355,11 @@ public class GoogleDriveBackup extends AppCompatActivity
     }
 
 
+/*    */
+
     /**
      * DBからCSVを書出そうのコーナー
-     */
+     *//*
     public java.io.File createCSV(Cursor cursor) {
         boolean var = true;
         final String filename;
@@ -329,15 +388,14 @@ public class GoogleDriveBackup extends AppCompatActivity
         }
         java.io.File fixedFile = new java.io.File(filename);
         return fixedFile;
-    }
-
+    }*/
     @Override
     public void onStop() {
         super.onStop();
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        Action viewAction = Action.newAction(
+        /*Action viewAction = Action.newAction(
                 Action.TYPE_VIEW, // TODO: choose an action type.
                 "GoogleDriveBackup Page", // TODO: Define a title for the content shown.
                 // TODO: If you have web page content that matches this app activity's content,
@@ -347,8 +405,120 @@ public class GoogleDriveBackup extends AppCompatActivity
                 // TODO: Make sure this auto-generated app deep link URI is correct.
                 Uri.parse("android-app://com.bizan.mobile10.passgene/http/host/path")
         );
-        AppIndex.AppIndexApi.end(client, viewAction);
+        AppIndex.AppIndexApi.end(client, viewAction);*/
         client.disconnect();
     }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.v(TAG, "Connected successfully");
+
+    /* Connection to Google Drive established. Now request for Contents instance,
+    which can be used to provide file contents.
+       The callback is registered for the same. */
+        com.google.android.gms.drive.Drive.DriveApi.newDriveContents(client).setResultCallback(contentsCallback);
+    }
+
+    final private ResultCallback<DriveApi.DriveContentsResult> contentsCallback = new ResultCallback<DriveApi.DriveContentsResult>() {
+
+        @Override
+        public void onResult(DriveApi.DriveContentsResult result) {
+            if (!result.getStatus().isSuccess()) {
+                Log.v(TAG, "Error while trying to create new file contents");
+                return;
+            }
+
+            String mimeType = MimeTypeMap.getSingleton().getExtensionFromMimeType("db");
+            MetadataChangeSet changeSet = new MetadataChangeSet.Builder()
+                    .setTitle(GOOGLE_DRIVE_FILE_NAME) // Google Drive File name
+                    .setMimeType(mimeType)
+                    .setStarred(true).build();
+            // create a file on root folder
+            com.google.android.gms.drive.Drive.DriveApi.getRootFolder(client)
+                    .createFile(client, changeSet, result.getDriveContents())
+                    .setResultCallback(fileCallback);
+        }
+
+    };
+
+    final private ResultCallback<DriveFolder.DriveFileResult> fileCallback = new ResultCallback<DriveFolder.DriveFileResult>() {
+
+        @Override
+        public void onResult(DriveFolder.DriveFileResult result) {
+            if (!result.getStatus().isSuccess()) {
+                Log.v(TAG, "Error while trying to create the file");
+                return;
+            }
+            mfile = result.getDriveFile();
+            mfile.open(client, DriveFile.MODE_WRITE_ONLY, null).setResultCallback(contentsOpenedCallback);
+        }
+    };
+
+    final private ResultCallback<DriveApi.DriveContentsResult> contentsOpenedCallback = new ResultCallback<DriveApi.DriveContentsResult>() {
+
+        @Override
+        public void onResult(DriveApi.DriveContentsResult result) {
+
+            if (!result.getStatus().isSuccess()) {
+                Log.v(TAG, "Error opening file");
+                return;
+            }
+
+            try {
+                FileInputStream is = new FileInputStream(getDbPath());
+                BufferedInputStream in = new BufferedInputStream(is);
+                byte[] buffer = new byte[8 * 1024];
+                DriveContents content = result.getDriveContents();
+                BufferedOutputStream out = new BufferedOutputStream(content.getOutputStream());
+                int n = 0;
+                while( ( n = in.read(buffer) ) > 0 ) {
+                    out.write(buffer, 0, n);
+                }
+
+                in.close();
+//                commitAndCloseContents is DEPRECATED -->
+                /**mfile.commitAndCloseContents(api, content).setResultCallback(new ResultCallback<Status>() {
+                 @Override
+                 public void onResult(Status result) {
+                 // Handle the response status
+                 }
+                 });**/
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+    };
+
+    private java.io.File getDbPath() {
+        return this.getDatabasePath(DATABASE_NAME);
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.v(TAG, "Connection suspended");
+    }
+
+    public void onDialogDismissed() {
+        mResolvingError = false;
+    }
+
+    public static class ErrorDialogFragment extends DialogFragment {
+        public ErrorDialogFragment() {}
+
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            int errorCode = this.getArguments().getInt("error");
+            return GooglePlayServicesUtil.getErrorDialog(errorCode, this.getActivity(), DIALOG_ERROR_CODE);
+        }
+
+//        public void onDismiss(DialogInterface dialog) {
+//            ((ExpectoPatronum) getActivity()).onDialogDismissed();
+//        }
+    }
+
 }
 

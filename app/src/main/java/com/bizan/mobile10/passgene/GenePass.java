@@ -64,7 +64,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
 
     /**
      * debug
-     *****************************/
+     *****************************
     private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     //テーブル名
@@ -81,7 +81,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         setSupportActionBar(toolbar);
 
 
-/**debug*****************************/
+/**debug*****************************
         String[] dbColTable = {
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " service TEXT UNIQUE NOT NULL," +
@@ -112,7 +112,9 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         };
         dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
 /*******************************/
-        dbC = new DatabaseC(dbHelper);
+//        dbC = new DatabaseC(dbHelper);
+
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         poolString = new PoolString();
 

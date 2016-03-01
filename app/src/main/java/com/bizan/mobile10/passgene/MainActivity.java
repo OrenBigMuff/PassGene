@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this, RegistNewPass.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_test_gdb) {
-            Intent intent = new Intent(MainActivity.this, GoogleDriveBackup.class);
+            Intent intent = new Intent(MainActivity.this, SaveLoadDB.class);
             startActivity(intent);
         }
     }

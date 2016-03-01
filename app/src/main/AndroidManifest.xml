@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -94,6 +96,11 @@
         <activity
             android:name=".PassList2"
             android:label="@string/title_activity_pass_list2"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".SaveLoadDB"
+            android:label="@string/title_activity_save_load_db"
             android:theme="@style/AppTheme">
         </activity>
     </application>

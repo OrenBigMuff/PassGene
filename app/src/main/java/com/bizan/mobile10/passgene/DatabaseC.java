@@ -566,4 +566,13 @@ public class DatabaseC {
         return str;
     }
 
+    /**
+     * DBのパス取得
+     *
+     */
+    public String getPath() {
+        String tmp = db.getPath();
+        return tmp;
+    }
+
 }
