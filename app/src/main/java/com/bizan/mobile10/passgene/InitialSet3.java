@@ -40,6 +40,21 @@ public class InitialSet3 extends AppCompatActivity
         btn0_3Nega = (Button) findViewById(R.id.btnInitialSet3Nega);
         btn0_3Nega.setOnClickListener(this);
 
+        //ここにDBへの登録を記述
+        //InitialSet1の分
+        String[] value_sei ={"ユーザーの姓", InitialSet1.lastname, "2"};
+        dbC.insertUserInfo(value_sei);
+        String[] value_mei ={"ユーザーの名", InitialSet1.firstname, "3"};
+        dbC.insertUserInfo(value_mei);
+        String[] value_birth ={"ユーザーの生年月日", InitialSet1.registBirth, "1"};
+        dbC.insertUserInfo(value_birth);
+        //InitialSet2の分
+        dbC.insertMasterPass(InitialSet2.fixMaster);
+
+        if(pref.readConfig("p0_1", true) && pref.readConfig("p0_2", true)){
+            pref.writeConfig("newcomm", true);
+        }
+
 
     }
 
@@ -51,20 +66,7 @@ public class InitialSet3 extends AppCompatActivity
             toast("ユーザー情報登録画面に遷移");
             startActivity(intent1);
 
-            //ここにDBへの登録を記述
-            //InitialSet1の分
-            String[] value_sei ={"ユーザーの姓", InitialSet1.lastname, "2"};
-            dbC.insertUserInfo(value_sei);
-            String[] value_mei ={"ユーザーの名", InitialSet1.firstname, "3"};
-            dbC.insertUserInfo(value_mei);
-            String[] value_birth ={"ユーザーの生年月日", InitialSet1.registBirth, "1"};
-            dbC.insertUserInfo(value_birth);
-            //InitialSet2の分
-            dbC.insertMasterPass(InitialSet2.fixMaster);
 
-            if(pref.readConfig("p0_1", true) && pref.readConfig("p0_2", true)){
-                pref.writeConfig("newcomm", true);
-            }
 
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 
