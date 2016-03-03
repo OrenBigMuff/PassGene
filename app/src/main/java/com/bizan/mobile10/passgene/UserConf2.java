@@ -20,7 +20,7 @@ public class UserConf2 extends AppCompatActivity
     NumberPicker npk_uc4;
     Button btn;
     String fixMaster_uc;
-    String rightPass;       //DBから引っ張ってきたUserのMP
+    private String rightPass;       //DBから引っ張ってきたUserのMP
 
     //【重要】///////////////////////////////////////////////
     //
@@ -34,16 +34,16 @@ public class UserConf2 extends AppCompatActivity
     /**
      * この部分を後で復活させる
      */
-    //    final String CLASSNAME = intent.getStringExtra("CLASSNAME");
-    //    final int ID_S = intent.getIntExtra("SID", -1);
-    //    final int ID_U = intent.getIntExtra("UID", -1);
+        final String CLASSNAME = intent.getStringExtra("CLASSNAME");
+        final int ID_S = intent.getIntExtra("SID", -1);
+        final int ID_U = intent.getIntExtra("UID", -1);
 
     /**
      * ここは逆に本番では削除する
      */
-    int ID_S = 10;      //test
-    int ID_U = -1;      //test
-    final String CLASSNAME = "com.bizan.mobile10.passgene.InitialSet3";       //遷移させたい先の完全なClass名（.java不要） ←最終的に削除の行
+//    int ID_S = 10;      //test
+//    int ID_U = -1;      //test
+//    final String CLASSNAME = "com.bizan.mobile10.passgene.InitialSet3";       //遷移させたい先の完全なClass名（.java不要） ←最終的に削除の行
     final String PKGNAME = "com.bizan.mobile10.passgene";    //ここは変更不要
     //
     //
@@ -58,7 +58,7 @@ public class UserConf2 extends AppCompatActivity
 
         dbC = new DatabaseC(InitialSet1.getDbHelper());
         //マスターパスの呼出し
-        rightPass = String.valueOf(dbC.readMasterPass());
+        rightPass = dbC.readMasterPass();
 
         btn = (Button) findViewById(R.id.btnUserConf);
         btn.setOnClickListener(this);
@@ -104,7 +104,13 @@ public class UserConf2 extends AppCompatActivity
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("SID", ID_S);
                 startActivity(intent);
-            }return;
+            }else if(ID_S == -1 && ID_U == -1){
+                toast("パスワードが一致しました。NONE");
+                Intent intent = new Intent();
+                intent.setClassName(PKGNAME, CLASSNAME);
+                startActivity(intent);
+            }
+            return;
 
         } else{
             //Dialogを表示させる

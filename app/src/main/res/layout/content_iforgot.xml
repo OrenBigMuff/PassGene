@@ -38,6 +38,7 @@
 
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:id="@+id/txvIForgot"
                       android:text="@string/guide_text_iforgot"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="15dp"/>

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class IForgot extends AppCompatActivity
@@ -24,6 +25,7 @@ public class IForgot extends AppCompatActivity
     DatabaseC dbC;
     Button btnIForgot1;
     Button btnIForgot2;
+    TextView txvIForgot;
     TextInputLayout tilSmsNum;
     EditText edtSmsNum;
     String smsNum;
@@ -38,6 +40,9 @@ public class IForgot extends AppCompatActivity
 
         dbC = new DatabaseC(InitialSet1.getDbHelper());
         rightPass = dbC.readMasterPass();
+
+        txvIForgot = (TextView)findViewById(R.id.txvIForgot);
+        txvIForgot.setText(InitialSet1.fullname + " さん、\\nマスターパスワードを忘れましたか？\\n以下に携帯電話の番号を入力すると、\\nマスターパスワード(SMS)を送信することができます。");
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
         btnIForgot1.setOnClickListener(this);
@@ -60,7 +65,7 @@ public class IForgot extends AppCompatActivity
             submitForm();
         } else if (v.getId() == R.id.btnIForgot2) {
             //初期化画面へ遷移のコードを記述
-            toast("最終確認じゃ！");
+//            toast("最終確認じゃ！");
             //Dialogを表示させる
             openPG_Dialog();
         }
@@ -112,7 +117,7 @@ public class IForgot extends AppCompatActivity
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         Uri smsNumber = Uri.parse("sms:smsNum");       //SMS番号09012345678
         intent.setData(smsNumber);
-        intent.putExtra("sms_body", "「パスじぇねくん」です。\nあなたのマスターパスワードは" + rightPass + "です。\n再ログイン後は、マスターパスワードの再設定を強くお勧めします。");
+        intent.putExtra("sms_body", "「パスじぇねくん」です。\nあなたのマスターパスワードは" + this.rightPass + "です。\n再ログイン後は、マスターパスワードの再設定を強くお勧めします。");
         startActivity(Intent.createChooser(intent, "Pick a SMS App"));
     }
 
