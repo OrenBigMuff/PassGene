@@ -100,7 +100,6 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         mTilText.setError(null); // hide error
         mText.addTextChangedListener(new PGTextWatcher(mTilText));
 
-
         //フリーナンバー
         mNumber = (EditText) findViewById(R.id.edtRegistInfoNumber);
         mTilNumber = (TextInputLayout) findViewById(R.id.tilRegistInfoNumber);
@@ -118,17 +117,16 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         /**
          * カテゴリーのスピナー
          */
-        String[] category = {getString(R.string.regist_info_category1),getString(R.string.regist_info_category2),
-                getString(R.string.regist_info_category3),getString(R.string.regist_info_category4),
-                getString(R.string.regist_info_category5),getString(R.string.regist_info_category6),
-                getString(R.string.regist_info_category7)};
+        String[] category = {"電話番号","生年月日","姓","名","フリーテキスト","フリーナンバー","フリー"};
 
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<String>(this, R.layout.spinner_item);
         adapterCategory.setDropDownViewResource(R.layout.spinner_item);
+
         //アイテムを追加します
         for (int i=0; i<category.length; i++) {
             adapterCategory.add(category[i]);
         }
+
         Spinner spnCategory = (Spinner) findViewById(R.id.spnRegistInfo);
         //アダプターを設定します
         spnCategory.setAdapter(adapterCategory);
@@ -139,7 +137,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                 //選択されたスピナーに対する動作
                 Spinner spinner = (Spinner) parent;
                 String item = (String) spinner.getSelectedItem();
-                if (item.equals(getString(R.string.regist_info_category1))) {
+                if (item.equals("電話番号")) {
                     mCategoryNumber = "0";
                     mTilTel.setVisibility(View.VISIBLE);
                     dpkBirthday.setVisibility(View.GONE);
@@ -148,7 +146,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                     mTilText.setVisibility(View.GONE);
                     mTilNumber.setVisibility(View.GONE);
                     mTilAll.setVisibility(View.GONE);
-                } else if (item.equals(getString(R.string.regist_info_category2))) {
+                } else if (item.equals("生年月日")) {
                     mCategoryNumber = "1";
                     mTilTel.setVisibility(View.GONE);
                     dpkBirthday.setVisibility(View.VISIBLE);
@@ -157,7 +155,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                     mTilText.setVisibility(View.GONE);
                     mTilNumber.setVisibility(View.GONE);
                     mTilAll.setVisibility(View.GONE);
-                } else if (item.equals(getString(R.string.regist_info_category3))) {
+                } else if (item.equals("姓")) {
                     mCategoryNumber = "2";
                     mTilTel.setVisibility(View.GONE);
                     dpkBirthday.setVisibility(View.GONE);
@@ -166,7 +164,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                     mTilText.setVisibility(View.GONE);
                     mTilNumber.setVisibility(View.GONE);
                     mTilAll.setVisibility(View.GONE);
-                } else if (item.equals(getString(R.string.regist_info_category4))) {
+                } else if (item.equals("名")) {
                     mCategoryNumber = "3";
                     mTilTel.setVisibility(View.GONE);
                     dpkBirthday.setVisibility(View.GONE);
@@ -175,7 +173,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                     mTilText.setVisibility(View.GONE);
                     mTilNumber.setVisibility(View.GONE);
                     mTilAll.setVisibility(View.GONE);
-                } else if (item.equals(getString(R.string.regist_info_category5))) {
+                } else if (item.equals("フリーテキスト")) {
                     mCategoryNumber = "4";
                     mTilTel.setVisibility(View.GONE);
                     dpkBirthday.setVisibility(View.GONE);
@@ -184,7 +182,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                     mTilText.setVisibility(View.VISIBLE);
                     mTilNumber.setVisibility(View.GONE);
                     mTilAll.setVisibility(View.GONE);
-                } else if (item.equals(getString(R.string.regist_info_category6))) {
+                } else if (item.equals("フリーナンバー")) {
                     mCategoryNumber = "5";
                     mTilTel.setVisibility(View.GONE);
                     dpkBirthday.setVisibility(View.GONE);
@@ -193,7 +191,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                     mTilText.setVisibility(View.GONE);
                     mTilNumber.setVisibility(View.VISIBLE);
                     mTilAll.setVisibility(View.GONE);
-                } else if (item.equals(getString(R.string.regist_info_category7))) {
+                } else if (item.equals("フリー")) {
                     mCategoryNumber = "6";
                     mTilTel.setVisibility(View.GONE);
                     dpkBirthday.setVisibility(View.GONE);
@@ -331,7 +329,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean tel() {
         if (mTel.getText().toString().trim().isEmpty()) {
-            mTilTel.setError(getString(R.string.err_msg_lastname));
+            mTilTel.setError(getString(R.string.regist_info_errormessage2));
             requestFocus(mTel);
             return false;
         } else {
@@ -343,7 +341,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean surname() {
         if (mSurname.getText().toString().trim().isEmpty()) {
-            mTilSurname.setError(getString(R.string.err_msg_firstname));
+            mTilSurname.setError(getString(R.string.err_msg_lastname));
             requestFocus(mSurname);
             return false;
         } else {
@@ -355,7 +353,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean name() {
         if (mName.getText().toString().trim().isEmpty()) {
-            mTilName.setError(getString(R.string.err_msg_lastname));
+            mTilName.setError(getString(R.string.err_msg_firstname));
             requestFocus(mName);
             return false;
         } else {
@@ -367,7 +365,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean text() {
         if (mText.getText().toString().trim().isEmpty()) {
-            mTilText.setError(getString(R.string.err_msg_lastname));
+            mTilText.setError(getString(R.string.regist_info_errormessage3));
             requestFocus(mText);
             return false;
         } else {
@@ -379,7 +377,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean number() {
         if (mNumber.getText().toString().trim().isEmpty()) {
-            mTilNumber.setError(getString(R.string.err_msg_lastname));
+            mTilNumber.setError(getString(R.string.regist_info_errormessage3));
             requestFocus(mNumber);
             return false;
         } else {
@@ -391,7 +389,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean all() {
         if (mAll.getText().toString().trim().isEmpty()) {
-            mTilAll.setError(getString(R.string.err_msg_lastname));
+            mTilAll.setError(getString(R.string.regist_info_errormessage3));
             requestFocus(mAll);
             return false;
         } else {
