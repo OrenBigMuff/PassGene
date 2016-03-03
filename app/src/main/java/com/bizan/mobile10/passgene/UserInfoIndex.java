@@ -111,7 +111,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         btnElimination1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserInfoIndex.this, getString(R.string.dialog_message2), Toast.LENGTH_LONG).show();
+                Toast.makeText(UserInfoIndex.this, "この情報を使用中のサービスがあるため削除できません｡", Toast.LENGTH_LONG).show();
             }
         });
         btnElimination2.setOnClickListener(new View.OnClickListener() {
@@ -128,10 +128,10 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
     private void openPG_Dialog() {
 
         //DialogFragmentに渡すモノを決めてね
-        String title = getString(R.string.dialog_title1);
-        String message = getString(R.string.dialog_message1);
-        String posi = getString(R.string.button2);
-        String nega = getString(R.string.button5);
+        String title = "削除確認";
+        String message = "削除します。\\nよろしいですか?";
+        String posi = "削除";
+        String nega = "戻る";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 

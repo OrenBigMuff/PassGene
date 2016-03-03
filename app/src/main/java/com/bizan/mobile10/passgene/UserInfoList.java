@@ -41,13 +41,6 @@ public class UserInfoList extends AppCompatActivity {
         return setUserInfo;
     }
 
-
-
-    private static DatabaseHelper dbHelper;
-    public static DatabaseHelper getDbHelper() {
-        return dbHelper;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -85,13 +85,6 @@
     <string name="regist_info_hint2">数字で入力してください。</string>
     <string name="regist_info_hint3">英数字で入力してください。</string>
     <string name="regist_info_hint4">英数字(A-Z,a-z,0-9)で入力してください｡</string>
-    <string name="regist_info_category1">電話番号</string>
-    <string name="regist_info_category2">生年月日</string>
-    <string name="regist_info_category3">姓</string>
-    <string name="regist_info_category4">名</string>
-    <string name="regist_info_category5">フリーテキスト</string>
-    <string name="regist_info_category6">フリーナンバー</string>
-    <string name="regist_info_category7">オールフリー</string>
     <string name="regist_info_heading1">Tag</string>
     <string name="regist_info_heading2">Category</string>
     <string name="regist_info_heading3">Data</string>
