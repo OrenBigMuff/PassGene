@@ -250,7 +250,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList.this, SaveLoadDB.class);
+                                Intent intent = new Intent(PassList.this, GoogleDriveBackup.class);
                                 startActivity(intent);
                             }
                         }, 250);
