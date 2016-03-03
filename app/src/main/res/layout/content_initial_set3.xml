@@ -32,6 +32,7 @@
                       android:textSize="20dp"/>
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:id="@+id/txvDoInput"
                       android:text="@string/do_input_userinfo"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="15dp"/>

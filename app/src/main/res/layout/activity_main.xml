@@ -112,6 +112,26 @@
             </com.balysv.materialripple.MaterialRippleLayout>
 
             <com.balysv.materialripple.MaterialRippleLayout
+                android:id="@+id/ripple_t1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+                app:mrl_rippleDelayClick="true"
+                app:mrl_rippleOverlay="true">
+                <Button
+                    android:id="@+id/btn_test_t1"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/pass_blue_button"
+                    android:text="Go \nTanaka \nActivity"
+                    />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripple_gdb"
                 android:layout_width="250dp"
                 android:layout_height="100dp"
@@ -120,13 +140,14 @@
                 app:mrl_rippleOverlay="true">
                 <Button
                     android:id="@+id/btn_test_gdb"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="250dp"
+                    android:layout_height="100dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
-                    android:background="@color/passGeneBackgroundBlue"
-                    android:text="Go \nGoogleDrive \nBackup"
+                    android:background="@drawable/pass_blue_button"
+                    android:text="Go \nGoogleDrve \nBackup"
                     />
             </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>
