@@ -45,6 +45,12 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
     private TextInputLayout mTilNumber;
     private TextInputLayout mTilAll;
 
+    private String mErrormessage1 = "情報名の入力は必須です。";
+    private String mErrormessage2 = "電話番号の入力は必須です";
+    private String mErrormessage3 = "姓(Last name)の入力は必須です。";
+    private String mErrormessage4 = "名(First name)の入力は必須です。";
+    private String mErrormessage5 = "情報の入力は必須です。";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +66,14 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         //情報名
         mTag = (EditText) findViewById(R.id.edtRegistInfoTag);
         mTilTag = (TextInputLayout) findViewById(R.id.tilRegistInfoTag);
-        mTilTag.setError(getString(R.string.regist_info_errormessage1)); // show error
+        mTilTag.setError(mErrormessage1); // show error
         mTilTag.setError(null); // hide error
         mTag.addTextChangedListener(new PGTextWatcher(mTilTag));
 
         //電話番号
         mTel = (EditText) findViewById(R.id.edtRegistInfoTel);
         mTilTel = (TextInputLayout) findViewById(R.id.tilRegistInfoTel);
-        mTilTel.setError(getString(R.string.regist_info_errormessage2)); // show error
+        mTilTel.setError(mErrormessage2); // show error
         mTilTel.setError(null); // hide error
         mTel.addTextChangedListener(new PGTextWatcher(mTilTel));
 
@@ -82,35 +88,35 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         //姓
         mSurname = (EditText) findViewById(R.id.edtRegistInfoSurname);
         mTilSurname = (TextInputLayout) findViewById(R.id.tilRegistInfoSurname);
-        mTilSurname.setError(getString(R.string.err_msg_lastname)); // show error
+        mTilSurname.setError(mErrormessage3); // show error
         mTilSurname.setError(null); // hide error
         mSurname.addTextChangedListener(new PGTextWatcher(mTilSurname));
 
         //名
         mName = (EditText) findViewById(R.id.edtRegistInfoName);
         mTilName = (TextInputLayout) findViewById(R.id.tilRegistInfoName);
-        mTilName.setError(getString(R.string.err_msg_firstname)); // show error
+        mTilName.setError(mErrormessage4); // show error
         mTilName.setError(null); // hide error
         mName.addTextChangedListener(new PGTextWatcher(mTilName));
 
         //フリーテキスト
         mText = (EditText) findViewById(R.id.edtRegistInfoText);
         mTilText = (TextInputLayout) findViewById(R.id.tilRegistInfoText);
-        mTilText.setError(getString(R.string.regist_info_errormessage3)); // show error
+        mTilText.setError(mErrormessage5); // show error
         mTilText.setError(null); // hide error
         mText.addTextChangedListener(new PGTextWatcher(mTilText));
 
         //フリーナンバー
         mNumber = (EditText) findViewById(R.id.edtRegistInfoNumber);
         mTilNumber = (TextInputLayout) findViewById(R.id.tilRegistInfoNumber);
-        mTilNumber.setError(getString(R.string.regist_info_errormessage3)); // show error
+        mTilNumber.setError(mErrormessage5); // show error
         mTilNumber.setError(null); // hide error
         mNumber.addTextChangedListener(new PGTextWatcher(mTilNumber));
 
         //オールフリー
         mAll = (EditText) findViewById(R.id.edtRegistInfoAll);
         mTilAll = (TextInputLayout) findViewById(R.id.tilRegistInfoAll);
-        mTilAll.setError(getString(R.string.regist_info_errormessage3)); // show error
+        mTilAll.setError(mErrormessage5); // show error
         mTilAll.setError(null); // hide error
         mAll.addTextChangedListener(new PGTextWatcher(mTilAll));
 
@@ -317,7 +323,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean tag() {
         if (mTag.getText().toString().trim().isEmpty()) {
-            mTilTag.setError(getString(R.string.regist_info_errormessage1));
+            mTilTag.setError(mErrormessage1);
             requestFocus(mTag);
             return false;
         } else {
@@ -329,7 +335,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean tel() {
         if (mTel.getText().toString().trim().isEmpty()) {
-            mTilTel.setError(getString(R.string.regist_info_errormessage2));
+            mTilTel.setError(mErrormessage2);
             requestFocus(mTel);
             return false;
         } else {
@@ -341,7 +347,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean surname() {
         if (mSurname.getText().toString().trim().isEmpty()) {
-            mTilSurname.setError(getString(R.string.err_msg_lastname));
+            mTilSurname.setError(mErrormessage3);
             requestFocus(mSurname);
             return false;
         } else {
@@ -353,7 +359,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean name() {
         if (mName.getText().toString().trim().isEmpty()) {
-            mTilName.setError(getString(R.string.err_msg_firstname));
+            mTilName.setError(mErrormessage4);
             requestFocus(mName);
             return false;
         } else {
@@ -365,7 +371,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean text() {
         if (mText.getText().toString().trim().isEmpty()) {
-            mTilText.setError(getString(R.string.regist_info_errormessage3));
+            mTilText.setError(mErrormessage5);
             requestFocus(mText);
             return false;
         } else {
@@ -377,7 +383,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean number() {
         if (mNumber.getText().toString().trim().isEmpty()) {
-            mTilNumber.setError(getString(R.string.regist_info_errormessage3));
+            mTilNumber.setError(mErrormessage5);
             requestFocus(mNumber);
             return false;
         } else {
@@ -389,7 +395,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
 
     private boolean all() {
         if (mAll.getText().toString().trim().isEmpty()) {
-            mTilAll.setError(getString(R.string.regist_info_errormessage3));
+            mTilAll.setError(mErrormessage5);
             requestFocus(mAll);
             return false;
         } else {
@@ -411,10 +417,10 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
     private void openPG_Dialog() {
 
         //DialogFragmentに渡すモノを決めてね
-        String title = getString(R.string.dialog_title2);
+        String title = "登録確認";
         String message = mRegistTag + "を" + mRegistData + "で登録します｡";;
-        String posi = getString(R.string.button1);
-        String nega = getString(R.string.button5);
+        String posi = "登録";
+        String nega = "戻る";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
