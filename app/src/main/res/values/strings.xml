@@ -49,6 +49,12 @@
     <string name="guide_text_gdb">○○さん、\nパスじぇねくんに登録した情報をGoogleDriveにアップロードしてバックアップを取ることができます。
     </string>
 
+    <!-- SDcardバックアップ画面 -->
+    <string name="title_activity_save_load_db">SD Card バックアップ</string>
+    <string name="guide_title_sldb">【情報のバックアップ】</string>
+    <string name="guide_text_sldb">○○さん、\nパスじぇねくんに登録した情報をSD Cardにアップロードしてバックアップを取ることができます。(Android4.4は除く)
+    </string>
+
 
     <!-- タイトル -->
     <string name="title_activity_regist_info">ユーザー情報登録</string>
@@ -137,6 +143,7 @@
     //オープンドロワー
     <string name="closeDrawer">クローズ</string>
     <string name="title_activity_pass_list2">PassList2</string>
+
     //クローズドロワー
 
 

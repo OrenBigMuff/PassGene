@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,17 +22,35 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/service"
                 android:id="@+id/textView"
-                style="@style/pass_blue_heading" />
+                style="@style/pass_blue_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/service"/>
 
-            <AutoCompleteTextView
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/rnpTilServicename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New AutoCompleteTextView"
-                android:id="@+id/rnptxvservice" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:hintTextAppearance="@style/EditTextHint">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rnptxvservice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="サービス名を入力して下さい。"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:text="New AutoCompleteTextView"
+                    android:textColor="@color/passGeneTextBlue"
+                    android:textColorHint="@color/passGeneTextBlue"/>
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
@@ -41,17 +60,35 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/id"
                 android:id="@+id/textView3"
-                style="@style/pass_blue_heading" />
+                style="@style/pass_blue_heading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/id"/>
 
-            <AutoCompleteTextView
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/rnpTilId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New AutoCompleteTextView"
-                android:id="@+id/rnptxvid" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:hintTextAppearance="@style/EditTextHint">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rnptxvid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="使用するユーザーIDを入力して下さい。"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:text="New AutoCompleteTextView"
+                    android:textColor="@color/passGeneTextBlue"
+                    android:textColorHint="@color/passGeneTextBlue"/>
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
@@ -61,17 +98,34 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/textView5"
+                style="@style/pass_blue_heading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/address"
-                android:id="@+id/textView5"
-                style="@style/pass_blue_heading" />
+                android:text="@string/address"/>
 
-            <AutoCompleteTextView
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/rnpTilAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New AutoCompleteTextView"
-                android:id="@+id/rnptxvaddress" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                app:hintTextAppearance="@style/EditTextHint">
+
+                <AutoCompleteTextView
+                    android:id="@+id/rnptxvaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:hint="使用するメールアドレスを入力して下さい。"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:singleLine="true"
+                    android:textColor="@color/passGeneTextBlue"
+                    android:text="New AutoCompleteTextView"/>
+
+            </android.support.design.widget.TextInputLayout>
 
         </LinearLayout>
 
@@ -94,66 +148,78 @@
                     style="@style/pass_blue_heading" />
 
                 <TextView
+                    android:id="@+id/rnptxvpass"
+                    style="@style/fontSize_Normal"
+                    android:layout_marginLeft="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Text"
-                    android:id="@+id/rnptxvpass"
-                    style="@style/fontSize_Normal" />
+                    android:text="New Text"/>
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
 
                 <GridLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:rowCount="2"
-                    android:columnCount="2">
+                    android:columnCount="2"
+                    android:rowCount="2">
 
                     <CheckBox
+                        android:id="@+id/rnpchbnum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/passn"
-                        android:id="@+id/rnpchbnum" />
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/passn"/>
 
                     <CheckBox
+                        android:id="@+id/rnpchbb"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/passb"
-                        android:id="@+id/rnpchbb" />
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/passb"/>
 
                     <CheckBox
+                        android:id="@+id/rnpchbs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/passs"
-                        android:id="@+id/rnpchbs" />
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/passs"/>
 
                     <CheckBox
+                        android:id="@+id/rnpchbk"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/passk"
-                        android:id="@+id/rnpchbk" />
+                        android:layout_marginLeft="20dp"
+                        android:text="@string/passk"/>
                 </GridLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/passlength"
-                android:id="@+id/rnptxvpasslength"
-                style="@style/pass_blue_heading" />
+            <LinearLayout android:layout_width="match_parent"
+                          android:orientation="vertical"
+                          android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/rnptxvpasslength"
+                    style="@style/pass_blue_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/passlength"/>
 
             <SeekBar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/rnpskb" />
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
+       <!-- <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -170,13 +236,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/rnpspn" />
 
-        </LinearLayout>
+        </LinearLayout>-->
 
         <Button
             android:id="@+id/rnpbtnnext"
             style="@style/pass_blue_button"
-            android:text="@string/next"
-            android:layout_gravity="center_horizontal" />
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/next"/>
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
