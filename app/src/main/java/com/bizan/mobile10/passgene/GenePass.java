@@ -152,7 +152,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
                 dataupdate();
             }
 
-            Intent intent = new Intent(GenePass.this, PassList.class);
+            Intent intent = new Intent(GenePass.this, PassList2.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (v == btnRegene) {

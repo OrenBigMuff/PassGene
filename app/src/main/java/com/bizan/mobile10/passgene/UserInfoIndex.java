@@ -13,10 +13,9 @@ import android.widget.Toast;
 
 public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.DialogListener {
     private DatabaseC dbC;
-    UserInfoList userInfoList = new UserInfoList();
-    private String mUserInfoId = userInfoList.getUserInfoId();
-    private String mUserInfoName = userInfoList.getUserInfoName();
-    private String mUserInfo = userInfoList.getUserInfo();
+    private String mUserInfoId;
+    private String mUserInfoName;
+    private String mUserInfo;
     private String mUseService;
 
     private String[] mServiceId1;
@@ -37,12 +36,19 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         InitialSet1 initialSet1 = new InitialSet1();
         DatabaseHelper dbHelper = initialSet1.getDbHelper();
         dbC = new DatabaseC(dbHelper);
+
+        UserInfoList userInfoList = new UserInfoList();
+        mUserInfoId = userInfoList.getUserInfoId();
+        mUserInfoName = userInfoList.getUserInfoName();
+        mUserInfo = userInfoList.getUserInfo();
+
         Cursor cursor1 = dbC.readGeneUseid(mUserInfoId);
         Cursor cursor2 = dbC.readServiceInfoAll();
+
         boolean cPlace1 = cursor1.moveToFirst();       // 参照先を一番始めに
         boolean cPlace2 = cursor2.moveToFirst();       // 参照先を一番始めに
 
-        mServiceId1 = new String[cursor2.getCount()];
+        mServiceId1 = new String[cursor1.getCount()];
         mServiceId2 = new String[cursor2.getCount()];
         mServiceName = new String[cursor2.getCount()];
 
@@ -60,12 +66,13 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
             //全サービスIDとサービス名を取得
             int j = 0;
             while (cPlace2) {
-                mServiceId2[j] = cursor1.getString(0);
-                mServiceName[j] = cursor1.getString(1);
+                mServiceId2[j] = cursor2.getString(0);
+                mServiceName[j] = cursor2.getString(1);
                 cPlace2 = cursor2.moveToNext();
                 j++;
             }
 
+            mUseService = "";
             for (i = 0; i < mServiceId1.length; i++) {
                 for (j = 0; j < mServiceId2.length; j++) {
                     if (mServiceId2[j].equals(mServiceId1[i])) {
@@ -129,7 +136,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
 
         //DialogFragmentに渡すモノを決めてね
         String title = "削除確認";
-        String message = "削除します。\\nよろしいですか?";
+        String message = "削除します。\nよろしいですか?";
         String posi = "削除";
         String nega = "戻る";
         //ダイアログのレイアウトResId

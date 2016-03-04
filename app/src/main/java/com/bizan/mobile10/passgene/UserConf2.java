@@ -29,14 +29,14 @@ public class UserConf2 extends AppCompatActivity
     //
     //
     //User認証がクリアだった時に遷移するクラス名をここで設定する
-    Intent intent = getIntent();
+    private Intent intent;
 
     /**
      * この部分を後で復活させる
      */
-        final String CLASSNAME = intent.getStringExtra("CLASSNAME");
-        final int ID_S = intent.getIntExtra("SID", -1);
-        final int ID_U = intent.getIntExtra("UID", -1);
+        private String CLASSNAME;
+        private int ID_S;
+        private int ID_U;
 
     /**
      * ここは逆に本番では削除する
@@ -55,6 +55,11 @@ public class UserConf2 extends AppCompatActivity
         setContentView(R.layout.activity_user_conf2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        intent = getIntent();
+        CLASSNAME = intent.getStringExtra("CLASSNAME");
+        ID_S = intent.getIntExtra("SID", -1);
+        ID_U = intent.getIntExtra("UID", -1);
 
         dbC = new DatabaseC(InitialSet1.getDbHelper());
         //マスターパスの呼出し

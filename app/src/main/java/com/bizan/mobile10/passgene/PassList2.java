@@ -1,13 +1,10 @@
 package com.bizan.mobile10.passgene;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,29 +15,27 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
-public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class PassList2 extends AppCompatActivity{
 
     private Toolbar plToolbar;                          //toolbar
     private DrawerLayout plDrawer;                      //ドロワー
 
-    private SearchView mSearchView;                     //サーチビュー
-
+    private DatabaseC dbC;                              //DatabaseC
     private String[] mServiceId;                        //サービスID
     private String[] mServiceName;                      //サービス名
     private String[] mHint;                             //パスワードヒント
-    private String[] mDeleteFlag;                       //削除フラグ
 
     private static Animation inAnimation;               //インアニメーション
     private static Animation outAnimetion;              //アウトアニメーション
@@ -49,6 +44,13 @@ public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
+
+        /**
+         * DB準備
+         */
+        InitialSet1 initialSet1 = new InitialSet1();
+        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        dbC = new DatabaseC(dbHelper);
 
         /**
          * ツールバーの設定
@@ -80,9 +82,166 @@ public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTe
             @Override
             public void onClick(View view) {
                 //RegistNewPassに遷移
-                Intent intent = new Intent(PassList2.this, UserConf2.class);
-                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.RegistNewPass");
+                Intent intent = new Intent(PassList2.this, RegistNewPass.class);
                 startActivity(intent);
+            }
+        });
+
+        /**
+         * spinner設定
+         */
+        String[] category = {"登録降順","登録昇順","五十音降順","五十音昇順","更新日降順","更新日昇順"};
+
+        ArrayAdapter<String> adapterCategory = new ArrayAdapter<String>(this, R.layout.spinner_item2);
+        adapterCategory.setDropDownViewResource(R.layout.spinner_item2);
+
+        //アイテムを追加します
+        for (int i=0; i<category.length; i++) {
+            adapterCategory.add(category[i]);
+        }
+
+        Spinner spnCategory = (Spinner) findViewById(R.id.spnPasslist);
+        //アダプターを設定します
+        spnCategory.setAdapter(adapterCategory);
+        // スピナーのアイテムが選択された時に呼び出されるコールバックリスナーを登録
+        spnCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //選択されたスピナーに対する動作
+                Spinner spinner = (Spinner) parent;
+                String item = (String) spinner.getSelectedItem();
+
+                if (item.equals("登録降順")) {
+                    Cursor cursor = dbC.readPasswordListInfo();
+                    boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+                    mServiceId = new String[cursor.getCount()];
+                    mServiceName = new String[cursor.getCount()];
+                    mHint = new String[cursor.getCount()];
+                    int i = cursor.getCount()-1;
+
+                    while (cPlace) {
+                        mServiceId[i] = cursor.getString(0);
+                        mServiceName[i] = cursor.getString(1);
+                        mHint[i] = cursor.getString(2);
+                        cPlace = cursor.moveToNext();
+                        i--;
+                    }
+                    cursor.close();     //cursorを閉じる
+
+                    //CardView作成
+                    cardView();
+
+                } else if (item.equals("登録昇順")) {
+                    Cursor cursor = dbC.readPasswordListInfo();
+                    boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+                    mServiceId = new String[cursor.getCount()];
+                    mServiceName = new String[cursor.getCount()];
+                    mHint = new String[cursor.getCount()];
+                    int i = 0;
+
+                    while (cPlace) {
+                        mServiceId[i] = cursor.getString(0);
+                        mServiceName[i] = cursor.getString(1);
+                        mHint[i] = cursor.getString(2);
+                        cPlace = cursor.moveToNext();
+                        i++;
+                    }
+                    cursor.close();     //cursorを閉じる
+
+                    //CardView作成
+                    cardView();
+
+                } else if (item.equals("五十音降順")) {
+                    Cursor cursor = dbC.readPasswordListInfo("service");
+                    boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+                    mServiceId = new String[cursor.getCount()];
+                    mServiceName = new String[cursor.getCount()];
+                    mHint = new String[cursor.getCount()];
+                    int i = cursor.getCount()-1;
+
+                    while (cPlace) {
+                        mServiceId[i] = cursor.getString(0);
+                        mServiceName[i] = cursor.getString(1);
+                        mHint[i] = cursor.getString(2);
+                        cPlace = cursor.moveToNext();
+                        i--;
+                    }
+                    cursor.close();     //cursorを閉じる
+
+                    //CardView作成
+                    cardView();
+
+                } else if (item.equals("五十音昇順")) {
+                    Cursor cursor = dbC.readPasswordListInfo("service");
+                    boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+                    mServiceId = new String[cursor.getCount()];
+                    mServiceName = new String[cursor.getCount()];
+                    mHint = new String[cursor.getCount()];
+                    int i = 0;
+
+                    while (cPlace) {
+                        mServiceId[i] = cursor.getString(0);
+                        mServiceName[i] = cursor.getString(1);
+                        mHint[i] = cursor.getString(2);
+                        cPlace = cursor.moveToNext();
+                        i++;
+                    }
+                    cursor.close();     //cursorを閉じる
+
+                    //CardView作成
+                    cardView();
+
+                } else if (item.equals("更新日降順")) {
+                    Cursor cursor = dbC.readPasswordListInfo("update");
+                    boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+                    mServiceId = new String[cursor.getCount()];
+                    mServiceName = new String[cursor.getCount()];
+                    mHint = new String[cursor.getCount()];
+                    int i = cursor.getCount()-1;
+
+                    while (cPlace) {
+                        mServiceId[i] = cursor.getString(0);
+                        mServiceName[i] = cursor.getString(1);
+                        mHint[i] = cursor.getString(2);
+                        cPlace = cursor.moveToNext();
+                        i--;
+                    }
+                    cursor.close();     //cursorを閉じる
+
+                    //CardView作成
+                    cardView();
+
+                } else if (item.equals("更新日昇順")) {
+                    Cursor cursor = dbC.readPasswordListInfo("update");
+                    boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
+
+                    mServiceId = new String[cursor.getCount()];
+                    mServiceName = new String[cursor.getCount()];
+                    mHint = new String[cursor.getCount()];
+                    int i = 0;
+
+                    while (cPlace) {
+                        mServiceId[i] = cursor.getString(0);
+                        mServiceName[i] = cursor.getString(1);
+                        mHint[i] = cursor.getString(2);
+                        cPlace = cursor.moveToNext();
+                        i++;
+                    }
+                    cursor.close();     //cursorを閉じる
+
+                    //CardView作成
+                    cardView();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -127,8 +286,7 @@ public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTe
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList2.this, UserConf2.class);
-                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
+                                Intent intent = new Intent(PassList2.this, UserInfoList.class);
                                 startActivity(intent);
                             }
                         }, 250);
@@ -142,7 +300,7 @@ public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTe
                             public void run() {
                                 Intent intent = new Intent(PassList2.this, UserConf2.class);
                                 intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
-                                intent.putExtra("SID","0");
+                                intent.putExtra("SID",0);
                                 startActivity(intent);
                             }
                         }, 250);
@@ -188,29 +346,24 @@ public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTe
     @Override
     protected void onResume() {
         super.onResume();
-        /**
-         * データベースからデータ読み出し
-         */
-        InitialSet1 initialSet1 = new InitialSet1();
-        DatabaseHelper dbHelper = initialSet1.getDbHelper();
-        DatabaseC dbC = new DatabaseC(dbHelper);
 
-        Cursor cursor = dbC.readServiceInfoAll();
+        /**
+         * 登録降順でカード作成
+         */
+        Cursor cursor = dbC.readPasswordListInfo();
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 
         mServiceId = new String[cursor.getCount()];
         mServiceName = new String[cursor.getCount()];
         mHint = new String[cursor.getCount()];
-        mDeleteFlag = new String[cursor.getCount()];
-        int i = 0;
+        int i = cursor.getCount()-1;
 
         while (cPlace) {
             mServiceId[i] = cursor.getString(0);
             mServiceName[i] = cursor.getString(1);
-            mHint[i] = cursor.getString(12);
-            mDeleteFlag[i] = cursor.getString(18);
+            mHint[i] = cursor.getString(2);
             cPlace = cursor.moveToNext();
-            i++;
+            i--;
         }
         cursor.close();     //cursorを閉じる
 
@@ -230,117 +383,54 @@ public class PassList2 extends AppCompatActivity implements SearchView.OnQueryTe
         LinearLayout cardLinear = (LinearLayout) findViewById(R.id.cardLinear);
         cardLinear.removeAllViews();
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        int j = 0;
 
-        for (int i = mServiceId.length - 1; i > -1; i--) {
-            if (mDeleteFlag[i].equals("0")) {
-                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
-                CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+        for (int i =  0; i < mServiceId.length; i++) {
+            LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+            CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
 
-                //サービス名
-                TextView textView1 = (TextView) linearLayout.findViewById(R.id.plcardTitle);
-                textView1.setText(mServiceName[i]);
+            //サービス名
+            TextView textView1 = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+            textView1.setText(mServiceName[i]);
 
-                //ヒント
-                final TextView textView2 = (TextView) linearLayout.findViewById(R.id.plcardHint);
-                textView2.setText(mHint[i]);
+            //ヒント
+            final TextView textView2 = (TextView) linearLayout.findViewById(R.id.plcardHint);
+            textView2.setText(mHint[i]);
 
-                cardLinear.addView(linearLayout, j);
+            final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
 
-                final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
-
-                //Card押下時の動作
-                cardView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //ヒントと編集ボタンをアニメーションさせる
-                        if (cardButton.getVisibility() == View.GONE) {
-                            cardButton.startAnimation(inAnimation);
-                            textView2.startAnimation(inAnimation);
-                            cardButton.setVisibility(View.VISIBLE);
-                            textView2.setVisibility(View.VISIBLE);
-                        } else
-                        if (cardButton.getVisibility() == View.VISIBLE) {
-                            cardButton.startAnimation(outAnimetion);
-                            textView2.startAnimation(outAnimetion);
-                            cardButton.setVisibility(View.GONE);
-                            textView2.setVisibility(View.GONE);
-                        }
+            //Card押下時の動作
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //ヒントと編集ボタンをアニメーションさせる
+                    if (cardButton.getVisibility() == View.GONE) {
+                        cardButton.startAnimation(inAnimation);
+                        textView2.startAnimation(inAnimation);
+                        cardButton.setVisibility(View.VISIBLE);
+                        textView2.setVisibility(View.VISIBLE);
+                    } else
+                    if (cardButton.getVisibility() == View.VISIBLE) {
+                        cardButton.startAnimation(outAnimetion);
+                        textView2.startAnimation(outAnimetion);
+                        cardButton.setVisibility(View.GONE);
+                        textView2.setVisibility(View.GONE);
                     }
-                });
-
-                //ボタン押下時の動作
-                cardButton.setTag(i);
-                cardButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(PassList2.this, UserConf2.class);
-                        intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
-                        intent.putExtra("SID", Integer.parseInt(mServiceId[Integer.parseInt(String.valueOf(v.getTag()))]));
-                        startActivity(intent);
-                    }
-                });
-
-                j++;
-            }
-        }
-    }
-
-    /**
-     * 検索機能
-     */
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.plsearch, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        final MenuItem searchItem = menu.findItem(R.id.plsearchView);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        mSearchView.setOnQueryTextListener(this);
-        mSearchView.setIconifiedByDefault(true);
-        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean queryTextFocused) {
-                if (!queryTextFocused) {
-                    searchItem.collapseActionView();
-                    mSearchView.setQuery("", false);
                 }
-            }
-        });
-        return true;
-    }
+            });
 
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        mSearchView.clearFocus();
-        return false;
-    }
+            cardLinear.addView(linearLayout, i);
 
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        for (int i = 0; i < mServiceId.length; i++) {
-            if (mServiceName[i].indexOf(newText)==-1) {
-                mDeleteFlag[i] = "1";
-            }
-        }
-
-        //CardView作成
-        cardView();
-        return false;
-    }
-
-    /**
-     * キーボート展開時にテキスト打ち込み０でバックボタンを押すと検索アイコン表示まで戻る
-     */
-    @Override
-    public void onBackPressed() {
-        if (mSearchView !=null && !mSearchView.isIconified()) {
-            mSearchView.clearFocus();
-            mSearchView.onActionViewCollapsed();
-            mSearchView.setQuery("", false);
-            mSearchView.setIconified(true);
-        } else {
-            super.onBackPressed();
+            //ボタン押下時の動作
+            cardButton.setTag(i);
+            cardButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(PassList2.this, UserConf2.class);
+                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
+                    intent.putExtra("SID", Integer.parseInt(mServiceId[Integer.parseInt(String.valueOf(v.getTag()))]));
+                    startActivity(intent);
+                }
+            });
         }
     }
 }

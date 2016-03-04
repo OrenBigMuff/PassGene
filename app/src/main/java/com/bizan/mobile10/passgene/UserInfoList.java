@@ -119,7 +119,8 @@ public class UserInfoList extends AppCompatActivity {
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(UserInfoList.this, UserInfoIndex.class);
+                        Intent intent = new Intent(UserInfoList.this, UserConf2.class);
+                        intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoIndex");
                         startActivity(intent);
 
                         setUserInfoId = mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))];

@@ -434,6 +434,43 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         }
     }
 
+
+    /*@Override
+    public boolean onQueryTextSubmit(String query) {
+        mSearchView.clearFocus();
+        return false;
+    }
+
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        for (int i = 0; i < mServiceId.length; i++) {
+            if (mServiceName[i].indexOf(newText)==-1) {
+                //文字列を含まないものにDeleteFlagを立てる
+                mDeleteFlag[i] = "1";
+            }
+        }
+
+        //CardView作成
+        cardView();
+        return false;
+    }
+
+    *//**
+     * キーボート展開時にテキスト打ち込み０でバックボタンを押すと検索アイコン表示まで戻る
+     *//*
+    @Override
+    public void onBackPressed() {
+        if (mSearchView !=null && !mSearchView.isIconified()) {
+            mSearchView.clearFocus();
+            mSearchView.onActionViewCollapsed();
+            mSearchView.setQuery("", false);
+            mSearchView.setIconified(true);
+        } else {
+            super.onBackPressed();
+        }
+    }*/
+
 //    /**
 //     * ID、サービス名、ヒント、リジェネデータタイム、アップデートタイムを取得して各種配列に入れる
 //     *
