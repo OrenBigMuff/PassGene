@@ -17,8 +17,7 @@
         android:layout_marginTop="5dp"
         android:foreground="?android:attr/selectableItemBackground"
         card_view:cardCornerRadius="12dp"
-        app:cardUseCompatPadding="true"
-        card_view:cardPreventCornerOverlap="false">
+        card_view:cardUseCompatPadding="true">
 
         <!-- カードに載せる情報 -->
 

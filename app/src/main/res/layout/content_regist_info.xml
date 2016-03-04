@@ -51,20 +51,29 @@
             android:layout_marginTop="15dp"
             style="@style/pass_blue_heading" />
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtRegistInfoTag"
+            android:id="@+id/tilRegistInfoTag"
+            android:layout_marginTop="15dp"
             android:layout_below="@+id/textView4"
             android:layout_alignLeft="@+id/regist1"
-            android:layout_marginTop="15dp" />
+            app:hintTextAppearance="@style/EditTextHint">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtRegistInfoTag"
+                android:hint="@string/regist_info_hint0"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/regist_info_heading2"
             android:id="@+id/textView6"
-            android:layout_below="@+id/edtRegistInfoTag"
+            android:layout_below="@+id/tilRegistInfoTag"
             android:layout_alignLeft="@+id/regist1"
             android:layout_marginTop="15dp"
             style="@style/pass_blue_heading" />
@@ -75,7 +84,8 @@
             android:id="@+id/spnRegistInfo"
             android:layout_below="@+id/textView6"
             android:layout_alignLeft="@+id/regist1"
-            android:layout_marginTop="15dp" />
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="5dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -87,158 +97,148 @@
             android:layout_marginTop="15dp"
             style="@style/pass_blue_heading" />
 
-        <RelativeLayout
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoTel"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilRegistInfoTel"
             android:layout_below="@+id/textView7"
             android:layout_alignLeft="@+id/regist1"
-            android:layout_marginTop="15dp">
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/EditTextHint">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtRegistInfoTel" />
-        </RelativeLayout>
+                android:id="@+id/edtRegistInfoTel"
+                android:hint="@string/regist_info_hint2"
+                android:inputType="number"
+                android:digits="0123456789"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <RelativeLayout
+        <DatePicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dpkRegistInfoBirthday"
+            android:layout_centerHorizontal="true"
+            android:calendarViewShown="false"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/tilRegistInfoTel"
+            android:layout_alignLeft="@+id/regist1" />
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoBirthday"
-            android:layout_below="@+id/rtlRegistInfoTel"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/regist1"
-            android:gravity="center"
-            android:layout_marginTop="15dp">
-
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/spnRegistInfoYear"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/regist_info_Date1"
-                android:id="@+id/textView8"
-                android:layout_weight="1.5"
-                android:layout_toRightOf="@+id/spnRegistInfoYear"
-                android:layout_marginLeft="4dp" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spnRegistInfoMonth"
-                android:layout_toRightOf="@+id/textView8"
-                android:layout_weight="1.5"
-                android:layout_marginLeft="4dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/regist_info_Date2"
-                android:id="@+id/textView9"
-                android:layout_toRightOf="@+id/spnRegistInfoMonth"
-                android:layout_weight="1.5"
-                android:layout_marginLeft="4dp" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spnRegistInfoDay"
-                android:layout_toRightOf="@+id/textView9"
-                android:layout_weight="1.5"
-                android:layout_marginLeft="4dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/regist_info_Date3"
-                android:id="@+id/textView10"
-                android:layout_toRightOf="@+id/spnRegistInfoDay"
-                android:layout_weight="1.5"
-                android:layout_marginLeft="4dp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/rtlRegistInfoBirthday"
-            android:layout_alignLeft="@+id/regist1"
-            android:id="@+id/rtlRegistInfoSurname"
-            android:layout_marginTop="15dp">
+            android:id="@+id/tilRegistInfoSurname"
+            android:layout_marginTop="15dp"
+            android:layout_below="@+id/dpkRegistInfoBirthday"
+            app:hintTextAppearance="@style/EditTextHint">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/edtRegistInfoSurname" />
-        </RelativeLayout>
+                android:id="@+id/edtRegistInfoSurname"
+                android:hint="@string/regist_info_hint3"
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <RelativeLayout
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoName"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilRegistInfoName"
             android:layout_alignLeft="@+id/regist1"
-            android:layout_below="@+id/rtlRegistInfoSurname"
-            android:layout_marginTop="15dp">
+            android:layout_below="@+id/tilRegistInfoSurname"
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/EditTextHint">
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoName"
-                android:layout_marginTop="4dp" />
-        </RelativeLayout>
+                android:layout_marginTop="4dp"
+                android:hint="@string/regist_info_hint3"
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <RelativeLayout
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoText"
-            android:layout_below="@+id/rtlRegistInfoName"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilRegistInfoText"
+            android:layout_below="@+id/tilRegistInfoName"
             android:layout_alignLeft="@+id/regist1"
-            android:layout_marginTop="15dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edtRegistInfoText" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoNumber"
-            android:layout_alignLeft="@+id/regist1"
-            android:layout_below="@+id/rtlRegistInfoText"
-            android:layout_marginTop="15dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edtRegistInfoNumber" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/rtlRegistInfoAll"
-            android:layout_below="@+id/rtlRegistInfoNumber"
-            android:layout_alignLeft="@+id/regist1"
-            android:layout_marginTop="15dp">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/edtRegistInfoAll" />
-        </RelativeLayout>
-
-        <Button
-            android:text="@string/button1"
-            android:id="@+id/button"
             android:layout_marginTop="15dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/rtlRegistInfoAll"
-            style="@style/pass_blue_button" />
+            app:hintTextAppearance="@style/EditTextHint">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtRegistInfoText"
+                android:hint="@string/regist_info_hint3"
+                android:inputType="text"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tilRegistInfoNumber"
+            android:layout_alignLeft="@+id/regist1"
+            android:layout_below="@+id/tilRegistInfoText"
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/EditTextHint">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtRegistInfoNumber"
+                android:hint="@string/regist_info_hint2"
+                android:inputType="number"
+                android:digits="0123456789"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tilRegistInfoAll"
+            android:layout_below="@+id/tilRegistInfoNumber"
+            android:layout_alignLeft="@+id/regist1"
+            android:layout_marginTop="15dp"
+            app:hintTextAppearance="@style/EditTextHint">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtRegistInfoAll"
+                android:hint="@string/regist_info_hint4"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+                android:inputType="text"
+                android:singleLine="true"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:id="@+id/ripIndexRipple"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            app:mrl_rippleOverlay="true"
+            android:layout_below="@+id/tilRegistInfoAll"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:text="@string/button1"
+                android:id="@+id/btnRegistRegistration"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                style="@style/pass_blue_button" />
+
+        </com.balysv.materialripple.MaterialRippleLayout>
     </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>
