@@ -13,14 +13,20 @@ import android.widget.Toast;
 public class UserConf2 extends AppCompatActivity
         implements View.OnClickListener, PassGeneDialog.DialogListener {
 
-    DatabaseC dbC;
-    NumberPicker npk_uc1;
-    NumberPicker npk_uc2;
-    NumberPicker npk_uc3;
-    NumberPicker npk_uc4;
-    Button btn;
-    String fixMaster_uc;
+    private DatabaseC dbC;
+    private NumberPicker npk_uc1;
+    private NumberPicker npk_uc2;
+    private NumberPicker npk_uc3;
+    private NumberPicker npk_uc4;
+    private Button btn;
+    private String fixMaster_uc;
     private String rightPass;       //DBから引っ張ってきたUserのMP
+    private String CLASSNAME;
+    private int ID_S;
+    private int ID_U;
+    private String PKGNAME;
+    private Intent intent;
+
 
     //【重要】///////////////////////////////////////////////
     //
@@ -29,14 +35,6 @@ public class UserConf2 extends AppCompatActivity
     //
     //
     //User認証がクリアだった時に遷移するクラス名をここで設定する
-    private Intent intent;
-
-    /**
-     * この部分を後で復活させる
-     */
-        private String CLASSNAME;
-        private int ID_S;
-        private int ID_U;
 
     /**
      * ここは逆に本番では削除する
@@ -44,7 +42,6 @@ public class UserConf2 extends AppCompatActivity
 //    int ID_S = 10;      //test
 //    int ID_U = -1;      //test
 //    final String CLASSNAME = "com.bizan.mobile10.passgene.InitialSet3";       //遷移させたい先の完全なClass名（.java不要） ←最終的に削除の行
-    final String PKGNAME = "com.bizan.mobile10.passgene";    //ここは変更不要
     //
     //
     //ここまで///////////////////////////////////////////////
@@ -57,9 +54,19 @@ public class UserConf2 extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         intent = getIntent();
-        CLASSNAME = intent.getStringExtra("CLASSNAME");
-        ID_S = intent.getIntExtra("SID", -1);
-        ID_U = intent.getIntExtra("UID", -1);
+
+        /**
+         * この部分を後で復活させる
+         */
+        if(intent == null){
+            toast("ヌルヌルですよ");
+            return;
+        }else {
+            CLASSNAME = intent.getStringExtra("CLASSNAME");
+            ID_S = intent.getIntExtra("SID", -1);
+            ID_U = intent.getIntExtra("UID", -1);
+            PKGNAME = "com.bizan.mobile10.passgene";    //ここは変更不要
+        }
 
         dbC = new DatabaseC(InitialSet1.getDbHelper());
         //マスターパスの呼出し
@@ -98,25 +105,24 @@ public class UserConf2 extends AppCompatActivity
             //次の画面へ遷移するコードを記述
             //前のActivityから渡ってきたIDがUIDかSIDで判別（来ていない方は「-1」なので、、、それをトリガーに）
             if(ID_S == -1 && ID_U != -1) {
-                toast("パスワードが一致しました。UID");
+//                toast("パスワードが一致しました。UID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("UID", ID_U);
                 startActivity(intent);
             }else if(ID_S != -1 && ID_U == -1){
-                toast("パスワードが一致しました。SID");
+//                toast("パスワードが一致しました。SID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("SID", ID_S);
                 startActivity(intent);
             }else if(ID_S == -1 && ID_U == -1){
-                toast("パスワードが一致しました。NONE");
+//                toast("パスワードが一致しました。NONE");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 startActivity(intent);
             }
             return;
-
         } else{
             //Dialogを表示させる
             openPG_Dialog();

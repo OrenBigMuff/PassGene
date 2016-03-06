@@ -9,6 +9,7 @@
     android:background="@color/passGeneAllBack"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bizan.mobile10.passgene.InitialSet1"
+    android:clipToPadding="false"
     tools:showIn="@layout/activity_initial_set1">
 
     <LinearLayout android:layout_width="match_parent"
@@ -21,9 +22,11 @@
                       android:layout_marginLeft="20dp"
                       android:layout_marginRight="20dp"
                       android:layout_marginTop="25dp"
+                      android:elevation="2dp"
                       android:background="@drawable/flame_style_pg"
                       android:orientation="vertical"
                       android:padding="10dp">
+
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
                       android:layout_marginBottom="5dp"

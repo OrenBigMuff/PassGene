@@ -30,7 +30,7 @@ implements PassGeneDialog.DialogListener{
     String title = "テストやで～";
     String userid = "syun";
     String mail = "bizan@g.mail";
-    String passward = "dfefedfcs";
+    String password = "dfefedfcs";
 
     private int id_U;
     private int id_S;
@@ -42,7 +42,6 @@ implements PassGeneDialog.DialogListener{
         Toolbar toolbar = (Toolbar) findViewById(R.id.pwconf_ToolBar);
         setSupportActionBar(toolbar);
 
-
         dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         //前のページから渡ってきたintentをゲットだぜ！
@@ -52,7 +51,7 @@ implements PassGeneDialog.DialogListener{
 
         if(id_U != -1 && id_S == -1) {
 
-            toast("Error! コードがおかしくないですか？");
+            toast("Error! 前ページのソースコードがおかしくないですか？");          //←最終的に削除
 
         }else if(id_U == -1 && id_S != -1){
             toast("IDをCatchしました-SID");
@@ -61,7 +60,7 @@ implements PassGeneDialog.DialogListener{
             service = cursor.getString(1);
             userid = cursor.getString(2);
             mail = cursor.getString(3);
-            passward = cursor.getString(11);
+            password = cursor.getString(11);
         }
 
         getSupportActionBar().setTitle(service);
@@ -71,7 +70,7 @@ implements PassGeneDialog.DialogListener{
 //        String test = txvValue_address.getText().toString();
 
         txvValue_password = (TextView) findViewById(R.id.pwconf_txvValue_Password);
-        txvValue_password.setText(passward);
+        txvValue_password.setText(password);
 //        String test2 = txvValue_password.getText().toString();
 
         txvValue_account = (TextView) findViewById(R.id.pwconf_txvValue_account);
@@ -86,7 +85,7 @@ implements PassGeneDialog.DialogListener{
 
                 //P2に飛ばす
                 Intent intent = new Intent(PwConf.this, RegistNewPass.class);
-                intent.putExtra("SID",String.valueOf(id_S));
+                intent.putExtra("SID",id_S);
                 startActivity(intent);
             }
         });

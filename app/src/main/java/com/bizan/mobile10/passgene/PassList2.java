@@ -36,9 +36,11 @@ public class PassList2 extends AppCompatActivity{
     private String[] mServiceId;                        //サービスID
     private String[] mServiceName;                      //サービス名
     private String[] mHint;                             //パスワードヒント
+    private String[] mDeleteFlag;                       //削除フラグ
+
 
     private static Animation inAnimation;               //インアニメーション
-    private static Animation outAnimetion;              //アウトアニメーション
+    private static Animation outAnimation;              //アウトアニメーション
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +50,9 @@ public class PassList2 extends AppCompatActivity{
         /**
          * DB準備
          */
-        InitialSet1 initialSet1 = new InitialSet1();
-        DatabaseHelper dbHelper = initialSet1.getDbHelper();
-        dbC = new DatabaseC(dbHelper);
+//        InitialSet1 initialSet1 = new InitialSet1();
+//        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         /**
          * ツールバーの設定
@@ -257,7 +259,7 @@ public class PassList2 extends AppCompatActivity{
         plRecycleView.setHasFixedSize(true);
 
         //アダプターセット
-        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", "ユーザーネーム");
+        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", InitialSet1.fullname + " さん");
         plRecycleView.setAdapter(plAdapter);
 
         //リサイクルビューにレイアウトマネージャをセット
@@ -287,6 +289,7 @@ public class PassList2 extends AppCompatActivity{
                             @Override
                             public void run() {
                                 Intent intent = new Intent(PassList2.this, UserInfoList.class);
+//                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
                                 startActivity(intent);
                             }
                         }, 250);
@@ -300,12 +303,12 @@ public class PassList2 extends AppCompatActivity{
                             public void run() {
                                 Intent intent = new Intent(PassList2.this, UserConf2.class);
                                 intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
-                                intent.putExtra("SID",0);
+//                                intent.putExtra("SID","0");
                                 startActivity(intent);
                             }
                         }, 250);
                         plDrawer.closeDrawers();
-
+/*
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -313,7 +316,7 @@ public class PassList2 extends AppCompatActivity{
                                 startActivity(intent);
                             }
                         }, 250);
-                        plDrawer.closeDrawers();
+                        plDrawer.closeDrawers();*/
                         break;
 
                     case 3:
@@ -321,7 +324,7 @@ public class PassList2 extends AppCompatActivity{
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList2.this, SaveLoadDB.class);
+                                Intent intent = new Intent(PassList2.this, GoogleDriveBackup.class);
                                 startActivity(intent);
                             }
                         }, 250);
@@ -350,7 +353,12 @@ public class PassList2 extends AppCompatActivity{
         /**
          * 登録降順でカード作成
          */
-        Cursor cursor = dbC.readPasswordListInfo();
+//        Cursor cursor = dbC.readPasswordListInfo();
+//        InitialSet1 initialSet1 = new InitialSet1();
+//        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
+        Cursor cursor = dbC.readServiceInfoAll();
+
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 
         mServiceId = new String[cursor.getCount()];
@@ -377,7 +385,7 @@ public class PassList2 extends AppCompatActivity{
     private void cardView() {
         //アニメーション
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.card_in_anim);
-        outAnimetion = AnimationUtils.loadAnimation(this, R.anim.card_out_anim);
+        outAnimation = AnimationUtils.loadAnimation(this, R.anim.card_out_anim);
 
         //カードビュー設定
         LinearLayout cardLinear = (LinearLayout) findViewById(R.id.cardLinear);
@@ -410,8 +418,8 @@ public class PassList2 extends AppCompatActivity{
                         textView2.setVisibility(View.VISIBLE);
                     } else
                     if (cardButton.getVisibility() == View.VISIBLE) {
-                        cardButton.startAnimation(outAnimetion);
-                        textView2.startAnimation(outAnimetion);
+                        cardButton.startAnimation(outAnimation);
+                        textView2.startAnimation(outAnimation);
                         cardButton.setVisibility(View.GONE);
                         textView2.setVisibility(View.GONE);
                     }
@@ -432,5 +440,62 @@ public class PassList2 extends AppCompatActivity{
                 }
             });
         }
+
+
+
+        /*int j = 0;
+
+                for (int i = mServiceId.length - 1; i > -1; i--) {
+            if (mDeleteFlag[i].equals("0")) {
+                LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
+                CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
+
+                //サービス名
+                TextView textView1 = (TextView) linearLayout.findViewById(R.id.plcardTitle);
+                textView1.setText(mServiceName[i]);
+
+                //ヒント
+                final TextView textView2 = (TextView) linearLayout.findViewById(R.id.plcardHint);
+                textView2.setText(mHint[i]);
+
+                cardLinear.addView(linearLayout, j);
+
+                final Button cardButton = (Button) cardView.findViewById(R.id.plcardbutton);
+
+                //Card押下時の動作
+                cardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //ヒントと編集ボタンをアニメーションさせる
+                        if (cardButton.getVisibility() == View.GONE) {
+                            cardButton.startAnimation(inAnimation);
+                            textView2.startAnimation(inAnimation);
+                            cardButton.setVisibility(View.VISIBLE);
+                            textView2.setVisibility(View.VISIBLE);
+                        } else if (cardButton.getVisibility() == View.VISIBLE) {
+                            cardButton.startAnimation(outAnimation);
+                            textView2.startAnimation(outAnimation);
+                            cardButton.setVisibility(View.GONE);
+                            textView2.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
+                //ボタン押下時の動作
+                cardButton.setTag(i);
+                cardButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(PassList2.this, UserConf2.class);
+                        intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
+                        intent.putExtra("SID", Integer.parseInt(mServiceId[Integer.parseInt(String.valueOf(v.getTag()))]));
+                        startActivity(intent);
+                    }
+                });
+            j++;
+        }*/
+
+
+
     }
 }
