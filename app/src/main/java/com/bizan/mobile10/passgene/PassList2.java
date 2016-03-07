@@ -46,9 +46,10 @@ public class PassList2 extends AppCompatActivity{
     private String[] mHint;                             //パスワードヒント
     private String[] mDeleteFlag;                       //削除フラグ
 
-
     private static Animation inAnimation;               //インアニメーション
     private static Animation outAnimation;              //アウトアニメーション
+
+    public String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +109,11 @@ public class PassList2 extends AppCompatActivity{
             //初回起動したので、そのコンフィグをWriteする
             pref.writeConfig("firstStart", true);
         }
+
+        /**
+         * 初回起動時でなければ、UserNameを呼び出しておく
+         */
+        userName = this.getUserName();
 
         /**
          * ツールバーの設定
@@ -314,7 +320,7 @@ public class PassList2 extends AppCompatActivity{
         plRecycleView.setHasFixedSize(true);
 
         //アダプターセット
-        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", InitialSet1.fullname + " さん");
+        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面",  this.userName + " さん");
         plRecycleView.setAdapter(plAdapter);
 
         //リサイクルビューにレイアウトマネージャをセット
@@ -406,6 +412,11 @@ public class PassList2 extends AppCompatActivity{
         super.onResume();
 
         /**
+         * 初回起動時でなければ、UserNameを呼び出しておく
+         */
+        userName = this.getUserName();
+
+        /**
          * 登録降順でカード作成
          */
 //        Cursor cursor = dbC.readPasswordListInfo();
@@ -446,6 +457,36 @@ public class PassList2 extends AppCompatActivity{
     public static DatabaseHelper getDbHelper() {
         return dbH;
     }
+
+
+    /**
+     * Userの姓名をReturnするメソッド
+     */
+
+    public static String getUserName(){
+        DatabaseC dbC = new DatabaseC(PassList2.getDbHelper());
+        String userName = null;
+        Cursor cursor = dbC.readUserInfoAll();
+
+        cursor.moveToFirst();
+        String[] list = new String[cursor.getCount()];
+        for (int i = 0; i < list.length; i++) {
+            list[i] = cursor.getString(2);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        //ユーザーの姓
+        String lastName = list[0];
+        //ユーザーの名
+        String firstName = list[1];
+        //フルネーム
+        String fullName = lastName + " " + firstName;
+
+        return fullName;
+    }
+
+
+
 
     /**
      * CardView作成メソッド
