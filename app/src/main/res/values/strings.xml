@@ -116,6 +116,8 @@
     </string>
     <string name="appinit_kakunin">【確認】</string>
 
+    <!--マスターパス変更-->
+    <string name="mpchange_text_masterpass">マスターパスワードを変更します。\n数字4桁で登録してください。</string>
 
     <string name="service">Service</string>
     <string name="id">ID</string>
