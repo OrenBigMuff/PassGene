@@ -31,15 +31,15 @@ import java.util.Locale;
 public class InitialSet1 extends AppCompatActivity
         implements View.OnClickListener {
 
-    public static DatabaseHelper dbH;
-    private DatabaseC dbC;
+    /*private static DatabaseHelper dbH;
+    private DatabaseC dbC;*/
     private PreferenceC pref;
     Button btn;
 
-    private final String DB_NAME = "pg.db"; //データベース名
+/*    private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     //テーブル名
-    private static final String[] DB_TABLE = {"service_info", "user_info"};
+    private static final String[] DB_TABLE = {"service_info", "user_info"};*/
 
     private TextInputLayout inputLayoutL;
     private TextInputLayout inputLayoutF;
@@ -69,7 +69,7 @@ public class InitialSet1 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        String[] dbColTable = {
+        /*String[] dbColTable = {
                 "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         " service TEXT UNIQUE NOT NULL," +
                         " user_id TEXT NOT NULL," +
@@ -99,7 +99,7 @@ public class InitialSet1 extends AppCompatActivity
         };
 
         dbH = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
-        dbC = new DatabaseC(this.dbH);
+        dbC = new DatabaseC(this.dbH);*/
 
         pref = new PreferenceC(this);
 
@@ -255,16 +255,19 @@ public class InitialSet1 extends AppCompatActivity
 
             submitForm();
 
+            toast("はじめまして" + this.fullname + "さん、\n生年月日は、" + this.dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
+            //InitialSet1を通過したのでコンフィグにWriteする
             pref.writeConfig("p0_1", true);
 
-            toast("はじめまして" + this.fullname + "さん、\n生年月日は、" + this.dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
             Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
             startActivity(intent);
+
+            InitialSet1.this.finish();
 
         }
     }
 
-    public static String getDB_TABLE_S() {
+    /*public static String getDB_TABLE_S() {
         return DB_TABLE[0];
     }
 
@@ -275,7 +278,7 @@ public class InitialSet1 extends AppCompatActivity
     //DBヘルパーゲットだぜ なや～つ DBに関係する
     public static DatabaseHelper getDbHelper() {
         return dbH;
-    }
+    }*/
 
     /**
      * あったら便利！トーストメソッドだよ

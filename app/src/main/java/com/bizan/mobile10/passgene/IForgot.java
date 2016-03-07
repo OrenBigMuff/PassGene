@@ -38,7 +38,7 @@ public class IForgot extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
         rightPass = dbC.readMasterPass();
 
         txvIForgot = (TextView)findViewById(R.id.txvIForgot);

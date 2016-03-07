@@ -27,13 +27,13 @@ import android.widget.TextView;
  */
 public class AppSetting extends AppCompatActivity implements View.OnClickListener{
 
-    private final String DB_NAME = "pg.db"; //データベース名
+    /*private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     private static final String[] DB_TABLE = {"service_info", "user_info"};
     private static DatabaseHelper dbHelper; //DBヘルパー
     public static DatabaseHelper getDbHelper() {
         return dbHelper;
-    }
+    }*/
     private DatabaseC dbC;
 
     String nvTITLES[]={"ユーザー情報設定","アプリ設定","バックアップ"};    //NV内のメニュー
@@ -74,9 +74,8 @@ public class AppSetting extends AppCompatActivity implements View.OnClickListene
         asToolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
         setSupportActionBar(asToolbar);
 
-//        dbC = new DatabaseC(PassList.getDbHelper());
-
-        dbC.readMasterPass();
+        dbC = new DatabaseC(PassList2.getDbHelper());
+//        dbC.readMasterPass();
         masterPass = String.valueOf(dbC.readMasterPass());
 
         Log.e("Passnum", String.valueOf(masterPass));

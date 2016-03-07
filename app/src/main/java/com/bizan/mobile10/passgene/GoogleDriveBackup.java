@@ -73,7 +73,7 @@ public class GoogleDriveBackup extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
         btnGdSave = (Button) findViewById(R.id.btnGdSave);
         btnGdSave.setOnClickListener(this);
         DB_PATH = Environment.getDataDirectory().getPath() + "/data/" + "com.bizan.mobile10.passgene" + "/databases/pg.db";

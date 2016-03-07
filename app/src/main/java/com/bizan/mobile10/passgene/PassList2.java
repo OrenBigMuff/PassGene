@@ -29,10 +29,18 @@ import android.widget.TextView;
 
 public class PassList2 extends AppCompatActivity{
 
+    private static DatabaseHelper dbH;
+    private DatabaseC dbC;
+    private PreferenceC pref;
+    private final String DB_NAME = "pg.db"; //データベース名
+    private final int DB_VERSION = 1;       //データベースのバージョン
+    //テーブル名
+    private static final String[] DB_TABLE = {"service_info", "user_info"};
+
     private Toolbar plToolbar;                          //toolbar
     private DrawerLayout plDrawer;                      //ドロワー
 
-    private DatabaseC dbC;                              //DatabaseC
+//    private DatabaseC dbC;                              //DatabaseC
     private String[] mServiceId;                        //サービスID
     private String[] mServiceName;                      //サービス名
     private String[] mHint;                             //パスワードヒント
@@ -50,9 +58,56 @@ public class PassList2 extends AppCompatActivity{
         /**
          * DB準備
          */
+
+        String[] dbColTable = {
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " service TEXT UNIQUE NOT NULL," +
+                        " user_id TEXT NOT NULL," +
+                        " mail_address TEXT NOT NULL," +
+                        " char_num INTEGER NOT NULL," +
+                        " char_uppercase INTEGER NOT NULL," +
+                        " char_lowercase INTEGER NOT NULL," +
+                        " char_symbol INTEGER NOT NULL," +
+                        " num_of_char INTEGER NOT NULL," +
+                        " generated_datetime TEXT NOT NULL," +
+                        " updated_datetime TEXT NOT NULL," +
+                        " fixed_pass TEXT NOT NULL," +
+                        " pass_hint TEXT NOT NULL," +
+                        " gene_id1 INTEGER NOT NULL," +
+                        " gene_id2 INTEGER NOT NULL," +
+                        " gene_id3 INTEGER NOT NULL," +
+                        " gene_id4 INTEGER NOT NULL," +
+                        " algorithm INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL)",
+
+                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        " info_name TEXT UNIQUE NOT NULL," +
+                        " value TEXT NOT NULL," +
+                        " category INTEGER NOT NULL," +
+                        " delete_flag INTEGER NOT NULL," +
+                        " useless_flag INTEGER NOT NULL)"
+        };
+
+        dbH = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+        dbC = new DatabaseC(this.dbH);
+
+        pref = new PreferenceC(this);
+
 //        InitialSet1 initialSet1 = new InitialSet1();
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+//        dbC = new DatabaseC(InitialSet1.getDbHelper());
+
+        /**
+         * 初回起動か、あるいはInitialSet1,2を経過しているかのチェック
+         */
+        if(!pref.readConfig("firstStart", false) || !pref.readConfig("InitialDone", false)){
+            //InitialSet1へ遷移
+            Intent intent = new Intent(PassList2.this, InitialSet1.class);
+            startActivity(intent);
+
+            //初回起動したので、そのコンフィグをWriteする
+            pref.writeConfig("firstStart", true);
+        }
 
         /**
          * ツールバーの設定
@@ -356,7 +411,7 @@ public class PassList2 extends AppCompatActivity{
 //        Cursor cursor = dbC.readPasswordListInfo();
 //        InitialSet1 initialSet1 = new InitialSet1();
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
-        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
+//        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
         Cursor cursor = dbC.readServiceInfoAll();
 
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
@@ -377,6 +432,19 @@ public class PassList2 extends AppCompatActivity{
 
         //CardView作成
         cardView();
+    }
+
+    public static String getDB_TABLE_S() {
+        return DB_TABLE[0];
+    }
+
+    public static String getDB_TABLE_U() {
+        return DB_TABLE[1];
+    }
+
+    //DBヘルパーゲットだぜ なや～つ DBに関係する
+    public static DatabaseHelper getDbHelper() {
+        return dbH;
     }
 
     /**

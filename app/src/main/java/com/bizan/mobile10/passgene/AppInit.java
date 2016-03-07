@@ -20,13 +20,13 @@ import android.widget.Toolbar;
 public class AppInit extends AppCompatActivity implements View.OnClickListener, NumberPicker.OnValueChangeListener,
 DeleteDialog.DialogListener{
 
-    private final String DB_NAME = "pg.db"; //データベース名
+/*    private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
     private static final String[] DB_TABLE = {"service_info", "user_info"};
     private static DatabaseHelper dbHelper; //DBヘルパー
     public static DatabaseHelper getDbHelper() {
         return dbHelper;
-    }
+    }*/
     private DatabaseC dbC;
 
 
@@ -69,7 +69,7 @@ DeleteDialog.DialogListener{
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
 
-//        dbC = new DatabaseC(PassList.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
         //マスターパス呼び出し
         dbC.readMasterPass();
         masterPass = dbC.readMasterPass();

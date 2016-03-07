@@ -41,7 +41,7 @@ public class SaveLoadDB extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
         btnSdSave = (Button) findViewById(R.id.btnSdSave);
         btnSdSave.setOnClickListener(this);

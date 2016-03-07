@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView
+    android:id="@+id/scrollview"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/scrollview"
     android:layout_height="match_parent"
     android:background="#ff9999"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -12,120 +12,124 @@
     tools:showIn="@layout/activity_appinit">
 
     <LinearLayout android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
 
         <LinearLayout android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="25dp"
-            android:background="@drawable/flame_style_pg"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:elevation="9dp">
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="25dp"
+                      android:layout_marginLeft="20dp"
+                      android:layout_marginRight="20dp"
+                      android:layout_marginTop="25dp"
+                      android:background="@drawable/flame_style_red"
+                      android:elevation="6dp"
+                      android:orientation="vertical"
+                      android:padding="10dp">
             <TextView android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:text="@string/appinit_kakunin"
-                android:textColor="@color/passGeneTextBlue"
-                android:textSize="20dp"/>
+                      android:layout_height="wrap_content"
+                      android:layout_marginBottom="5dp"
+                      android:text="@string/appinit_kakunin"
+                      android:textColor="@color/passGeneDeleteRed"
+                      android:textSize="20dp"/>
             <TextView android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/appinit_massage"
-                android:textColor="@color/passGeneTextBlue"
-                android:textSize="15dp"/>
+                      android:layout_height="wrap_content"
+                      android:text="@string/appinit_massage"
+                      android:textColor="@color/passGeneDeleteRed"
+                      android:textSize="15dp"/>
         </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent"
-            android:layout_height="85dp"
-            android:layout_margin="20dp"
-            android:orientation="horizontal">
-            <NumberPicker android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/AppInit_npk1"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:descendantFocusability="blocksDescendants"
-                android:background="#ffffff"
-                android:elevation="9dp">
+                      android:layout_height="85dp"
+                      android:layout_margin="20dp"
+                      android:orientation="horizontal">
+            <NumberPicker android:id="@+id/AppInit_npk1"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="5dp"
+                          android:layout_marginRight="5dp"
+                          android:layout_weight="1"
+                          android:background="#ffffff"
+                          android:backgroundTint="#ff9999"
+                          android:descendantFocusability="blocksDescendants"
+                          android:elevation="9dp">
 
             </NumberPicker>
-            <NumberPicker android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/AppInit_npk2"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:descendantFocusability="blocksDescendants"
-                android:background="#ffffff"
-                android:elevation="9dp">
+            <NumberPicker android:id="@+id/AppInit_npk2"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="5dp"
+                          android:layout_marginRight="5dp"
+                          android:layout_weight="1"
+                          android:background="#ffffff"
+                          android:backgroundTint="#ff9999"
+                          android:descendantFocusability="blocksDescendants"
+                          android:elevation="9dp">
 
             </NumberPicker>
-            <NumberPicker android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/AppInit_npk3"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:descendantFocusability="blocksDescendants"
-                android:background="#ffffff"
-                android:elevation="9dp">
+            <NumberPicker android:id="@+id/AppInit_npk3"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="5dp"
+                          android:layout_marginRight="5dp"
+                          android:layout_weight="1"
+                          android:background="#ffffff"
+                          android:backgroundTint="#ff9999"
+                          android:descendantFocusability="blocksDescendants"
+                          android:elevation="9dp">
 
             </NumberPicker>
-            <NumberPicker android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/AppInit_npk4"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:descendantFocusability="blocksDescendants"
-                android:background="#ffffff"
-                android:elevation="9dp">
+            <NumberPicker android:id="@+id/AppInit_npk4"
+                          android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:layout_marginLeft="5dp"
+                          android:layout_marginRight="5dp"
+                          android:layout_weight="1"
+                          android:background="#ffffff"
+                          android:backgroundTint="#ff9999"
+                          android:descendantFocusability="blocksDescendants"
+                          android:elevation="9dp">
 
             </NumberPicker>
 
 
         </LinearLayout>
         <FrameLayout android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:gravity="center"
-            android:layout_gravity="bottom">
+                     android:layout_height="match_parent"
+                     android:layout_gravity="bottom"
+                     android:layout_marginTop="15dp"
+                     android:gravity="center">
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <Button android:id="@+id/appinitbtn"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:background="@drawable/pass_red_button"
-                    android:padding="2dp"
-                    android:text="アプリ初期化"
-                    android:textColor="#ffffff"
-                    android:textSize="25sp"
-                    android:elevation="9dp"/>
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/pass_red_button"
+                        android:elevation="9dp"
+                        android:padding="2dp"
+                        android:text="アプリ初期化"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <View
+                    android:id="@+id/AppInitView"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
+                    android:background="#88c0c0c0"
                     android:padding="2dp"
-                    android:id="@+id/AppInitView"
-                    android:visibility="visible"
-                    android:background="#88c0c0c0" />
+                    android:visibility="visible"/>
 
             </LinearLayout>
         </FrameLayout>

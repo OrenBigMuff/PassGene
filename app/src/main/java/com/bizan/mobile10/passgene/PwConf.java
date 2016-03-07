@@ -42,7 +42,7 @@ implements PassGeneDialog.DialogListener{
         Toolbar toolbar = (Toolbar) findViewById(R.id.pwconf_ToolBar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
         //前のページから渡ってきたintentをゲットだぜ！
         intent_pwconf = getIntent();

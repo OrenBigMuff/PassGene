@@ -109,7 +109,7 @@ public class PassList extends AppCompatActivity implements SearchView.OnQueryTex
         plToolbar = (Toolbar) findViewById(R.id.PassList_toolbar);
         setSupportActionBar(plToolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
 
         //onCreateに

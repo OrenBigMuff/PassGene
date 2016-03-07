@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    android:id="@+id/spinner_item2"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginBottom="2dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginTop="2dp"
-    android:text="New Text"
-    android:textSize="20dp"
-    android:textColor="@color/passGeneAllBack"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/passGeneBackgroundBlue"
-    android:gravity="center">
-</TextView>
+    <TextView
+        android:id="@+id/spinner_item2"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/passGeneBackgroundBlue"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="1dp"
+        android:paddingBottom="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:text="New Text"
+        android:textColor="@color/passGeneAllBack"
+        android:textSize="20dp">
+    </TextView>

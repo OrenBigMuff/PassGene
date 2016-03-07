@@ -34,7 +34,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
          * データベースからデータ読み出し
          */
         InitialSet1 initialSet1 = new InitialSet1();
-        DatabaseHelper dbHelper = initialSet1.getDbHelper();
+        DatabaseHelper dbHelper = PassList2.getDbHelper();
         dbC = new DatabaseC(dbHelper);
 
         UserInfoList userInfoList = new UserInfoList();

@@ -31,7 +31,7 @@ public class InitialSet3 extends AppCompatActivity
 
         pref = new PreferenceC(this);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
         txvDoInput = (TextView)findViewById(R.id.txvDoInput);
         txvDoInput.setText(InitialSet1.fullname + " さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。");
@@ -52,7 +52,7 @@ public class InitialSet3 extends AppCompatActivity
         dbC.insertMasterPass(InitialSet2.fixMaster);
 
         if(pref.readConfig("p0_1", true) && pref.readConfig("p0_2", true)){
-            pref.writeConfig("newcomm", true);
+            pref.writeConfig("InitialDone", true);
         }
 
 
@@ -63,17 +63,18 @@ public class InitialSet3 extends AppCompatActivity
         if(v.getId() == R.id.btnInitialSet3Posi){
 
             Intent intent1 = new Intent(InitialSet3.this, RegistInfo.class);
-            toast("ユーザー情報登録画面に遷移");
+            toast("ユーザー情報登録画面へ");
             startActivity(intent1);
 
-
+            InitialSet3.this.finish();
 
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 
-            Intent intent2 = new Intent(InitialSet3.this, PassList2.class);
-            toast("サービス名一覧画面に遷移");
-            startActivity(intent2);
+//            Intent intent2 = new Intent(InitialSet3.this, PassList2.class);
+            toast("サービス名一覧画面へ");
+//            startActivity(intent2);
 
+            InitialSet3.this.finish();
         }
 
     }

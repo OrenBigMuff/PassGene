@@ -48,7 +48,7 @@ public class UserInfoList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
         /**
          * FABボタンの動作
@@ -70,9 +70,9 @@ public class UserInfoList extends AppCompatActivity {
         /**
          * データベースからデータ読み出し
          */
-        InitialSet1 initialSet1 = new InitialSet1();
-        DatabaseHelper dbHelper = initialSet1.getDbHelper();
-        dbC = new DatabaseC(dbHelper);
+//        InitialSet1 initialSet1 = new InitialSet1();
+//        DatabaseHelper dbHelper = PassList2.getDbHelper();
+//        dbC = new DatabaseC(dbHelper);
 
         Cursor cursor = dbC.readUserInfoAll();
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに

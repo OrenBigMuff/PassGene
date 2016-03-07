@@ -114,7 +114,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
 /*******************************/
 //        dbC = new DatabaseC(dbHelper);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
         poolString = new PoolString();
 

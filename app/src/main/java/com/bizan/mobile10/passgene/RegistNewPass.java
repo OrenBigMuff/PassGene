@@ -82,7 +82,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
 /**debug*****************************
         String[] dbColTable = {
@@ -137,7 +137,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+//        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         //前のページから飛んできたIDをセット
         exID = "";

@@ -34,7 +34,7 @@ public class InitialSet2 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
 
         btn = (Button) findViewById(R.id.btnInitialSet2);
         btn.setOnClickListener(this);
@@ -109,7 +109,8 @@ public class InitialSet2 extends AppCompatActivity
         toast(InitialSet1.fullname + " さんのマスターパスワードは \n「" + this.fixMaster + " 」で登録します。");
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
         startActivity(intent);
-        //preference に渡す(初回時以外表示させないフラグ)
+
+        //InitialSet2を通過したのでコンフィグにWriteする
         pref.writeConfig("p0_2", true);
         //次画面から戻ってきた時の為に一旦、ダイアログを閉じる
         dialog.dismiss();

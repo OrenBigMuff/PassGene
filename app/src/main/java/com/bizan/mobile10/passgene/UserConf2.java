@@ -68,7 +68,7 @@ public class UserConf2 extends AppCompatActivity
             PKGNAME = "com.bizan.mobile10.passgene";    //ここは変更不要
         }
 
-        dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(PassList2.getDbHelper());
         //マスターパスの呼出し
         rightPass = dbC.readMasterPass();
 
