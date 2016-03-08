@@ -181,14 +181,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = 0;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i--;
+                        i++;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -202,14 +202,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = 0;
+                    int i = cursor.getCount()-1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i++;
+                        i--;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -265,14 +265,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = 0;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i--;
+                        i++;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -286,14 +286,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = 0;
+                    int i = cursor.getCount()-1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i++;
+                        i--;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -423,21 +423,20 @@ public class PassList2 extends AppCompatActivity{
 //        InitialSet1 initialSet1 = new InitialSet1();
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
 //        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
-        Cursor cursor = dbC.readServiceInfoAll();
-
+        Cursor cursor = dbC.readPasswordListInfo();
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 
         mServiceId = new String[cursor.getCount()];
         mServiceName = new String[cursor.getCount()];
         mHint = new String[cursor.getCount()];
-        int i = cursor.getCount()-1;
+        int i = 0;
 
         while (cPlace) {
             mServiceId[i] = cursor.getString(0);
             mServiceName[i] = cursor.getString(1);
             mHint[i] = cursor.getString(2);
             cPlace = cursor.moveToNext();
-            i--;
+            i++;
         }
         cursor.close();     //cursorを閉じる
 
