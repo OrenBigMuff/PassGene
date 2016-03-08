@@ -33,13 +33,6 @@ public class InitialSet3 extends AppCompatActivity
 
         dbC = new DatabaseC(PassList2.getDbHelper());
 
-        txvDoInput = (TextView)findViewById(R.id.txvDoInput);
-        txvDoInput.setText(InitialSet1.fullname + " さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。");
-        btn0_3Posi = (Button) findViewById(R.id.btnInitialSet3Posi);
-        btn0_3Posi.setOnClickListener(this);
-        btn0_3Nega = (Button) findViewById(R.id.btnInitialSet3Nega);
-        btn0_3Nega.setOnClickListener(this);
-
         //ここにDBへの登録を記述
         //InitialSet1の分
         String[] value_sei ={"ユーザーの姓", InitialSet1.lastname, "2"};
@@ -50,6 +43,15 @@ public class InitialSet3 extends AppCompatActivity
         dbC.insertUserInfo(value_birth);
         //InitialSet2の分
         dbC.insertMasterPass(InitialSet2.fixMaster);
+
+        txvDoInput = (TextView)findViewById(R.id.txvDoInput);
+        txvDoInput.setText(PassList2.getUserName() + " さん、このアプリはあなたの入力情報からパスワードを生成します。\nユーザー情報を追加しなければ、\n簡易的なPWしかご提案できません。");
+        btn0_3Posi = (Button) findViewById(R.id.btnInitialSet3Posi);
+        btn0_3Posi.setOnClickListener(this);
+        btn0_3Nega = (Button) findViewById(R.id.btnInitialSet3Nega);
+        btn0_3Nega.setOnClickListener(this);
+
+
 
         if(pref.readConfig("p0_1", true) && pref.readConfig("p0_2", true)){
             pref.writeConfig("InitialDone", true);
