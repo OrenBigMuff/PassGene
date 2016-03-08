@@ -93,9 +93,6 @@ public class PassList2 extends AppCompatActivity {
 
         pref = new PreferenceC(this);
 
-//        InitialSet1 initialSet1 = new InitialSet1();
-//        DatabaseHelper dbHelper = initialSet1.getDbHelper();
-//        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         /**
          * 初回起動か、あるいはInitialSet1,2を経過しているかのチェック
@@ -105,7 +102,7 @@ public class PassList2 extends AppCompatActivity {
             Intent intent = new Intent(PassList2.this, InitialSet1.class);
             startActivity(intent);
 
-            //初回起動したので、そのコンフィグをWriteする
+            //初回起動したので、その旨コンフィグにWriteする
             pref.writeConfig("firstStart", true);
         }
 
@@ -314,7 +311,7 @@ public class PassList2 extends AppCompatActivity {
         plRecycleView.setHasFixedSize(true);
 
         //アダプターセット
-        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", InitialSet1.fullname + " さん");
+        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", PassList2.getUserName() + " さん");
         plRecycleView.setAdapter(plAdapter);
 
         //リサイクルビューにレイアウトマネージャをセット
@@ -458,6 +455,9 @@ public class PassList2 extends AppCompatActivity {
     public static String getUserName() {
         DatabaseC dbC = new DatabaseC(PassList2.getDbHelper());
         Cursor cursor = dbC.readUserInfoAll();
+        if(cursor.getCount() == 0){
+            return "Username";
+        }
         cursor.moveToFirst();
         String[] list = new String[cursor.getCount()];
 

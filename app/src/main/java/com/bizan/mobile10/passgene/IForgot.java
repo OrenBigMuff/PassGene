@@ -47,7 +47,7 @@ public class IForgot extends AppCompatActivity
 //        smsManager = SmsManager.getDefault();
 
         txvIForgot = (TextView)findViewById(R.id.txvIForgot);
-        txvIForgot.setText(InitialSet1.fullname + " さん、\\nマスターパスワードを忘れましたか？\\n以下に携帯電話の番号を入力すると、\\nマスターパスワード(SMS)を送信することができます。");
+        txvIForgot.setText(PassList2.getUserName() + " さん、\\nマスターパスワードを忘れましたか？\\n以下に携帯電話の番号を入力すると、\\nマスターパスワード(SMS)を送信することができます。");
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
         btnIForgot1.setOnClickListener(this);
@@ -118,7 +118,7 @@ public class IForgot extends AppCompatActivity
         }
         //入力されたSMS番号を取得
         smsNum = edtSmsNum.getText().toString();
-        toast(InitialSet1.fullname + "+さんのマスターパスワードを、" + smsNum + "へ送信します。");
+        toast(PassList2.getUserName() + "+さんのマスターパスワードを、" + smsNum + "へ送信します。");
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         Uri smsNumber = Uri.parse("sms:smsNum");       //SMS番号09012345678
         intent.setData(smsNumber);

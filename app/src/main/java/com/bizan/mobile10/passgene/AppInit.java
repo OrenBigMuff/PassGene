@@ -19,36 +19,37 @@ import android.widget.Toolbar;
  * Created by user on 2016/02/16.
  */
 public class AppInit extends AppCompatActivity implements View.OnClickListener, NumberPicker.OnValueChangeListener,
-DeleteDialog.DialogListener{
+        DeleteDialog.DialogListener {
 
-/*    private final String DB_NAME = "pg.db"; //データベース名
-    private final int DB_VERSION = 1;       //データベースのバージョン
-    private static final String[] DB_TABLE = {"service_info", "user_info"};
-    private static DatabaseHelper dbHelper; //DBヘルパー
-    public static DatabaseHelper getDbHelper() {
-        return dbHelper;
-    }*/
+    /*    private final String DB_NAME = "pg.db"; //データベース名
+        private final int DB_VERSION = 1;       //データベースのバージョン
+        private static final String[] DB_TABLE = {"service_info", "user_info"};
+        private static DatabaseHelper dbHelper; //DBヘルパー
+        public static DatabaseHelper getDbHelper() {
+            return dbHelper;
+        }*/
     private DatabaseC dbC;
+    private PreferenceC pref;
 
 
-    Button btnSyokika;      //初期化ボタン
-    View appinitView;       //ボタンにかぶせるView
+    private Button btnSyokika;      //初期化ボタン
+    private View appinitView;       //ボタンにかぶせるView
 
-//    ナンバーピッカー
-    NumberPicker AppInit_npk1;
-    NumberPicker AppInit_npk2;
-    NumberPicker AppInit_npk3;
-    NumberPicker AppInit_npk4;
+    //    ナンバーピッカー
+    private NumberPicker AppInit_npk1;
+    private NumberPicker AppInit_npk2;
+    private NumberPicker AppInit_npk3;
+    private NumberPicker AppInit_npk4;
 
-    String tmp1;
-    String tmp2;
-    String tmp3;
-    String tmp4;
+    private String tmp1;
+    private String tmp2;
+    private String tmp3;
+    private String tmp4;
 
-    String num1 = "";
-    String num2 = "";
-    String num3 = "";
-    String num4 = "";
+    private String num1 = "";
+    private String num2 = "";
+    private String num3 = "";
+    private String num4 = "";
 
     String PassNum;
     String DeletePassNumber;
@@ -64,7 +65,7 @@ DeleteDialog.DialogListener{
 
     CollapsingToolbarLayout collapsingToolbar;
 
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appinit);
 
@@ -74,6 +75,8 @@ DeleteDialog.DialogListener{
         //マスターパス呼び出し
         dbC.readMasterPass();
         masterPass = dbC.readMasterPass();
+
+        pref = new PreferenceC(this);
 
 
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.AppInit_toolbar_layout);
@@ -169,7 +172,7 @@ DeleteDialog.DialogListener{
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.appinitbtn:
                 openDeleteDialog();
                 break;
@@ -188,29 +191,29 @@ DeleteDialog.DialogListener{
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 
 
-        if (picker == AppInit_npk1){
+        if (picker == AppInit_npk1) {
             num1 = String.valueOf(newVal);
-        }else if (picker == AppInit_npk2){
+        } else if (picker == AppInit_npk2) {
             num2 = String.valueOf(newVal);
-        }else if (picker == AppInit_npk3){
+        } else if (picker == AppInit_npk3) {
             num3 = String.valueOf(newVal);
-        }else if (picker == AppInit_npk4){
+        } else if (picker == AppInit_npk4) {
             num4 = String.valueOf(newVal);
         }
         PassNum = num1 + num2 + num3 + num4;
 
         Log.e("Passnum", PassNum + ":" + PassA);
 
-        if (PassNum.equals(masterPass)){
+        if (PassNum.equals(masterPass)) {
             appinitView.setVisibility(View.GONE);
             btnSyokika.setEnabled(true);
-        }else {
+        } else {
             appinitView.setVisibility(View.VISIBLE);
             btnSyokika.setEnabled(false);
         }
     }
 
-    private void openDeleteDialog(){
+    private void openDeleteDialog() {
         //DialogFragmentに渡すモノを決めてね
         String title = "アプリ初期化";
         String message = "アプリを初期化します\n本当によろしいですか？";
@@ -229,17 +232,22 @@ DeleteDialog.DialogListener{
         //positiveぼたん
         //テーブル初期化
         dbC.reset();
-        Toast.makeText(this,"アプリが初期化されました",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AppInit.this,PassList2.class);
+        Toast.makeText(this, "アプリが初期化されました", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(AppInit.this, PassList2.class);
+        pref.writeConfig("firstStart", false);
+        pref.writeConfig("p0_1", false);
+        pref.writeConfig("p0_2", false);
+        pref.writeConfig("InitialDone", false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
-        
-        AppInit.this.finish();
+
+//        AppInit.this.finish();
     }
 
     @Override
     public void onNegativeButtonClick(DialogFragment dialog) {
         //negativeぼたん
-        Toast.makeText(this,"キャンセルしました",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "キャンセルしました", Toast.LENGTH_SHORT).show();
         dialog.dismiss();
     }
 }

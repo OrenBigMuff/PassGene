@@ -188,9 +188,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
 
         setDB2userInfo();
-//        Cursor cursor1 = dbC.readUserInfoAll();
-//        //cursorLog(cursor1);
-//        cursor.close();
+
 
         rnptxvservice = (AutoCompleteTextView) findViewById(R.id.rnptxvservice);
         if (arrayService != null) {

@@ -19,12 +19,16 @@ public class InitialSet2 extends AppCompatActivity
 
     public static DatabaseC dbC;
     private PreferenceC pref;
-    NumberPicker npk1;
-    NumberPicker npk2;
-    NumberPicker npk3;
-    NumberPicker npk4;
-    Button btn;
-    static String fixMaster;
+    private NumberPicker npk1;
+    private NumberPicker npk2;
+    private NumberPicker npk3;
+    private NumberPicker npk4;
+    private Button btn;
+    private String lastname_ini2;
+    private String firstname_ini2;
+    private String birthday_ini2;
+    private String fullname_ini2;
+    private String fixMaster;
 
 
     @Override
@@ -34,10 +38,17 @@ public class InitialSet2 extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        dbC = new DatabaseC(PassList2.getDbHelper());
+//        dbC = new DatabaseC(PassList2.getDbHelper());
 
         btn = (Button) findViewById(R.id.btnInitialSet2);
         btn.setOnClickListener(this);
+
+        Intent intent_ini2 = getIntent();
+        lastname_ini2 = intent_ini2.getStringExtra("Lastname");
+        firstname_ini2 = intent_ini2.getStringExtra("Firstname");
+        fullname_ini2 = lastname_ini2 + " " + firstname_ini2;
+        birthday_ini2 = intent_ini2.getStringExtra("Birthday");
+
 
         pref = new PreferenceC(this);
 
@@ -78,7 +89,7 @@ public class InitialSet2 extends AppCompatActivity
 
         //DialogFragmentに渡すモノを決めてね
         String title = "マスターパスワード確認";
-        String message = InitialSet1.fullname + " さんの\nマスターパスワードは、\n「 " + fixMaster + " 」でよろしいですか？";
+        String message =lastname_ini2 + " " + firstname_ini2 + " さんの\nマスターパスワードは、\n「 " + fixMaster + " 」でよろしいですか？";
         String posi = "登録";
         String nega = "戻る";
         //ダイアログのレイアウトResId
@@ -106,8 +117,12 @@ public class InitialSet2 extends AppCompatActivity
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
 
-        toast(InitialSet1.fullname + " さんのマスターパスワードは \n「" + this.fixMaster + " 」で登録します。");
+        toast(fullname_ini2 + " さんのマスターパスワードは \n「" + this.fixMaster + " 」で登録します。");
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
+        intent.putExtra("LastName", lastname_ini2);
+        intent.putExtra("FirstName", firstname_ini2);
+        intent.putExtra("Birthday", birthday_ini2);
+        intent.putExtra("MasterPW", fixMaster);
         startActivity(intent);
 
         //InitialSet2を通過したのでコンフィグにWriteする

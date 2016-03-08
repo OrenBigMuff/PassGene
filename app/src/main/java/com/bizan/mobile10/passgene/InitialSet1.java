@@ -34,7 +34,7 @@ public class InitialSet1 extends AppCompatActivity
     /*private static DatabaseHelper dbH;
     private DatabaseC dbC;*/
     private PreferenceC pref;
-    Button btn;
+    private Button btn;
 
 /*    private final String DB_NAME = "pg.db"; //データベース名
     private final int DB_VERSION = 1;       //データベースのバージョン
@@ -49,14 +49,14 @@ public class InitialSet1 extends AppCompatActivity
     private DatePicker dpkBirthDay;
     private SimpleDateFormat dateFormatter;
     private SimpleDateFormat dateFormatter2;
-    static String dispBirth;
-    static String registBirth;
-    static String lastname;
-    static String firstname;
-    static String fullname;
-    int mYear;
-    int mMonth;
-    int mDay;
+    private String dispBirth;
+    private String registBirth;
+    private String lastname;
+    private String firstname;
+    private String fullname;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
 
 
@@ -260,6 +260,9 @@ public class InitialSet1 extends AppCompatActivity
             pref.writeConfig("p0_1", true);
 
             Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
+            intent.putExtra("Lastname", lastname);
+            intent.putExtra("Firstname", firstname);
+            intent.putExtra("Birthday", registBirth);
             startActivity(intent);
 
             InitialSet1.this.finish();
