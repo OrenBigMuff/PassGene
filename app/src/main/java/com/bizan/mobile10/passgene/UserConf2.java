@@ -136,7 +136,7 @@ public class UserConf2 extends AppCompatActivity
 
         //DialogFragmentに渡すモノを決めてね
         String title = "パスワードが違います";
-        String message = InitialSet1.fullname + " さんのマスターパスワードは、\n「 " + fixMaster_uc + " 」ではありません。";
+        String message = PassList2.getUserName() + " さんのマスターパスワードは、\n「 " + fixMaster_uc + " 」ではありません。";
         String posi = "再入力";
         String nega = "忘れた";
         //ダイアログのレイアウトResId
@@ -162,7 +162,7 @@ public class UserConf2 extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
-        toast(InitialSet1.fullname + " さん、\nマスターパスワードを再度入力して下さい。");
+        toast(PassList2.getUserName() + " さん、\nマスターパスワードを再度入力して下さい。");
         dialog.dismiss();
     }
 
