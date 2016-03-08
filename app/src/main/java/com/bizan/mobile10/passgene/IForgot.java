@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -23,13 +24,15 @@ public class IForgot extends AppCompatActivity
         implements View.OnClickListener, PassGeneDialog.DialogListener {
 
     DatabaseC dbC;
-    Button btnIForgot1;
-    Button btnIForgot2;
-    TextView txvIForgot;
-    TextInputLayout tilSmsNum;
-    EditText edtSmsNum;
-    String smsNum;
-    String rightPass;           //マスターパスワード from DB
+    private Button btnIForgot1;
+    private Button btnIForgot2;
+    private TextView txvIForgot;
+    private TextInputLayout tilSmsNum;
+    private EditText edtSmsNum;
+    private String smsNum;
+    private String rightPass;           //マスターパスワード from DB
+
+//    SmsManager smsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class IForgot extends AppCompatActivity
 
         dbC = new DatabaseC(PassList2.getDbHelper());
         rightPass = dbC.readMasterPass();
+
+//        smsManager = SmsManager.getDefault();
 
         txvIForgot = (TextView)findViewById(R.id.txvIForgot);
         txvIForgot.setText(InitialSet1.fullname + " さん、\\nマスターパスワードを忘れましたか？\\n以下に携帯電話の番号を入力すると、\\nマスターパスワード(SMS)を送信することができます。");
@@ -93,7 +98,7 @@ public class IForgot extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
         // Positiveボタンが押された時の動作
-        toast(InitialSet1.fullname + " さん、\nおかえりなさい！");
+        toast(PassList2.getUserName() + " さん、\nおかえりなさい！");
         dialog.dismiss();
     }
 

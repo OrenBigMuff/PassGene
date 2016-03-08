@@ -25,6 +25,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class PassList2 extends AppCompatActivity{
@@ -423,7 +424,7 @@ public class PassList2 extends AppCompatActivity{
 //        InitialSet1 initialSet1 = new InitialSet1();
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
 //        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
-        Cursor cursor = dbC.readServiceInfoAll();
+        Cursor cursor = dbC.readPasswordListInfo();
 
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 
@@ -465,24 +466,28 @@ public class PassList2 extends AppCompatActivity{
 
     public static String getUserName(){
         DatabaseC dbC = new DatabaseC(PassList2.getDbHelper());
-        String userName = null;
-        Cursor cursor = dbC.readUserInfoAll();
 
-        cursor.moveToFirst();
-        String[] list = new String[cursor.getCount()];
-        for (int i = 0; i < list.length; i++) {
-            list[i] = cursor.getString(2);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        //ユーザーの姓
-        String lastName = list[0];
-        //ユーザーの名
-        String firstName = list[1];
-        //フルネーム
-        String fullName = lastName + " " + firstName;
+            String userName = null;
+            Cursor cursor = dbC.readUserInfoAll();
+            if(cursor.getCount() == 0){
+                return "UserName";
+            }
+            cursor.moveToFirst();
+            String[] list = new String[cursor.getCount()];
+            for (int i = 0; i < list.length; i++) {
+                list[i] = cursor.getString(2);
+                cursor.moveToNext();
+            }
+            cursor.close();
+            //ユーザーの姓
+            String lastName = list[0];
+            //ユーザーの名
+            String firstName = list[1];
+            //フルネーム
+            String fullName = lastName + " " + firstName;
 
-        return fullName;
+            return fullName;
+
     }
 
 
@@ -545,10 +550,12 @@ public class PassList2 extends AppCompatActivity{
                     Intent intent = new Intent(PassList2.this, UserConf2.class);
                     intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
                     intent.putExtra("SID", Integer.parseInt(mServiceId[Integer.parseInt(String.valueOf(v.getTag()))]));
+//                    toast(mServiceId[Integer.parseInt(String.valueOf(v.getTag()))]);
                     startActivity(intent);
                 }
             });
         }
+
 
 
 
@@ -606,5 +613,16 @@ public class PassList2 extends AppCompatActivity{
 
 
 
+    }
+    /**
+     * あったら便利！トーストメソッドだよ
+     *
+     * @param text
+     */
+    private void toast(String text) {
+        if (text == null) {
+            text = "";
+        }
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }
