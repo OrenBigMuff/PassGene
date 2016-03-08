@@ -7,21 +7,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 /**
  * Created by user on 2016/03/07.
  */
-public class MPchange extends AppCompatActivity implements MPchangeDialog.DialogListener, View.OnClickListener {
+public class MPchange extends AppCompatActivity implements PassGeneDialog.DialogListener, View.OnClickListener {
 
     public static DatabaseC dbC;
-    private PreferenceC pref;
-    private NumberPicker npk1;
-    private NumberPicker npk2;
-    private NumberPicker npk3;
-    private NumberPicker npk4;
-    private Button btn;
-    private String newpass;
+    PreferenceC pref;
+    NumberPicker npk1;
+    NumberPicker npk2;
+    NumberPicker npk3;
+    NumberPicker npk4;
+    Button btn;
+    String newpass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -68,21 +69,26 @@ public class MPchange extends AppCompatActivity implements MPchangeDialog.Dialog
         String posi = "変更";
         String nega = "戻る";
         //ダイアログのレイアウトResId
-        int resId_dialog = R.layout.fragment_mpchange_dialog;
+        int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
         FragmentManager fm = getSupportFragmentManager();
-        MPchangeDialog alertDialog = MPchangeDialog.newInstance(title, message, posi, nega, resId_dialog);
+        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
         alertDialog.show(fm, "fragment_alert");
     }
 
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
 
+        Toast.makeText(this,"マスターパスワードが" + newpass + "に変更されさました。",Toast.LENGTH_SHORT).show();
+        dbC.updateMasterPass(newpass);
+        dialog.dismiss();
+        MPchange.this.finish();
     }
 
     @Override
     public void onNegativeButtonClick(DialogFragment dialog) {
 
+        dialog.dismiss();
     }
 
 }

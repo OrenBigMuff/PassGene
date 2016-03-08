@@ -306,7 +306,7 @@ public class PassList2 extends AppCompatActivity{
         /**
          * Recycleview
          */
-        String nvTITLES[] = {"ユーザー情報設定","アプリ設定","バックアップ"};      //NV内のメニュー
+        String nvTITLES[] = {"ユーザー情報設定","マスターパスワード変更","アプリ初期化"};      //NV内のメニュー
         int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};
 
         //リサイクルビューキャスト
@@ -357,7 +357,7 @@ public class PassList2 extends AppCompatActivity{
                             @Override
                             public void run() {
                                 Intent intent = new Intent(PassList2.this, UserConf2.class);
-                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
+                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.MPchange");
 //                                intent.putExtra("SID","0");
                                 startActivity(intent);
                             }
@@ -379,7 +379,7 @@ public class PassList2 extends AppCompatActivity{
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(PassList2.this, GoogleDriveBackup.class);
+                                Intent intent = new Intent(PassList2.this, AppInit.class);
                                 startActivity(intent);
                             }
                         }, 250);
@@ -412,7 +412,7 @@ public class PassList2 extends AppCompatActivity{
 //        InitialSet1 initialSet1 = new InitialSet1();
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
 //        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
-        Cursor cursor = dbC.readServiceInfoAll();
+        Cursor cursor = dbC.readPasswordListInfo();
 
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 

@@ -139,13 +139,13 @@
     <string name="regene">Re Gene</string>
     <string name="pg_comment">のパスワードは以下ではいかがですか？</string>
     <string name="errServiceInfo">サービス名が重複しています。</string>
-
+    <!--ナビゲーションドロワー-->
     <string name="openDrawer">オープン</string>
-    //オープンドロワー
     <string name="closeDrawer">クローズ</string>
+
     <string name="title_activity_pass_list2">PassList2</string>
 
-    //クローズドロワー
-
+    <!--マスターパス変更-->
+    <string name="title_activity_MPchange">マスターパスワード変更</string>
 
 </resources>

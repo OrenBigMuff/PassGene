@@ -83,17 +83,17 @@ public class MPchangeDialog extends DialogFragment{
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view1 = inflater.inflate(R.layout.fragment_mpchange_dialog,null);
+        View view2 = inflater.inflate(R.layout.fragment_mpchange_dialog,null);
 
         //ダイアログのタイトルを取得
-        title_mcdl = (TextView)view1.findViewById(R.id.title_mcdl);
+        title_mcdl = (TextView)view2.findViewById(R.id.title_mcdl);
         title_mcdl.setText(title);
         //ダイアログのメッセージを取得
-        message_mcdl = (TextView)view1.findViewById(R.id.message_mcdl);
+        message_mcdl = (TextView)view2.findViewById(R.id.message_mcdl);
         message_mcdl.setText(message);
 
         //Positiveボタンを実装
-        Button pb = (Button) view1.findViewById(R.id.positive_button_mpchange);
+        Button pb = (Button) view2.findViewById(R.id.positive_button_mpchange);
         pb.setText(posi);
         pb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +103,7 @@ public class MPchangeDialog extends DialogFragment{
         });
 
         //Negativeボタンを実装
-        Button nb = (Button) view1.findViewById(R.id.close_button_mpchange);
+        Button nb = (Button) view2.findViewById(R.id.close_button_mpchange);
         nb.setText(nega);
         nb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +117,7 @@ public class MPchangeDialog extends DialogFragment{
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));         //背景を透明にする
 
         //Viewをセットする
-        dialog.setContentView(view1);
+        dialog.setContentView(view2);
 
         return dialog;
     }
