@@ -1,5 +1,6 @@
 package com.bizan.mobile10.passgene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -229,14 +230,16 @@ DeleteDialog.DialogListener{
         //テーブル初期化
         dbC.reset();
         Toast.makeText(this,"アプリが初期化されました",Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AppInit.this,InitialSet1.class);
+        Intent intent = new Intent(AppInit.this,PassList2.class);
         startActivity(intent);
+        
+        AppInit.this.finish();
     }
 
     @Override
     public void onNegativeButtonClick(DialogFragment dialog) {
         //negativeぼたん
-        Toast.makeText(this,"°˖✧◝(⁰▿⁰)◜✧˖°",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"キャンセルしました",Toast.LENGTH_SHORT).show();
         dialog.dismiss();
     }
 }

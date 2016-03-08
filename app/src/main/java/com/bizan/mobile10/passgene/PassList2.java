@@ -46,10 +46,9 @@ public class PassList2 extends AppCompatActivity{
     private String[] mHint;                             //パスワードヒント
     private String[] mDeleteFlag;                       //削除フラグ
 
+
     private static Animation inAnimation;               //インアニメーション
     private static Animation outAnimation;              //アウトアニメーション
-
-    public String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,11 +108,6 @@ public class PassList2 extends AppCompatActivity{
             //初回起動したので、そのコンフィグをWriteする
             pref.writeConfig("firstStart", true);
         }
-
-        /**
-         * 初回起動時でなければ、UserNameを呼び出しておく
-         */
-        userName = this.getUserName();
 
         /**
          * ツールバーの設定
@@ -181,14 +175,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = 0;
+                    int i = cursor.getCount()-1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i++;
+                        i--;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -202,14 +196,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = 0;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i--;
+                        i++;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -265,14 +259,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = 0;
+                    int i = cursor.getCount()-1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i++;
+                        i--;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -286,14 +280,14 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = 0;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
                         mServiceName[i] = cursor.getString(1);
                         mHint[i] = cursor.getString(2);
                         cPlace = cursor.moveToNext();
-                        i--;
+                        i++;
                     }
                     cursor.close();     //cursorを閉じる
 
@@ -312,7 +306,7 @@ public class PassList2 extends AppCompatActivity{
         /**
          * Recycleview
          */
-        String nvTITLES[] = {"ユーザー情報設定","アプリ設定","バックアップ"};      //NV内のメニュー
+        String nvTITLES[] = {"ユーザー情報設定","マスターパスワード変更","アプリ初期化"};      //NV内のメニュー
         int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};
 
         //リサイクルビューキャスト
@@ -320,7 +314,7 @@ public class PassList2 extends AppCompatActivity{
         plRecycleView.setHasFixedSize(true);
 
         //アダプターセット
-        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面",  this.userName + " さん");
+        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", InitialSet1.fullname + " さん");
         plRecycleView.setAdapter(plAdapter);
 
         //リサイクルビューにレイアウトマネージャをセット
@@ -341,34 +335,35 @@ public class PassList2 extends AppCompatActivity{
             public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
                 View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
 
-                //childPositionから位置を取得してイベント取得
-                switch (recyclerView.getChildPosition(child)) {
+                if (child != null && mGestureDetector.onTouchEvent(motionEvent)){
+                    //childPositionから位置を取得してイベント取得
+                    switch (recyclerView.getChildPosition(child)) {
 
-                    case 1:
-                        //PW確認画面と通してユーザー情報一覧のページに飛ばす
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(PassList2.this, UserInfoList.class);
+                        case 1:
+                            //PW確認画面と通してユーザー情報一覧のページに飛ばす
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(PassList2.this, UserInfoList.class);
 //                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
-                                startActivity(intent);
-                            }
-                        }, 250);
-                        plDrawer.closeDrawers();
-                        break;
+                                    startActivity(intent);
+                                }
+                            }, 250);
+                            plDrawer.closeDrawers();
+                            break;
 
-                    case 2:
-                        //PW確認画面を通してアプリ設定画面に飛ばす
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(PassList2.this, UserConf2.class);
-                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.AppSetting");
+                        case 2:
+                            //PW確認画面を通してアプリ設定画面に飛ばす
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(PassList2.this, MPchange.class);
+                                    intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.MPchange");
 //                                intent.putExtra("SID","0");
-                                startActivity(intent);
-                            }
-                        }, 250);
-                        plDrawer.closeDrawers();
+                                    startActivity(intent);
+                                }
+                            }, 250);
+                            plDrawer.closeDrawers();
 /*
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -378,20 +373,23 @@ public class PassList2 extends AppCompatActivity{
                             }
                         }, 250);
                         plDrawer.closeDrawers();*/
-                        break;
+                            break;
 
-                    case 3:
-                        //GoogleDriveページに遷移
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(PassList2.this, GoogleDriveBackup.class);
-                                startActivity(intent);
-                            }
-                        }, 250);
-                        plDrawer.closeDrawers();
-                        break;
+                        case 3:
+                            //GoogleDriveページに遷移
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(PassList2.this, AppInit.class);
+                                    startActivity(intent);
+                                }
+                            }, 250);
+                            plDrawer.closeDrawers();
+                            break;
+                    }
+                    return true;
                 }
+
                 return false;
             }
 
@@ -412,11 +410,6 @@ public class PassList2 extends AppCompatActivity{
         super.onResume();
 
         /**
-         * 初回起動時でなければ、UserNameを呼び出しておく
-         */
-        userName = this.getUserName();
-
-        /**
          * 登録降順でカード作成
          */
 //        Cursor cursor = dbC.readPasswordListInfo();
@@ -424,19 +417,20 @@ public class PassList2 extends AppCompatActivity{
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
 //        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
         Cursor cursor = dbC.readPasswordListInfo();
+
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 
         mServiceId = new String[cursor.getCount()];
         mServiceName = new String[cursor.getCount()];
         mHint = new String[cursor.getCount()];
-        int i = 0;
+        int i = cursor.getCount()-1;
 
         while (cPlace) {
             mServiceId[i] = cursor.getString(0);
             mServiceName[i] = cursor.getString(1);
             mHint[i] = cursor.getString(2);
             cPlace = cursor.moveToNext();
-            i++;
+            i--;
         }
         cursor.close();     //cursorを閉じる
 
@@ -456,36 +450,6 @@ public class PassList2 extends AppCompatActivity{
     public static DatabaseHelper getDbHelper() {
         return dbH;
     }
-
-
-    /**
-     * Userの姓名をReturnするメソッド
-     */
-
-    public static String getUserName(){
-        DatabaseC dbC = new DatabaseC(PassList2.getDbHelper());
-        String userName = null;
-        Cursor cursor = dbC.readUserInfoAll();
-
-        cursor.moveToFirst();
-        String[] list = new String[cursor.getCount()];
-        for (int i = 0; i < list.length; i++) {
-            list[i] = cursor.getString(2);
-            cursor.moveToNext();
-        }
-        cursor.close();
-        //ユーザーの姓
-        String lastName = list[0];
-        //ユーザーの名
-        String firstName = list[1];
-        //フルネーム
-        String fullName = lastName + " " + firstName;
-
-        return fullName;
-    }
-
-
-
 
     /**
      * CardView作成メソッド
