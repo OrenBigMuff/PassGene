@@ -27,7 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
-public class PassList2 extends AppCompatActivity{
+public class PassList2 extends AppCompatActivity {
 
     private static DatabaseHelper dbH;
     private DatabaseC dbC;
@@ -40,7 +40,7 @@ public class PassList2 extends AppCompatActivity{
     private Toolbar plToolbar;                          //toolbar
     private DrawerLayout plDrawer;                      //ドロワー
 
-//    private DatabaseC dbC;                              //DatabaseC
+    //    private DatabaseC dbC;                              //DatabaseC
     private String[] mServiceId;                        //サービスID
     private String[] mServiceName;                      //サービス名
     private String[] mHint;                             //パスワードヒント
@@ -100,7 +100,7 @@ public class PassList2 extends AppCompatActivity{
         /**
          * 初回起動か、あるいはInitialSet1,2を経過しているかのチェック
          */
-        if(!pref.readConfig("firstStart", false) || !pref.readConfig("InitialDone", false)){
+        if (!pref.readConfig("firstStart", false) || !pref.readConfig("InitialDone", false)) {
             //InitialSet1へ遷移
             Intent intent = new Intent(PassList2.this, InitialSet1.class);
             startActivity(intent);
@@ -147,13 +147,13 @@ public class PassList2 extends AppCompatActivity{
         /**
          * spinner設定
          */
-        String[] category = {"登録降順","登録昇順","五十音降順","五十音昇順","更新日降順","更新日昇順"};
+        String[] category = {"登録降順", "登録昇順", "五十音降順", "五十音昇順", "更新日降順", "更新日昇順"};
 
         ArrayAdapter<String> adapterCategory = new ArrayAdapter<String>(this, R.layout.spinner_item2);
         adapterCategory.setDropDownViewResource(R.layout.spinner_item2);
 
         //アイテムを追加します
-        for (int i=0; i<category.length; i++) {
+        for (int i = 0; i < category.length; i++) {
             adapterCategory.add(category[i]);
         }
 
@@ -175,7 +175,7 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = cursor.getCount() - 1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
@@ -217,7 +217,7 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = cursor.getCount() - 1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
@@ -259,7 +259,7 @@ public class PassList2 extends AppCompatActivity{
                     mServiceId = new String[cursor.getCount()];
                     mServiceName = new String[cursor.getCount()];
                     mHint = new String[cursor.getCount()];
-                    int i = cursor.getCount()-1;
+                    int i = cursor.getCount() - 1;
 
                     while (cPlace) {
                         mServiceId[i] = cursor.getString(0);
@@ -306,8 +306,8 @@ public class PassList2 extends AppCompatActivity{
         /**
          * Recycleview
          */
-        String nvTITLES[] = {"ユーザー情報設定","マスターパスワード変更","アプリ初期化"};      //NV内のメニュー
-        int nvICONS[] = {android.R.drawable.ic_input_add,android.R.drawable.ic_input_add,android.R.drawable.ic_input_add};
+        String nvTITLES[] = {"ユーザー情報設定", "マスターパスワード変更", "アプリ初期化"};      //NV内のメニュー
+        int nvICONS[] = {android.R.drawable.ic_input_add, android.R.drawable.ic_input_add, android.R.drawable.ic_input_add};
 
         //リサイクルビューキャスト
         RecyclerView plRecycleView = (RecyclerView) findViewById(R.id.PassList_RecycleView);
@@ -335,7 +335,7 @@ public class PassList2 extends AppCompatActivity{
             public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
                 View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
 
-                if (child != null && mGestureDetector.onTouchEvent(motionEvent)){
+                if (child != null && mGestureDetector.onTouchEvent(motionEvent)) {
                     //childPositionから位置を取得してイベント取得
                     switch (recyclerView.getChildPosition(child)) {
 
@@ -358,7 +358,7 @@ public class PassList2 extends AppCompatActivity{
                                 @Override
                                 public void run() {
                                     Intent intent = new Intent(PassList2.this, MPchange.class);
-                                    intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.MPchange");
+                                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.MPchange");
 //                                intent.putExtra("SID","0");
                                     startActivity(intent);
                                 }
@@ -423,7 +423,7 @@ public class PassList2 extends AppCompatActivity{
         mServiceId = new String[cursor.getCount()];
         mServiceName = new String[cursor.getCount()];
         mHint = new String[cursor.getCount()];
-        int i = cursor.getCount()-1;
+        int i = cursor.getCount() - 1;
 
         while (cPlace) {
             mServiceId[i] = cursor.getString(0);
@@ -451,9 +451,38 @@ public class PassList2 extends AppCompatActivity{
         return dbH;
     }
 
+
+    /**
+     * Userの姓名をReturnするメソッド
+     */
+    public static String getUserName() {
+        DatabaseC dbC = new DatabaseC(PassList2.getDbHelper());
+        Cursor cursor = dbC.readUserInfoAll();
+        cursor.moveToFirst();
+        String[] list = new String[cursor.getCount()];
+
+        for (int i = 0; i < list.length; i++) {
+            cursor.moveToNext();
+            list[i] = cursor.getString(2);
+        }
+
+        cursor.close();
+
+        //ユーザーの姓
+        String lastName = list[0];
+        //ユーザーの名
+        String firstName = list[1];
+        //フルネーム
+        String fullName = lastName + " " + firstName;
+
+        return fullName;
+    }
+
+
     /**
      * CardView作成メソッド
      */
+
     private void cardView() {
         //アニメーション
         inAnimation = AnimationUtils.loadAnimation(this, R.anim.card_in_anim);
@@ -464,7 +493,7 @@ public class PassList2 extends AppCompatActivity{
         cardLinear.removeAllViews();
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        for (int i =  0; i < mServiceId.length; i++) {
+        for (int i = 0; i < mServiceId.length; i++) {
             LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.passlist_card, null);
             CardView cardView = (CardView) linearLayout.findViewById(R.id.plcardView);
 
@@ -488,8 +517,7 @@ public class PassList2 extends AppCompatActivity{
                         textView2.startAnimation(inAnimation);
                         cardButton.setVisibility(View.VISIBLE);
                         textView2.setVisibility(View.VISIBLE);
-                    } else
-                    if (cardButton.getVisibility() == View.VISIBLE) {
+                    } else if (cardButton.getVisibility() == View.VISIBLE) {
                         cardButton.startAnimation(outAnimation);
                         textView2.startAnimation(outAnimation);
                         cardButton.setVisibility(View.GONE);
@@ -566,7 +594,6 @@ public class PassList2 extends AppCompatActivity{
                 });
             j++;
         }*/
-
 
 
     }
