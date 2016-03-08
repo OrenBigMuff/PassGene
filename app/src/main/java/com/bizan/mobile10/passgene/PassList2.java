@@ -335,34 +335,35 @@ public class PassList2 extends AppCompatActivity{
             public boolean onInterceptTouchEvent(RecyclerView recyclerView, MotionEvent motionEvent) {
                 View child = recyclerView.findChildViewUnder(motionEvent.getX(), motionEvent.getY());
 
-                //childPositionから位置を取得してイベント取得
-                switch (recyclerView.getChildPosition(child)) {
+                if (child != null && mGestureDetector.onTouchEvent(motionEvent)){
+                    //childPositionから位置を取得してイベント取得
+                    switch (recyclerView.getChildPosition(child)) {
 
-                    case 1:
-                        //PW確認画面と通してユーザー情報一覧のページに飛ばす
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(PassList2.this, UserInfoList.class);
+                        case 1:
+                            //PW確認画面と通してユーザー情報一覧のページに飛ばす
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(PassList2.this, UserInfoList.class);
 //                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoList");
-                                startActivity(intent);
-                            }
-                        }, 250);
-                        plDrawer.closeDrawers();
-                        break;
+                                    startActivity(intent);
+                                }
+                            }, 250);
+                            plDrawer.closeDrawers();
+                            break;
 
-                    case 2:
-                        //PW確認画面を通してアプリ設定画面に飛ばす
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(PassList2.this, UserConf2.class);
-                                intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.MPchange");
+                        case 2:
+                            //PW確認画面を通してアプリ設定画面に飛ばす
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(PassList2.this, MPchange.class);
+                                    intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.MPchange");
 //                                intent.putExtra("SID","0");
-                                startActivity(intent);
-                            }
-                        }, 250);
-                        plDrawer.closeDrawers();
+                                    startActivity(intent);
+                                }
+                            }, 250);
+                            plDrawer.closeDrawers();
 /*
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -372,20 +373,23 @@ public class PassList2 extends AppCompatActivity{
                             }
                         }, 250);
                         plDrawer.closeDrawers();*/
-                        break;
+                            break;
 
-                    case 3:
-                        //GoogleDriveページに遷移
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(PassList2.this, AppInit.class);
-                                startActivity(intent);
-                            }
-                        }, 250);
-                        plDrawer.closeDrawers();
-                        break;
+                        case 3:
+                            //GoogleDriveページに遷移
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent intent = new Intent(PassList2.this, AppInit.class);
+                                    startActivity(intent);
+                                }
+                            }, 250);
+                            plDrawer.closeDrawers();
+                            break;
+                    }
+                    return true;
                 }
+
                 return false;
             }
 

@@ -24,12 +24,16 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
     Button btn;
     String newpass;
 
+    public static Fflag mflag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mpchange);
 
         dbC = new DatabaseC(PassList2.getDbHelper());
+
+        mflag = new Fflag();
 
         btn = (Button) findViewById(R.id.btnMPchange);
         btn.setOnClickListener(this);
@@ -82,6 +86,7 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
         Toast.makeText(this,"マスターパスワードが" + newpass + "に変更されさました。",Toast.LENGTH_SHORT).show();
         dbC.updateMasterPass(newpass);
         dialog.dismiss();
+        MPchange.mflag.setFnishflg(true);
         MPchange.this.finish();
     }
 
@@ -89,6 +94,14 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
     public void onNegativeButtonClick(DialogFragment dialog) {
 
         dialog.dismiss();
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        if (mflag.getFinishFlg() == true){
+            finish();
+        }
     }
 
 }
