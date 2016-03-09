@@ -57,10 +57,13 @@ implements PassGeneDialog.DialogListener{
             toast("IDをCatchしました-SID");
             String tmp_S = String.valueOf(id_S);
             Cursor cursor = dbC.readServiceInfo(tmp_S);
+            cursor.moveToFirst();
             service = cursor.getString(1);
             userid = cursor.getString(2);
             mail = cursor.getString(3);
             password = cursor.getString(11);
+
+            cursor.close();     //cursorを閉じる
         }
 
         getSupportActionBar().setTitle(service);
@@ -85,7 +88,7 @@ implements PassGeneDialog.DialogListener{
 
                 //P2に飛ばす
                 Intent intent = new Intent(PwConf.this, RegistNewPass.class);
-                intent.putExtra("SID",id_S);
+                intent.putExtra("SID",String.valueOf(id_S));
                 startActivity(intent);
             }
         });
