@@ -29,6 +29,8 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
     private int seekbarP = 8;
     private PoolString poolString;
 
+    private String passKpGp;
+
     private String passM1;
     private String passM2;
     private String passS;
@@ -119,6 +121,8 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         poolString = new PoolString();
 
         pref = new PreferenceC(this);
+
+        passKpGp = pref.readConfig("pass","");
         chbb = pref.readConfig("chbb", true);
         chbs = pref.readConfig("chbs", true);
         chbk = pref.readConfig("chbk", true);
@@ -138,14 +142,25 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         btnRegene = (Button) findViewById(R.id.pg_btn_regene);
         btnRegene.setOnClickListener(this);
 
-        makePass();
+        //もし新規の場合はmakePass()に流れる
+        if(!pref.readConfig("PassKeep", false)){
+            makePass();
+        }else{
+        //もし編集から流れてきた場合は以前のパスを一旦表示する。
+            String tmp_service = pref.readConfig("service", "");
+            String tmp_passhint = pref.readConfig("passhint", "");
+            txvSheep.setText(tmp_service + " の\n 現在のパスワード");
+            gp_txv_pass.setText(passKpGp);
+            gp_txv_hint.setText(tmp_passhint);
+        }
+
 
     }
 
     @Override
     public void onClick(View v) {
         if (v == btnInsert) {
-            //インサート処理
+            //「登録」ボタン　⇒インサート処理
             if (pref.readConfig("id", "0").equals("0")) {
                 datainsert();
             } else {
@@ -156,7 +171,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         } else if (v == btnRegene) {
-            //もう一度パスワード作る
+            //「ReGene」ボタン　⇒もう一度パスワード作る
             poolString.init();
             makePass();
         }

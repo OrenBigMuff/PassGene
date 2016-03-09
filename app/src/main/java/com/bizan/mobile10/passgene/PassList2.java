@@ -462,8 +462,8 @@ public class PassList2 extends AppCompatActivity {
         String[] list = new String[cursor.getCount()];
 
         for (int i = 0; i < list.length; i++) {
-            cursor.moveToNext();
             list[i] = cursor.getString(2);
+            cursor.moveToNext();
         }
 
         cursor.close();
