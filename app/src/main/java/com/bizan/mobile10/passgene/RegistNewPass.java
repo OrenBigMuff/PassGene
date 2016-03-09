@@ -137,7 +137,6 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
 
-//        dbC = new DatabaseC(InitialSet1.getDbHelper());
 
         //前のページから飛んできたIDをセット
         exID = "";
@@ -189,9 +188,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         }
 
         setDB2userInfo();
-//        Cursor cursor1 = dbC.readUserInfoAll();
-//        //cursorLog(cursor1);
-//        cursor.close();
+
 
         rnptxvservice = (AutoCompleteTextView) findViewById(R.id.rnptxvservice);
         if (arrayService != null) {
@@ -247,7 +244,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
                 return false;
             }
         });
-        /**ここまで****************************************************/
+        /**今井追加ここまで****************************************************/
 
 
         rnplayout = (LinearLayout) findViewById(R.id.rnplayout);

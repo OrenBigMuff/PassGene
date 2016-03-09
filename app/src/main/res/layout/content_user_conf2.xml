@@ -32,6 +32,7 @@
                       android:textSize="20dp"/>
             <TextView android:layout_width="match_parent"
                       android:layout_height="wrap_content"
+                      android:id="@+id/txvUserConfValue"
                       android:text="@string/guide_text_userconf"
                       android:textColor="@color/passGeneTextBlue"
                       android:textSize="15dp"/>

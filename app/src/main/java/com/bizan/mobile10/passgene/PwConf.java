@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 
 public class PwConf extends AppCompatActivity
-implements PassGeneDialog.DialogListener{
+        implements PassGeneDialog.DialogListener {
 
     DatabaseC dbC;
     Intent intent_pwconf;
@@ -26,11 +26,11 @@ implements PassGeneDialog.DialogListener{
     Button btnEdit;                  //編集ボタン
     Button btnDelete;                //削除ボタン
 
-    String service = "facebook";
-    String title = "テストやで～";
-    String userid = "syun";
-    String mail = "bizan@g.mail";
-    String password = "dfefedfcs";
+    private String service;
+    private String title;
+    private String userid;
+    private String mail;
+    private String password;
 
     private int id_U;
     private int id_S;
@@ -49,27 +49,49 @@ implements PassGeneDialog.DialogListener{
         id_U = intent_pwconf.getIntExtra("UID", -1);
         id_S = intent_pwconf.getIntExtra("SID", -1);
 
-        if(id_U != -1 && id_S == -1) {
+        if (id_U != -1 && id_S == -1) {
 
             toast("Error! 前ページのソースコードがおかしくないですか？");          //←最終的に削除
-
-        }else if(id_U == -1 && id_S != -1){
+            return;
+        } else if (id_U == -1 && id_S != -1) {
             toast("IDをCatchしました-SID");
             String tmp_S = String.valueOf(id_S);
             Cursor cursor = dbC.readServiceInfo(tmp_S);
-            cursor.moveToFirst();
-            service = cursor.getString(1);
-            userid = cursor.getString(2);
-            mail = cursor.getString(3);
-            password = cursor.getString(11);
 
-            cursor.close();     //cursorを閉じる
+//            String[] list = new String[cursor.getCount()];
+
+
+//                for (int i = 0; i < list.length; i++) {
+//                    list[i] = cursor.getString();
+            cursor.moveToFirst();
+                    service = cursor.getString(1);
+                    userid = cursor.getString(2);
+                    mail = cursor.getString(3);
+                    password = cursor.getString(11);
+
+
+                    cursor.close();
+
+//            cursor.moveToFirst();
+//            String[] service_array = new String[cursor.getCount()];
+//            String[] userid_array = new String[cursor.getCount()];
+//            String[] mail_array = new String[cursor.getCount()];
+//            String[] password_array = new String[cursor.getCount()];
+//
+//            for (int i = 0; i < service_array.length; i++) {
+//                service_array[i] = cursor.getString(1);
+//                userid_array[i] = cursor.getString(2);
+//                mail_array[i] = cursor.getString(3);
+//                password_array[i] = cursor.getString(11);
+//
+//                cursor.moveToNext();
+
         }
 
         getSupportActionBar().setTitle(service);
 
         txvValue_address = (TextView) findViewById(R.id.pwconf_txvValue_address);
-        txvValue_address.setText(service);
+        txvValue_address.setText(mail);
 //        String test = txvValue_address.getText().toString();
 
         txvValue_password = (TextView) findViewById(R.id.pwconf_txvValue_Password);
@@ -77,7 +99,7 @@ implements PassGeneDialog.DialogListener{
 //        String test2 = txvValue_password.getText().toString();
 
         txvValue_account = (TextView) findViewById(R.id.pwconf_txvValue_account);
-        txvValue_account.setText(mail);
+        txvValue_account.setText(userid);
 //        String test3 = txvValue_account.getText().toString();
 
         //編集ボタン
@@ -88,7 +110,7 @@ implements PassGeneDialog.DialogListener{
 
                 //P2に飛ばす
                 Intent intent = new Intent(PwConf.this, RegistNewPass.class);
-                intent.putExtra("SID",String.valueOf(id_S));
+                intent.putExtra("SID", id_S);
                 startActivity(intent);
             }
         });
@@ -102,7 +124,9 @@ implements PassGeneDialog.DialogListener{
                 openPG_Dialog();
             }
         });
+
     }
+
 
     /**
      * DialogFragmentにゴニョゴニョするメソッド
@@ -111,9 +135,9 @@ implements PassGeneDialog.DialogListener{
 
         //DialogFragmentに渡すモノを決めてね
         String title = "この情報を削除しますか？";
-        String message = InitialSet1.fullname + " さん、\n" + service + "の情報を削除しますか？";
-        String posi = "削除";
-        String nega = "戻る";
+        String message = PassList2.getUserName() + " さん、\n" + service + "の情報を削除しますか？";
+        String posi = "戻る";
+        String nega = "削除";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
@@ -124,16 +148,18 @@ implements PassGeneDialog.DialogListener{
 
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
-        // Positiveボタンが押された時の動作
-        //当該サービスのdeleteフラグをつける
-        dbC.deleteServiceInfo(id_S);
+        // Negativeボタンが押された時の動作
         dialog.dismiss();
+
     }
 
     @Override
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
-        // Negativeボタンが押された時の動作
+        // Positiveボタンが押された時の動作
+        //当該サービスのdeleteフラグをつける
+        dbC.deleteServiceInfo(id_S);
         dialog.dismiss();
+        PwConf.this.finish();
     }
 
     /**

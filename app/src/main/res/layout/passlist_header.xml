@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:weightSum="1"
-    android:background="@drawable/freeheaderview">
+    android:background="@drawable/passgene_header">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:textColor="@color/passGeneTextBlue"
+            android:textColor="@color/passGeneFloatingButtonRed"
             android:text="設定画面"
             android:textSize="20sp"
             android:textStyle="italic"/>
@@ -28,7 +28,7 @@
             android:id="@+id/plUseName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/passGeneTextBlue"
+            android:textColor="@color/passGeneFloatingButtonRed"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="5dp"
             android:textSize="14sp"

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class UserConf2 extends AppCompatActivity
@@ -19,9 +20,11 @@ public class UserConf2 extends AppCompatActivity
     private NumberPicker npk_uc3;
     private NumberPicker npk_uc4;
     private Button btn;
+    TextView txvUserConfValue;
     private String fixMaster_uc;
     private String rightPass;       //DBから引っ張ってきたUserのMP
     private String CLASSNAME;
+    private int ID_S_false;
     private int ID_S;
     private int ID_U;
     private String PKGNAME;
@@ -59,7 +62,7 @@ public class UserConf2 extends AppCompatActivity
          * この部分を後で復活させる
          */
         if(intent == null){
-            toast("ヌルヌルですよ");
+//            toast("ヌルヌルですよ");
             return;
         }else {
             CLASSNAME = intent.getStringExtra("CLASSNAME");
@@ -72,8 +75,14 @@ public class UserConf2 extends AppCompatActivity
         //マスターパスの呼出し
         rightPass = dbC.readMasterPass();
 
+        //TextViewにパスワード確認の文言をセットする
+
+
         btn = (Button) findViewById(R.id.btnUserConf);
         btn.setOnClickListener(this);
+
+        txvUserConfValue = (TextView)findViewById(R.id.txvUserConfValue);
+        txvUserConfValue.setText(PassList2.getUserName() + " さんの\nマスターパスワードを入力して下さい。");
 
         npk_uc1 = (NumberPicker) findViewById(R.id.npk_uc1);
         npk_uc2 = (NumberPicker) findViewById(R.id.npk_uc2);
@@ -110,17 +119,22 @@ public class UserConf2 extends AppCompatActivity
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("UID", ID_U);
                 startActivity(intent);
+                UserConf2.this.finish();
             }else if(ID_S != -1 && ID_U == -1){
 //                toast("パスワードが一致しました。SID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("SID", ID_S);
+                toast(String.valueOf(ID_S));
                 startActivity(intent);
+                UserConf2.this.finish();
             }else if(ID_S == -1 && ID_U == -1){
+                //SID、UIDどちらも来ていない場合
 //                toast("パスワードが一致しました。NONE");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 startActivity(intent);
+                UserConf2.this.finish();
             }
             return;
         } else{
@@ -136,7 +150,7 @@ public class UserConf2 extends AppCompatActivity
 
         //DialogFragmentに渡すモノを決めてね
         String title = "パスワードが違います";
-        String message = InitialSet1.fullname + " さんのマスターパスワードは、\n「 " + fixMaster_uc + " 」ではありません。";
+        String message = PassList2.getUserName() + " さんのマスターパスワードは、\n「 " + fixMaster_uc + " 」ではありません。";
         String posi = "再入力";
         String nega = "忘れた";
         //ダイアログのレイアウトResId
@@ -162,7 +176,7 @@ public class UserConf2 extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
-        toast(InitialSet1.fullname + " さん、\nマスターパスワードを再度入力して下さい。");
+        toast(PassList2.getUserName() + " さん、\nマスターパスワードを再度入力して下さい。");
         dialog.dismiss();
     }
 

@@ -126,7 +126,7 @@ public class PoolString {
                 stb.append(s);
                 stb.append("文字目");
             }
-            stb.append("を大文字にし");
+            stb.append("を大文字にし、");
         }
         if(methodType.length() != 0){
             stb.append(methodType);
@@ -134,9 +134,9 @@ public class PoolString {
         }
         if (sign.length() != 0) {
             stb.append(" ");
-            stb.append("記号「");
+            stb.append("記号「 ");
             stb.append(sign);
-            stb.append("」をたし");
+            stb.append(" 」を足し、");
         }
         stb.append(" ");
         stb.append(nElemS);
@@ -152,7 +152,7 @@ public class PoolString {
         if (loop) {
             stb.append("以上を");
             stb.append(totalNum);
-            stb.append("文字ぶん繰り返します。");
+            stb.append("文字分繰り返します。");
         }
 //        String str = "｛要素A○文字｝、｛要素B○文字｝　｛をミックス後｝、｛○文字目を大文字｝にし" +
 //                "｛記号○｝をたし　数字要素下○桁に○を加え" +
