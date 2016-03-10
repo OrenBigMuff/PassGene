@@ -46,8 +46,8 @@ public class InitialSet2 extends AppCompatActivity
         Intent intent_ini2 = getIntent();
         lastname_ini2 = intent_ini2.getStringExtra("Lastname");
         firstname_ini2 = intent_ini2.getStringExtra("Firstname");
-        fullname_ini2 = lastname_ini2 + " " + firstname_ini2;
         birthday_ini2 = intent_ini2.getStringExtra("Birthday");
+        fullname_ini2 = lastname_ini2 + " " + firstname_ini2;
 
 
         pref = new PreferenceC(this);
@@ -121,7 +121,7 @@ public class InitialSet2 extends AppCompatActivity
         Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
         intent.putExtra("LastName", lastname_ini2);
         intent.putExtra("FirstName", firstname_ini2);
-        intent.putExtra("Birthday", birthday_ini2);
+        intent.putExtra("BirthDay", birthday_ini2);
         intent.putExtra("MasterPW", fixMaster);
         startActivity(intent);
 

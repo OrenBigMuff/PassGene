@@ -304,7 +304,7 @@ public class PassList2 extends AppCompatActivity {
          * Recycleview
          */
         String nvTITLES[] = {"ユーザー情報設定", "マスターパスワード変更", "アプリ初期化"};      //NV内のメニュー
-        int nvICONS[] = {android.R.drawable.ic_input_add, android.R.drawable.ic_input_add, android.R.drawable.ic_input_add};
+        int nvICONS[] = {R.drawable.nd_icon_1, R.drawable.nd_icon_2, R.drawable.nd_icon_3};
 
         //リサイクルビューキャスト
         RecyclerView plRecycleView = (RecyclerView) findViewById(R.id.PassList_RecycleView);

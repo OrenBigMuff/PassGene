@@ -42,11 +42,13 @@ public class InitialSet3 extends AppCompatActivity
         Intent intent_ini3 = getIntent();
         lastname_ini3 = intent_ini3.getStringExtra("LastName");
         firstname_ini3 = intent_ini3.getStringExtra("FirstName");
-        birthday_ini3 = intent_ini3.getStringExtra("Birthday");
+        birthday_ini3 = intent_ini3.getStringExtra("BirthDay");
         fixMasterPass = intent_ini3.getStringExtra("MasterPW");
         fullname_ini3 = lastname_ini3 + " " + firstname_ini3;
 
-        //ここにDBへの登録を記述
+        /**
+         *ここにDBへの登録を記述
+         */
         //InitialSet1の分
         String[] value_sei ={"ユーザーの姓", lastname_ini3, "2"};
         dbC.insertUserInfo(value_sei);

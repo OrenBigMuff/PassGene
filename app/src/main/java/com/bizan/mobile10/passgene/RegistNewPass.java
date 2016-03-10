@@ -62,6 +62,10 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     private String[] arrayid;
     private String[] arrayadd;
 
+    private String service;
+    private String userid;
+    private String mail;
+    private String password;
 
 
     /**
@@ -138,23 +142,44 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         hashMapDB = new HashMap<>();
 
 
-        //前のページから飛んできたIDをセット
-        exID = "";
+        //前のページから飛んできたSIDをセット
+
+//        Intent intent_rnp = getIntent();
         Bundle extrasID = getIntent().getExtras();
         if (extrasID != null) {
             exID = extrasID.getString("SID");
         }
+//        if(intent_rnp != null){
+//            exID = intent_rnp.getStringExtra("SID");
+//        }
 ///////////////////////////////一時対比
         if (exID.length() > 0) {
+
             //readDB();
+//            dbC = new DatabaseC(PassList2.getDbHelper());
+            pref.writeConfig("id", "1");
+/*
+            Cursor cursor = dbC.readServiceInfo(exID);
+            cursor.moveToFirst();
+            service = cursor.getString(1);
+            userid = cursor.getString(2);
+            mail = cursor.getString(3);
+            password = cursor.getString(11);
+*/
+
         } else {
             pref.writeConfig("id", "0");
         }
+
         String readId = pref.readConfig("id", "0");
 
         if (!readId.equals("0")) {
+
             //DBデータをセットする
             setDB2hash();
+            //「新規」ではなく「編集」の時は次のページでパスを表示する為にコンフィグを渡す
+            pref.writeConfig("PassKeep", true);
+
         } else {
             //データがなかったらここでプリファレンスの値を入れちゃう 以下ハッシュマップでとる　プリファレンスはページ受け渡し
             hashMapDB.put("id", "0");
@@ -228,7 +253,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         rnptxvaddress.setText(hashMapDB.get("mailadd").toString());
 
         /*****************************************
-         * 今井追加 ソフトキーボード非表示にするや～つ
+         * 今井追加 入力後ソフトキーボードを非表示にするや～つ
          *****************************************/
         //EnterKey押下時にソフトキーボードを非表示にする。
         rnptxvaddress.setOnKeyListener(new View.OnKeyListener() {
@@ -325,7 +350,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             arrayService = arrayset(cursor);
         } else {
             arrayService = null;
-            Log.e("arrayService", "err");
+            toast("arrayService:error");
         }
 
         cursor = dbC.readSingleclum(2);
@@ -333,7 +358,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             arrayid = new String[cursor.getCount()];
             arrayid = arrayset(cursor);
         } else {
-            Log.e("arrayid", "err");
+            toast("arrayid:error");
         }
 
         cursor = dbC.readSingleclum(3);
@@ -341,7 +366,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             arrayadd = new String[cursor.getCount()];
             arrayadd = arrayset(cursor);
         } else {
-            Log.e("arrayadd", "err");
+            toast("arrayadd:error");
         }
         cursor.close();
     }
@@ -358,10 +383,11 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         return str;
     }
 
-    private void setDB2hash() {exID= String.valueOf(1);
+    private void setDB2hash() {
+//        exID= String.valueOf(1);
         Cursor cursor = dbC.readServiceInfo(exID);
         cursor.moveToFirst();
-        String[] spindata = cursor.getString(10).split(",");
+//        String[] spindata = cursor.getString(10).split(",");
 
         hashMapDB.put("id", String.valueOf(cursor.getInt(0)));
         hashMapDB.put("service", cursor.getString(1));
@@ -374,7 +400,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         hashMapDB.put("num_of_char", cursor.getString(8));
         hashMapDB.put("pass", cursor.getString(11));
         hashMapDB.put("passhint", cursor.getString(12));
-        hashMapDB.put("spinner", spindata[1]);
+//        hashMapDB.put("spinner", spindata[1]);
 
         //これはここに書かないといけない
         pref.writeConfig("id", "1");
@@ -416,7 +442,8 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if (rnpbtnnext == v) {
             //サービス名がかぶっている、新規（idが0）の場合
-            if (checkServiceName(rnptxvservice.getText().toString()) && pref.readConfig("id", "0").equals("0")) {
+            if (checkServiceName(rnptxvservice.getText().toString()) &&
+                    pref.readConfig("id", "0").equals("0")) {
                 Toast.makeText(this, getText(R.string.errServiceInfo), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -444,8 +471,9 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         pref.writeConfig("user_id", rnptxvid.getText().toString());
         pref.writeConfig("service", rnptxvservice.getText().toString());
         pref.writeConfig("mailadd", rnptxvaddress.getText().toString());
+        pref.writeConfig("pass", hashMapDB.get("pass").toString());
         pref.writeConfig("passhint", hashMapDB.get("passhint").toString());
-        pref.writeConfig("spinner", hashMapDB.get("spinner").toString());
+//        pref.writeConfig("spinner", hashMapDB.get("spinner").toString());
     }
 
 
@@ -482,6 +510,18 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    /**
+     * あったら便利！トーストメソッドだよ
+     *
+     * @param text
+     */
+    private void toast(String text) {
+        if (text == null) {
+            text = "";
+        }
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
 }

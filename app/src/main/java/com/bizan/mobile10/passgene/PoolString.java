@@ -121,7 +121,7 @@ public class PoolString {
             stb.append("後,");
         }
         if (upperN.size() != 0) {
-            stb.append("の");
+            stb.append("の、頭から");
             for (String s : upperN) {
                 stb.append(s);
                 stb.append("文字目");
@@ -152,7 +152,7 @@ public class PoolString {
         if (loop) {
             stb.append("以上を");
             stb.append(totalNum);
-            stb.append("文字分繰り返します。");
+            stb.append("文字になるまで繰り返します。");
         }
 //        String str = "｛要素A○文字｝、｛要素B○文字｝　｛をミックス後｝、｛○文字目を大文字｝にし" +
 //                "｛記号○｝をたし　数字要素下○桁に○を加え" +
