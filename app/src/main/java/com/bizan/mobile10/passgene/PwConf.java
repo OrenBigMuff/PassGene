@@ -109,7 +109,7 @@ public class PwConf extends AppCompatActivity
             public void onClick(View v) {
 
                 //P2に飛ばす
-                Intent intent = new Intent(PwConf.this, RegistNewPass.class);
+                Intent intent = new Intent(PwConf.this, ReRegistPass.class);
                 intent.putExtra("SID", String.valueOf(id_S));
                 startActivity(intent);
             }

@@ -414,6 +414,7 @@ public class PassList2 extends AppCompatActivity {
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
 //        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
         Cursor cursor = dbC.readPasswordListInfo();
+
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに
 
         mServiceId = new String[cursor.getCount()];

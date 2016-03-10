@@ -142,7 +142,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         btnRegene = (Button) findViewById(R.id.pg_btn_regene);
         btnRegene.setOnClickListener(this);
 
-        //もし新規の場合はmakePass()に流れる
+        /*//もし新規の場合はmakePass()に流れる
         if(!pref.readConfig("PassKeep", false)){
             makePass();
         }else{
@@ -152,7 +152,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
             txvSheep.setText(tmp_service + " の\n 現在のパスワード");
             gp_txv_pass.setText(passKpGp);
             gp_txv_hint.setText(tmp_passhint);
-        }
+        }*/
 
 
     }

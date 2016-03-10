@@ -148,4 +148,7 @@
     <!--マスターパス変更-->
     <string name="title_activity_MPchange">マスターパスワード変更</string>
 
+    <!--サービス情報変更-->
+    <string name="title_activity_re_regist_pass">サービス情報変更</string>
+
 </resources>

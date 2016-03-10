@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.bizan.mobile10.passgene"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bizan.mobile10.passgene">
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <!--<uses-permission android:name="android.permission.SEND_SMS" />-->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <!-- <uses-permission android:name="android.permission.SEND_SMS" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,102 +17,95 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".PassList"
             android:label="@string/title_pass_list"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".PassList2"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RegistInfo"
             android:label="@string/title_activity_regist_info"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserInfoIndex"
             android:label="@string/title_activity_user_info_index"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserInfoList"
             android:label="@string/title_activity_user_info_list"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InitialSet1"
             android:label="@string/title_activity_initial_set1"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InitialSet2"
             android:label="@string/title_activity_initial_set2"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".InitialSet3"
             android:label="@string/title_activity_initial_set3"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistNewPass"
             android:label="@string/title_activity_regist_new_pass"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".GenePass"
             android:label="@string/title_activity_gene_pass"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UserConf"
             android:label="@string/title_activity_user_conf"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PwConf"
             android:label="@string/title_activity_pw_conf"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".AppSetting">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".AppSetting"></activity>
         <activity
             android:name=".UserConf2"
             android:label="@string/title_activity_user_conf2"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".MPchange"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".MPchange"
             android:label="@string/mpchange_text_masterpass"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <activity
             android:name=".IForgot"
             android:label="@string/title_activity_iforgot"
-            android:theme="@style/AppTheme">
-        </activity>
-        <activity android:name=".AppInit">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".AppInit"></activity>
         <activity
             android:name=".GoogleDriveBackup"
             android:label="@string/title_activity_google_drive_backup"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
              App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
         -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
+            android:value="@integer/google_play_services_version" />
 
         <activity
             android:name=".SaveLoadDB"
             android:label="@string/title_activity_save_load_db"
-            android:theme="@style/AppTheme">
-        </activity>
-
-
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".ReRegistPass"
+            android:label="@string/title_activity_re_regist_pass"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
