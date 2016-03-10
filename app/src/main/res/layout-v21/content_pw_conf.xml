@@ -114,38 +114,22 @@
             android:layout_marginTop="15dp"
             android:layout_marginRight="15dp">
 
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mrl_rippleOverlay="true"
+            <Button
+
+                android:text="@string/button3"
+                android:id="@+id/pwconf_hensyubtn"
+                style="@style/pass_blue_button"
                 android:layout_marginRight="10dp"
-                >
+                android:elevation="6dp" />
 
-                <Button
-                    android:text="@string/button3"
-                    android:id="@+id/pwconf_hensyubtn"
-                    style="@style/pass_blue_button"
-                    android:elevation="6dp" />
+            <Button
 
-            </com.balysv.materialripple.MaterialRippleLayout>
-
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mrl_rippleOverlay="true"
+                android:text="@string/button2"
+                android:id="@+id/pwconf_deletebtn"
+                style="@style/pass_red_button"
                 android:layout_marginLeft="10dp"
-                >
-
-                <Button
-                    android:text="@string/button2"
-                    android:id="@+id/pwconf_deletebtn"
-                    style="@style/pass_red_button"
-                    android:elevation="6dp" />
-
-            </com.balysv.materialripple.MaterialRippleLayout>
-
+                android:elevation="6dp" />
         </LinearLayout>
-
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

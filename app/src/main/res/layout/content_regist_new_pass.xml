@@ -238,12 +238,21 @@
 
         </LinearLayout>-->
 
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleOverlay="true"
+            android:layout_marginTop="20dp"
+            >
+
         <Button
             android:id="@+id/rnpbtnnext"
             style="@style/pass_blue_button"
-            android:layout_marginTop="20dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/next"/>
+
+        </com.balysv.materialripple.MaterialRippleLayout>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

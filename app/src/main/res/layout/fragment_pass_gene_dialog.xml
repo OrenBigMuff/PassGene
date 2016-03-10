@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- コンテンツ -->
     <LinearLayout
@@ -49,32 +50,53 @@
                       android:layout_gravity="center"
                       android:gravity="center">
 
-            <!--OKボタン-->
-            <Button
-                android:id="@+id/positive_button_pgdf"
+            <com.balysv.materialripple.MaterialRippleLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:mrl_rippleOverlay="true"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/bt_dialog_positive"
-                android:text="登録"
-                android:textColor="@android:color/white"
                 android:gravity="center"
-                android:textSize="20dp"
-                />
+                android:background="@drawable/bt_dialog_positive"
+                >
+
+                <!--OKボタン-->
+                <Button
+                    android:id="@+id/positive_button_pgdf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bt_dialog_positive"
+                    android:text="登録"
+                    android:textColor="@android:color/white"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    />
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleOverlay="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:background="@drawable/bt_dialog_negative"
+                >
             <!--キャンセル-->
             <Button
                 android:id="@+id/close_button_pgdf"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:layout_marginLeft="10dp"
                 android:background="@drawable/bt_dialog_negative"
                 android:text="戻る"
                 android:textColor="@android:color/white"
                 android:gravity="center"
                 android:textSize="20dp"
                 />
+
+            </com.balysv.materialripple.MaterialRippleLayout>
+
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

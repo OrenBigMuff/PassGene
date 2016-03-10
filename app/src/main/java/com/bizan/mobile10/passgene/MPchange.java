@@ -1,6 +1,7 @@
 package com.bizan.mobile10.passgene;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -23,15 +24,23 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
     NumberPicker npk4;
     Button btn;
     String newpass;
+    String masterpass;
 
     public static Fflag mflag;
+
+    CollapsingToolbarLayout tollbartitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mpchange);
 
+        tollbartitle = (CollapsingToolbarLayout) findViewById(R.id.mp_toolbar_title);
+        tollbartitle.setTitle("マスターパスワード変更");
+
         dbC = new DatabaseC(PassList2.getDbHelper());
+
+        masterpass = String.valueOf(dbC.readMasterPass());
 
         mflag = new Fflag();
 
@@ -69,7 +78,8 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
     private void openPG_Dialog() {
         //DialogFragmentに渡すモノを決めてね
         String title = "マスターパスワード変更";
-        String message ="マスターパスワードを" + newpass + "に変更します。\nよろしいですか？";
+        String message ="マスターパスワードを"+"「" + masterpass + "」" + "から\n" +
+                "「" + newpass + "」" + "に変更します。\n" + "よろしいですか？";
         String posi = "変更";
         String nega = "戻る";
         //ダイアログのレイアウトResId

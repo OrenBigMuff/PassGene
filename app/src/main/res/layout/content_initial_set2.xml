@@ -85,6 +85,11 @@
                       android:layout_marginTop="15dp"
                       android:gravity="center">
 
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleOverlay="true">
+
             <Button android:id="@+id/btnInitialSet2"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
@@ -94,6 +99,8 @@
                     android:text="登録"
                     android:textColor="#ffffff"
                     android:textSize="25sp"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
 
         </LinearLayout>
 

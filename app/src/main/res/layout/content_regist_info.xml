@@ -223,18 +223,15 @@
         </android.support.design.widget.TextInputLayout>
 
         <com.balysv.materialripple.MaterialRippleLayout
-            android:id="@+id/ripIndexRipple"
-            android:layout_width="150dp"
-            android:layout_height="100dp"
-            app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:mrl_rippleOverlay="true"
-            android:layout_below="@+id/tilRegistInfoAll"
-            android:layout_centerHorizontal="true">
+            android:layout_marginTop="15dp"
+            >
 
             <Button
                 android:text="@string/button1"
                 android:id="@+id/btnRegistRegistration"
-                android:layout_marginTop="15dp"
                 android:layout_centerHorizontal="true"
                 style="@style/pass_blue_button" />
 

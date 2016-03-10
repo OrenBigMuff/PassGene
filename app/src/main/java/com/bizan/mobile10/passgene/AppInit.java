@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -69,7 +70,7 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appinit);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
 
         dbC = new DatabaseC(PassList2.getDbHelper());
         //マスターパス呼び出し
@@ -238,8 +239,11 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
         pref.writeConfig("p0_1", false);
         pref.writeConfig("p0_2", false);
         pref.writeConfig("InitialDone", false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
+//        Intent intent = new Intent();
+//        intent.putExtra("text", "終了");
+//        setResult(Activity.RESULT_OK, intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
 
 //        AppInit.this.finish();
     }

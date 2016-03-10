@@ -1,5 +1,6 @@
 package com.bizan.mobile10.passgene;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -54,6 +55,7 @@ public class PassList2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_list);
+
 
         /**
          * DB準備
@@ -354,7 +356,7 @@ public class PassList2 extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(PassList2.this, MPchange.class);
+                                    Intent intent = new Intent(PassList2.this, UserConf2.class);
                                     intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.MPchange");
 //                                intent.putExtra("SID","0");
                                     startActivity(intent);
@@ -401,6 +403,19 @@ public class PassList2 extends AppCompatActivity {
 
         });
     }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+//        if (requestCode == 999 && resultCode == Activity.RESULT_OK){
+//            Bundle extras = data.getExtras();
+//            if (extras != null){
+//                String text = extras.getString("text");
+//                if ("終了".equals(text)){
+//                    PassList2.this.exit();
+//                }
+//            }
+//        }
+//    }
+
 
     @Override
     protected void onResume() {
@@ -596,5 +611,9 @@ public class PassList2 extends AppCompatActivity {
         }*/
 
 
+    }
+
+    private void exit() {
+        android.os.Process.killProcess(android.os.Process.myPid());
     }
 }
