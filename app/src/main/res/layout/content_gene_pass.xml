@@ -64,21 +64,39 @@
             android:orientation="horizontal"
             android:layout_marginTop="20dp">
 
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleOverlay="true"
+                android:layout_weight="1"
+                >
+
             <Button
                 android:text="@string/button1"
                 android:id="@+id/pg_btn_insert"
                 style="@style/pass_blue_button"
-                android:layout_weight="1" />
+                 />
+
+            </com.balysv.materialripple.MaterialRippleLayout>
 
             <Space
                 android:layout_width="20dp"
                 android:layout_height="20dp" />
 
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleOverlay="true"
+                android:layout_weight="1"
+                >
+
             <Button
                 android:text="@string/regene"
                 android:id="@+id/pg_btn_regene"
                 style="@style/pass_blue_button"
-                android:layout_weight="1" />
+                />
+
+            </com.balysv.materialripple.MaterialRippleLayout>
 
         </LinearLayout>
 

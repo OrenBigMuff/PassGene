@@ -125,17 +125,23 @@
                       android:layout_marginBottom="20dp"
                       android:gravity="center">
 
-            <Button android:id="@+id/btnInitialSet1"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:mrl_rippleOverlay="true">
 
-                    android:background="@drawable/pass_blue_button"
-                    android:elevation="4dp"
-                    android:padding="2dp"
-                    android:text="登録"
-                    android:textColor="#ffffff"
-                    android:textSize="25sp"/>
+                <Button android:id="@+id/btnInitialSet1"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
 
+                        android:background="@drawable/pass_blue_button"
+                        android:elevation="4dp"
+                        android:padding="2dp"
+                        android:text="登録"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"/>
+
+            </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>
 
     </LinearLayout>

@@ -69,7 +69,7 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_appinit);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.AppSetting_toolbar);
 
         dbC = new DatabaseC(PassList2.getDbHelper());
         //マスターパス呼び出し
