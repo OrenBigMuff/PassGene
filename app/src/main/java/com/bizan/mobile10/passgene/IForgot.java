@@ -51,8 +51,8 @@ public class IForgot extends AppCompatActivity
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
         btnIForgot1.setOnClickListener(this);
-        btnIForgot2 = (Button) findViewById(R.id.btnIForgot2);
-        btnIForgot2.setOnClickListener(this);
+//        btnIForgot2 = (Button) findViewById(R.id.btnIForgot2);
+//        btnIForgot2.setOnClickListener(this);
 
         edtSmsNum = (EditText) findViewById(R.id.edtSmsNum);
 
@@ -66,14 +66,19 @@ public class IForgot extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnIForgot1) {
-            submitForm();
-        } else if (v.getId() == R.id.btnIForgot2) {
-            //初期化画面へ遷移のコードを記述
-//            toast("最終確認じゃ！");
-            //Dialogを表示させる
-            openPG_Dialog();
+        switch (v.getId()){
+            case R.id.btnIForgot1:
+                submitForm();
+                break;
         }
+//        if (v.getId() == R.id.btnIForgot1) {
+//            submitForm();
+//        } else if (v.getId() == R.id.btnIForgot2) {
+//            //初期化画面へ遷移のコードを記述
+////            toast("最終確認じゃ！");
+//            //Dialogを表示させる
+//            openPG_Dialog();
+//        }
 
     }
 
