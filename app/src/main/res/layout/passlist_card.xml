@@ -58,16 +58,16 @@
                     android:layout_height="wrap_content"
                     app:mrl_rippleOverlay="true"
                     android:layout_marginTop="5dp"
+                    android:layout_gravity="center_horizontal"
                     >
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/button4"
-                    android:id="@+id/plcardbutton"
-                    android:visibility="gone"
-                    style="@style/pass_blue_button"
-                    android:layout_gravity="center_horizontal" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button4"
+                        android:id="@+id/plcardbutton"
+                        android:visibility="gone"
+                        style="@style/pass_blue_button" />
 
                 </com.balysv.materialripple.MaterialRippleLayout>
 
