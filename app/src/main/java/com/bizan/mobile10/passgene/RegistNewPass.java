@@ -275,14 +275,13 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         /**今井追加ここまで****************************************************/
 
 
-        rnplayout = (LinearLayout) findViewById(R.id.rnplayout);
+        rnptxvpass = (TextView) findViewById(R.id.rnptxvpass);
         //データがなかったらパスは表示させない
         if (hashMapDB.get("id").toString().equals("")) {
             //パスワードのとこのレイアウト
-            rnplayout.setVisibility(View.GONE);
+            rnptxvpass.setVisibility(View.GONE);
         } else {
             //パスワードのテキストビュー
-            rnptxvpass = (TextView) findViewById(R.id.rnptxvpass);
             rnptxvpass.setText(hashMapDB.get("pass").toString());
         }
 

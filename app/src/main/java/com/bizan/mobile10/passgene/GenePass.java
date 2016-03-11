@@ -142,6 +142,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
         btnRegene = (Button) findViewById(R.id.pg_btn_regene);
         btnRegene.setOnClickListener(this);
 
+        makePass();
         /*//もし新規の場合はmakePass()に流れる
         if(!pref.readConfig("PassKeep", false)){
             makePass();

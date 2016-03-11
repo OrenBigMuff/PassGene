@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,59 +50,6 @@ public class PwConf extends AppCompatActivity
         id_U = intent_pwconf.getIntExtra("UID", -1);
         id_S = intent_pwconf.getIntExtra("SID", -1);
 
-        if (id_U != -1 && id_S == -1) {
-
-            toast("Error! 前ページのソースコードがおかしくないですか？");          //←最終的に削除
-            return;
-        } else if (id_U == -1 && id_S != -1) {
-            toast("IDをCatchしました-SID");
-            String tmp_S = String.valueOf(id_S);
-            Cursor cursor = dbC.readServiceInfo(tmp_S);
-
-//            String[] list = new String[cursor.getCount()];
-
-
-//                for (int i = 0; i < list.length; i++) {
-//                    list[i] = cursor.getString();
-            cursor.moveToFirst();
-                    service = cursor.getString(1);
-                    userid = cursor.getString(2);
-                    mail = cursor.getString(3);
-                    password = cursor.getString(11);
-
-
-                    cursor.close();
-
-//            cursor.moveToFirst();
-//            String[] service_array = new String[cursor.getCount()];
-//            String[] userid_array = new String[cursor.getCount()];
-//            String[] mail_array = new String[cursor.getCount()];
-//            String[] password_array = new String[cursor.getCount()];
-//
-//            for (int i = 0; i < service_array.length; i++) {
-//                service_array[i] = cursor.getString(1);
-//                userid_array[i] = cursor.getString(2);
-//                mail_array[i] = cursor.getString(3);
-//                password_array[i] = cursor.getString(11);
-//
-//                cursor.moveToNext();
-
-        }
-
-        getSupportActionBar().setTitle(service);
-
-        txvValue_address = (TextView) findViewById(R.id.pwconf_txvValue_address);
-        txvValue_address.setText(mail);
-//        String test = txvValue_address.getText().toString();
-
-        txvValue_password = (TextView) findViewById(R.id.pwconf_txvValue_Password);
-        txvValue_password.setText(password);
-//        String test2 = txvValue_password.getText().toString();
-
-        txvValue_account = (TextView) findViewById(R.id.pwconf_txvValue_account);
-        txvValue_account.setText(userid);
-//        String test3 = txvValue_account.getText().toString();
-
         //編集ボタン
         btnEdit = (Button) findViewById(R.id.pwconf_hensyubtn);
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +75,65 @@ public class PwConf extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (id_U != -1 && id_S == -1) {
+
+            toast("Error! 前ページのソースコードがおかしくないですか？");          //←最終的に削除
+            return;
+        } else if (id_U == -1 && id_S != -1) {
+            toast("IDをCatchしました-SID");
+            String tmp_S = String.valueOf(id_S);
+            Cursor cursor = dbC.readServiceInfo(tmp_S);
+
+//            String[] list = new String[cursor.getCount()];
+
+
+//                for (int i = 0; i < list.length; i++) {
+//                    list[i] = cursor.getString();
+            cursor.moveToFirst();
+            service = cursor.getString(1);
+            userid = cursor.getString(2);
+            mail = cursor.getString(3);
+            password = cursor.getString(11);
+
+
+            cursor.close();
+
+//            cursor.moveToFirst();
+//            String[] service_array = new String[cursor.getCount()];
+//            String[] userid_array = new String[cursor.getCount()];
+//            String[] mail_array = new String[cursor.getCount()];
+//            String[] password_array = new String[cursor.getCount()];
+//
+//            for (int i = 0; i < service_array.length; i++) {
+//                service_array[i] = cursor.getString(1);
+//                userid_array[i] = cursor.getString(2);
+//                mail_array[i] = cursor.getString(3);
+//                password_array[i] = cursor.getString(11);
+//
+//                cursor.moveToNext();
+
+        }
+
+        CollapsingToolbarLayout toolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.pwconf_ToolBarLayout);
+        toolbarLayout.setTitle(service);
+//        getSupportActionBar().setTitle(service);
+
+        txvValue_address = (TextView) findViewById(R.id.pwconf_txvValue_address);
+        txvValue_address.setText(mail);
+//        String test = txvValue_address.getText().toString();
+
+        txvValue_password = (TextView) findViewById(R.id.pwconf_txvValue_Password);
+        txvValue_password.setText(password);
+//        String test2 = txvValue_password.getText().toString();
+
+        txvValue_account = (TextView) findViewById(R.id.pwconf_txvValue_account);
+        txvValue_account.setText(userid);
+//        String test3 = txvValue_account.getText().toString();
+    }
 
     /**
      * DialogFragmentにゴニョゴニョするメソッド

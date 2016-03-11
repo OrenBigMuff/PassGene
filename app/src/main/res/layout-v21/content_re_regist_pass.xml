@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="25dp">
+        android:padding="20dp">
 
 
         <LinearLayout
@@ -234,13 +234,13 @@
                 android:id="@+id/rrpbtnRegist"
                 style="@style/pass_blue_button"
                 android:text="@string/button1"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginRight="8dp"/>
 
             <Button
                 android:id="@+id/rrpbtnnext"
                 style="@style/pass_blue_button"
                 android:text="パスワード編集"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="8dp"/>
 
         </LinearLayout>
 

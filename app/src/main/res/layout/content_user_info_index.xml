@@ -71,8 +71,8 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/ripIndexRipple"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
                 app:mrl_rippleOverlay="true"
                 android:layout_below="@+id/btnIndexElimination1">
