@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="25dp">
+        android:padding="20dp">
 
 
         <LinearLayout
@@ -231,11 +231,11 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/rrpRippleButton1"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
                 app:mrl_rippleOverlay="true"
-                android:layout_marginRight="10dp">
+                android:layout_marginRight="8dp">
 
                 <Button
                     android:id="@+id/rrpbtnRegist"
@@ -246,11 +246,11 @@
 
             <com.balysv.materialripple.MaterialRippleLayout
                 android:id="@+id/rrpRippleButton2"
-                android:layout_width="150dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:mrl_rippleColor="@color/passGeneCardBackgroundGray"
                 app:mrl_rippleOverlay="true"
-                android:layout_marginLeft="10dp">
+                android:layout_marginLeft="8dp">
 
                 <Button
                     android:id="@+id/rrpbtnNext"
