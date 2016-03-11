@@ -136,9 +136,9 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
 
         //DialogFragmentに渡すモノを決めてね
         String title = "削除確認";
-        String message = "削除します。\nよろしいですか?";
-        String posi = "削除";
-        String nega = "戻る";
+        String message = "情報を削除します。\nよろしいですか?";
+        String posi = "戻る";
+        String nega = "削除";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
@@ -153,8 +153,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
      */
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
-        dbC.deleteUserInfoDeleteFlag(Integer.parseInt(mUserInfoId));
-        this.finish();
+        //「戻る」ボタンを押下した時
         dialog.dismiss();
     }
 
@@ -164,6 +163,9 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
      */
     @Override
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
+        //「削除」ボタンを押下した時
+        dbC.deleteUserInfoDeleteFlag(Integer.parseInt(mUserInfoId));
+        this.finish();
         dialog.dismiss();
     }
 }

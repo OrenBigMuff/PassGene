@@ -148,6 +148,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         Bundle extrasID = getIntent().getExtras();
         if (extrasID != null) {
             exID = extrasID.getString("SID");
+
         } else {
             exID = "";
         }

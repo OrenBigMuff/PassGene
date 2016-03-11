@@ -239,11 +239,13 @@ public class AppInit extends AppCompatActivity implements View.OnClickListener, 
         pref.writeConfig("p0_1", false);
         pref.writeConfig("p0_2", false);
         pref.writeConfig("InitialDone", false);
+
 //        Intent intent = new Intent();
 //        intent.putExtra("text", "終了");
 //        setResult(Activity.RESULT_OK, intent);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 //        startActivity(intent);
+
 
 //        AppInit.this.finish();
     }

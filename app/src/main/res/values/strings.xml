@@ -71,7 +71,7 @@
 
     <!-- ユーザー情報一覧画面 -->
     <string name="user_info_list_explanation1">ユーザー情報一覧</string>
-    <string name="user_info_list_explanation2">各カードにあるチェックボックスがチェック中である場合､その情報をパスワード生成に使用します｡</string>
+    <string name="user_info_list_explanation2">チェックボックスにチェックが入っている情報を、パスワードの生成に使用します｡</string>
 
     <!-- ユーザー情報確認画面 -->
     <string name="user_info_index_explanation1">このユーザー情報を\n使用中のサービス</string>
@@ -79,18 +79,18 @@
     <!-- ユーザー情報登録画面 -->
     <string name="regist_info_explanation1">ユーザー情報登録</string>
     <string name="regist_info_explanation2">PW生成の基になるユーザー情報の\nタイトル、カテゴリーを\n入力・選択して下さい。</string>
-    <string name="regist_info_hint0">入力情報のタイトルを入力してください。</string>
+    <string name="regist_info_hint0">入力情報にタイトルを付けて下さい。(例)実家の電話番号</string>
     <string name="regist_info_hint1">英字(アルファベット)で入力してください。</string>
     <string name="regist_info_hint2">数字で入力してください。</string>
     <string name="regist_info_hint3">英数字で入力してください。</string>
     <string name="regist_info_hint4">英数字(A-Z,a-z,0-9)で入力してください｡</string>
-    <string name="regist_info_heading1">Tag</string>
-    <string name="regist_info_heading2">Category</string>
-    <string name="regist_info_heading3">Data</string>
+    <string name="regist_info_heading1">タイトル</string>
+    <string name="regist_info_heading2">情報カテゴリー</string>
+    <string name="regist_info_heading3">入力情報</string>
     <string name="regist_info_Date1">年</string>
     <string name="regist_info_Date2">月</string>
     <string name="regist_info_Date3">日</string>
-    <string name="regist_info_errormessage1">情報名の入力は必須です。</string>
+    <string name="regist_info_errormessage1">タイトルの入力は必須です。</string>
     <string name="regist_info_errormessage2">電話番号の入力は必須です。</string>
     <string name="regist_info_errormessage3">情報の入力は必須です。</string>
 

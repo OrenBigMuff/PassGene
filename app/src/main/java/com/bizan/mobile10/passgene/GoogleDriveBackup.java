@@ -44,14 +44,14 @@ public class GoogleDriveBackup extends AppCompatActivity
 
     private static Drive service;
     private GoogleAccountCredential credential;
-    private static Uri selectedDBUri;
+    private static Uri selectedTextUri;
 
     private String selectedDBPath;
     private ImageView img;
     private TextView tv;
     Intent databaseIntent;
     private static String DB_PATH = null;
-    private static final String DATABASE_NAME = "pg.db";
+    private static final String DATATEXT_NAME = "pgdb_Backup";
 
     /**
      * お試し
@@ -78,8 +78,8 @@ public class GoogleDriveBackup extends AppCompatActivity
         btnGdSave.setOnClickListener(this);
         DB_PATH = Environment.getDataDirectory().getPath() + "/data/" + "com.bizan.mobile10.passgene" + "/databases/pg.db";
 
-        /*credential = GoogleAccountCredential.usingOAuth2(this, Arrays.asList(new String[]{DriveScopes.DRIVE_FILE}));
-        startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);*/
+        credential = GoogleAccountCredential.usingOAuth2(this, Arrays.asList(new String[]{DriveScopes.DRIVE_FILE}));
+        startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
 
     }
 
@@ -113,11 +113,11 @@ public class GoogleDriveBackup extends AppCompatActivity
             case SELECT_DB:
                 if (resultCode == Activity.RESULT_OK) {
 
-                    selectedDBUri = data.getData();
-                    selectedDBPath = getPath(selectedDBUri);
+                    selectedTextUri = data.getData();
+                    selectedDBPath = getPath(selectedTextUri);
                     // tv = (TextView) findViewById(R.id.text1);
                     //tv.setText("File Path: " + selectedImagePath);
-                    toast("DB Path : " + selectedDBPath);
+                    toast("Text Path : " + selectedDBPath);
                     //img.setImageURI(selectedImageUri);
                     startDBIntent();
                 }
@@ -131,8 +131,10 @@ public class GoogleDriveBackup extends AppCompatActivity
 
     public void startDBIntent(){
 
+/*
         credential = GoogleAccountCredential.usingOAuth2(this, Arrays.asList(new String[]{DriveScopes.DRIVE_FILE}));
         startActivityForResult(credential.newChooseAccountIntent(), REQUEST_ACCOUNT_PICKER);
+*/
 
     }
 
@@ -143,13 +145,13 @@ public class GoogleDriveBackup extends AppCompatActivity
             public void run() {
                 try {
                     // File's binary content
-                    java.io.File fileContent = new java.io.File(selectedDBUri.getPath());
-                    FileContent mediaContent = new FileContent(getMimeType(DB_PATH), fileContent);
+                    java.io.File fileContent = new java.io.File(selectedTextUri.getPath());
+                    FileContent mediaContent = new FileContent("text/plain", fileContent);
 
                     // File's metadata.
                     File body = new File();
-                    body.setTitle(DATABASE_NAME);
-                    body.setMimeType(getMimeType(DB_PATH));
+                    body.setTitle(DATATEXT_NAME);
+                    body.setMimeType("text/plain");
 
                     File file = service.files().insert(body, mediaContent).execute();
                     if(file != null) {
@@ -170,7 +172,7 @@ public class GoogleDriveBackup extends AppCompatActivity
 
     public String getPath(Uri uri) {
         String[] projection = { MediaStore.Images.Media.DATA };
-        Cursor cursor = getContentResolver().query(selectedDBUri, projection, null, null, null);
+        Cursor cursor = getContentResolver().query(selectedTextUri, projection, null, null, null);
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
@@ -182,9 +184,9 @@ public class GoogleDriveBackup extends AppCompatActivity
         if (v.getId() == R.id.btnGdSave) {
 
             databaseIntent = new Intent();
-            databaseIntent.setType(getMimeType(DB_PATH));
+            databaseIntent.setType("text/plain");
             databaseIntent.setAction(Intent.ACTION_GET_CONTENT);
-            databaseIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedDBUri);
+            databaseIntent.putExtra(MediaStore.EXTRA_OUTPUT, selectedTextUri);
             startActivityForResult(databaseIntent, SELECT_DB);
 
 //            saveFileToDrive();
