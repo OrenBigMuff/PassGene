@@ -305,7 +305,7 @@ public class PassList2 extends AppCompatActivity {
         /**
          * Recycleview
          */
-        String nvTITLES[] = {"ユーザー情報設定", "マスターパスワード変更", "アプリ初期化"};      //NV内のメニュー
+        String nvTITLES[] = {"ユーザー情報設定", "マスターパスワード変更", "バックアップ"};      //NV内のメニュー
         int nvICONS[] = {R.drawable.nd_icon_1, R.drawable.nd_icon_2, R.drawable.nd_icon_3};
 
         //リサイクルビューキャスト
@@ -379,7 +379,7 @@ public class PassList2 extends AppCompatActivity {
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(PassList2.this, AppInit.class);
+                                    Intent intent = new Intent(PassList2.this, GoogleDriveBackup.class);
                                     startActivity(intent);
                                 }
                             }, 250);

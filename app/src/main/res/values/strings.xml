@@ -44,9 +44,9 @@
     <string name="err_msg_iforgot2">携帯番号の桁数を確認して下さい。</string>
 
     <!-- GoogleDriveバックアップ画面 -->
-    <string name="title_activity_google_drive_backup">GoogleDrive バックアップ</string>
+    <string name="title_activity_google_drive_backup">バックアップ</string>
     <string name="guide_title_gdb">【情報のバックアップ】</string>
-    <string name="guide_text_gdb">○○さん、\nパスじぇねくんに登録した情報をGoogleDriveにアップロードしてバックアップを取ることができます。
+    <string name="guide_text_gdb">パスじぇねくんに登録した情報をE-Mailとして送信することでバックアップを取ることができます。
     </string>
 
     <!-- SDcardバックアップ画面 -->

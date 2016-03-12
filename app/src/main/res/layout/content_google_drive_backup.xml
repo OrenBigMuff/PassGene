@@ -58,7 +58,7 @@
                     android:elevation="4dp"
                     android:background="@drawable/pass_blue_button"
                     android:padding="2dp"
-                    android:text="Google\nDriveに\nSaveする"
+                    android:text="バックアップ\nE-Mail送信"
                     android:textColor="#ffffff"
                     android:textSize="20sp"/>
 
