@@ -71,7 +71,7 @@
 
     <!-- ユーザー情報一覧画面 -->
     <string name="user_info_list_explanation1">ユーザー情報一覧</string>
-    <string name="user_info_list_explanation2">チェックボックスにチェックが入っている情報を、パスワードの生成に使用します｡</string>
+    <string name="user_info_list_explanation2">チェックボックスにチェックが入っている\n情報をパスワードの生成に使用します｡</string>
 
     <!-- ユーザー情報確認画面 -->
     <string name="user_info_index_explanation1">このユーザー情報を\n使用中のサービス</string>

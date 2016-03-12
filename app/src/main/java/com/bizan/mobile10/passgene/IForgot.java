@@ -135,7 +135,7 @@ public class IForgot extends AppCompatActivity
         }
         //入力されたSMS番号を取得
         smsNum = edtSmsNum.getText().toString();
-        toast(PassList2.getUserName() + "+さんのマスターパスワードを、" + smsNum + "へ送信します。");
+        toast(PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。");
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         Uri smsNumber = Uri.parse("sms:smsNum");       //SMS番号09012345678
         intent.setData(smsNumber);

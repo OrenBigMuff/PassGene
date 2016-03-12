@@ -125,7 +125,6 @@ public class UserConf2 extends AppCompatActivity
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("SID", ID_S);
-                toast(String.valueOf(ID_S));
                 startActivity(intent);
                 UserConf2.this.finish();
             }else if(ID_S == -1 && ID_U == -1){
