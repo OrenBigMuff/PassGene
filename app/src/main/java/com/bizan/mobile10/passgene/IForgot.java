@@ -49,7 +49,7 @@ public class IForgot extends AppCompatActivity
 //        smsManager = SmsManager.getDefault();
 
         txvIForgot = (TextView)findViewById(R.id.txvIForgot);
-        txvIForgot.setText(PassList2.getUserName() + " さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。");
+        txvIForgot.setText(PassList2.getUserName() + " さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワードを送信(SMS)することができます。");
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
         btnIForgot1.setOnClickListener(this);

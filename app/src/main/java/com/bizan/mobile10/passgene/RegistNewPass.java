@@ -352,7 +352,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             arrayService = arrayset(cursor);
         } else {
             arrayService = null;
-            toast("arrayService:error");
+//            toast("arrayService:error");
         }
 
         cursor = dbC.readSingleclum(2);
@@ -360,7 +360,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             arrayid = new String[cursor.getCount()];
             arrayid = arrayset(cursor);
         } else {
-            toast("arrayid:error");
+//            toast("arrayid:error");
         }
 
         cursor = dbC.readSingleclum(3);
@@ -368,7 +368,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             arrayadd = new String[cursor.getCount()];
             arrayadd = arrayset(cursor);
         } else {
-            toast("arrayadd:error");
+//            toast("arrayadd:error");
         }
         cursor.close();
     }

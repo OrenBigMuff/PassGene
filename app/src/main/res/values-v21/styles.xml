@@ -1,9 +1,9 @@
 <resources>
 
-
     <style name="AppTheme.NoActionBar">
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:textCursorDrawable">@color/passGeneBackgroundBlue</item>
         <item name="android:datePickerStyle">@style/datePickerTheme</item>
 
         <item name="windowActionBar">false</item>

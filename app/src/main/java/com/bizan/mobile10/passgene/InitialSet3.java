@@ -79,7 +79,7 @@ public class InitialSet3 extends AppCompatActivity
         if(v.getId() == R.id.btnInitialSet3Posi){
 
             Intent intent1 = new Intent(InitialSet3.this, RegistInfo.class);
-            toast("ユーザー情報登録画面へ");
+//            toast("ユーザー情報登録画面へ");
             startActivity(intent1);
 
             InitialSet3.this.finish();
@@ -87,7 +87,7 @@ public class InitialSet3 extends AppCompatActivity
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 
 //            Intent intent2 = new Intent(InitialSet3.this, PassList2.class);
-            toast("サービス名一覧画面へ");
+//            toast("サービス名一覧画面へ");
 //            startActivity(intent2);
 
             InitialSet3.this.finish();
