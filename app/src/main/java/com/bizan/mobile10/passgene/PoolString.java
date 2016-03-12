@@ -136,7 +136,7 @@ public class PoolString {
             stb.append(" ");
             stb.append("記号「 ");
             stb.append(sign);
-            stb.append(" 」を足し、");
+            stb.append(" 」を加え、");
         }
         stb.append(" ");
         stb.append(nElemS);

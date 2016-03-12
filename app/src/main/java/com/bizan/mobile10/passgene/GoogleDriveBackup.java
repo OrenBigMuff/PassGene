@@ -20,15 +20,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.api.services.drive.Drive;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
-import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
-import com.google.api.client.http.FileContent;
-import com.google.api.client.json.gson.GsonFactory;
-import com.google.api.services.drive.DriveScopes;
-import com.google.api.services.drive.model.File;
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
