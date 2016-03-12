@@ -122,6 +122,7 @@
             android:id="@+id/dpkRegistInfoBirthday"
             android:layout_centerHorizontal="true"
             android:calendarViewShown="false"
+            android:datePickerMode="spinner"
             android:layout_marginTop="15dp"
             android:layout_below="@+id/tilRegistInfoTel"
             android:layout_alignLeft="@+id/regist1" />

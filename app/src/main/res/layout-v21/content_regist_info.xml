@@ -123,6 +123,7 @@
             android:layout_centerHorizontal="true"
             android:calendarViewShown="false"
             android:layout_marginTop="15dp"
+            android:datePickerMode="spinner"
             android:layout_below="@+id/tilRegistInfoTel"
             android:layout_alignLeft="@+id/regist1" />
 

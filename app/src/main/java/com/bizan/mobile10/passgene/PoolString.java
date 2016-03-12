@@ -144,7 +144,7 @@ public class PoolString {
         stb.append(nElemN);
         stb.append("桁");
         if (nElemP.length() != 0) {
-            stb.append("に");
+            stb.append("分 各桁に");
             stb.append(nElemP);
             stb.append("を加え");
         }

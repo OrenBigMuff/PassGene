@@ -59,7 +59,6 @@ public class InitialSet1 extends AppCompatActivity
     private int mDay;
 
 
-
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +102,7 @@ public class InitialSet1 extends AppCompatActivity
 
         pref = new PreferenceC(this);
 
-        dpkBirthDay = (DatePicker)findViewById(R.id.dpkBirthDay);
+        dpkBirthDay = (DatePicker) findViewById(R.id.dpkBirthDay);
         dpkBirthDay.setCalendarViewShown(false);
         dpkBirthDay.updateDate(1978, 4, 8);  //Mは　+1で表示
 
@@ -168,27 +167,27 @@ public class InitialSet1 extends AppCompatActivity
         mMonth = dpkBirthDay.getMonth();
         mDay = dpkBirthDay.getDayOfMonth();
 
-        dispBirth = String.valueOf(mYear) + "年" + String.valueOf(mMonth+1) + "月" + String.valueOf(mDay) + "日";
+        dispBirth = String.valueOf(mYear) + "年" + String.valueOf(mMonth + 1) + "月" + String.valueOf(mDay) + "日";
 
-        if(mMonth >= 10){
-            if(mDay >= 10){
-                registBirth = String.valueOf(mYear) + String.valueOf(mMonth+1) + String.valueOf(mDay);
-            }else{
-                registBirth = String.valueOf(mYear) + String.valueOf(mMonth+1) + "0" + String.valueOf(mDay);
+        if (mMonth >= 10) {
+            if (mDay >= 10) {
+                registBirth = String.valueOf(mYear) + String.valueOf(mMonth + 1) + String.valueOf(mDay);
+            } else {
+                registBirth = String.valueOf(mYear) + String.valueOf(mMonth + 1) + "0" + String.valueOf(mDay);
             }
-        }else{
-            if(mDay >= 10){
-                registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth+1) + String.valueOf(mDay);
+        } else {
+            if (mDay >= 10) {
+                registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth + 1) + String.valueOf(mDay);
             }
-            registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth+1) + "0" + String.valueOf(mDay);
+            registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth + 1) + "0" + String.valueOf(mDay);
         }
-
 
 
     }
 
     /**
      * Errorメッセージのくだり
+     *
      * @return
      */
     private boolean validateLastname() {
@@ -253,6 +252,15 @@ public class InitialSet1 extends AppCompatActivity
     public void onClick(View v) {
         if (v.getId() == R.id.btnInitialSet1) {
 
+//            if(inputLastname.getText().toString().equals("") || inputFirstname.getText().toString().equals("")){
+//
+//            }else {
+            if (!validateLastname()) {
+                return;
+            }
+            if (!validateFirstname()) {
+                return;
+            }
             submitForm();
 
             toast("はじめまして" + this.fullname + "さん、\n生年月日は、" + this.dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");

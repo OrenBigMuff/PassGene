@@ -81,10 +81,10 @@ public class PwConf extends AppCompatActivity
 
         if (id_U != -1 && id_S == -1) {
 
-            toast("Error! 前ページのソースコードがおかしくないですか？");          //←最終的に削除
+//            toast("Error! 前ページのソースコードがおかしくないですか？");          //←最終的に削除
             return;
         } else if (id_U == -1 && id_S != -1) {
-            toast("IDをCatchしました-SID");
+//            toast("IDをCatchしました-SID");
             String tmp_S = String.valueOf(id_S);
             Cursor cursor = dbC.readServiceInfo(tmp_S);
 

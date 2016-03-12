@@ -96,17 +96,6 @@ public class PassList2 extends AppCompatActivity {
         pref = new PreferenceC(this);
 
 
-        /**
-         * 初回起動か、あるいはInitialSet1,2を経過しているかのチェック
-         */
-        if (!pref.readConfig("firstStart", false) || !pref.readConfig("InitialDone", false)) {
-            //InitialSet1へ遷移
-            Intent intent = new Intent(PassList2.this, InitialSet1.class);
-            startActivity(intent);
-
-            //初回起動したので、その旨コンフィグにWriteする
-            pref.writeConfig("firstStart", true);
-        }
 
         /**
          * ツールバーの設定
@@ -313,7 +302,7 @@ public class PassList2 extends AppCompatActivity {
         plRecycleView.setHasFixedSize(true);
 
         //アダプターセット
-        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", PassList2.getUserName() + " さん");
+        RecyclerViewAdapter plAdapter = new RecyclerViewAdapter(nvTITLES, nvICONS, "設定画面", ""/*PassList2.getUserName() + " さん"*/);
         plRecycleView.setAdapter(plAdapter);
 
         //リサイクルビューにレイアウトマネージャをセット
@@ -422,12 +411,27 @@ public class PassList2 extends AppCompatActivity {
         super.onResume();
 
         /**
+         * 初回起動か、あるいはInitialSet1,2を経過しているかのチェック
+         */
+        if (!pref.readConfig("firstStart", false) || !pref.readConfig("InitialDone", false)) {
+            //InitialSet1へ遷移
+            Intent intent = new Intent(PassList2.this, InitialSet1.class);
+            startActivity(intent);
+
+            //初回起動したので、その旨コンフィグにWriteする
+            pref.writeConfig("firstStart", true);
+        }
+
+
+
+        /**
          * 登録降順でカード作成
          */
 //        Cursor cursor = dbC.readPasswordListInfo();
 //        InitialSet1 initialSet1 = new InitialSet1();
 //        DatabaseHelper dbHelper = initialSet1.getDbHelper();
 //        DatabaseC dbC = new DatabaseC(InitialSet1.getDbHelper());
+        dbC = new DatabaseC(this.getDbHelper());
         Cursor cursor = dbC.readPasswordListInfo();
 
         boolean cPlace = cursor.moveToFirst();       // 参照先を一番始めに

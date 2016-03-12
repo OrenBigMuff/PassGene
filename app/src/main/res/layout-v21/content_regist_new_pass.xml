@@ -124,6 +124,7 @@
                 android:inputType="text"
                 android:singleLine="true"
                 android:textColor="@color/passGeneTextBlue"
+                android:textColorHint="@color/passGeneTextBlue"
                 android:text="New AutoCompleteTextView"/>
 
             </android.support.design.widget.TextInputLayout>
@@ -155,7 +156,9 @@
                     android:layout_marginLeft="20dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="New Text"/>
+                    android:text="New Text">
+                    <requestFocus />
+                </TextView>
             </LinearLayout>
 
             <LinearLayout

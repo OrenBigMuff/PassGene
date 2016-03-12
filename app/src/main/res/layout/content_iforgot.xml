@@ -66,7 +66,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
+                    android:textColor="@color/passGeneTextBlue"
                     android:textColorHint="@color/passGeneTextBlue"
+                    android:textCursorDrawable="@color/passGeneBackgroundBlue"
                     android:digits="0123456789"
                     android:hint="@string/hint_iforgot"
                     android:inputType="numberDecimal"
@@ -88,6 +90,7 @@
                 android:layout_height="wrap_content"
                 app:mrl_rippleOverlay="true"
                 android:layout_marginRight="5dp"
+                android:layout_gravity="center_horizontal"
                 >
 
                 <Button android:id="@+id/btnIForgot1"
@@ -102,24 +105,24 @@
 
             </com.balysv.materialripple.MaterialRippleLayout>
 
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mrl_rippleOverlay="true"
-                android:layout_marginLeft="5dp"
-                >
+            <!--<com.balysv.materialripple.MaterialRippleLayout-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:mrl_rippleOverlay="true"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!-->-->
 
-            <Button android:id="@+id/btnIForgot2"
-                    android:layout_width="150dp"
-                    android:layout_height="100dp"
-                    android:elevation="4dp"
-                    android:background="@drawable/pass_red_button"
-                    android:padding="2dp"
-                    android:text="アプリを\n初期化"
-                    android:textColor="#ffffff"
-                    android:textSize="25sp"/>
+            <!--<Button android:id="@+id/btnIForgot2"-->
+                    <!--android:layout_width="150dp"-->
+                    <!--android:layout_height="100dp"-->
+                    <!--android:elevation="4dp"-->
+                    <!--android:background="@drawable/pass_red_button"-->
+                    <!--android:padding="2dp"-->
+                    <!--android:text="アプリを\n初期化"-->
+                    <!--android:textColor="#ffffff"-->
+                    <!--android:textSize="25sp"/>-->
 
-            </com.balysv.materialripple.MaterialRippleLayout>
+            <!--</com.balysv.materialripple.MaterialRippleLayout>-->
 
         </LinearLayout>
 

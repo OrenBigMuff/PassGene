@@ -23,7 +23,8 @@ import android.widget.Toast;
 public class IForgot extends AppCompatActivity
         implements View.OnClickListener, PassGeneDialog.DialogListener {
 
-    DatabaseC dbC;
+    private DatabaseC dbC;
+    private PreferenceC pref;
     private Button btnIForgot1;
     private Button btnIForgot2;
     private TextView txvIForgot;
@@ -41,18 +42,19 @@ public class IForgot extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        pref = new PreferenceC(this);
         dbC = new DatabaseC(PassList2.getDbHelper());
         rightPass = dbC.readMasterPass();
 
 //        smsManager = SmsManager.getDefault();
 
         txvIForgot = (TextView)findViewById(R.id.txvIForgot);
-        txvIForgot.setText(PassList2.getUserName() + " さん、\\nマスターパスワードを忘れましたか？\\n以下に携帯電話の番号を入力すると、\\nマスターパスワード(SMS)を送信することができます。");
+        txvIForgot.setText(PassList2.getUserName() + " さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワードを送信(SMS)することができます。");
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
         btnIForgot1.setOnClickListener(this);
-        btnIForgot2 = (Button) findViewById(R.id.btnIForgot2);
-        btnIForgot2.setOnClickListener(this);
+//        btnIForgot2 = (Button) findViewById(R.id.btnIForgot2);
+//        btnIForgot2.setOnClickListener(this);
 
         edtSmsNum = (EditText) findViewById(R.id.edtSmsNum);
 
@@ -66,14 +68,19 @@ public class IForgot extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnIForgot1) {
-            submitForm();
-        } else if (v.getId() == R.id.btnIForgot2) {
-            //初期化画面へ遷移のコードを記述
-//            toast("最終確認じゃ！");
-            //Dialogを表示させる
-            openPG_Dialog();
+        switch (v.getId()){
+            case R.id.btnIForgot1:
+                submitForm();
+                break;
         }
+//        if (v.getId() == R.id.btnIForgot1) {
+//            submitForm();
+//        } else if (v.getId() == R.id.btnIForgot2) {
+//            //初期化画面へ遷移のコードを記述
+////            toast("最終確認じゃ！");
+//            //Dialogを表示させる
+//            openPG_Dialog();
+//        }
 
     }
 
@@ -105,7 +112,17 @@ public class IForgot extends AppCompatActivity
     @Override
     public void onNegativeButtonClick(DialogFragment dialog) {
         //堀川さんからもらう予定のInitializeコードを記述する
-        toast("ああああぁぁぁぁぁぁ～ 初期化しちゃうぅ～～～");
+        //テーブル初期化
+        dbC.reset();
+        Toast.makeText(this, "アプリが初期化されました", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(IForgot.this, PassList2.class);
+        pref.writeConfig("firstStart", false);
+        pref.writeConfig("p0_1", false);
+        pref.writeConfig("p0_2", false);
+        pref.writeConfig("InitialDone", false);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+//        toast("ああああぁぁぁぁぁぁ～ 初期化しちゃうぅ～～～");
     }
 
 
@@ -118,7 +135,7 @@ public class IForgot extends AppCompatActivity
         }
         //入力されたSMS番号を取得
         smsNum = edtSmsNum.getText().toString();
-        toast(PassList2.getUserName() + "+さんのマスターパスワードを、" + smsNum + "へ送信します。");
+        toast(PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。");
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         Uri smsNumber = Uri.parse("sms:smsNum");       //SMS番号09012345678
         intent.setData(smsNumber);
