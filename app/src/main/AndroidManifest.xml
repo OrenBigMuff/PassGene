@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bizan.mobile10.passgene">
 
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <!-- <uses-permission android:name="android.permission.SEND_SMS" /> -->
     <application
@@ -14,11 +12,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".PassList"
-            android:label="@string/title_pass_list"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".PassList2"
             android:label="@string/app_name"
@@ -71,11 +64,6 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".UserConf"
-            android:label="@string/title_activity_user_conf"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".PwConf"
             android:label="@string/title_activity_pw_conf"
             android:theme="@style/AppTheme.NoActionBar"
@@ -105,7 +93,7 @@
             android:label="@string/title_activity_google_drive_backup"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"></activity>
-        
+
 
         <activity
             android:name=".ReRegistPass"
