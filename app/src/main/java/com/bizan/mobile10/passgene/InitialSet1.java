@@ -104,7 +104,7 @@ public class InitialSet1 extends AppCompatActivity
 
         dpkBirthDay = (DatePicker) findViewById(R.id.dpkBirthDay);
         dpkBirthDay.setCalendarViewShown(false);
-        dpkBirthDay.updateDate(1978, 4, 8);  //Mは　+1で表示
+        dpkBirthDay.updateDate(1996, 2, 16);  //Mは　+1で表示
 
         dateFormatter = new SimpleDateFormat("yyyy年MM月dd日", Locale.US);
         dateFormatter2 = new SimpleDateFormat("yyyyMMdd", Locale.US);

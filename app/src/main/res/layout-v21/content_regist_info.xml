@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoTag"
                 android:hint="@string/regist_info_hint0"
+                android:textColor="@color/passGeneTextBlue"
                 android:singleLine="true"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -111,6 +112,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoTel"
                 android:hint="@string/regist_info_hint2"
+                android:textColor="@color/passGeneTextBlue"
                 android:inputType="number"
                 android:digits="0123456789"
                 android:singleLine="true"/>
@@ -141,6 +143,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoSurname"
                 android:hint="@string/regist_info_hint3"
+                android:textColor="@color/passGeneTextBlue"
                 android:inputType="text"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:singleLine="true"/>
@@ -161,6 +164,7 @@
                 android:id="@+id/edtRegistInfoName"
                 android:layout_marginTop="4dp"
                 android:hint="@string/regist_info_hint3"
+                android:textColor="@color/passGeneTextBlue"
                 android:inputType="text"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:singleLine="true"/>
@@ -180,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoText"
                 android:hint="@string/regist_info_hint3"
+                android:textColor="@color/passGeneTextBlue"
                 android:inputType="text"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 android:singleLine="true"/>
@@ -199,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoNumber"
                 android:hint="@string/regist_info_hint2"
+                android:textColor="@color/passGeneTextBlue"
                 android:inputType="number"
                 android:digits="0123456789"
                 android:singleLine="true"/>
@@ -218,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtRegistInfoAll"
                 android:hint="@string/regist_info_hint4"
+                android:textColor="@color/passGeneTextBlue"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
                 android:inputType="text"
                 android:singleLine="true"/>

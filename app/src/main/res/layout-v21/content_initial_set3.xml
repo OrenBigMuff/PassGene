@@ -50,12 +50,12 @@
             <Button android:id="@+id/btnInitialSet3Posi"
                     style="@style/pass_blue_button"
                     android:layout_marginRight="10dp"
-                    android:text="登録する"/>
+                    android:text="追加登録\nする"/>
 
             <Button android:id="@+id/btnInitialSet3Nega"
                     android:layout_marginLeft="10dp"
                     style="@style/pass_blue_button"
-                    android:text="今は\nしない"/>
+                    android:text="追加登録\nしない"/>
 
         </LinearLayout>
 
