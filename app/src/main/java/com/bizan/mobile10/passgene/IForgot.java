@@ -19,8 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -76,6 +78,21 @@ public class IForgot extends AppCompatActivity
 
         edtSmsNum.addTextChangedListener(new PGTextWatcher(tilSmsNum));
 
+        //EnterKey押下時にソフトキーボードを非表示にする。
+        edtSmsNum.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // EnterKeyが押されたか判定
+                if (event.getAction() == KeyEvent.ACTION_DOWN
+                        && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    InputMethodManager imputMethodManager =
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
+
     }
 
     @Override
@@ -83,6 +100,9 @@ public class IForgot extends AppCompatActivity
         switch (v.getId()) {
             case R.id.btnIForgot1:
 //                submitForm();
+                if (!validateSmsNum()) {
+                    return;
+                }
                 openPG_Dialog();
 
                 break;
@@ -105,7 +125,7 @@ public class IForgot extends AppCompatActivity
 
         //DialogFragmentに渡すモノを決めてね
         String title = "SMS送信の最終確認";
-        String message = "SMSが送信可能な端末でのみご利用いただけます。また、ご利用状況によって通信料が発生する場合があります。\n本当に送信しますか？";
+        String message = PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。" + "SMSが送信可能な端末でのみご利用いただけます。また、ご利用状況によって通信料が発生する場合があります。\n本当に送信しますか？";
         String posi = "送信する";
         String nega = "しない";
         //ダイアログのレイアウトResId
@@ -126,8 +146,7 @@ public class IForgot extends AppCompatActivity
 
     @Override
     public void onNegativeButtonClick(DialogFragment dialog) {
-        //堀川さんからもらう予定のInitializeコードを記述する
-        //テーブル初期化
+
         dialog.dismiss();
     }
 
@@ -152,6 +171,7 @@ public class IForgot extends AppCompatActivity
 
     private void sendSMS() {
 
+        //入力されたSMS番号を取得
         smsNum = edtSmsNum.getText().toString();
         toast(PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。");
         SmsManager smsMgr = SmsManager.getDefault();
@@ -162,17 +182,16 @@ public class IForgot extends AppCompatActivity
                 smsBody,
                 sentIntent,
                 null);
-
     }
 
     private boolean validateSmsNum() {
         if (edtSmsNum.getText().toString().trim().isEmpty()) {
             tilSmsNum.setError(getString(R.string.err_msg_iforgot));
-            requestFocus(edtSmsNum);
+            requestFocus(txvIForgot);
             return false;
         } else if (edtSmsNum.getText().toString().length() < 11) {
             tilSmsNum.setError(getString(R.string.err_msg_iforgot2));
-            requestFocus(edtSmsNum);
+            requestFocus(txvIForgot);
             return false;
         } else {
             tilSmsNum.setErrorEnabled(false);
