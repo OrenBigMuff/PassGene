@@ -31,7 +31,7 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
     CollapsingToolbarLayout tollbartitle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mpchange);
 
@@ -77,23 +77,37 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
 
     private void openPG_Dialog() {
         //DialogFragmentに渡すモノを決めてね
-        String title = "マスターパスワード変更";
-        String message ="マスターパスワードを"+"「" + masterpass + "」" + "から\n" +
-                "「" + newpass + "」" + "に変更します。\n" + "よろしいですか？";
-        String posi = "変更";
-        String nega = "戻る";
-        //ダイアログのレイアウトResId
-        int resId_dialog = R.layout.fragment_pass_gene_dialog;
+        if (masterpass.equals(newpass)) {
+            String title = "パスワードが同じです";
+            String message = "マスターパスワードが、「 " + newpass + " 」" + "から\n変更がありませんがよろしいですか？";
+            String posi = "登録";
+            String nega = "戻る";
+            //ダイアログのレイアウトResId
+            int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
-        FragmentManager fm = getSupportFragmentManager();
-        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
-        alertDialog.show(fm, "fragment_alert");
+            FragmentManager fm = getSupportFragmentManager();
+            PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
+            alertDialog.show(fm, "fragment_alert");
+        } else {
+
+            String title = "マスターパスワード変更";
+            String message = "マスターパスワードを" + "「" + masterpass + "」" + "から\n" +
+                    "「" + newpass + "」" + "に変更します。\n" + "よろしいですか？";
+            String posi = "変更";
+            String nega = "戻る";
+            //ダイアログのレイアウトResId
+            int resId_dialog = R.layout.fragment_pass_gene_dialog;
+
+            FragmentManager fm = getSupportFragmentManager();
+            PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
+            alertDialog.show(fm, "fragment_alert");
+        }
     }
 
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
 
-        Toast.makeText(this,"マスターパスワードが" + newpass + "に変更されさました。",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "マスターパスワードが" + newpass + "に変更されさました。", Toast.LENGTH_SHORT).show();
         dbC.updateMasterPass(newpass);
         dialog.dismiss();
         MPchange.mflag.setFnishflg(true);
@@ -107,9 +121,9 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
     }
 
     @Override
-    public void onStop(){
+    public void onStop() {
         super.onStop();
-        if (mflag.getFinishFlg() == true){
+        if (mflag.getFinishFlg() == true) {
             finish();
         }
     }

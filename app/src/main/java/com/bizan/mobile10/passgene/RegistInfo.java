@@ -45,8 +45,8 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
     private TextInputLayout mTilNumber;
     private TextInputLayout mTilAll;
 
-    private String mErrormessage1 = "情報名の入力は必須です。";
-    private String mErrormessage2 = "電話番号の入力は必須です";
+    private String mErrormessage1 = "入力情報のタイトルは必須項目です。";
+    private String mErrormessage2 = "電話番号の入力は必須です。";
     private String mErrormessage3 = "姓(Last name)の入力は必須です。";
     private String mErrormessage4 = "名(First name)の入力は必須です。";
     private String mErrormessage5 = "情報の入力は必須です。";

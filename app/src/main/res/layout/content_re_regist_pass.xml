@@ -255,7 +255,7 @@
                 <Button
                     android:id="@+id/rrpbtnNext"
                     style="@style/pass_blue_button"
-                    android:text="パスワード編集"/>
+                    android:text="パスワード\n編集"/>
 
             </com.balysv.materialripple.MaterialRippleLayout>
 
