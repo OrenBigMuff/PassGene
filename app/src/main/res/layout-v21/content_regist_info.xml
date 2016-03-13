@@ -126,6 +126,7 @@
             android:calendarViewShown="false"
             android:layout_marginTop="15dp"
             android:datePickerMode="spinner"
+            android:descendantFocusability="blocksDescendants"
             android:layout_below="@+id/tilRegistInfoTel"
             android:layout_alignLeft="@+id/regist1" />
 

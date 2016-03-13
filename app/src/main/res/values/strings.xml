@@ -33,7 +33,7 @@
 
 
     <!-- MP失念SMS再送画面 -->
-    <string name="title_activity_iforgot">マスターパスワード再送／初期化</string>
+    <string name="title_activity_iforgot">マスターパスワード再送</string>
     <string name="guide_title_iforgot">【マスターパスワード再送】</string>
     <string name="guide_text_iforgot">
         ○○さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワード(SMS)を送信することができます。

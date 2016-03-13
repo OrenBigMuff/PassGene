@@ -3,7 +3,7 @@
     package="com.bizan.mobile10.passgene">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <!-- <uses-permission android:name="android.permission.SEND_SMS" /> -->
     <application

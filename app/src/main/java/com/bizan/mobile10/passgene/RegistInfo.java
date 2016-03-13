@@ -1,5 +1,6 @@
 package com.bizan.mobile10.passgene;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
@@ -7,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -69,6 +72,20 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         mTilTag.setError(mErrormessage1); // show error
         mTilTag.setError(null); // hide error
         mTag.addTextChangedListener(new PGTextWatcher(mTilTag));
+        //EnterKey押下時にソフトキーボードを非表示にする。
+        mTag.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // EnterKeyが押されたか判定
+                if (event.getAction() == KeyEvent.ACTION_DOWN
+                        && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    InputMethodManager imputMethodManager =
+                            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                }
+                return false;
+            }
+        });
 
         //電話番号
         mTel = (EditText) findViewById(R.id.edtRegistInfoTel);
@@ -119,6 +136,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         mTilAll.setError(mErrormessage5); // show error
         mTilAll.setError(null); // hide error
         mAll.addTextChangedListener(new PGTextWatcher(mTilAll));
+
 
         /**
          * カテゴリーのスピナー

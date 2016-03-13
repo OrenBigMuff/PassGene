@@ -1,8 +1,14 @@
 package com.bizan.mobile10.passgene;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -33,6 +39,10 @@ public class IForgot extends AppCompatActivity
     private String smsNum;
     private String rightPass;           //マスターパスワード from DB
 
+    PendingIntent sentIntent;
+    SMSSentBroadcastReceiver sentBroadcastReceiver;
+    final String ACTION_SENT = "com.bizan.mobile10.passgene.ACTION_SENT";
+
 //    SmsManager smsManager;
 
     @Override
@@ -46,9 +56,11 @@ public class IForgot extends AppCompatActivity
         dbC = new DatabaseC(PassList2.getDbHelper());
         rightPass = dbC.readMasterPass();
 
+        sentIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_SENT), 0);
+
 //        smsManager = SmsManager.getDefault();
 
-        txvIForgot = (TextView)findViewById(R.id.txvIForgot);
+        txvIForgot = (TextView) findViewById(R.id.txvIForgot);
         txvIForgot.setText(PassList2.getUserName() + " さん、\nマスターパスワードを忘れましたか？\n以下に携帯電話の番号を入力すると、\nマスターパスワードを送信(SMS)することができます。");
 
         btnIForgot1 = (Button) findViewById(R.id.btnIForgot1);
@@ -68,9 +80,11 @@ public class IForgot extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnIForgot1:
-                submitForm();
+//                submitForm();
+                openPG_Dialog();
+
                 break;
         }
 //        if (v.getId() == R.id.btnIForgot1) {
@@ -90,22 +104,23 @@ public class IForgot extends AppCompatActivity
     private void openPG_Dialog() {
 
         //DialogFragmentに渡すモノを決めてね
-        String title = "アプリ初期化最終確認";
-        String message = "初期化をすると、あなたの登録したすべての情報が消去されます。\n本当に初期化しますか？";
-        String posi = "戻る";
-        String nega = "初期化";
+        String title = "SMS送信の最終確認";
+        String message = "SMSが送信可能な端末でのみご利用いただけます。また、ご利用状況によって通信料が発生する場合があります。\n本当に送信しますか？";
+        String posi = "送信する";
+        String nega = "しない";
         //ダイアログのレイアウトResId
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
         FragmentManager fm = getSupportFragmentManager();
         PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
-        alertDialog.show(fm, "fragment_alert2");
+        alertDialog.show(fm, "fragment_iForgot");
     }
 
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
         // Positiveボタンが押された時の動作
-        toast(PassList2.getUserName() + " さん、\nおかえりなさい！");
+        sendSMS();
+//        toast("ご指定の番号にマスターパスワードを送信しました。");
         dialog.dismiss();
     }
 
@@ -113,16 +128,7 @@ public class IForgot extends AppCompatActivity
     public void onNegativeButtonClick(DialogFragment dialog) {
         //堀川さんからもらう予定のInitializeコードを記述する
         //テーブル初期化
-        dbC.reset();
-        Toast.makeText(this, "アプリが初期化されました", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(IForgot.this, PassList2.class);
-        pref.writeConfig("firstStart", false);
-        pref.writeConfig("p0_1", false);
-        pref.writeConfig("p0_2", false);
-        pref.writeConfig("InitialDone", false);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-//        toast("ああああぁぁぁぁぁぁ～ 初期化しちゃうぅ～～～");
+        dialog.dismiss();
     }
 
 
@@ -137,10 +143,26 @@ public class IForgot extends AppCompatActivity
         smsNum = edtSmsNum.getText().toString();
         toast(PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。");
         Intent intent = new Intent(Intent.ACTION_SENDTO);
-        Uri smsNumber = Uri.parse("sms:smsNum");       //SMS番号09012345678
+        Uri smsNumber = Uri.parse("sms:" + smsNum);       //SMS番号09012345678
         intent.setData(smsNumber);
-        intent.putExtra("sms_body", "「パスじぇねくん」です。\nあなたのマスターパスワードは" + this.rightPass + "です。\n再ログイン後は、マスターパスワードの再設定を強くお勧めします。");
+        intent.putExtra("sms_body", "「パスじぇねくん」です。\nあなたのマスターパスワードは" + this.rightPass + "です。\nアプリ起動後は、マスターパスワードの再設定を強くお勧めします。");
         startActivity(Intent.createChooser(intent, "Pick a SMS App"));
+
+    }
+
+    private void sendSMS() {
+
+        smsNum = edtSmsNum.getText().toString();
+        toast(PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。");
+        SmsManager smsMgr = SmsManager.getDefault();
+        String smsBody = "「パスじぇねくん」です。\nあなたのマスターパスワードは" + this.rightPass + "です。\nアプリ起動後は、マスターパスワードの再設定を強くお勧めします。";
+        smsMgr.sendTextMessage(
+                smsNum,
+                null,
+                smsBody,
+                sentIntent,
+                null);
+
     }
 
     private boolean validateSmsNum() {
@@ -148,7 +170,7 @@ public class IForgot extends AppCompatActivity
             tilSmsNum.setError(getString(R.string.err_msg_iforgot));
             requestFocus(edtSmsNum);
             return false;
-        }else if(edtSmsNum.getText().toString().length() < 11 ){
+        } else if (edtSmsNum.getText().toString().length() < 11) {
             tilSmsNum.setError(getString(R.string.err_msg_iforgot2));
             requestFocus(edtSmsNum);
             return false;
@@ -164,7 +186,6 @@ public class IForgot extends AppCompatActivity
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
-
 
 
     private class PGTextWatcher implements TextWatcher {
@@ -192,6 +213,20 @@ public class IForgot extends AppCompatActivity
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(sentBroadcastReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sentBroadcastReceiver = new SMSSentBroadcastReceiver();
+        registerReceiver(sentBroadcastReceiver, new IntentFilter(ACTION_SENT));
+    }
+
+
     /**
      * あったら便利！トーストメソッドだよ
      *
@@ -204,4 +239,30 @@ public class IForgot extends AppCompatActivity
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
+    private class SMSSentBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+                    Toast.makeText(getBaseContext(), "SMSの送信が完了しました。", Toast.LENGTH_SHORT).show();
+                    break;
+                case Activity.RESULT_CANCELED:
+                    Toast.makeText(getBaseContext(), "SMSの送信がキャンセルされました。", Toast.LENGTH_SHORT).show();
+                    break;
+                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    Toast.makeText(getBaseContext(), "Error：Generic Failure", Toast.LENGTH_SHORT).show();
+                    break;
+                case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    Toast.makeText(getBaseContext(), "お客様の端末ではSMSは\nご利用いただけません。", Toast.LENGTH_SHORT).show();
+                    break;
+                case SmsManager.RESULT_ERROR_NULL_PDU:
+                    Toast.makeText(getBaseContext(), "Error：NULL PDU", Toast.LENGTH_SHORT).show();
+                    break;
+                case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    Toast.makeText(getBaseContext(), "お客様の通信状況をご確認ください。", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
+    }
 }
