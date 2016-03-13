@@ -105,13 +105,17 @@ public class PoolString {
         stb.append("【　ヒント　】");
         stb.append(BR);
         if (elem1S.length() != 0) {
+            stb.append("「");
             stb.append(elem1S);
+            stb.append("」 ");
             stb.append(elem1N);
             stb.append("文字");
         }
         if (elem2S.length() != 0) {
             stb.append("　");
+            stb.append("「");
             stb.append(elem2S);
+            stb.append("」 ");
             stb.append(elem2N);
             stb.append("文字");
         }
@@ -136,15 +140,17 @@ public class PoolString {
             stb.append(" ");
             stb.append("記号「 ");
             stb.append(sign);
-            stb.append(" 」を加え、");
+            stb.append(" 」を足し、");
         }
         stb.append(" ");
+        stb.append("「");
         stb.append(nElemS);
+        stb.append("」 ");
         stb.append("下");
         stb.append(nElemN);
         stb.append("桁");
         if (nElemP.length() != 0) {
-            stb.append("分 各桁に");
+            stb.append("の 各桁に");
             stb.append(nElemP);
             stb.append("を加え");
         }
