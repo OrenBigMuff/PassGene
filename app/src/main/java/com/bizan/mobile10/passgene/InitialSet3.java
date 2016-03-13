@@ -82,7 +82,9 @@ public class InitialSet3 extends AppCompatActivity
 //            toast("ユーザー情報登録画面へ");
             startActivity(intent1);
 
-            InitialSet3.this.finish();
+            btn0_3Posi.setText("追加登録\nする");
+            btn0_3Nega.setText("追加登録\nしない");
+//            InitialSet3.this.finish();
 
         }else if(v.getId() == R.id.btnInitialSet3Nega){
 

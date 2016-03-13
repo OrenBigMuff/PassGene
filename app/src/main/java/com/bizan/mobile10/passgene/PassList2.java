@@ -364,11 +364,12 @@ public class PassList2 extends AppCompatActivity {
                             break;
 
                         case 3:
-                            //GoogleDriveページに遷移
+                            //バックアップページに遷移
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Intent intent = new Intent(PassList2.this, GoogleDriveBackup.class);
+                                    Intent intent = new Intent(PassList2.this, UserConf2.class);
+                                    intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.GoogleDriveBackup");
                                     startActivity(intent);
                                 }
                             }, 250);

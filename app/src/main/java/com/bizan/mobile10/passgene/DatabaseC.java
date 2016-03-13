@@ -46,7 +46,7 @@ public class DatabaseC {
         try {
             db.beginTransaction();
             ContentValues contentValues = new ContentValues();
-            contentValues.put("info_name", "master");
+            contentValues.put("info_name", "masterpassword");
             contentValues.put("value", value);
             contentValues.put("category", "5");
             contentValues.put("delete_flag", "2");
@@ -176,7 +176,7 @@ public class DatabaseC {
     public String readMasterPass() {
         String masterpass = null;
         try {
-            String[] sqlD = {"master"};
+            String[] sqlD = {"masterpassword"};
             String sql = "SELECT value FROM user_info WHERE info_name=?";
             Cursor cursor = db.rawQuery(sql, sqlD);
             cursor.moveToNext();
@@ -200,7 +200,7 @@ public class DatabaseC {
             ContentValues val = new ContentValues();
             val.put("value", value);
             db.update(dbTable[USER_INFO], val, "info_name=?",
-                    new String[]{"master"});
+                    new String[]{"masterpassword"});
             db.setTransactionSuccessful();
             db.endTransaction();
             return true;
