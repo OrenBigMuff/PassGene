@@ -51,25 +51,18 @@
                       android:orientation="horizontal"
                       android:gravity="center">
 
-            <com.balysv.materialripple.MaterialRippleLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:mrl_rippleOverlay="true"
-                android:layout_marginRight="5dp"
-                android:elevation="4dp"
-                android:layout_below="@+id/tilRegistInfoAll"
-                android:layout_centerInParent="true">
+            <Button android:id="@+id/btnGdSave"
+                    android:layout_width="150dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="5dp"
+                    android:elevation="4dp"
+                    android:background="@drawable/pass_blue_button"
+                    android:padding="2dp"
+                    android:text="バックアップ\nE-Mail送信"
+                    android:textColor="#ffffff"
+                    android:textSize="20sp"/>
 
-                <Button android:id="@+id/btnGdSave"
-                        android:layout_width="150dp"
-                        android:layout_height="100dp"
-                        android:background="@drawable/pass_blue_button"
-                        android:padding="2dp"
-                        android:text="バックアップ\nE-Mail送信"
-                        android:textColor="#ffffff"
-                        android:textSize="20sp"/>
 
-            </com.balysv.materialripple.MaterialRippleLayout>
         </LinearLayout>
 
     </LinearLayout>
