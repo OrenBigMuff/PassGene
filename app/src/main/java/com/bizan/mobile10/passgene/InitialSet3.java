@@ -80,8 +80,6 @@ public class InitialSet3 extends AppCompatActivity
 
             Intent intent1 = new Intent(InitialSet3.this, RegistInfo.class);
 //            toast("ユーザー情報登録画面へ");
-            btn0_3Posi.setText("追加登録\nする");
-            btn0_3Nega.setText("追加登録\nしない");
             startActivity(intent1);
 
 //            InitialSet3.this.finish();
