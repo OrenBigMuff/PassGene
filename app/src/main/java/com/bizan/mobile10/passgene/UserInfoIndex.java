@@ -22,7 +22,6 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
     private String[] mServiceId2;
     private String[] mServiceName;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +32,6 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         /**
          * データベースからデータ読み出し
          */
-        InitialSet1 initialSet1 = new InitialSet1();
         DatabaseHelper dbHelper = PassList2.getDbHelper();
         dbC = new DatabaseC(dbHelper);
 
@@ -113,17 +111,26 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
             btnElimination1.setVisibility(View.VISIBLE);
             btnElimination2.setVisibility(View.GONE);
         }
+        if (mUserInfoId.equals("1")||mUserInfoId.equals("2")||mUserInfoId.equals("3")) {
+            btnElimination1.setVisibility(View.VISIBLE);
+            btnElimination2.setVisibility(View.GONE);
+        }
 
         //削除ボタン押下時の動作
         btnElimination1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(UserInfoIndex.this, "この情報を使用中のサービスがあるため削除できません｡", Toast.LENGTH_LONG).show();
+                if (mUserInfoId.equals("1")||mUserInfoId.equals("2")||mUserInfoId.equals("3")) {
+                    Toast.makeText(UserInfoIndex.this, "この情報は基本情報であるため削除できません｡", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(UserInfoIndex.this, "この情報を使用中のサービスがあるため削除できません｡", Toast.LENGTH_LONG).show();
+                }
             }
         });
         btnElimination2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!ClickTimerEvent.isClickEvent()) return;
                 openPG_Dialog();
             }
         });
@@ -164,6 +171,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
     @Override
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
         //「削除」ボタンを押下した時
+        if (!ClickTimerEvent.isClickEvent()) return;
         dbC.deleteUserInfoDeleteFlag(Integer.parseInt(mUserInfoId));
         this.finish();
         dialog.dismiss();

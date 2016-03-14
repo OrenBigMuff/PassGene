@@ -57,6 +57,7 @@ public class UserInfoList extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!ClickTimerEvent.isClickEvent()) return;
                 Intent intent = new Intent(UserInfoList.this, RegistInfo.class);
                 startActivity(intent);
             }
@@ -119,6 +120,7 @@ public class UserInfoList extends AppCompatActivity {
                 cardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (!ClickTimerEvent.isClickEvent()) return;
                         Intent intent = new Intent(UserInfoList.this, UserConf2.class);
                         intent.putExtra("CLASSNAME","com.bizan.mobile10.passgene.UserInfoIndex");
                         startActivity(intent);

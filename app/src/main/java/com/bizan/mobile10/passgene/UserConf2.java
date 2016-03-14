@@ -102,6 +102,7 @@ public class UserConf2 extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         //Num Pickerから数字を取得
         String tmp_uc1 = String.valueOf(npk_uc1.getValue());
         String tmp_uc2 = String.valueOf(npk_uc2.getValue());
@@ -175,6 +176,7 @@ public class UserConf2 extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
+        if (!ClickTimerEvent.isClickEvent()) return;
         toast(PassList2.getUserName() + " さん、\nマスターパスワードを再度入力して下さい。");
         dialog.dismiss();
     }
@@ -183,6 +185,7 @@ public class UserConf2 extends AppCompatActivity
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Negativeボタンが押された時の動作
         //登録済メールアドレスにMPを送信するページに遷移
+        if (!ClickTimerEvent.isClickEvent()) return;
         Intent intent = new Intent(UserConf2.this, IForgot.class);
         startActivity(intent);
         dialog.dismiss();

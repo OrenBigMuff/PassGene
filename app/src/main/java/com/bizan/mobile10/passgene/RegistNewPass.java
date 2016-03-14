@@ -442,6 +442,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         if (rnpbtnnext == v) {
             //サービス名がかぶっている、新規（idが0）の場合
             if (checkServiceName(rnptxvservice.getText().toString()) &&

@@ -445,6 +445,7 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         switch(v.getId()) {
             case R.id.rrpbtnNext:
                 if (!reRegist) {
