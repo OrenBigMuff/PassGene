@@ -1,6 +1,7 @@
 package com.bizan.mobile10.passgene;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +48,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
     private TextInputLayout mTilText;
     private TextInputLayout mTilNumber;
     private TextInputLayout mTilAll;
+    private String[] mUserInfoName;
 
     private String mErrormessage1 = "入力情報のタイトルは必須項目です。";
     private String mErrormessage2 = "電話番号の入力は必須です。";
@@ -62,6 +64,22 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         setSupportActionBar(toolbar);
 
         dbC = new DatabaseC(PassList2.getDbHelper());
+
+        /**
+         * DBからTagの読み込み
+         */
+        Cursor cursor = dbC.readUserInfoAll();
+        boolean cPlace = cursor.moveToFirst();
+
+        mUserInfoName = new String[cursor.getCount()];
+        int i = 0;
+
+        while (cPlace) {
+            mUserInfoName[i] = cursor.getString(1);
+            cPlace = cursor.moveToNext();
+            i++;
+        }
+        cursor.close();
 
         /**
          * 各情報の入力
@@ -147,7 +165,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         adapterCategory.setDropDownViewResource(R.layout.spinner_item);
 
         //アイテムを追加します
-        for (int i=0; i<category.length; i++) {
+        for (i=0; i<category.length; i++) {
             adapterCategory.add(category[i]);
         }
 
@@ -240,10 +258,17 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
         btnElimination.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!ClickTimerEvent.isClickEvent()) return;
                 if (!tag()) {
                     return;
                 }
                 mRegistTag = mTag.getText().toString();
+                for (int i =0; i < mUserInfoName.length; i++) {
+                    if (mRegistTag.equals(mUserInfoName[i])) {
+                        Toast.makeText(RegistInfo.this, "ユーザー情報名が重複しています｡", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
 
                 switch(mCategoryNumber) {
                     case "0":
@@ -453,7 +478,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
      */
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
-
+        if (!ClickTimerEvent.isClickEvent()) return;
         String[] value = {mRegistTag, mRegistData, mCategoryNumber};
         dbC.insertUserInfo(value);
         this.finish();
