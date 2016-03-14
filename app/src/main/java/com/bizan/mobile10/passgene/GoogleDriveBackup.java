@@ -172,6 +172,7 @@ public class GoogleDriveBackup extends AppCompatActivity
     //ボタンのクリック処理
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         if (v.getId() == R.id.btnGdSave) {
 
             String title = "｢パスじぇねくん｣バックアップメール";

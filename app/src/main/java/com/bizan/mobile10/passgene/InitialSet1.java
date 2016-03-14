@@ -10,11 +10,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.util.TimeUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -144,7 +147,11 @@ public class InitialSet1 extends AppCompatActivity
         inputLastname.addTextChangedListener(new PGTextWatcher(inputLayoutL));
         inputFirstname.addTextChangedListener(new PGTextWatcher(inputLayoutF));
 
+    }
 
+    @Override
+    public void onResume(){
+        super.onResume();
     }
 
     /**
@@ -250,32 +257,35 @@ public class InitialSet1 extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btnInitialSet1) {
+        if (!ClickTimerEvent.isClickEvent()) return;
+
+            if (v.getId() == R.id.btnInitialSet1) {
+//                btn.setClickable(false);
 
 //            if(inputLastname.getText().toString().equals("") || inputFirstname.getText().toString().equals("")){
 //
 //            }else {
-            if (!validateLastname()) {
-                return;
+                if (!validateLastname()) {
+                    return;
+                }
+                if (!validateFirstname()) {
+                    return;
+                }
+                submitForm();
+
+                toast("はじめまして" + this.fullname + "さん、\n生年月日は、" + this.dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
+                //InitialSet1を通過したのでコンフィグにWriteする
+                pref.writeConfig("p0_1", true);
+
+                Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
+                intent.putExtra("Lastname", lastname);
+                intent.putExtra("Firstname", firstname);
+                intent.putExtra("Birthday", registBirth);
+                startActivity(intent);
+                InitialSet1.this.finish();
+
             }
-            if (!validateFirstname()) {
-                return;
-            }
-            submitForm();
 
-            toast("はじめまして" + this.fullname + "さん、\n生年月日は、" + this.dispBirth + "で登録します。" + "\n次はマスターパスワードを決めてください。");
-            //InitialSet1を通過したのでコンフィグにWriteする
-            pref.writeConfig("p0_1", true);
-
-            Intent intent = new Intent(InitialSet1.this, InitialSet2.class);
-            intent.putExtra("Lastname", lastname);
-            intent.putExtra("Firstname", firstname);
-            intent.putExtra("Birthday", registBirth);
-            startActivity(intent);
-
-            InitialSet1.this.finish();
-
-        }
     }
 
     /*public static String getDB_TABLE_S() {

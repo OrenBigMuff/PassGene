@@ -97,6 +97,7 @@ public class IForgot extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         switch (v.getId()) {
             case R.id.btnIForgot1:
 //                submitForm();
@@ -138,6 +139,7 @@ public class IForgot extends AppCompatActivity
 
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         // Positiveボタンが押された時の動作
         sendSMS();
 //        toast("ご指定の番号にマスターパスワードを送信しました。");

@@ -126,6 +126,7 @@ public class PassList2 extends AppCompatActivity {
         plFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!ClickTimerEvent.isClickEvent()) return;
                 //RegistNewPassに遷移
                 Intent intent = new Intent(PassList2.this, RegistNewPass.class);
                 startActivity(intent);
@@ -553,6 +554,7 @@ public class PassList2 extends AppCompatActivity {
             cardButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (!ClickTimerEvent.isClickEvent()) return;
                     Intent intent = new Intent(PassList2.this, UserConf2.class);
                     intent.putExtra("CLASSNAME", "com.bizan.mobile10.passgene.PwConf");
                     intent.putExtra("SID", Integer.parseInt(mServiceId[Integer.parseInt(String.valueOf(v.getTag()))]));

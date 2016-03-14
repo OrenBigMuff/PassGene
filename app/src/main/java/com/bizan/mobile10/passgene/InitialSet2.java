@@ -30,7 +30,6 @@ public class InitialSet2 extends AppCompatActivity
     private String fullname_ini2;
     private String fixMaster;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,17 +68,30 @@ public class InitialSet2 extends AppCompatActivity
     }
 
     @Override
-    public void onClick(View v) {
-        //Num Pickerから数字を取得
-        String tmp1 = String.valueOf(npk1.getValue());
-        String tmp2 = String.valueOf(npk2.getValue());
-        String tmp3 = String.valueOf(npk3.getValue());
-        String tmp4 = String.valueOf(npk4.getValue());
-        fixMaster = tmp1 + tmp2 + tmp3 + tmp4;
-
-        //Dialogを表示させる
-        openPG_Dialog();
+    public void onResume(){
+        super.onResume();
     }
+
+
+    @Override
+    public void onClick(View v) {
+//        btn.setClickable(false);
+//        if (InitialSet2A == false){
+//            InitialSet2A = true;
+        if (!ClickTimerEvent.isClickEvent()) return;
+            //Num Pickerから数字を取得
+            String tmp1 = String.valueOf(npk1.getValue());
+            String tmp2 = String.valueOf(npk2.getValue());
+            String tmp3 = String.valueOf(npk3.getValue());
+            String tmp4 = String.valueOf(npk4.getValue());
+            fixMaster = tmp1 + tmp2 + tmp3 + tmp4;
+
+            //Dialogを表示させる
+            openPG_Dialog();
+//        }else
+//        return;
+    }
+
 
 
     /**
@@ -87,6 +99,7 @@ public class InitialSet2 extends AppCompatActivity
      */
     private void openPG_Dialog() {
 
+//        btn.setClickable(true);
         //DialogFragmentに渡すモノを決めてね
         String title = "マスターパスワード確認";
         String message =lastname_ini2 + " " + firstname_ini2 + " さんの\nマスターパスワードは、\n「 " + fixMaster + " 」でよろしいですか？";
@@ -98,6 +111,9 @@ public class InitialSet2 extends AppCompatActivity
         FragmentManager fm = getSupportFragmentManager();
         PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog, false);
         alertDialog.show(fm, "fragment_alert");
+//        InitialSet2A = false;
+        btn.setClickable(true);
+
     }
 
 
@@ -116,20 +132,21 @@ public class InitialSet2 extends AppCompatActivity
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
         // Positiveボタンが押された時の動作
+        if (!ClickTimerEvent.isClickEvent()) return;
+            toast(fullname_ini2 + " さんのマスターパスワードは \n「" + this.fixMaster + " 」で登録します。");
+            Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
+            intent.putExtra("LastName", lastname_ini2);
+            intent.putExtra("FirstName", firstname_ini2);
+            intent.putExtra("BirthDay", birthday_ini2);
+            intent.putExtra("MasterPW", fixMaster);
+            startActivity(intent);
 
-        toast(fullname_ini2 + " さんのマスターパスワードは \n「" + this.fixMaster + " 」で登録します。");
-        Intent intent = new Intent(InitialSet2.this, InitialSet3.class);
-        intent.putExtra("LastName", lastname_ini2);
-        intent.putExtra("FirstName", firstname_ini2);
-        intent.putExtra("BirthDay", birthday_ini2);
-        intent.putExtra("MasterPW", fixMaster);
-        startActivity(intent);
+            //InitialSet2を通過したのでコンフィグにWriteする
+            pref.writeConfig("p0_2", true);
+            //次画面から戻ってきた時の為に一旦、ダイアログを閉じる
+            dialog.dismiss();
+            InitialSet2.this.finish();
 
-        //InitialSet2を通過したのでコンフィグにWriteする
-        pref.writeConfig("p0_2", true);
-        //次画面から戻ってきた時の為に一旦、ダイアログを閉じる
-        dialog.dismiss();
-        InitialSet2.this.finish();
     }
 
     @Override
@@ -138,5 +155,7 @@ public class InitialSet2 extends AppCompatActivity
         //ダイアログを閉じる
         dialog.dismiss();
     }
+
+
 }
 
