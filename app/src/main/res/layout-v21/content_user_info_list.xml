@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.bizan.mobile10.passgene.UserInfoList"
-    tools:showIn="@layout/activity_user_info_list"
-    android:padding="25dp">
+    tools:showIn="@layout/activity_user_info_list">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/List1">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user_info_list_explanation1"
-                android:id="@+id/textView9"
-                style="@style/fontSize_Normal"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp" />
+            <RelativeLayout
+                android:id="@+id/List1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user_info_list_explanation2"
-                android:id="@+id/textView10"
-                style="@style/fontSize_Small"
-                android:layout_below="@+id/textView9"
-                android:layout_alignLeft="@+id/textView9"
+                <TextView
+                    android:id="@+id/textView9"
+                    style="@style/fontSize_Normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/user_info_list_explanation1"/>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    style="@style/fontSize_Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/textView9"
+                    android:layout_below="@+id/textView9"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/user_info_list_explanation2"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/lilUserInfoList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/List1"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp" />
+                android:orientation="vertical">
+
+            </LinearLayout>
+
         </RelativeLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lilUserInfoList"
-            android:layout_below="@+id/List1"
-            android:layout_marginTop="10dp">
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
+    </ScrollView>
 </android.support.v4.widget.NestedScrollView>
