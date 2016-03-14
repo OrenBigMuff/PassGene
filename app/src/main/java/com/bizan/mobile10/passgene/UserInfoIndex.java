@@ -143,7 +143,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
         FragmentManager fm = getSupportFragmentManager();
-        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
+        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog, false);
         alertDialog.show(fm, "fragment_alert");
     }
 

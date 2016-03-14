@@ -48,7 +48,6 @@ public class UserConf2 extends AppCompatActivity
     //
     //
     //ここまで///////////////////////////////////////////////
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +60,10 @@ public class UserConf2 extends AppCompatActivity
         /**
          * この部分を後で復活させる
          */
-        if(intent == null){
+        if (intent == null) {
 //            toast("ヌルヌルですよ");
             return;
-        }else {
+        } else {
             CLASSNAME = intent.getStringExtra("CLASSNAME");
             ID_S = intent.getIntExtra("SID", -1);
             ID_U = intent.getIntExtra("UID", -1);
@@ -81,7 +80,7 @@ public class UserConf2 extends AppCompatActivity
         btn = (Button) findViewById(R.id.btnUserConf);
         btn.setOnClickListener(this);
 
-        txvUserConfValue = (TextView)findViewById(R.id.txvUserConfValue);
+        txvUserConfValue = (TextView) findViewById(R.id.txvUserConfValue);
         txvUserConfValue.setText(PassList2.getUserName() + " さんの\nマスターパスワードを入力して下さい。");
 
         npk_uc1 = (NumberPicker) findViewById(R.id.npk_uc1);
@@ -102,6 +101,8 @@ public class UserConf2 extends AppCompatActivity
 
     @Override
     public void onClick(View v) {
+
+
         //Num Pickerから数字を取得
         String tmp_uc1 = String.valueOf(npk_uc1.getValue());
         String tmp_uc2 = String.valueOf(npk_uc2.getValue());
@@ -113,21 +114,21 @@ public class UserConf2 extends AppCompatActivity
         if (fixMaster_uc.equals(rightPass)) {
             //次の画面へ遷移するコードを記述
             //前のActivityから渡ってきたIDがUIDかSIDで判別（来ていない方は「-1」なので、、、それをトリガーに）
-            if(ID_S == -1 && ID_U != -1) {
+            if (ID_S == -1 && ID_U != -1) {
 //                toast("パスワードが一致しました。UID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("UID", ID_U);
                 startActivity(intent);
                 UserConf2.this.finish();
-            }else if(ID_S != -1 && ID_U == -1){
+            } else if (ID_S != -1 && ID_U == -1) {
 //                toast("パスワードが一致しました。SID");
                 Intent intent = new Intent();
                 intent.setClassName(PKGNAME, CLASSNAME);
                 intent.putExtra("SID", ID_S);
                 startActivity(intent);
                 UserConf2.this.finish();
-            }else if(ID_S == -1 && ID_U == -1){
+            } else if (ID_S == -1 && ID_U == -1) {
                 //SID、UIDどちらも来ていない場合
 //                toast("パスワードが一致しました。NONE");
                 Intent intent = new Intent();
@@ -136,10 +137,12 @@ public class UserConf2 extends AppCompatActivity
                 UserConf2.this.finish();
             }
             return;
-        } else{
+        } else {
             //Dialogを表示させる
             openPG_Dialog();
         }
+
+
     }
 
     /**
@@ -156,8 +159,14 @@ public class UserConf2 extends AppCompatActivity
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
         FragmentManager fm = getSupportFragmentManager();
-        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
+        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog, false);
         alertDialog.show(fm, "fragment_alert2");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     /**
@@ -174,17 +183,19 @@ public class UserConf2 extends AppCompatActivity
 
     @Override
     public void onPositiveButtonClick(android.support.v4.app.DialogFragment dialog) {
-        // Positiveボタンが押された時の動作
-        toast(PassList2.getUserName() + " さん、\nマスターパスワードを再度入力して下さい。");
-        dialog.dismiss();
+
+            // Positiveボタンが押された時の動作
+            toast(PassList2.getUserName() + " さん、\nマスターパスワードを再度入力して下さい。");
+            dialog.dismiss();
     }
 
     @Override
     public void onNegativeButtonClick(android.support.v4.app.DialogFragment dialog) {
-        // Negativeボタンが押された時の動作
-        //登録済メールアドレスにMPを送信するページに遷移
-        Intent intent = new Intent(UserConf2.this, IForgot.class);
-        startActivity(intent);
-        dialog.dismiss();
+
+            // Negativeボタンが押された時の動作
+            //登録済メールアドレスにMPを送信するページに遷移
+            Intent intent = new Intent(UserConf2.this, IForgot.class);
+            startActivity(intent);
+            dialog.dismiss();
     }
 }

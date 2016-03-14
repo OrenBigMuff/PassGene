@@ -2,6 +2,8 @@ package com.bizan.mobile10.passgene;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.DialogInterface;
+import android.support.v4.app.FragmentManager;
 import android.view.View.OnClickListener;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,6 +21,9 @@ public class PassGeneDialog extends DialogFragment {
     TextView title_pgdf;
     TextView message_pgdf;
 
+/*    *//** ダイアログの共通タグ *//*
+    private static final String TAG = "passgene_dialog";*/
+
 
 
     //コンストラクタ
@@ -31,7 +36,7 @@ public class PassGeneDialog extends DialogFragment {
      *
      * @return
      */
-    public static PassGeneDialog newInstance(String title, String message,String posi, String nega, int resId) {
+    public static PassGeneDialog newInstance(String title, String message,String posi, String nega, int resId, boolean cancelable) {
         PassGeneDialog instance = new PassGeneDialog();
 
         // ダイアログに渡すパラメータはBundleにまとめる
@@ -41,9 +46,10 @@ public class PassGeneDialog extends DialogFragment {
         args.putString("message", message);         //message
         args.putString("posi", posi);               //posi
         args.putString("nega", nega);               //nega
-        args.putInt("resId",resId);   //resId_dialog layout
+        args.putInt("resId", resId);   //resId_dialog layout
 
         instance.setArguments(args);
+//        instance.setCancelable(cancelable);
         return instance;
     }
 
@@ -131,5 +137,60 @@ public class PassGeneDialog extends DialogFragment {
         return dialog;
 
     }
+
+ /*   @Override
+    public void onCancel(DialogInterface dialog) {
+        // TODO Dialogをキャンセルした時の処理
+        super.onCancel(dialog);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        // TODO Dialogを閉じた時の処理
+        super.onDismiss(dialog);
+    }*/
+
+   /**
+     * すでに表示されたダイアログを消去します
+     *
+     * @param fragmentManager
+     *            {@link FragmentManager}
+     *//*
+    private static void deleteDialogFragment(final FragmentManager fragmentManager) {
+
+        final PassGeneDialog prev = (PassGeneDialog) fragmentManager.findFragmentByTag(TAG);
+        // フラグメントが表示されていなければ処理なし
+        if (prev == null) {
+            return;
+        }
+
+        final Dialog dialog = prev.getDialog();
+        // ダイアログがなければ処理なし
+        if (dialog == null) {
+            return;
+        }
+
+        // ダイアログが表示されていなければ処理なし
+        if (!dialog.isShowing()) {
+            return;
+        }
+
+        // ダイアログ消去通知と消去
+        prev.onDismissExclusiveDialog();
+        prev.dismiss();
+    }
+
+    *//**
+     * ダイアログが排他的消去される際に呼び出されます。
+     *//*
+    protected void onDismissExclusiveDialog() {
+        // 継承先で処理を実装
+    }
+
+
+    public void show(final FragmentManager manager) {
+        deleteDialogFragment(manager);
+        super.show(manager, TAG);
+    }*/
 
 }
