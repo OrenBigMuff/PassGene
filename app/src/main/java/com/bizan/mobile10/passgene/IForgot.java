@@ -122,7 +122,7 @@ public class IForgot extends AppCompatActivity
      * DialogFragmentにゴニョゴニョするメソッド
      */
     private void openPG_Dialog() {
-
+        smsNum = edtSmsNum.getText().toString();
         //DialogFragmentに渡すモノを決めてね
         String title = "SMS送信の最終確認";
         String message = PassList2.getUserName() + "さんのマスターパスワードを、" + smsNum + "へ送信します。" + "SMSが送信可能な端末でのみご利用いただけます。また、ご利用状況によって通信料が発生する場合があります。\n本当に送信しますか？";
