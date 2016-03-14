@@ -6,11 +6,15 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -29,6 +33,7 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
         CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
 
     private PreferenceC pref;
+    private TextInputLayout rrpTilServicename;
     private AutoCompleteTextView rrptxvservice;
     private AutoCompleteTextView rrptxvid;
     private AutoCompleteTextView rrptxvaddress;
@@ -335,6 +340,15 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
         rrpbtnRegist = (Button) findViewById(R.id.rrpbtnRegist);
         rrpbtnRegist.setOnClickListener(this);
 
+        //EditTextの外枠（TIL）にErrorヒントを表示させる
+        rrpTilServicename = (TextInputLayout) findViewById(R.id.rrpTilServicename);
+        rrpTilServicename.setError("サービス名は入力必須項目です。"); // show error
+        rrpTilServicename.setError(null); // hide error
+
+        rrptxvservice = (AutoCompleteTextView) findViewById(R.id.rrptxvservice);
+
+        rrptxvservice.addTextChangedListener(new PGTextWatcher(rrpTilServicename));
+
         rrpchbb.setOnCheckedChangeListener(this);
         rrpchbs.setOnCheckedChangeListener(this);
         rrpchbk.setOnCheckedChangeListener(this);
@@ -445,6 +459,10 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        if (!validateServiceName()) {
+            toast("サービス名は入力必須項目です。");
+            return;
+        }
         if (!ClickTimerEvent.isClickEvent()) return;
         switch(v.getId()) {
             case R.id.rrpbtnNext:
@@ -593,5 +611,54 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
 
         dbC.updateServiceInfo(Integer.parseInt(pref.readConfig("id", "999")),
                 dataset);
+    }
+
+    /**
+     * Errorメッセージのくだり
+     *
+     * @return
+     */
+    private boolean validateServiceName() {
+        if (rrptxvservice.getText().toString().trim().isEmpty()) {
+            rrpTilServicename.setError(getString(R.string.err_msg_servicename));
+            requestFocus(rrptxvservice);
+            return false;
+        } else {
+            rrpTilServicename.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    /**
+     * TextWatcherのコーナー
+     */
+    private class PGTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private PGTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.rnptxvservice:
+                    validateServiceName();
+                    break;
+            }
+        }
     }
 }

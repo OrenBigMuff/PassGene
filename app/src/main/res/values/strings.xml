@@ -139,6 +139,10 @@
     <string name="regene">Re Gene</string>
     <string name="pg_comment">のパスワードは下記でいかがですか？</string>
     <string name="errServiceInfo">サービス名が重複しています。</string>
+
+    <string name="err_msg_servicename">サービス名は入力必須項目です。</string>
+
+
     <!--ナビゲーションドロワー-->
     <string name="openDrawer">オープン</string>
     <string name="closeDrawer">クローズ</string>

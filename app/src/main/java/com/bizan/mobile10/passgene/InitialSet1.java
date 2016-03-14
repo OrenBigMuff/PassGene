@@ -176,14 +176,14 @@ public class InitialSet1 extends AppCompatActivity
 
         dispBirth = String.valueOf(mYear) + "年" + String.valueOf(mMonth + 1) + "月" + String.valueOf(mDay) + "日";
 
-        if (mMonth >= 10) {
-            if (mDay >= 10) {
+        if (mMonth >= 9) {
+            if (mDay >= 9) {
                 registBirth = String.valueOf(mYear) + String.valueOf(mMonth + 1) + String.valueOf(mDay);
             } else {
                 registBirth = String.valueOf(mYear) + String.valueOf(mMonth + 1) + "0" + String.valueOf(mDay);
             }
         } else {
-            if (mDay >= 10) {
+            if (mDay >= 9) {
                 registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth + 1) + String.valueOf(mDay);
             }
             registBirth = String.valueOf(mYear) + "0" + String.valueOf(mMonth + 1) + "0" + String.valueOf(mDay);

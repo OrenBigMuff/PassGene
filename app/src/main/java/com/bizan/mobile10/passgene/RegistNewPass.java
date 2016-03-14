@@ -6,11 +6,15 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -33,6 +37,7 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         CompoundButton.OnCheckedChangeListener, SeekBar.OnSeekBarChangeListener {
 
     private PreferenceC pref;
+    private TextInputLayout rnpTilServicename;
     private AutoCompleteTextView rnptxvservice;
     private AutoCompleteTextView rnptxvid;
     private AutoCompleteTextView rnptxvaddress;
@@ -70,14 +75,15 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
     /**
      * debug
-     *****************************
-    private final String DB_NAME = "pg.db"; //データベース名
-    private final int DB_VERSION = 1;       //データベースのバージョン
-    //テーブル名
-    private static final String[] DB_TABLE = {"service_info", "user_info"};
-    private static DatabaseHelper dbHelper; //DBヘルパー
-
-    /*******************************/
+     * ****************************
+     * private final String DB_NAME = "pg.db"; //データベース名
+     * private final int DB_VERSION = 1;       //データベースのバージョン
+     * //テーブル名
+     * private static final String[] DB_TABLE = {"service_info", "user_info"};
+     * private static DatabaseHelper dbHelper; //DBヘルパー
+     * <p>
+     * /
+     *******************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,42 +95,42 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
         dbC = new DatabaseC(PassList2.getDbHelper());
 
 /**debug*****************************
-        String[] dbColTable = {
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " service TEXT UNIQUE NOT NULL," +
-                        " user_id TEXT NOT NULL," +
-                        " mail_address TEXT NOT NULL," +
-                        " char_num INTEGER NOT NULL," +
-                        " char_uppercase INTEGER NOT NULL," +
-                        " char_lowercase INTEGER NOT NULL," +
-                        " char_symbol INTEGER NOT NULL," +
-                        " num_of_char INTEGER NOT NULL," +
-                        " generated_datetime TEXT NOT NULL," +
-                        " updated_datetime TEXT NOT NULL," +
-                        " fixed_pass TEXT NOT NULL," +
-                        " pass_hint TEXT NOT NULL," +
-                        " gene_id1 INTEGER NOT NULL," +
-                        " gene_id2 INTEGER NOT NULL," +
-                        " gene_id3 INTEGER NOT NULL," +
-                        " gene_id4 INTEGER NOT NULL," +
-                        " algorithm INTEGER NOT NULL," +
-                        " delete_flag INTEGER NOT NULL)",
+ String[] dbColTable = {
+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+ " service TEXT UNIQUE NOT NULL," +
+ " user_id TEXT NOT NULL," +
+ " mail_address TEXT NOT NULL," +
+ " char_num INTEGER NOT NULL," +
+ " char_uppercase INTEGER NOT NULL," +
+ " char_lowercase INTEGER NOT NULL," +
+ " char_symbol INTEGER NOT NULL," +
+ " num_of_char INTEGER NOT NULL," +
+ " generated_datetime TEXT NOT NULL," +
+ " updated_datetime TEXT NOT NULL," +
+ " fixed_pass TEXT NOT NULL," +
+ " pass_hint TEXT NOT NULL," +
+ " gene_id1 INTEGER NOT NULL," +
+ " gene_id2 INTEGER NOT NULL," +
+ " gene_id3 INTEGER NOT NULL," +
+ " gene_id4 INTEGER NOT NULL," +
+ " algorithm INTEGER NOT NULL," +
+ " delete_flag INTEGER NOT NULL)",
 
-                "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        " info_name TEXT UNIQUE NOT NULL," +
-                        " value TEXT NOT NULL," +
-                        " category INTEGER NOT NULL," +
-                        " delete_flag INTEGER NOT NULL," +
-                        " useless_flag INTEGER NOT NULL)"
-        };
-        dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
-/*******************************
-        //データベース準備
-        dbC = new DatabaseC(dbHelper);
-//        Cursor cursor = dbC.readServiceInfoAll();
-//        cursorLog(cursor);
-//        cursor.close();
-/**debug*****************************/
+ "(_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+ " info_name TEXT UNIQUE NOT NULL," +
+ " value TEXT NOT NULL," +
+ " category INTEGER NOT NULL," +
+ " delete_flag INTEGER NOT NULL," +
+ " useless_flag INTEGER NOT NULL)"
+ };
+ dbHelper = new DatabaseHelper(this, DB_NAME, DB_VERSION, DB_TABLE, dbColTable);
+ /*******************************
+ //データベース準備
+ dbC = new DatabaseC(dbHelper);
+ //        Cursor cursor = dbC.readServiceInfoAll();
+ //        cursorLog(cursor);
+ //        cursor.close();
+ /**debug*****************************/
         //cursorLog(dbC.readServiceInfoAll());
         //cursorLog(dbC.readUserInfoAll());
 //        String[] str2 = new String[]{"姓", "jouge", "2"};
@@ -248,7 +254,8 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             rnptxvaddress.setAdapter(createAdapter(arrayadd));
         } else {
 
-        }stringBuilder = new StringBuilder();
+        }
+        stringBuilder = new StringBuilder();
         stringBuilder.append(getResources().getString(R.string.address));
         //stringBuilder.append(getResources().getString(R.string.mei));
 //        rnptxvaddress.setHint(stringBuilder.toString());
@@ -334,6 +341,15 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
         rnpbtnnext = (Button) findViewById(R.id.rnpbtnnext);
         rnpbtnnext.setOnClickListener(this);
+
+        //EditTextの外枠（TIL）にErrorヒントを表示させる
+        rnpTilServicename = (TextInputLayout) findViewById(R.id.rnpTilServicename);
+        rnpTilServicename.setError("サービス名は入力必須項目です。"); // show error
+        rnpTilServicename.setError(null); // hide error
+
+        rnptxvservice = (AutoCompleteTextView) findViewById(R.id.rnptxvservice);
+
+        rnptxvservice.addTextChangedListener(new PGTextWatcher(rnpTilServicename));
 
         rnpchbb.setOnCheckedChangeListener(this);
         rnpchbs.setOnCheckedChangeListener(this);
@@ -442,6 +458,11 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
+        if (!validateServiceName()) {
+            toast("サービス名は入力必須項目です。");
+            return;
+        }
+
         if (!ClickTimerEvent.isClickEvent()) return;
         if (rnpbtnnext == v) {
             //サービス名がかぶっている、新規（idが0）の場合
@@ -525,6 +546,55 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
             text = "";
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * Errorメッセージのくだり
+     *
+     * @return
+     */
+    private boolean validateServiceName() {
+        if (rnptxvservice.getText().toString().trim().isEmpty()) {
+            rnpTilServicename.setError(getString(R.string.err_msg_servicename));
+            requestFocus(rnptxvservice);
+            return false;
+        } else {
+            rnpTilServicename.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    /**
+     * TextWatcherのコーナー
+     */
+    private class PGTextWatcher implements TextWatcher {
+
+        private View view;
+
+        private PGTextWatcher(View view) {
+            this.view = view;
+        }
+
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        public void afterTextChanged(Editable editable) {
+            switch (view.getId()) {
+                case R.id.rnptxvservice:
+                    validateServiceName();
+                    break;
+            }
+        }
     }
 
 }
