@@ -265,7 +265,7 @@ public class RegistInfo extends AppCompatActivity implements PassGeneDialog.Dial
                 mRegistTag = mTag.getText().toString();
                 for (int i =0; i < mUserInfoName.length; i++) {
                     if (mRegistTag.equals(mUserInfoName[i])) {
-                        Toast.makeText(RegistInfo.this, "ユーザー情報名が重複しています｡", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistInfo.this, "過去に同じユーザー情報名で登録されています｡", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }

@@ -142,9 +142,17 @@ public class UserInfoList extends AppCompatActivity {
                     checkBox.setChecked(true);
                 }
 
+                checkBox.setTag(i);
                 checkBox.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))].equals("1")||
+                                mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))].equals("2")||
+                                mUserInfoId[Integer.parseInt(String.valueOf(v.getTag()))].equals("3")) {
+
+                            Toast.makeText(UserInfoList.this, "この情報は基本情報であるためチェックを外すことができません｡", Toast.LENGTH_LONG).show();
+                            return;
+                        }
                         if (checkBox.isChecked() == true) {
                             // チェックされた状態の時の処理を記述
                             dbC.changeUserInfoUselessFlag(userInfoId, "0");
