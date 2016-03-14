@@ -36,7 +36,7 @@ public class PassGeneDialog extends DialogFragment {
      *
      * @return
      */
-    public static PassGeneDialog newInstance(String title, String message,String posi, String nega, int resId, boolean cancelable) {
+    public static PassGeneDialog newInstance(String title, String message,String posi, String nega, int resId) {
         PassGeneDialog instance = new PassGeneDialog();
 
         // ダイアログに渡すパラメータはBundleにまとめる

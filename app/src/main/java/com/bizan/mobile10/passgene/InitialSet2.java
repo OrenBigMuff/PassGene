@@ -109,7 +109,7 @@ public class InitialSet2 extends AppCompatActivity
         int resId_dialog = R.layout.fragment_pass_gene_dialog;
 
         FragmentManager fm = getSupportFragmentManager();
-        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog, false);
+        PassGeneDialog alertDialog = PassGeneDialog.newInstance(title, message, posi, nega, resId_dialog);
         alertDialog.show(fm, "fragment_alert");
 //        InitialSet2A = false;
         btn.setClickable(true);
