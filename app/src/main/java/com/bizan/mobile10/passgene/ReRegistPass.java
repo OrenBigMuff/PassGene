@@ -64,6 +64,7 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
     private String[] arrayService;
     private String[] arrayid;
     private String[] arrayadd;
+    private String[] mServiceName;
 
     private boolean reRegist = false;
 
@@ -141,6 +142,21 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
         pref = new PreferenceC(this);
         hashMapDB = new HashMap<>();
 
+        /**
+         * DBからService名の読み込み
+         */
+        Cursor cursor = dbC.readServiceInfoAll();
+        boolean cPlace = cursor.moveToFirst();
+
+        mServiceName = new String[cursor.getCount()];
+        int i = 0;
+
+        while (cPlace) {
+            mServiceName[i] = cursor.getString(1);
+            cPlace = cursor.moveToNext();
+            i++;
+        }
+        cursor.close();
 
         //前のページから飛んできたSIDをセット
 
@@ -481,10 +497,11 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
                     reRegist = true;
                 } else {
                     //サービス名がかぶっている、新規（idが0）の場合
-                    if (checkServiceName(rrptxvservice.getText().toString()) &&
-                            pref.readConfig("id", "0").equals("0")) {
-                        Toast.makeText(this, getText(R.string.errServiceInfo), Toast.LENGTH_SHORT).show();
-                        return;
+                    for (int i =0; i < mServiceName.length; i++) {
+                        if (rrptxvservice.getText().toString().equals(mServiceName[i])) {
+                            Toast.makeText(ReRegistPass.this, "過去に同じサービス名で登録されています｡", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                     createSendData();
                     //ネクストボタン　登録やページ遷移

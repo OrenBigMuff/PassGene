@@ -21,6 +21,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
     private String[] mServiceId1;
     private String[] mServiceId2;
     private String[] mServiceName;
+    private String[] mDeleteFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
         mServiceId1 = new String[cursor1.getCount()];
         mServiceId2 = new String[cursor2.getCount()];
         mServiceName = new String[cursor2.getCount()];
+        mDeleteFlag = new String[cursor2.getCount()];
 
         if (cursor1.getCount()==0) {
             mUseService = "";
@@ -66,6 +68,7 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
             while (cPlace2) {
                 mServiceId2[j] = cursor2.getString(0);
                 mServiceName[j] = cursor2.getString(1);
+                mDeleteFlag[j] = cursor2.getString(18);
                 cPlace2 = cursor2.moveToNext();
                 j++;
             }
@@ -74,7 +77,9 @@ public class UserInfoIndex extends AppCompatActivity implements PassGeneDialog.D
             for (i = 0; i < mServiceId1.length; i++) {
                 for (j = 0; j < mServiceId2.length; j++) {
                     if (mServiceId2[j].equals(mServiceId1[i])) {
-                        mUseService = mUseService + "･ " + mServiceName[j] + "\n";
+                        if (mDeleteFlag[j].equals("0")) {
+                            mUseService = mUseService + "･ " + mServiceName[j] + "\n";
+                        }
                     }
                 }
             }
