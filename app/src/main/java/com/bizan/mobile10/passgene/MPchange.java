@@ -64,6 +64,7 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
 
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         //Num Pickerから数字を取得
         String tmp1 = String.valueOf(npk1.getValue());
         String tmp2 = String.valueOf(npk2.getValue());
@@ -106,7 +107,7 @@ public class MPchange extends AppCompatActivity implements PassGeneDialog.Dialog
 
     @Override
     public void onPositiveButtonClick(DialogFragment dialog) {
-
+        if (!ClickTimerEvent.isClickEvent()) return;
         Toast.makeText(this, "マスターパスワードが" + newpass + "に変更されさました。", Toast.LENGTH_SHORT).show();
         dbC.updateMasterPass(newpass);
         dialog.dismiss();

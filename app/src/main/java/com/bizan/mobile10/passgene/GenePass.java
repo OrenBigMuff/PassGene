@@ -160,6 +160,7 @@ public class GenePass extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        if (!ClickTimerEvent.isClickEvent()) return;
         if (v == btnInsert) {
             //「登録」ボタン　⇒インサート処理
             if (pref.readConfig("id", "0").equals("0")) {
