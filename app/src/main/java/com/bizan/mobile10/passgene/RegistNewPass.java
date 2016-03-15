@@ -489,7 +489,8 @@ public class RegistNewPass extends AppCompatActivity implements View.OnClickList
                 return;
             }*/
             for (int i =0; i < mServiceName.length; i++) {
-                if (rnptxvservice.getText().toString().equals(mServiceName[i])) {
+                if (rnptxvservice.getText().toString().equals(mServiceName[i]) &&
+                        pref.readConfig("id", "0").equals("0")) {
                     Toast.makeText(RegistNewPass.this, "過去に同じサービス名で登録されています｡", Toast.LENGTH_SHORT).show();
                     return;
                 }

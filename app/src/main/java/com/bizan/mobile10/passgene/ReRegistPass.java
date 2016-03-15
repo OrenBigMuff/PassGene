@@ -498,7 +498,8 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
                 } else {
                     //サービス名がかぶっている、新規（idが0）の場合
                     for (int i =0; i < mServiceName.length; i++) {
-                        if (rrptxvservice.getText().toString().equals(mServiceName[i])) {
+                        if (rrptxvservice.getText().toString().equals(mServiceName[i]) &&
+                                pref.readConfig("id", "0").equals("0")) {
                             Toast.makeText(ReRegistPass.this, "過去に同じサービス名で登録されています｡", Toast.LENGTH_SHORT).show();
                             return;
                         }
@@ -512,6 +513,14 @@ public class ReRegistPass extends AppCompatActivity implements View.OnClickListe
             break;
 
             case R.id.rrpbtnRegist:
+                //サービス名がかぶっている、新規（idが0）の場合
+                for (int i =0; i < mServiceName.length; i++) {
+                    if (rrptxvservice.getText().toString().equals(mServiceName[i]) &&
+                            pref.readConfig("id", "0").equals("0")) {
+                        Toast.makeText(ReRegistPass.this, "過去に同じサービス名で登録されています｡", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 createSendData();
                 dataupdate();
                 this.finish();
