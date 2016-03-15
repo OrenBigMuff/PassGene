@@ -27,6 +27,7 @@
             android:name=".RegistInfo"
             android:label="@string/title_activity_regist_info"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".UserInfoIndex"
@@ -57,6 +58,7 @@
             android:name=".RegistNewPass"
             android:label="@string/title_activity_regist_new_pass"
             android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".GenePass"
@@ -98,6 +100,7 @@
         <activity
             android:name=".ReRegistPass"
             android:label="@string/title_activity_re_regist_pass"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait"></activity>
     </application>
